@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="com.cssrc.ibms.portal:war">
+    <output-path>$PROJECT_DIR$/com.cssrc.ibms.portal/target</output-path>
+    <root id="archive" name="ibms.war">
+      <element id="artifact" artifact-name="com.cssrc.ibms.portal:war exploded" />
+    </root>
+  </artifact>
+</component>

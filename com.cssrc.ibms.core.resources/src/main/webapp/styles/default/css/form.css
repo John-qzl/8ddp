@@ -1,0 +1,303 @@
+@import url("./form/form-table.css");
+
+td div.tablefile,
+div.tablefile
+{
+	display:inline-block;
+	padding:3px;
+	width:600px;
+	height:50px;
+	border:1px dashed #000;
+	background:url(../images/form/tablefile_logo.png) 5px 0px no-repeat;
+	box-sizing: border-box;
+}
+
+td div.taskopinion,
+div.taskopinion
+{
+	display:inline-block;
+	padding:3px;
+	width:600px;
+	height:50px;
+	border:1px dashed #000;
+	background:url(../images/form/taskopinion_logo.png) 5px 0px no-repeat;
+	box-sizing: border-box;
+}
+
+div.taskopinion input[type=text].plat-formdesign-ipnut,
+div.groupopinion input[type=text].plat-formdesign-ipnut{
+	border:none;
+	width:1px;
+	height:1px;
+}
+
+td div.groupopinion,
+div.groupopinion
+{
+	display:inline-block;
+	padding:3px;
+	width:600px;
+	height:50px;
+	border:1px dashed #000;
+	background:url(../images/form/taskopinion_logo.png) 5px 0px no-repeat;
+	box-sizing: border-box;
+}
+
+.flowchart{
+	display:inline-block;
+	padding:3px;
+	width:600px;
+	height:300px;
+	border:1px dashed #000;
+	background:url(../images/flowchart_logo.png) 5px 0px no-repeat;
+	box-sizing: border-box;
+}
+
+.flowchart input{
+	border:none;
+	width:1px;
+	height:1px;
+}
+
+.office-div{
+	width:90%;
+	height:300px;
+	border:1px solid #ccc;
+	background:url(../images/office_logo.png) 5px 0px no-repeat;
+}
+
+/**
+验证印章样式    xcx。
+
+*/
+.webSign-div{
+	width:90%;
+	height:100px;
+	border:1px solid #ccc;
+	background:url(../images/webSign_logo.png) 5px 0px no-repeat;
+}
+
+.pictureShow-div{
+	width:90%;
+	height:300px;
+	border:1px solid #ccc;
+	background:url(../images/pictureShow_logo.png) 5px 0px no-repeat;
+}
+
+a.link.date{
+	background:url(../images/icons/log_btn.png) 0px -1px no-repeat;
+}
+
+a.link.dic{
+	background:url(../images/icons/dictionary.png) 0px -1px no-repeat;
+}
+
+a.link.user:before {
+	content: "\e732";
+	font-family: "iconfont"
+}
+a.link.users:before {
+	content: "\e732";
+	font-family: "iconfont"
+}
+a.link.org:before {
+	content: "\e6f5";
+	font-family: "iconfont"
+}
+a.link.orgs:before {
+	content: "\e6f5";
+	font-family: "iconfont"
+}
+a.link.role:before{
+	content: "\e6f5";
+	font-family: "iconfont"
+}
+a.link.roles:before{
+	content: "\e6f5";
+	font-family: "iconfont"
+}
+a.link.position:before{
+	content: "\e6f5";
+	font-family: "iconfont"
+}
+a.link.positions:before{
+	content: "\e6f5";
+	font-family: "iconfont"
+}
+a.link.attachement{
+	content: "\e6c0";
+	font-family: "iconfont"
+}
+
+a.link.actInsts:before{
+	content: "\e806";
+	font-family: "iconfont"
+}
+
+input.hidden{
+	border:none;
+	width:0px;
+	height:0px; 
+}
+
+a.extend{
+	padding-left:20px;
+	font-size:14px;
+	cursor: pointer;
+	text-decoration: none;
+	display:inline-block;
+	_display:inline;
+	box-sizing: border-box;
+	line-height:30px\9;
+}
+
+li a.extend{
+	color:#545d66;
+}
+
+.hidedomain input{
+	border:1px dashed #000;
+	background:url(../images/icon/hidedomain.png) 0 0 no-repeat;
+	width:42px;
+}
+
+.officecontrol input{
+	border:1px dashed #000;
+	width:800px;
+	height:80px;
+	background:url(../images/office_logo.png) 0 0 no-repeat;
+}
+
+/**
+验证印章样式    xcx。
+
+*/
+.websigncontrol input{
+	border:1px dashed #000;
+	width:800px;
+	height:80px;
+	background:url(../images/webSign_logo.png) 0 0 no-repeat;
+}
+
+/**
+图片控件印章样式    xcx。
+
+*/
+.pictureshowcontrol input{
+	border:1px dashed #000;
+	width:800px;
+	height:80px;
+	background:url(../images/pictureShow_logo.png) 0 0 no-repeat;
+}
+
+.subtable{
+	width:100%;
+	padding:5px;
+	border:1px solid #ccc;
+	box-sizing: border-box;
+}
+
+.ckeditor textarea{
+	border:1px dashed #000;
+	width:800px;
+	height:80px;
+	background:url(../images/ckeditor_logo.png) 0 0 no-repeat;
+}
+
+.ckeditor input{
+	border:1px dashed #000;
+	width:800px;
+	height:80px;
+	background:url(../images/ckeditor_logo.png) 0 0 no-repeat;
+}
+
+.myeditor textarea{
+	border:1px dashed #000;
+	width:80px;
+	height:80px;
+	background:url(../images/editor_logo.png) 0 0 no-repeat;
+}
+.myeditor input{
+	border:1px dashed #000;
+	width:800px;
+	height:80px;
+	background:url(../images/editor_logo.png) 0 0 no-repeat;
+}
+/*--自定义数据显示--*/
+
+.custom-display{
+	border:1px dashed #000;
+	background-color: silver;
+}
+/*--自定义表管理--*/
+
+.custom-tablemanage{
+	border:1px dashed #000;
+	background-color: silver;
+}
+
+/**排序*/
+
+table .tablesort-header{
+	background-position: center right;
+	background-repeat: no-repeat;
+	cursor: pointer;
+	white-space: normal;
+	padding: 4px 20px 4px 4px;
+	box-sizing: border-box;
+}
+
+table .tablesort-headerUnSorted{
+	background-image: url(data:image/gif;base64,R0lGODlhFQAJAIAAACMtMP///yH5BAEAAAEALAAAAAAVAAkAAAIXjI+AywnaYnhUMoqt3gZXPmVg94yJVQAAOw==);
+}
+
+table .tablesort-headerAsc{
+	background-image: url(data:image/gif;base64,R0lGODlhFQAEAIAAACMtMP///yH5BAEAAAEALAAAAAAVAAQAAAINjI8Bya2wnINUMopZAQA7);
+	border-bottom: #000 2px solid;
+}
+table .tablesort-headerDesc{
+	background-image: url(data:image/gif;base64,R0lGODlhFQAEAIAAACMtMP///yH5BAEAAAEALAAAAAAVAAQAAAINjB+gC+jP2ptn0WskLQA7);
+	border-bottom: #000 2px solid;
+}
+
+/*--extend start--*/
+a.extend.message:before{
+    content: "\e609";
+		font-family: "iconfont"
+}
+
+a.extend.navigation:before{
+    content: "\e6c5";
+		font-family: "iconfont"
+}
+
+a.extend.remoteupload:before{
+    content: "\e6ab";
+		font-family: "iconfont"
+}
+
+a.extend.script:before{
+    content: "\e6fc";
+		font-family: "iconfont"
+}
+
+a.extend.stat:before{
+    content: "\e684";
+		font-family: "iconfont"
+}
+
+a.extend.subsys:before{
+    content: "\e6da";
+		font-family: "iconfont"
+}
+
+a.extend.task:before{
+    content: "\e63c";
+		font-family: "iconfont"
+}
+
+a.extend.user:before{
+    content: "\e732";
+		font-family: "iconfont"
+}
+/*--extend end--*/

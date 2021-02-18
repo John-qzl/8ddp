@@ -1,0 +1,572 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cssrc.ibms.core.form.model.FormTable">
+	<resultMap id="FormTable" type="com.cssrc.ibms.core.form.model.FormTable">
+		<id property="tableId" column="tableId" jdbcType="NUMERIC" />
+		<result property="tableName" column="tableName" jdbcType="VARCHAR" />
+		<result property="isMain" column="isMain" jdbcType="NUMERIC" />
+		<result property="tableDesc" column="tableDesc" jdbcType="VARCHAR" />
+		<result property="mainTableId" column="mainTableId" jdbcType="NUMERIC" />
+		<result property="isPublished" column="isPublished" jdbcType="NUMERIC" />
+		<result property="publishedBy" column="publishedBy" jdbcType="VARCHAR" />
+		<result property="publishTime" column="publishTime" jdbcType="TIMESTAMP" />
+		<result property="isExternal" column="isExternal" jdbcType="NUMERIC" />
+		<result property="dsAlias" column="dsAlias" jdbcType="VARCHAR" />
+		<result property="dsName" column="dsName" jdbcType="VARCHAR" />
+		<result property="relation" column="relation" jdbcType="VARCHAR" />
+		<result property="keyType" column="keyType" jdbcType="NUMERIC" />
+		<result property="keyValue" column="keyValue" jdbcType="VARCHAR" />
+		<result property="keyDataType" column="keyDataType" jdbcType="NUMERIC" />
+		<result property="pkField" column="pkField" jdbcType="VARCHAR" />
+		<result property="listTemplate" column="listTemplate" jdbcType="CLOB" />
+		<result property="detailTemplate" column="detailTemplate"
+			jdbcType="CLOB" />
+		<result property="genByForm" column="genByForm" jdbcType="NUMERIC" />
+		<result property="team" column="team" jdbcType="CLOB" />
+		<result property="creator" column="creator" jdbcType="VARCHAR" />
+		<result property="createBy" column="createBy" jdbcType="NUMERIC" />
+		<result property="createtime" column="createtime" jdbcType="TIMESTAMP" />
+	</resultMap>
+
+	<resultMap id="FormTableExt" extends="FormTable"
+		type="com.cssrc.ibms.core.form.model.FormTable">
+		<result property="hasForm" column="hasForm" jdbcType="NUMERIC" />
+	</resultMap>
+
+	<sql id="columns">
+		tableId,tableName,isMain,tableDesc,mainTableId,isPublished,publishedBy,publishTime,
+		isExternal,dsAlias,dsName,relation,keyType,keyValue,pkField,keyDataType,listTemplate,
+		detailTemplate,genByForm,team,createby,creator,createtime
+	</sql>
+
+	<insert id="add" parameterType="com.cssrc.ibms.core.form.model.FormTable">
+		INSERT INTO ibms_form_table
+		(
+		<include refid="columns" />
+		)
+		VALUES
+		(#{tableId,jdbcType=NUMERIC}, #{tableName,jdbcType=VARCHAR},
+		#{isMain,jdbcType=NUMERIC}, #{tableDesc,jdbcType=VARCHAR},
+		#{mainTableId,jdbcType=NUMERIC}, #{isPublished,jdbcType=NUMERIC},
+		#{publishedBy,jdbcType=VARCHAR}, #{publishTime,jdbcType=TIMESTAMP},
+		#{isExternal,jdbcType=NUMERIC}, #{dsAlias,jdbcType=VARCHAR},
+		#{dsName,jdbcType=VARCHAR},
+		#{relation,jdbcType=VARCHAR}, #{keyType,jdbcType=NUMERIC}, #{keyValue,jdbcType=VARCHAR},
+		#{pkField,jdbcType=VARCHAR},#{keyDataType,jdbcType=NUMERIC},
+		#{listTemplate,jdbcType=CLOB},
+		#{detailTemplate,jdbcType=CLOB},#{genByForm,jdbcType=NUMERIC},
+		#{team,jdbcType=CLOB},
+		#{createBy,jdbcType=NUMERIC},#{creator,jdbcType=VARCHAR},
+		#{createtime,jdbcType=TIMESTAMP})
+	</insert>
+
+	<delete id="delById" parameterType="java.lang.Long">
+		DELETE FROM
+		ibms_form_table
+		WHERE
+		tableId=#{tableId}
+	</delete>
+
+	<update id="update" parameterType="com.cssrc.ibms.core.form.model.FormTable">
+		UPDATE ibms_form_table SET
+		tableName=#{tableName,jdbcType=VARCHAR} ,
+		isMain=#{isMain,jdbcType=NUMERIC} ,
+		tableDesc=#{tableDesc,jdbcType=VARCHAR} ,
+		mainTableId=#{mainTableId,jdbcType=NUMERIC} ,
+		relation=#{relation,jdbcType=VARCHAR},
+		isExternal=#{isExternal,jdbcType=NUMERIC} ,
+		keyType=#{keyType,jdbcType=NUMERIC} ,
+		keyValue=#{keyValue,jdbcType=VARCHAR} ,
+		pkField=#{pkField,jdbcType=VARCHAR} ,
+		keyDataType=#{keyDataType,jdbcType=NUMERIC} ,
+		listTemplate=#{listTemplate,jdbcType=CLOB} ,
+		detailTemplate=#{detailTemplate,jdbcType=CLOB} ,
+		genByForm=#{genByForm,jdbcType=NUMERIC},
+		isPublished=#{isPublished,jdbcType=NUMERIC} ,
+		publishedBy=#{publishedBy,jdbcType=VARCHAR} ,
+		publishTime=#{publishTime,jdbcType=TIMESTAMP} ,
+		team=#{team,jdbcType=CLOB}
+		WHERE
+		tableId=#{tableId}
+
+	</update>
+
+	<update id="updPublished" parameterType="com.cssrc.ibms.core.form.model.FormTable">
+		UPDATE ibms_form_table SET
+		isPublished=#{isPublished,jdbcType=NUMERIC}
+		,
+		publishedBy=#{publishedBy,jdbcType=VARCHAR} ,
+		publishTime=#{publishTime,jdbcType=TIMESTAMP}
+		WHERE
+		tableId=#{tableId}
+	</update>
+
+	<update id="updateRelations" parameterType="com.cssrc.ibms.core.form.model.FormTable">
+		UPDATE ibms_form_table SET relation=#{relation} WHERE
+		tableName=#{tableName} and dsAlias=#{dsAlias}
+	</update>
+
+	<update id="updateMain" parameterType="com.cssrc.ibms.core.form.model.FormTable">
+		UPDATE ibms_form_table SET mainTableId=#{mainTableId} WHERE
+		tableName=#{tableName} and dsAlias=#{dsAlias}
+	</update>
+
+	<update id="updateMainEmpty" parameterType="Long">
+		UPDATE
+		ibms_form_table SET mainTableId=0 WHERE mainTableId=#{mainTableId}
+	</update>
+
+
+	<select id="getById" parameterType="java.lang.Long" resultMap="FormTable">
+		SELECT
+		<include refid="columns" />
+		FROM ibms_form_table
+		WHERE
+		tableId=#{tableId}
+	</select>
+
+
+	<select id="isTableNameExternalExisted" parameterType="com.cssrc.ibms.core.form.model.FormTable"
+		resultType="java.lang.Integer">
+		SELECT COUNT(*) FROM ibms_form_table
+		WHERE TABLENAME = #{tableName} and isExternal=1 and dsAlias=#{dsAlias}
+	</select>
+
+
+
+	<select id="getSubTableByMainTableId" parameterType="java.lang.Long"
+		resultMap="FormTable">
+		SELECT
+		<include refid="columns" />
+		FROM ibms_form_table
+		WHERE MAINTABLEID = #{mainTableId}
+	</select>
+	
+	<select id="getRelTableByMainTableId" parameterType="java.lang.Long" resultMap="FormTable" >
+		SELECT <include refid="columns"/>
+		FROM ibms_form_table WHERE isMain=1  
+		AND TABLEID in(select TABLEID from IBMS_FORM_FIELD where RELTABLEID = #{tableIds} and CONTROLTYPE=23)
+	</select>
+	
+	<select id="getParentTableByTableId" parameterType="java.lang.Long" resultMap="FormTable" >
+		SELECT <include refid="columns"/>
+		FROM ibms_form_table WHERE isMain=1  
+		AND TABLEID in(select RELTABLEID from IBMS_FORM_FIELD 
+		where TABLEID = #{tableId} 
+		and CONTROLTYPE=23
+		AND RELTABLETYPE = 2
+		)
+	</select>
+
+
+	<select id="getAssignableMainTable" resultMap="FormTable">
+		select * from ibms_form_table a where isMain=1 and isExternal=0 and
+		not exists (select 1 from IBMS_form_def b where a.tableid=b.tableid)
+	</select>
+
+	<select id="getMainTableByDsName" resultMap="FormTable">
+		select * from
+		ibms_form_table a where a.isMain=1 and a.dsName=#{dsName}
+	</select>
+
+	<select id="getAllUnpublishedMainTable" resultMap="FormTable">
+		select * from ibms_form_table a where isMain=1 and isExternal=0 and
+		ISPUBLISHED=0
+	</select>
+
+	<select id="getAllUnassignedSubTable" parameterType="java.lang.String"
+		resultMap="FormTable">
+		SELECT
+		<include refid="columns" />
+		FROM ibms_form_table
+		WHERE ISPUBLISHED =0 AND ISMAIN =0 AND (MAINTABLEID IS NULL or
+		MAINTABLEID='')
+
+	</select>
+
+	<select id="getAllMainTable" parameterType="java.util.Map"
+		resultMap="FormTable">
+		SELECT
+		<include refid="columns" />
+		FROM ibms_form_table
+		WHERE ISMAIN = 1
+		<if test="@Ognl@isNotEmpty(isPublished)"> AND ISPUBLISHED =#{isPublished} </if>
+		<if test="@Ognl@isNotEmpty(tableName)"> AND tableName LIKE #{tableName} ESCAPE '|' </if>
+		<if test="@Ognl@isNotEmpty(tableDesc)"> AND tableDesc LIKE #{tableDesc} ESCAPE '|' </if>
+		<if test="@Ognl@isNotEmpty(mainTableId)"> AND mainTableId =#{mainTableId} </if>
+		<if test="@Ognl@isNotEmpty(isExternal)"> AND isExternal =#{isExternal} </if>
+		<if test="@Ognl@isNotEmpty(dsAlias)"> AND dsAlias =#{dsAlias} </if>
+		<if test="genByForm!=null"> AND genByForm =#{genByForm} </if>
+
+		<include refid="orderBy" />
+	</select>
+
+
+	<select id="getByDsSubTable" resultMap="FormTable">
+		SELECT
+		<include refid="columns" />
+		FROM ibms_form_table
+		WHERE dsAlias=#{dsAlias} and isMain=0
+	</select>
+
+	<select id="getByDsTablename" resultMap="FormTable">
+		SELECT
+		<include refid="columns" />
+		FROM ibms_form_table
+		WHERE dsAlias=#{dsAlias} and tableName=#{tableName}
+	</select>
+	<!--getByTableName -->
+	<select id="getByTableName_oracle" resultMap="FormTable">
+		SELECT
+		<include refid="columns" />
+		FROM ibms_form_table
+		WHERE LOWER(tableName)=#{tableName}
+	</select>
+
+	<select id="getByTableName_dm" resultMap="FormTable">
+		SELECT
+		<include refid="columns" />
+		FROM ibms_form_table
+		WHERE LOWER(tableName)=#{tableName}
+	</select>
+
+
+	<select id="getByTableName_mssql" resultMap="FormTable">
+		SELECT
+		<include refid="columns" />
+		FROM ibms_form_table
+		WHERE tableName=#{tableName}
+	</select>
+
+	<select id="getByTableName_db2" resultMap="FormTable">
+		SELECT
+		<include refid="columns" />
+		FROM ibms_form_table
+		WHERE LOWER(tableName)=#{tableName}
+	</select>
+
+	<select id="getByTableName_mysql" resultMap="FormTable">
+		SELECT
+		<include refid="columns" />
+		FROM ibms_form_table
+		WHERE tableName=#{tableName}
+	</select>
+
+	<sql id="whereSql">
+		<where>
+			<if test="@Ognl@isNotEmpty(tableName)"> AND tableName LIKE #{tableName} ESCAPE '|' </if>
+			<if test="@Ognl@isNotEmpty(tableDesc)"> AND tableDesc LIKE #{tableDesc} ESCAPE '|' </if>
+			<if test="@Ognl@isNotEmpty(isMain)"> AND isMain =#{isMain} </if>
+			<if test="@Ognl@isNotEmpty(mainTableId)"> AND mainTableId =#{mainTableId} </if>
+			<if test="@Ognl@isNotEmpty(isPublished)"> AND a.isPublished =#{isPublished} </if>
+			<if test="@Ognl@isNotEmpty(isExternal)"> AND isExternal =#{isExternal} </if>
+			<if test="@Ognl@isNotEmpty(dsAlias)"> AND dsAlias =#{dsAlias} </if>
+			<if test="genByForm!=null"> AND genByForm =#{genByForm} </if>
+		</where>
+	</sql>
+	<sql id="orderBy">
+		<if test="@Ognl@isNotEmpty(orderField)">
+			order by ${orderField} ${orderSeq}
+		</if>
+		<if test="@Ognl@isEmpty(orderField)">
+			order by createtime desc
+		</if>
+	</sql>
+
+	<!-- start dialect -->
+	<select id="getAll_oracle" resultMap="FormTableExt">
+		select distinct
+		a.tableId,a.tableName,a.isMain,a.tableDesc,a.mainTableId,a.isPublished,
+		a.publishedBy,a.publishTime,a.isExternal,a.dsAlias,a.dsName,a.relation,a.keyType,a.keyValue,a.pkField,decode(b.tableId,null,0,1)
+		hasForm,genByForm,a.createtime
+		from ibms_form_table a left join
+		ibms_form_def b on a.tableid=b.tableid
+		<include refid="whereSql" />
+		<include refid="orderBy" />
+
+	</select>
+
+	<select id="getAll_dm" resultMap="FormTableExt">
+		select distinct
+		a.tableId,a.tableName,a.isMain,a.tableDesc,a.mainTableId,a.isPublished,
+		a.publishedBy,a.publishTime,a.isExternal,a.dsAlias,a.dsName,a.relation,a.keyType,a.keyValue,a.pkField,decode(b.tableId,null,0,1)
+		hasForm,genByForm,a.createtime
+		from ibms_form_table a left join
+		ibms_form_def b on a.tableid=b.tableid
+		<include refid="whereSql" />
+		<include refid="orderBy" />
+
+	</select>
+
+	<select id="getAll_mysql" resultMap="FormTableExt">
+		select distinct
+		a.tableId,a.tableName,a.isMain,a.tableDesc,a.mainTableId,a.isPublished,
+		a.publishedBy,a.publishTime,a.isExternal,a.dsAlias,a.dsName,a.relation,a.keyType,a.keyValue,a.pkField,CASE
+		b.tableId WHEN NULL THEN 0 ELSE 1 END hasForm ,genByForm,a.createtime
+		from ibms_form_table a left join ibms_form_def b on
+		a.tableid=b.tableid
+		<include refid="whereSql" />
+		<include refid="orderBy" />
+	</select>
+
+	<select id="getAll_mssql" resultMap="FormTableExt">
+		select distinct
+		a.tableId,a.tableName,a.isMain,a.tableDesc,a.mainTableId,a.isPublished,
+		a.publishedBy,a.publishTime,a.isExternal,a.dsAlias,a.dsName,a.relation,a.keyType,a.keyValue,a.pkField,CASE
+		WHEN b.tableId IS NULL THEN 0 ELSE 1 END hasForm
+		,genByForm,a.createtime
+		from ibms_form_table a left join ibms_form_def
+		b on a.tableid=b.tableid
+		<include refid="whereSql" />
+		<!-- <include refid="orderBy"/> -->
+		<if test="@Ognl@isNotEmpty(orderField)">
+			order by ${orderField} ${orderSeq}
+		</if>
+		<if test="@Ognl@isEmpty(orderField)">
+			order by a.createtime desc
+		</if>
+	</select>
+	<select id="getAll_db2" resultMap="FormTableExt">
+		select distinct
+		a.tableId,a.tableName,a.isMain,a.tableDesc,a.mainTableId,a.isPublished,
+		a.publishedBy,a.publishTime,a.isExternal,a.dsAlias,a.dsName,a.relation,a.keyType,a.keyValue,a.pkField,(CASE
+		WHEN b.tableId IS NULL THEN 0 else 1 END) hasForm ,genByForm
+		from
+		ibms_form_table a left join ibms_form_def b on a.tableid=b.tableid
+		<include refid="whereSql" />
+		<include refid="orderBy" />
+	</select>
+
+	<select id="getAll_h2" resultMap="FormTableExt">
+		select distinct
+		a.tableId,a.tableName,a.isMain,a.tableDesc,a.mainTableId,a.isPublished,
+		a.publishedBy,a.publishTime,a.isExternal,a.dsAlias,a.dsName,a.relation,a.keyType,a.keyValue,a.pkField,CASE
+		b.tableId WHEN NULL THEN 0 ELSE 1 END hasForm ,genByForm
+		from
+		ibms_form_table a left join ibms_form_def b on a.tableid=b.tableid
+		<include refid="whereSql" />
+		<include refid="orderBy" />
+	</select>
+
+	<!-- 判断表名是否存在。 -->
+	<sql id="isTableNameExisted">
+		SELECT COUNT(*) FROM ibms_form_table WHERE TABLENAME=
+		#{tableName} and isExternal=0
+	</sql>
+
+	<select id="isTableNameExisted_oracle" resultType="java.lang.Integer">
+		SELECT COUNT(*) FROM ibms_form_table WHERE lower(TABLENAME) =
+		lower(#{tableName}) and isExternal=0
+	</select>
+
+	<select id="isTableNameExisted_dm" resultType="java.lang.Integer">
+		SELECT COUNT(*) FROM ibms_form_table WHERE lower(TABLENAME) =
+		lower(#{tableName}) and isExternal=0
+	</select>
+
+
+	<select id="isTableNameExisted_mssql" parameterType="java.lang.String"
+		resultType="java.lang.Integer">
+		<include refid="isTableNameExisted" />
+	</select>
+
+	<select id="isTableNameExisted_mysql" parameterType="java.lang.String"
+		resultType="java.lang.Integer">
+		<include refid="isTableNameExisted" />
+	</select>
+
+	<select id="isTableNameExisted_db2" parameterType="java.lang.String"
+		resultType="java.lang.Integer">
+		SELECT COUNT(*) FROM ibms_form_table
+		WHERE lower(TABLENAME) = lower(CAST(#{tableName} AS VARCHAR(32000)))
+		and isExternal=0
+	</select>
+
+	<select id="isTableNameExisted_h2" parameterType="java.lang.String"
+		resultType="java.lang.Integer">
+		SELECT COUNT(*) FROM ibms_form_table
+		WHERE lower(TABLENAME) = lower(#{tableName}) and isExternal=0
+	</select>
+
+	<!-- 判断表名是否存在。 -->
+	<sql id="isTableNameExistedForUpd">
+		SELECT COUNT(*) FROM ibms_form_table WHERE TABLENAME =
+		#{tableName} and isExternal=0 and tableId &lt;>#{tableId}
+	</sql>
+
+	<select id="isTableNameExistedForUpd_oracle" resultType="java.lang.Integer">
+		SELECT COUNT(*) FROM ibms_form_table WHERE lower(TABLENAME) =
+		lower(#{tableName}) and isExternal=0 and tableId &lt;>#{tableId}
+	</select>
+
+	<select id="isTableNameExistedForUpd_dm" resultType="java.lang.Integer">
+		SELECT COUNT(*) FROM ibms_form_table WHERE lower(TABLENAME) =
+		lower(#{tableName}) and isExternal=0 and tableId &lt;>#{tableId}
+	</select>
+
+	<select id="isTableNameExistedForUpd_mssql" resultType="java.lang.Integer">
+		<include refid="isTableNameExistedForUpd" />
+	</select>
+
+	<select id="isTableNameExistedForUpd_mysql" resultType="java.lang.Integer">
+		<include refid="isTableNameExistedForUpd" />
+	</select>
+
+	<select id="isTableNameExistedForUpd_db2" resultType="java.lang.Integer">
+		SELECT COUNT(*) FROM ibms_form_table WHERE lower(TABLENAME) =
+		lower(CAST(#{tableName} AS VARCHAR(32000))) and isExternal=0 and
+		tableId &lt;>#{tableId}
+	</select>
+
+	<select id="isTableNameExistedForUpd_h2" resultType="java.lang.Integer">
+		SELECT COUNT(*) FROM ibms_form_table WHERE lower(TABLENAME) =
+		lower(#{tableName}) and isExternal=0 and tableId &lt;>#{tableId}
+	</select>
+
+	<select id="getMainTables" resultMap="FormTable">
+		SELECT
+		<include refid="columns" />
+		FROM ibms_form_table
+		WHERE
+		ISMAIN = 1 AND ISPUBLISHED=1
+		<if test="@Ognl@isNotEmpty(tableName)"> AND tableName LIKE '%${tableName}%' OR tableDesc LIKE
+			'%${tableName}%'</if>
+	</select>
+
+	<select id="getByAliasTableName" resultMap="FormTable">
+		select * from ibms_form_table t
+		where
+		t.tableName=#{tableName}
+		<if test="@Ognl@isNotEmpty(dsAlias)">
+			and
+			t.dsAlias=#{dsAlias}
+		</if>
+	</select>
+
+
+	<select id="getTableNameByDefId" parameterType="java.lang.Long"
+		resultMap="FormTable">
+		SELECT distinct a.isexternal, A.DSALIAS , A.TABLENAME FROM
+		ibms_form_table A,
+		ibms_form_def B ,ibms_node_set C WHERE
+		A.TABLEID=B.TABLEID AND B.FORMKEY=C.FORMKEY and C.DEFID=#{defId} and (C.PARENTACTDEFID IS
+		NULL OR C.PARENTACTDEFID='')
+	</select>
+
+	<select id="getTableNameByDefIdAndParentActDefId" parameterType="java.util.Map"
+		resultMap="FormTable">
+		SELECT distinct a.isexternal, A.DSALIAS , A.TABLENAME FROM
+		ibms_form_table A,
+		ibms_form_def B ,ibms_node_set C WHERE
+		A.TABLEID=B.TABLEID AND B.FORMKEY=C.FORMKEY and C.DEFID=#{defId} and
+		C.PARENTACTDEFID=#{parentActDefId}
+	</select>
+
+	<select id="getByDefId" resultMap="FormTable">
+		select distinct
+		A.tableId,A.tableName,A.isMain,A.tableDesc,A.mainTableId,A.isPublished,A.publishedBy,A.publishTime,
+		A.isExternal,A.dsAlias,A.dsName,A.relation,A.keyType,A.keyValue,A.pkField,A.keyDataType,
+		A.genByForm,A.createby,A.creator,A.createtime from ibms_form_table A,
+		ibms_form_def B ,ibms_node_set C
+		WHERE C.DEFID=#{defId} AND C.FORMKEY =B.FORMKEY AND A.TABLEID=B.TABLEID AND
+		(C.PARENTACTDEFID IS NULL OR C.PARENTACTDEFID='')
+	</select>
+
+	<select id="getByDefIdAndNodeId" resultMap="FormTable">
+		select distinct
+		A.tableId,A.tableName,A.isMain,A.tableDesc,A.mainTableId,A.isPublished,A.publishedBy,A.publishTime,
+		A.isExternal,A.dsAlias,A.dsName,A.relation,A.keyType,A.keyValue,A.pkField,A.keyDataType,
+		A.genByForm,A.createby,A.creator,A.createtime from ibms_form_table A,
+		ibms_form_def B ,ibms_node_set C
+		WHERE  C.FORMKEY =B.FORMKEY AND A.TABLEID=B.TABLEID AND
+		(C.PARENTACTDEFID IS NULL OR C.PARENTACTDEFID='')
+		AND C.DEFID = #{defId} 
+		AND C.NODEID = #{nodeId} 
+	</select>
+	
+	
+	<select id="getByDefIdAndParentActDefId" parameterType="java.util.Map"
+		resultMap="FormTable">
+		select distinct
+		A.tableId,A.tableName,A.isMain,A.tableDesc,A.mainTableId,A.isPublished,A.publishedBy,A.publishTime,
+		A.isExternal,A.dsAlias,A.dsName,A.relation,A.keyType,A.keyValue,A.pkField,A.keyDataType,
+		A.genByForm,A.createby,A.creator,A.createtime from ibms_form_table A,
+		ibms_form_def B ,ibms_node_set C
+		WHERE C.DEFID=#{defId} AND C.FORMKEY =B.FORMKEY AND A.TABLEID=B.TABLEID AND
+		C.PARENTACTDEFID=#{parentActDefId}
+	</select>
+
+
+	<select id="getAllTable" resultMap="FormTable">
+		SELECT *
+		FROM ibms_form_table
+		WHERE ISMAIN = 1 AND ISPUBLISHED=1 order by createtime desc
+	</select>
+	
+	<!-- get tab by id,只获取部分重要字段-->
+	<select id="getByTabId" parameterType="java.lang.Long" resultType="java.util.Map">
+		SELECT 
+		'schema' as PID,
+		ibms_form_table.TABLEID as ID,
+		ibms_form_table.TABLENAME as NAME_,
+		ibms_form_table.TABLEDESC as DESC_,
+		'true' as nocheck
+		FROM ibms_form_table 
+		where tableId=#{tableId}
+	</select>
+	<!-- get tab by id,只获取部分重要字段-->
+	<select id="getByTabName" parameterType="java.lang.String" resultType="java.util.Map">
+		SELECT 
+		'schema' as PID,
+		ibms_form_table.TABLEID as ID,
+		ibms_form_table.TABLENAME as NAME_,
+		ibms_form_table.TABLEDESC as DESC_,
+		'true' as nocheck
+		FROM ibms_form_table 
+		where TABLENAME=#{name}
+	</select>
+		
+	<!-- get tab by ids[],只获取部分重要字段-->
+	<select id="getByTabIds" resultType="java.util.Map">
+		SELECT 
+		ibms_form_table.TABLEID as ID,
+		ibms_form_table.TABLENAME as NAME_,
+		ibms_form_table.TABLEDESC as DESC_,
+		'true' as nocheck
+		FROM ibms_form_table 
+		where tableId in
+		<foreach item="item" index="index" collection="array" open="(" separator="," close=")">
+		#{item}
+		</foreach>
+	</select>	
+
+	<!-- get tab by names[],只获取部分重要字段-->
+	<select id="getByTabNames" resultType="java.util.Map">
+		SELECT 
+		ibms_form_table.TABLEID as ID,
+		ibms_form_table.TABLENAME as NAME_,
+		ibms_form_table.TABLEDESC as DESC_,
+		'true' as nocheck
+		FROM ibms_form_table 
+		where TABLENAME in
+		<foreach item="item" index="index" collection="array" open="(" separator="," close=")">
+		#{item}
+		</foreach>
+	</select>
+	
+		
+	<!-- get all tabs by tablename,desc.只获取部分重要字段-->
+	<select id="getTabs" resultType="java.util.Map" parameterType="java.util.Map">
+		SELECT
+		'table' as PID,
+		ibms_form_table.TABLEID as ID,
+		ibms_form_table.TABLENAME as
+		NAME_,
+		ibms_form_table.TABLEDESC as DESC_
+		FROM ibms_form_table
+		where 1=1
+		<if test="@Ognl@isNotEmpty(tablename)"> AND TABLENAME like #{tablename} </if>
+		<if test="@Ognl@isNotEmpty(desc)"> AND TABLEDESC LIKE #{desc} </if>
+	</select>
+	
+</mapper>

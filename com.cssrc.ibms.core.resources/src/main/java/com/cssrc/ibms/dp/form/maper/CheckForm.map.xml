@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cssrc.ibms.dp.form.model.CheckForm">
+	<resultMap id="CheckForm" type="com.cssrc.ibms.dp.form.model.CheckForm">
+		<id property="ID" column="ID" jdbcType="NUMERIC" />
+		<result property="name" column="F_NAME" jdbcType="VARCHAR" />
+		<result property="secrecy" column="F_SECRECY" jdbcType="VARCHAR" />
+		<result property="snum" column="F_NUMBER" jdbcType="VARCHAR" />
+		<result property="pid" column="F_PROJECT_ID" jdbcType="VARCHAR" />
+		<result property="contents" column="F_CONTENTS" jdbcType="CLOB" />
+		<result property="rownum" column="F_ROWNUM" jdbcType="VARCHAR" />
+		<result property="remark" column="F_REMARK" jdbcType="VARCHAR" />
+		<result property="fid" column="F_TEMP_FILE_ID" jdbcType="VARCHAR" />
+		<result property="type" column="F_TYPE" jdbcType="VARCHAR" />
+		<result property="status" column="F_STATUS" jdbcType="VARCHAR" />
+		<result property="moduleId" column="F_MODULE_ID" jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="columns">
+		ID,F_NAME,F_SECRECY,F_NUMBER,F_PROJECT_ID,F_CONTENTS,F_ROWNUM,F_REMARK,F_TEMP_FILE_ID,F_TYPE,F_STATUS,F_MODULE_ID
+	</sql>
+
+	<insert id="add" parameterType="com.cssrc.ibms.dp.form.model.CheckForm">
+		INSERT INTO W_TABLE_TEMP
+		(ID,F_NAME,F_NUMBER,F_PROJECT_ID,F_CONTENTS,F_REMARK,F_TEMP_FILE_ID,F_TYPE,F_STATUS,F_MODULE_ID)
+		VALUES
+		(#{ID,jdbcType=NUMERIC},
+		#{name,jdbcType=VARCHAR},
+		#{snum,jdbcType=VARCHAR},
+		#{pid,jdbcType=NUMERIC},
+		#{contents,jdbcType=CLOB},
+		#{remark,jdbcType=VARCHAR},
+		#{fid,jdbcType=NUMERIC},
+		#{type,jdbcType=VARCHAR},
+		#{status,jdbcType=VARCHAR},
+		#{moduleId,jdbcType=VARCHAR}
+		)
+	</insert>
+
+	<update id="update" parameterType="com.cssrc.ibms.dp.form.model.CheckForm">
+		UPDATE W_TABLE_TEMP SET
+		F_NAME=#{name,jdbcType=VARCHAR},
+		F_NUMBER=#{snum,jdbcType=VARCHAR},
+		F_REMARK=#{remark,jdbcType=VARCHAR},
+		F_TYPE=#{type,jdbcType=VARCHAR}
+		WHERE
+		ID=#{ID,jdbcType=NUMERIC}
+	</update>
+	<select id="isIdExists" resultType="Integer">
+		SELECT count(1) as count FROM
+		W_TABLE_TEMP WHERE F_NUMBER=#{snum}
+	</select>
+	<select id="getById" parameterType="java.util.Map" resultMap="CheckForm">
+		SELECT
+		<include refid="columns" />
+		FROM W_TABLE_TEMP WHERE ID=#{Id}
+	</select>
+	<delete id="deleteById">
+		DELETE FROM W_TABLE_TEMP WHERE ID=#{ID}
+	</delete>
+</mapper>

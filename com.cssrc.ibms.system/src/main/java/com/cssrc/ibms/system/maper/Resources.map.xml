@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+<mapper namespace="com.cssrc.ibms.system.model.Resources">
+	<resultMap id="Resources" type="com.cssrc.ibms.system.model.Resources">
+		<id property="resId" column="resId" jdbcType="NUMERIC"/>
+		<result property="resName" column="resName" jdbcType="VARCHAR"/>
+		<result property="alias" column="alias" jdbcType="VARCHAR"/>
+		<result property="sn" column="sn" jdbcType="NUMERIC"/>
+		<result property="icon" column="icon" jdbcType="VARCHAR"/>
+		<result property="parentId" column="parentId" jdbcType="NUMERIC"/>
+		<result property="defaultUrl" column="defaultUrl" jdbcType="VARCHAR"/>
+		<result property="isFolder" column="isFolder" jdbcType="NUMERIC"/>
+		<result property="isDisplayInMenu" column="isDisplayInMenu" jdbcType="NUMERIC"/>
+		<result property="isOpen" column="isOpen" jdbcType="NUMERIC"/>
+		<result property="path" column="path" jdbcType="VARCHAR" />
+		<result property="isNewOpen" column="isNewOpen" jdbcType="NUMERIC"/>
+	</resultMap>
+	
+	<sql id="columns">
+		resId,resName,alias,sn,icon,parentId,defaultUrl,isFolder,isDisplayInMenu,isOpen,path,isNewOpen
+	</sql>
+	
+	<sql id="dynamicWhere">
+		<where>
+			<if test="@Ognl@isNotEmpty(resId)"> AND resId =#{resId} </if>
+			<if test="@Ognl@isNotEmpty(resName)"> AND resName LIKE #{resName} </if>
+			<if test="@Ognl@isNotEmpty(alias)"> AND alias LIKE #{alias} </if>
+			<if test="@Ognl@isNotEmpty(sn)"> AND sn =#{sn} </if>
+			<if test="@Ognl@isNotEmpty(icon)"> AND icon LIKE #{icon} </if>
+			<if test="@Ognl@isNotEmpty(parentId)"> AND parentId =#{parentId} </if>
+			<if test="@Ognl@isNotEmpty(defaultUrl)"> AND defaultUrl LIKE #{defaultUrl} </if>
+			<if test="@Ognl@isNotEmpty(isFolder)"> AND isFolder =#{isFolder} </if>
+			<if test="@Ognl@isNotEmpty(isDisplayInMenu)"> AND isDisplayInMenu =#{isDisplayInMenu} </if>
+			<if test="@Ognl@isNotEmpty(isOpen)"> AND isOpen =#{isOpen} </if>
+		</where>
+	</sql>
+
+	<insert id="add" parameterType="com.cssrc.ibms.system.model.Resources">
+		INSERT INTO CWM_SYS_RES
+		(<include refid="columns"/>)
+		VALUES
+		(#{resId,jdbcType=NUMERIC}, #{resName,jdbcType=VARCHAR}, #{alias,jdbcType=VARCHAR}, #{sn,jdbcType=NUMERIC}, #{icon,jdbcType=VARCHAR}, #{parentId,jdbcType=NUMERIC}, #{defaultUrl,jdbcType=VARCHAR}, #{isFolder,jdbcType=NUMERIC}, #{isDisplayInMenu,jdbcType=NUMERIC}, #{isOpen,jdbcType=NUMERIC},#{path,jdbcType=VARCHAR},#{isNewOpen,jdbcType=NUMERIC})
+	</insert>
+	
+	<delete id="delById" parameterType="java.lang.Long">
+		DELETE FROM CWM_SYS_RES 
+		WHERE
+		resId=#{resId}
+	</delete>
+	
+	<update id="update" parameterType="com.cssrc.ibms.system.model.Resources">
+			UPDATE CWM_SYS_RES SET
+			resName=#{resName,jdbcType=VARCHAR} , 
+			alias=#{alias,jdbcType=VARCHAR} , 
+			sn=#{sn,jdbcType=NUMERIC} , 
+			icon=#{icon,jdbcType=VARCHAR} , 
+			parentId=#{parentId,jdbcType=NUMERIC} , 
+			defaultUrl=#{defaultUrl,jdbcType=VARCHAR} , 
+			isFolder=#{isFolder,jdbcType=NUMERIC} , 
+			isDisplayInMenu=#{isDisplayInMenu,jdbcType=NUMERIC} , 
+			isOpen=#{isOpen,jdbcType=NUMERIC} , 
+			path =#{path,jdbcType=VARCHAR},
+			isNewOpen=#{isNewOpen,jdbcType=NUMERIC}
+			WHERE
+			resId=#{resId}
+	</update>
+	
+	<update id="updSn" parameterType="Map">
+		update CWM_SYS_RES set 
+			sn=#{sn,jdbcType=NUMERIC}
+		where 
+		 resId = #{resId}
+	</update>
+	
+	<select id="getById" parameterType="java.lang.Long" resultMap="Resources">
+		SELECT <include refid="columns"/>
+		FROM CWM_SYS_RES
+		WHERE
+		resId=#{resId}
+	</select>
+	
+	<select id="getAll" resultMap="Resources">
+		SELECT <include refid="columns"/>
+		FROM CWM_SYS_RES 
+		<include refid="dynamicWhere" />
+		<if test="@Ognl@isNotEmpty(orderField)">
+		order by ${orderField} ${orderSeq}
+		</if>
+		<if test="@Ognl@isEmpty(orderField)">
+		ORDER BY sn
+		</if>
+	</select>
+	
+
+	
+	<select id="getByParentId" parameterType="java.lang.Long" resultMap="Resources">
+		SELECT <include refid="columns"/> FROM CWM_SYS_RES WHERE parentId=#{parentId} ORDER BY sn
+	</select>
+	
+	<select id="getByUrl" parameterType="java.lang.String" resultMap="Resources">
+		SELECT <include refid="columns"/> FROM CWM_SYS_RES WHERE defaultUrl=#{url} 
+	</select>
+	
+	
+	<select id="getNormMenu" parameterType="java.util.Map" resultMap="Resources">
+	SELECT res.resId,res.resName,res.alias,res.sn,res.icon,res.parentId,res.defaultUrl,
+         res.isFolder,res.isDisplayInMenu,res.isOpen,res.isNewOpen FROM CWM_SYS_RES res WHERE RESID IN  (1,2)
+    UNION  
+		SELECT DISTINCT res.resId,res.resName,res.alias,res.sn,res.icon,res.parentId,res.defaultUrl,
+		res.isFolder,res.isDisplayInMenu,res.isOpen,res.isNewOpen
+		FROM 
+		CWM_SYS_ROLE_RES role_res,
+		CWM_SYS_ROLE_USER user_role,
+		CWM_SYS_RES res
+		WHERE user_role.userId=#{userId} 	AND role_res.roleId=user_role.roleId
+	 	AND role_res.resId=res.resId 
+	 	AND res.isDisplayInMenu=1
+		ORDER BY sn
+		
+	</select>
+	
+	<select id="getNormMenuByUser" parameterType="java.util.Map" resultMap="Resources">
+	 SELECT res.resId,res.resName,res.alias,res.sn,res.icon,res.parentId,res.defaultUrl,
+         res.isFolder,res.isDisplayInMenu,res.isOpen,res.isNewOpen FROM CWM_SYS_RES res WHERE RESID IN  (1,2)
+    UNION  
+		SELECT DISTINCT res.resId,res.resName,res.alias,res.sn,res.icon,res.parentId,res.defaultUrl,
+		 res.isFolder,res.isDisplayInMenu,res.isOpen,res.isNewOpen
+		 FROM 
+		 CWM_SYS_ROLE_RES role_res,
+		 CWM_SYS_RES res,
+		 CWM_SYS_ROLE_USER ur ,CWM_SYS_ROLE r
+		 WHERE role_res.roleId = ur.roleId
+		 and ur.userId=#{userId}
+		 and ur.roleId=r.ROLEID
+		 and r.STATUS=1
+		 AND role_res.resId=res.resId
+		 AND res.isDisplayInMenu=1
+	 	ORDER BY sn		
+	</select>
+	
+	<select id="getNormMenuByAllRole" parameterType="java.util.Map" resultMap="Resources">
+	 SELECT res.resId,res.resName,res.alias,res.sn,res.icon,res.parentId,res.defaultUrl,
+         res.isFolder,res.isDisplayInMenu,res.isOpen,res.isNewOpen FROM CWM_SYS_RES res WHERE RESID IN  (1,2)
+    UNION  
+		SELECT DISTINCT res.resId,res.resName,res.alias,res.sn,res.icon,res.parentId,res.defaultUrl,
+		 res.isFolder,res.isDisplayInMenu,res.isOpen,res.isNewOpen
+		 FROM 
+		 CWM_SYS_ROLE_RES role_res,
+		 CWM_SYS_RES res
+		 WHERE role_res.roleId in (select t.roleid from CWM_SYS_ROLE t where t.alias in (${rolealias})) 
+			AND role_res.resId=res.resId 
+			AND res.isDisplayInMenu=1
+	 	 ORDER BY sn		
+	</select>
+	
+	
+	<select id="getSuperMenu" parameterType="Long" resultMap="Resources">
+	SELECT res.resId,res.resName,res.alias,res.sn,res.icon,res.parentId,res.defaultUrl,
+         res.isFolder,res.isDisplayInMenu,res.isOpen,res.isNewOpen FROM CWM_SYS_RES res WHERE RESID IN  (1,2)
+    UNION  
+		SELECT DISTINCT res.resId,res.resName,res.alias,res.sn,res.icon,res.parentId,res.defaultUrl,
+		 res.isFolder,res.isDisplayInMenu,res.isOpen,res.isNewOpen
+		 FROM 
+		 CWM_SYS_ROLE_RES role_res,
+		 CWM_SYS_RES res,
+		 CWM_SYS_ROLE_USER ur ,CWM_SYS_ROLE r
+		 WHERE role_res.roleId = ur.roleId
+		 and ur.userId=#{userId}
+		 and ur.roleId=r.ROLEID
+		 and r.STATUS=1
+		 AND role_res.resId=res.resId
+		 AND res.isDisplayInMenu=1
+	 	ORDER BY sn	
+	</select>
+	
+	
+	<select id="getDefaultUrlAndRole" parameterType="java.lang.Long" resultType="com.cssrc.ibms.system.model.ResourcesUrlExt">
+		SELECT DISTINCT A.defaultUrl url ,C.alias AS role
+		FROM
+		CWM_SYS_RES A
+		LEFT JOIN CWM_SYS_ROLE_RES B ON (A.resId=B.resId)
+		LEFT JOIN CWM_SYS_ROLE C ON (B.roleId=C.roleId)
+		WHERE A.defaultUrl is not null
+	</select>
+		
+	<select id="isAliasExists" resultType="Integer">
+		SELECT count(1) as count FROM CWM_SYS_RES WHERE alias=#{alias}
+	</select>
+	
+	<select id="isAliasExistsForUpd" resultType="Integer">
+		SELECT count(1) as count FROM CWM_SYS_RES WHERE alias=#{alias} and resId!=#{resId}
+	</select>
+	
+	<select id="getByAlias" parameterType="java.lang.String" resultMap="Resources">
+		SELECT <include refid="columns"/>
+		FROM CWM_SYS_RES
+		WHERE
+		Alias=#{alias}
+	</select>
+	
+	<select id="getByParentUserId" parameterType="java.util.Map" resultMap="Resources">
+		select * from CWM_SYS_RES r where r.resId in (
+		select  res.resId  from  CWM_SYS_RES res,CWM_SYS_ROLE_RES rr,CWM_SYS_ROLE_USER ur 
+		where res.PARENTID=#{resId} and res.RESID=rr.RESID 
+		and rr.ROLEID=ur.ROLEID 
+		<if test="@Ognl@isNotEmpty(userId)"> and ur.USERID=#{userId}  </if>
+		) ORDER BY r.sn
+	</select>
+	
+	<select id="getNormMenuByAllRoleParentId" parameterType="java.util.Map" resultMap="Resources">
+		SELECT DISTINCT res.resId,res.resName,res.alias,res.sn,res.icon,res.parentId,res.defaultUrl,
+		 res.isFolder,res.isDisplayInMenu,res.isOpen,res.isNewOpen
+		 FROM 
+		 CWM_SYS_RES res
+		 LEFT JOIN CWM_SYS_ROLE_RES role_res ON role_res.resId=res.resId
+		 
+		 WHERE res.PARENTID=#{resId}
+		 <if test="@Ognl@isNotEmpty(rolealias)">
+		 AND role_res.roleId in (select t.roleid from CWM_SYS_ROLE t where t.alias in (${rolealias})) 
+		 </if>
+	 	 ORDER BY sn		
+	</select>
+	<select id="getDatatemplateRes" resultMap="Resources" parameterType="java.util.Map">		
+		SELECT <include refid="columns"/> FROM CWM_SYS_RES  
+		WHERE DEFAULTURL LIKE '%__displayId__%' 
+		<if test="@Ognl@isEmpty(showAll)">
+			AND RESID IN (SELECT RESID FROM CWM_SYS_ROLE_RES  WHERE ROLEID IN (${roleIds})) 	
+		</if>
+		ORDER BY RESID 	
+	</select>
+</mapper>

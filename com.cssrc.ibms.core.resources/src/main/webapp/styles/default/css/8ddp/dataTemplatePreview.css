@@ -1,0 +1,61 @@
+@charset "utf-8";
+div.panel-top .panel-search .title,
+div.panel-top .panel-search .drop {
+    display: none;
+}
+ul.row {
+    display: block;
+    float: left;
+    width: auto;
+}
+.panel-search #searchForm {
+    display: block;
+}
+li > span.label {
+    width: auto;
+}
+li>.inputText, li>.Wdate{
+	width: auto;
+}
+.row li {
+    float: none;
+    display: inline-block;
+    width: auto;
+}
+div.panel-top .panel-search {
+	position: absolute;
+    top: 0;
+    right: 0;
+    padding: 10px 5px 6px;
+    margin: 0;
+    border-top: 0;
+    width: auto;
+}
+.panel-toolbar a.link:hover,
+#searchForm a.link:hover {
+    background-color: #347efe;
+    color: #fff !important;
+}
+.panel-toolbar a.link,
+#searchForm a.link {
+    color: #347efe !important;
+    border: 1px solid #347efe;
+}
+.panel-toolbar a.link:hover,
+#searchForm a.link:hover {
+    background-color: #347EFE;
+    border: 1px solid #347EFE;
+}
+div.panel-top .panel-toolbar {
+    padding: 5px 0;
+}
+a.link.add:hover{
+	background-color: #3d7abb;
+    border: 1px solid #3d7abb;
+}
+/* a.link.add:before {
+    content: "\e6b9";
+} */
+.group a.link.del:hover{
+	border: 1px solid #F14958;
+}

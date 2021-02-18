@@ -1,0 +1,1 @@
+window.onload=function(){var a=document.createElement("p");a.className="copyright";a.innerHTML='&copy; 2007-2012 <a href="http://cksource.com" target="_blank">CKSource</a> - Frederico Knabben . All rights reserved.<br /><br />';document.body.appendChild(document.createElement("hr"));document.body.appendChild(a);window.top.SetActiveTopic(window.location.pathname);};

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+<mapper namespace="com.cssrc.ibms.dp.template.model.TemplateSign">
+	<resultMap id="TemplateSign" type="com.cssrc.ibms.dp.template.model.TemplateSign">
+		<id property="id" column="ID" jdbcType="NUMERIC"/>
+		<result property="name" column="F_NAME" jdbcType="VARCHAR"/>
+		<result property="order" column="F_ORDER" jdbcType="VARCHAR"/>
+		<result property="templateId" column="F_TABLE_TEMP_ID" jdbcType="VARCHAR"/>
+	</resultMap>
+	
+	<sql id="columns">
+		ID,F_NAME, F_ORDER, F_TABLE_TEMP_ID
+	</sql>
+
+	<insert id="add" parameterType="com.cssrc.ibms.dp.template.model.TemplateSign">
+		INSERT INTO W_SIGNDEF
+		(<include refid="columns"/>)
+		VALUES
+		(#{id,jdbcType=NUMERIC},
+		 #{name,jdbcType=VARCHAR},#{order,jdbcType=VARCHAR},
+		 #{templateId,jdbcType=VARCHAR}
+		 )
+	</insert>
+	
+	<delete id="delByTemplateId" >
+		DELETE FROM W_SIGNDEF WHERE F_TABLE_TEMP_ID=#{templateId}
+	</delete>
+	
+	<select id="getByTemplateId" parameterType="java.util.Map"
+		resultMap="TemplateSign">
+		SELECT
+		<include refid="columns" />
+		FROM W_SIGNDEF WHERE F_TABLE_TEMP_ID=#{templateId}
+	</select>
+	
+</mapper>

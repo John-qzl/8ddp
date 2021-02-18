@@ -1,0 +1,23 @@
+td input[type=text].plat-input,
+td select.plat-select-type,
+th select.plat-select-type,
+td select.plat-select-user,
+td select.plat-select-common{
+  width: 115px;
+}
+
+td textarea.plat-textarea{
+ /*width: 100px;
+ height: 32px;*/
+ margin-left: 5px;
+}
+
+td select.plat-select-isfalse{
+  width: 80px;
+}
+
+input[type=text].plat-input-sql{
+  width: 120px;
+  height: 28px;
+  line-height: 28px;
+}

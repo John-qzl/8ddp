@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cssrc.ibms.dbom.model.DBom">
+
+	<resultMap id="DBom" type="com.cssrc.ibms.dbom.model.DBom">
+		<id property="id" column="ID" jdbcType="NUMERIC" />
+		<result property="code" column="CODE" jdbcType="VARCHAR" />
+		<result property="name" column="NAME" jdbcType="VARCHAR" />
+		<result property="username" column="USERNAME" jdbcType="VARCHAR" />
+		<result property="modifiedTime" column="MODIFIED_TIME" jdbcType="TIMESTAMP" />
+		<result property="description" column="DESCRIPTION" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<sql id="columns">
+		ID,CODE,NAME,USERNAME,MODIFIED_TIME,DESCRIPTION
+	</sql>
+
+	<sql id="dynamicWhere">
+		<where>
+			<if test="@Ognl@isNotEmpty(id)"> AND ID =#{id} </if>
+			<if test="@Ognl@isNotEmpty(code)"> AND CODE =#{code} </if>
+			<if test="@Ognl@isNotEmpty(name)"> AND NAME LIKE #{name}  </if>
+			<if test="@Ognl@isNotEmpty(username)"> AND USERNAME =#{username}  </if>
+			<if test="@Ognl@isNotEmpty(modifiedTime)"> AND MODIFIED_TIME =#{modifiedTime}  </if>
+			<if test="@Ognl@isNotEmpty(description)"> AND DESCRIPTION LIKE #{description} </if>
+		</where>
+	</sql>
+
+	<insert id="add" parameterType="com.cssrc.ibms.dbom.model.DBom">
+		INSERT INTO CWM_DBOM
+		(
+		<include refid="columns" />
+		)
+		VALUES
+		(
+		#{id,jdbcType=NUMERIC},
+		#{code,jdbcType=VARCHAR},
+		#{name,jdbcType=VARCHAR},
+		#{username,jdbcType=VARCHAR},
+		#{modifiedTime,jdbcType=TIMESTAMP},
+		#{description,jdbcType=VARCHAR}
+		)
+	</insert>
+
+	<delete id="delById" parameterType="java.lang.Long">
+		DELETE FROM CWM_DBOM
+		WHERE
+		ID=#{id}
+	</delete>
+
+	<update id="update" parameterType="com.cssrc.ibms.dbom.model.DBom">
+		UPDATE CWM_DBOM SET
+		CODE=#{code,jdbcType=VARCHAR} ,
+		NAME=#{name,jdbcType=VARCHAR} ,
+		USERNAME=#{username,jdbcType=VARCHAR} ,
+		MODIFIED_TIME=#{modifiedTime,jdbcType=TIMESTAMP} ,
+		DESCRIPTION=#{description,jdbcType=VARCHAR} 
+		WHERE
+		ID=#{id}
+	</update>
+
+	<select id="getById" parameterType="java.lang.Long" resultMap="DBom">
+		SELECT
+		<include refid="columns" />
+		FROM CWM_DBOM
+		WHERE
+		ID=#{id}
+	</select>
+
+	<select id="getByCode" parameterType="java.lang.String" resultMap="DBom">
+		SELECT
+		<include refid="columns" />
+		FROM CWM_DBOM
+		WHERE CODE = #{code}
+		ORDER BY NAME ASC
+	</select>
+	
+	<select id="getAll" resultMap="DBom">
+		SELECT
+		<include refid="columns" />
+		FROM CWM_DBOM
+		<include refid="dynamicWhere" />
+		ORDER BY NAME ASC
+	</select>
+	
+	<select id="getUniqueByCode" parameterType="java.lang.String" resultMap="DBom">
+		SELECT
+		<include refid="columns" />
+		FROM CWM_DBOM
+		WHERE CODE = #{code}
+	</select>	
+
+</mapper>

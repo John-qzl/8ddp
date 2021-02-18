@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xmlns:context="http://www.springframework.org/schema/context"
+	   xmlns:aop="http://www.springframework.org/schema/aop"
+	   xmlns:tx="http://www.springframework.org/schema/tx"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+           http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+           http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+           http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd"
+	   default-autowire="byName" default-lazy-init="false">
+	   <context:component-scan base-package="com.**.ibms.**.dao" />
+	<context:component-scan base-package="com.**.ibms.**.dao" />
+	<context:component-scan base-package="com.cssrc.ibms.core.user.listener" />
+	<context:component-scan base-package="com.cssrc.ibms.dp.form.dao" />
+	<context:component-scan base-package="com.cssrc.ibms.core.resources.impl" />
+<!-- 	<context:component-scan base-package="com.cssrc.ibms.api.restful" /> -->
+	<context:component-scan base-package="com.cssrc.ibms.core.flow.listener" />
+	<!--<context:component-scan base-package="com.cssrc.ibms.webservice.impl" />-->
+	<!--<context:component-scan base-package="com.cssrc.ibms.webservice.service" />-->
+	<context:component-scan base-package="com.**.ibms.**.service" >
+		<context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>   
+	</context:component-scan>
+
+
+	<!-- spring上下文,可以获取 上下文的Context -->
+    <bean id="appUtil" class="com.cssrc.ibms.core.util.appconf.AppUtil" />
+
+
+	<!-- 数据源配置 --> 
+	<!-- <bean id="dataSource_Default" class="org.logicalcobwebs.proxool.ProxoolDataSource">  
+		<property name="driver" value="${jdbc.driverClassName}"/>
+		<property name="driverUrl" value="${jdbc.url}"/>
+		<property name="user" value="${jdbc.username}"/>
+		<property name="password" value="${jdbc.password}"/>		
+		<property name="alias" value="${db.alias}"/>
+		<property name="simultaneousBuildThrottle" value="${db.simultaneousBuildThrottle}"/>
+		<property name="maximumActiveTime" value="${db.maximumActiveTime}"/>
+		<property name="houseKeepingTestSql" value="${db.houseKeepingTestSql}"/>
+		<property name="maximumConnectionCount" value="${db.maximumConnectionCount}"/>
+		<property name="minimumConnectionCount" value="${db.minimumConnectionCount}"/>
+		<property name="delegateProperties" value="characterEncoding=${db.characterEncoding}"/>
+	</bean> -->
+	<bean id="jdbcTemplate"
+		class="org.springframework.jdbc.core.JdbcTemplate">
+		<property name="dataSource" ref="dataSource" /> 
+	</bean>
+	<bean id="nativeJdbcExtractor"
+		class="org.springframework.jdbc.support.nativejdbc.SimpleNativeJdbcExtractor"
+		lazy-init="true" />
+	
+	<bean id="oracleLobHandler"
+		class="org.springframework.jdbc.support.lob.OracleLobHandler"
+		lazy-init="true">
+		<property name="nativeJdbcExtractor" ref="nativeJdbcExtractor" />
+	</bean>
+
+	<!-- ibatis的session工厂配置 -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="configLocation" value="file:${conf.root}/conf/app-mybatis.xml"/>
+		<property name="dataSource" ref="dataSource" />
+		<property name="mapperLocations" >
+        	<list>
+				<!--resource包自动生成代码的xml文件路径-->
+				<!--文件后缀必须是照着平台的来,这个项目不干净,会有以前乱七八糟的mapper,也是自动生成的,导致项目报错-->
+				<!--<value>classpath*:/com/cssrc/ibms/**/mapper/*Mapper.xml</value>-->
+				<!--系统表的xml文件路径-->
+        		<value>classpath*:/com/cssrc/ibms/**/maper/**/*.map.xml</value>
+        	</list>
+        </property>
+	</bean>
+
+	<bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg index="0" ref="sqlSessionFactory" />
+	</bean>
+
+	<!-- 
+	密码不加密数据源:com.alibaba.druid.pool.DruidDataSource
+	密码加密数据源:com.hotent.core.db.CustomDruidDataSource
+	-->
+	<bean id="dataSource_Default" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close"> 
+	     <!-- 基本属性 url、user、password -->
+	     <property name="url" value="${jdbc.url}" />
+	     <property name="username" value="${jdbc.username}" />
+	     <property name="password" value="${jdbc.password}" />
+	
+	     <!-- 配置初始化大小、最小、最大 -->
+	     <property name="initialSize" value="${db.minimumConnectionCount}" />
+	     <property name="minIdle" value="${db.minimumConnectionCount}" /> 
+	     <property name="maxActive" value="${db.maximumConnectionCount}" />
+	
+	     <!-- 配置获取连接等待超时的时间 -->
+	     <property name="maxWait" value="60000" />
+	
+	     <!-- 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒 -->
+	     <property name="timeBetweenEvictionRunsMillis" value="60000" />
+	
+	     <!-- 配置一个连接在池中最小生存的时间，单位是毫秒 -->
+	     <property name="minEvictableIdleTimeMillis" value="300000" />
+	
+	     <property name="validationQuery" value="select * from ACT_GE_PROPERTY" />
+	     <property name="testWhileIdle" value="true" />
+	     <property name="testOnBorrow" value="false" />
+	     <property name="testOnReturn" value="false" />
+	
+	     <!-- 打开PSCache，并且指定每个连接上PSCache的大小 -->
+	     <property name="poolPreparedStatements" value="true" />
+	     <property name="maxPoolPreparedStatementPerConnectionSize" value="20" />
+	
+	     <!-- 配置监控统计拦截的filters -->
+	     <property name="filters" value="stat" /> 
+	     <!-- 连接泄漏监测 -->
+	     <property name="removeAbandoned" value="true" /> <!-- 打开removeAbandoned功能 -->
+	  	 <property name="removeAbandonedTimeout" value="28800" /> <!-- 28800秒，也就是8小时，一个连接超过8小时会自动删除这个连接 -->
+	  	 <property name="logAbandoned" value="true" /> <!-- 关闭abanded连接时输出错误日志 -->
+	  
+	</bean>
+	 
+	<bean id="stat-filter" class="com.alibaba.druid.filter.stat.StatFilter">
+	    <property name="slowSqlMillis" value="10000" />
+	    <property name="logSlowSql" value="true" />
+	    <property name="mergeSql" value="true" />
+	</bean>
+	
+	<!-- spring监控开启 -->
+	<bean id="druid-stat-interceptor" class="com.alibaba.druid.support.spring.stat.DruidStatInterceptor"/>
+	<bean id="druid-stat-pointcut" class="org.springframework.aop.support.JdkRegexpMethodPointcut" scope="prototype">
+		<property name="patterns">
+			<list>
+				<value>com.*.ibms.*.*.service.*</value>
+				<value>com.*.ibms.*.*.dao.*</value>
+			</list>
+		</property>
+	</bean>
+	<aop:config proxy-target-class="true">
+		<aop:advisor advice-ref="druid-stat-interceptor" pointcut-ref="druid-stat-pointcut"/>
+	</aop:config>
+	
+	<!-- 更换spring 事务管理-->
+	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource" />
+		<property name="globalRollbackOnParticipationFailure" value="false"/>
+	</bean>
+
+	
+	<!-- 配置事务的传播特性  定义了AOP通知 -->    
+    <tx:advice id="txAdvice" transaction-manager="transactionManager">  
+        <tx:attributes>    
+            <tx:method name="add*" propagation="REQUIRED"/> 
+            <tx:method name="upd*" propagation="REQUIRED"/>
+            <tx:method name="asyn*" propagation="REQUIRED" rollback-for="Exception"/>
+            <tx:method name="roll*" propagation="REQUIRED" />
+            <tx:method name="insert*" propagation="REQUIRED"/>
+            <tx:method name="save*" propagation="REQUIRED"/>   
+            <tx:method name="de*" propagation="REQUIRED"/>  
+            <tx:method name="re*" propagation="REQUIRED"/> 
+            <tx:method name="modify*" propagation="REQUIRED"/> 
+            <tx:method name="import*" propagation="REQUIRED"/>    
+            <tx:method name="send*" propagation="REQUIRED"/> 
+            <tx:method name="hand*" propagation="REQUIRED"/> 
+            <tx:method name="process*" propagation="REQUIRED"/> 
+            <tx:method name="next*" propagation="REQUIRED"/>  
+            <tx:method name="initStack" propagation="REQUIRED"/><!-- REQUIRED 会使用原来含该表的事务， -->  
+            <tx:method name="init*" propagation="REQUIRES_NEW"/><!-- 新开启事务 -->  
+            <tx:method name="generate*" propagation="REQUIRES_NEW"/><!-- 新开启事务 -->  
+            <tx:method name="publish*" propagation="REQUIRED"/>
+            <tx:method name="start*" propagation="REQUIRED"/>
+            <tx:method name="end*" propagation="REQUIRED"/>
+            <tx:method name="get*" propagation="REQUIRED"/>
+			<tx:method name="set*" propagation="REQUIRED"/>
+			<tx:method name="setUserMenuToRedis" read-only="true"/>
+            <tx:method name="clean*" propagation="REQUIRED"/>  
+            <tx:method name="sus*" propagation="REQUIRED"/>
+        	<tx:method name="act*" propagation="REQUIRED"/>   
+        	<tx:method name="*" read-only="true" propagation="SUPPORTS"/> 
+        	
+        </tx:attributes>    
+    </tx:advice> 
+    
+    <bean id="localeResolver"
+	    class="org.springframework.web.servlet.i18n.SessionLocaleResolver">  
+	</bean>
+     
+    <!-- 日志切面和url权限切面  -->
+    <bean id="logAspectEntrance" class="com.cssrc.ibms.core.log.LogAspectEntrance"/>
+    <bean id="sysUrlPermissionFilter" class="com.cssrc.ibms.core.web.filter.SysUrlPermissionFilter"/>
+    <aop:config proxy-target-class="true">
+        <!-- 事务管理的事务性切面通知器 -->
+        <aop:advisor advice-ref="txAdvice" pointcut="(execution(* com.cssrc.ibms..service..*.*(..)) or execution(* com.ibms.core.service.hibernate..*.*(..)) or execution(* com.cssrc.ibms.core.resources.io.service..*.*(..)))"  />        
+		<!-- 日志切面 -->
+		<aop:aspect ref="logAspectEntrance"><!-- 仅拦截public 方法 -->
+			<aop:pointcut expression="execution(public * com.cssrc.ibms..controller..*.*(..))" id="logPointcut"/>
+			<aop:around pointcut-ref="logPointcut" method="doAudit"/>
+		</aop:aspect>
+		<aop:aspect ref="sysUrlPermissionFilter">
+			<aop:pointcut expression="execution(*..ModelAndView com.cssrc.ibms..controller..*.*(..))
+									&amp;&amp; !execution(* com.cssrc.ibms..controller.console.*.*(..))" id="urlPointcut"/>
+			<aop:before pointcut-ref="urlPointcut" method="doHandler"/>
+			<!--  
+			<aop:pointcut expression="execution(* com.ibms.oa.controller.system.SysUrlPermissionController.save(..)) 
+			          || execution(* com.ibms.oa.controller.system.SysUrlPermissionController.del(..))" id="modifyUrlPointcut"/>
+			<aop:after-returning pointcut-ref="modifyUrlPointcut" method="initMap"/>
+			-->
+		</aop:aspect>
+	</aop:config>
+	
+	<!-- Spring编程式事务  -->
+	<bean id="txTemplate" class="org.springframework.transaction.support.TransactionTemplate">
+        <property name="transactionManager" ref="transactionManager"></property>
+        <property name="propagationBehaviorName" value="PROPAGATION_REQUIRED"></property>
+    </bean>
+    
+    <!-- 文件模版引擎配置 -->
+	<bean id="freemarkerConfiguration" class="org.springframework.ui.freemarker.FreeMarkerConfigurationFactoryBean">
+	    <property name="templateLoaderPath" value="file:${conf.root}/template/" />
+	    <property name="defaultEncoding" value="UTF-8"/>
+	</bean>
+	
+	<bean id="templateLoader" class="freemarker.cache.StringTemplateLoader"></bean>
+	
+	<!-- freemaker引擎 -->
+	<bean id="freemarkEngine" class="com.cssrc.ibms.core.engine.FreemarkEngine">
+		<property name="configuration" ref="freemarkerConfiguration"/>		
+	</bean>
+	
+	<!--发送邮件配置-->
+	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+		<property name="host" value="${mail.host}" />
+		<property name="username" value="${mail.username}" />
+		<property name="password" value="${mail.password}" />
+		<property name="defaultEncoding" value="${mail.defaultEncoding}" />
+		<property name="javaMailProperties">
+			<props>
+				<prop key="mail.smtp.auth">true</prop>
+			</props>
+		</property>
+	</bean>
+<!--     
+    <bean id="hibernateTemplate"
+		class="org.springframework.orm.hibernate3.HibernateTemplate" lazy-init="true">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean> -->
+	<bean id="mailSeting" class="com.cssrc.ibms.core.mail.model.MailSeting">
+		<property name="sendHost" value="${mail.host}"/>
+		<property name="sendPort" value="${mail.port}"/>
+		<property name="SSL" value="${mail.ssl}"/>
+		<property name="protocal" value="smtp"/>
+		<property name="validate" value="true"/>
+		<property name="nickName" value="${mail.nickName}"/>
+		<property name="mailAddress" value="${mail.username}"/>
+		<property name="password" value="${mail.password}"/>
+	</bean>
+	
+    <bean id="mailUtil" class="com.cssrc.ibms.core.mail.MailUtil">
+		<constructor-arg ref="mailSeting"></constructor-arg>
+	</bean>
+ 	<!-- 动态数据源start############################################################-->
+	<!-- 数据源导入拦截bean -->
+  	<bean id="dataSourceInitListener" class="com.cssrc.ibms.listener.DataSourceInitListener"></bean>
+	
+	<bean id="dataSource" class="com.cssrc.ibms.core.db.datasource.DynamicDataSource">
+		<property name="targetDataSources"  >
+			<map>
+    			<entry key="dataSource_Default" value-ref="dataSource_Default" />
+   			</map>
+		</property>
+		<property name="defaultTargetDataSource" ref="dataSource_Default" />
+	</bean>
+</beans>

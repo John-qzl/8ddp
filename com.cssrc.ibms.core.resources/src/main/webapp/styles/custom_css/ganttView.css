@@ -1,0 +1,91 @@
+.group_buttons{
+	height: 85px;
+}
+.group_buttons .module{
+	height: 100%;
+	text-align: center; 
+	float: left;
+	border-left: 1px solid #dddddd;
+	border-right: 1px solid #dddddd;
+	margin-left: 2px;
+}
+.module span {
+	border-bottom: 1px solid #dddddd; 
+	padding:3px;
+	display: block;
+	background-color: #3eaaf5;
+	color: #ffffff;
+}
+.custom_link{
+	display: block;
+    text-decoration: none;
+	white-space: nowrap;
+	border-bottom: 1px solid #3eaaf5;
+	border-right: 1px solid #3eaaf5;
+}
+.custom_padding_1{
+	padding: 3px 20px;
+}
+.custom_padding_2{
+	padding:3px;
+}
+.custom_padding_3{
+	padding: 3px 20px;
+}
+.custom_link:HOVER{
+	background: #3eaaf5;
+	color: #ffffff;
+}
+.custom_div{
+	margin: 3px;
+	border-left: 1px solid #3eaaf5;
+	border-top: 1px solid #3eaaf5; 
+	float: left;
+}
+.custom_div ul li {
+	float: left;
+}
+.custom_div ul li .custom_link{
+	padding: 5px 7px;
+}
+.szbc{
+	text-align: center;
+	color: #4092d0;
+	font-size: 14px;
+	display: inline-block;
+	font-style:normal;
+	cursor: pointer;
+	padding: 2px;
+	border: 1px solid #4092d0;
+	width: 100%;
+}
+.moveup:BEFORE {
+	content: "\ea3a";
+	font-family: "icomoon";
+}
+
+.movedown:before{
+	content: "\ea3e";
+	font-family: "icomoon";
+}
+.moveleft:BEFORE {
+	content: "\ea40";
+	font-family: "icomoon";
+}
+
+.moveright:before{
+	content: "\ea3c";
+	font-family: "icomoon";
+}
+.export:before{
+	content: "\e961";
+	font-family: "icomoon";
+}
+.import:before{
+	content: "\e960";
+	font-family: "icomoon";
+}
+
+
+
+

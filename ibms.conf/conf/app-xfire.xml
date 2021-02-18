@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN"
+    "http://www.springframework.org/dtd/spring-beans.dtd">
+<beans>
+ 
+ 	<!-- 引入XFire预配置信息 -->
+	<import resource="classpath:org/codehaus/xfire/spring/xfire.xml" />
+	
+	<!-- 发布服务 -->
+	<bean id="baseWebService"
+		class="org.codehaus.xfire.spring.remoting.XFireExporter"
+		lazy-init="false" abstract="true">
+		<property name="serviceFactory" ref="xfire.serviceFactory" />
+		<property name="xfire" ref="xfire" />
+	</bean> 
+	
+	<!--数据服务-->
+	<bean id="formWebService"
+		class="com.cssrc.ibms.core.form.service.FormWebServiceImpl" /> 
+	<bean id="FormWebService" parent="baseWebService">
+		<property name="serviceBean" ref="formWebService" />
+		<property name="serviceClass"
+			value="com.cssrc.ibms.core.form.intf.IFormWebService" />
+	</bean>
+	
+	<!-- 获取业务数据唯一Id -->
+	<bean id="genIdFormWebService"
+		class="com.cssrc.ibms.core.web.service.GenIdFormWebServiceImpl" /> 
+	<bean id="GenIdFormWebService" parent="baseWebService">
+		<property name="serviceBean" ref="genIdFormWebService" />
+		<property name="serviceClass" value="com.cssrc.ibms.api.core.intf.IGenIdFormWebService" />
+	</bean>
+
+	<!-- 组织接口 -->
+	<!--<bean id="organizationServiceImpl" class="com.cssrc.ibms.webservice.Impl.OrganizationServiceImpl"/>-->
+	<!--<bean id="OrganizationService" parent="baseWebService">-->
+		<!--<property name="serviceBean" ref="organizationServiceImpl" />-->
+		<!--<property name="serviceClass" value="com.cssrc.ibms.webservice.Intf.IOrganizationService" />-->
+	<!--</bean>-->
+	<!--&lt;!&ndash; 人员接口 &ndash;&gt;-->
+	<!--<bean id="perServiceImpl" class="com.cssrc.ibms.webservice.Impl.PerServiceImpl"/>-->
+	<!--<bean id="PerServiceImpl" parent="baseWebService">-->
+		<!--<property name="serviceBean" ref="perServiceImpl" />-->
+		<!--<property name="serviceClass" value="com.cssrc.ibms.webservice.Intf.IPerService" />-->
+	<!--</bean>-->
+</beans>

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cssrc.ibms.core.resources.datapackage.model.CheckDataPackageInfo">
+	<resultMap id="CheckDataPackageInfo" type="com.cssrc.ibms.core.resources.datapackage.model.CheckDataPackageInfo">
+		<id property="ID" column="ID" jdbcType="NUMERIC" />
+		<result property="F_SJMC" column="F_SJMC" jdbcType="VARCHAR" />
+		<result property="F_SJLX" column="F_SJLX" jdbcType="VARCHAR" />
+		<result property="F_SJZ" column="F_SJZ" jdbcType="VARCHAR" />
+		<result property="F_GW" column="F_GW" jdbcType="VARCHAR" />
+		<result property="F_MJ" column="F_MJ" jdbcType="VARCHAR" />
+		<result property="F_BMQX" column="F_BMQX" jdbcType="VARCHAR" />
+		<result property="F_SCR" column="F_SCR" jdbcType="VARCHAR" />
+		<result property="F_SCRID" column="F_SCRID" jdbcType="VARCHAR" />
+		<result property="F_SCSJ" column="F_SCSJ" jdbcType="DATE" />
+		<result property="F_BB" column="F_BB" jdbcType="VARCHAR" />
+		<result property="F_SM" column="F_SM" jdbcType="CLOB" />
+		<result property="F_SPJD" column="F_SPJD" jdbcType="VARCHAR" />
+		<result property="F_ZXZT" column="F_ZXZT" jdbcType="VARCHAR" />
+		<result property="F_WCSJ" column="F_WCSJ" jdbcType="DATE" />
+		<result property="F_SSSJB" column="F_SSSJB" jdbcType="VARCHAR" />
+		<result property="F_SSMB" column="F_SSMB" jdbcType="VARCHAR" />
+		<result property="F_SSMBMC" column="F_SSMBMC" jdbcType="VARCHAR" />
+		<result property="F_SSRW" column="F_SSRW" jdbcType="VARCHAR" />
+		
+		
+	</resultMap>
+	<sql id="columns">
+		ID,F_SJMC,F_SJLX,F_SJZ,F_GW,F_MJ,F_BMQX,F_SCR,F_SCRID,F_SCSJ,F_BB,F_SM,F_SPJD,F_ZXZT,F_WCSJ,F_SSSJB,F_SSMB,F_SSMBMC,F_SSRW
+	</sql>
+
+	<insert id="add" parameterType="com.cssrc.ibms.core.resources.datapackage.model.CheckDataPackageInfo">
+		INSERT INTO W_DATAPACKAGEINFO
+		
+		VALUES
+		(#{ID,jdbcType=NUMERIC},
+		#{F_SJMC,jdbcType=VARCHAR},
+		#{F_SJLX,jdbcType=VARCHAR},
+		#{F_SJZ,jdbcType=VARCHAR},
+		#{F_GW,jdbcType=VARCHAR},
+		#{F_MJ,jdbcType=VARCHAR},
+		#{F_BMQX,jdbcType=VARCHAR},
+		#{F_SCR,jdbcType=VARCHAR},
+		#{F_SCRID,jdbcType=VARCHAR},
+		#{F_SCSJ,jdbcType=DATE},
+		#{F_BB,jdbcType=VARCHAR},
+		#{F_SM,jdbcType=CLOB},
+		#{F_SPJD,jdbcType=VARCHAR},
+		#{F_ZXZT,jdbcType=VARCHAR},
+		#{F_WCSJ,jdbcType=DATE},
+		#{F_SSSJB,jdbcType=VARCHAR},
+		#{F_SSMB,jdbcType=VARCHAR},
+		#{F_SSMBMC,jdbcType=VARCHAR},
+		#{F_SSRW,jdbcType=VARCHAR}
+		
+		)
+	</insert>
+
+	<!-- <update id="update" parameterType="com.cssrc.ibms.dp.form.model.CheckPackage">
+		UPDATE W_TABLE_TEMP SET
+		F_NAME=#{name,jdbcType=VARCHAR},
+		F_NUMBER=#{snum,jdbcType=VARCHAR},
+		F_REMARK=#{remark,jdbcType=VARCHAR},
+		F_TYPE=#{type,jdbcType=VARCHAR}
+		WHERE
+		ID=#{ID,jdbcType=NUMERIC}
+	</update> -->
+	<!-- <select id="isIdExists" resultType="Integer">
+		SELECT count(1) as count FROM
+		W_TABLE_TEMP WHERE F_NUMBER=#{snum}
+	</select> -->
+	<select id="getBymodelid" parameterType="java.util.Map" resultMap="CheckDataPackageInfo">
+		SELECT <include refid="columns"/> 
+		FROM W_DATAPACKAGEINFO  WHERE F_SSSJB=#{Id}
+	</select>
+	<!-- <delete id="deleteById">
+		DELETE FROM W_TABLE_TEMP WHERE ID=#{ID}
+	</delete> -->
+</mapper>

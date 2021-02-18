@@ -1,0 +1,120 @@
+<%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
+<script type="text/javascript" src="${ctx}/jslib/lg/util/DialogUtil.js" ></script>
+<script type="text/javascript">
+    $(function () {
+
+        var curUser = "${curUser}";
+        var fullName = "${curUser.fullname}";
+        var userName = "${curUser.username}";
+
+        var urlHerf = "${currentSystem.systemUrl}";
+        //如果不是三员用户,则隐藏一些头部按钮功能
+        if (userName == "implement" || userName == "right" || userName == "system") {
+            $("#setting").css("display", "none");
+
+        } else if (location.href.indexOf("?flag") > 0) {
+            $("#message").css("display", "none");
+            $("#setting").css("display", "none");
+        } else {
+            $("#setting,#message,#password,#info").css("display", "none");
+        }
+    });
+
+    function show(url,subject){
+        $.ligerDialog.open({
+            height : 700,
+            width : 1100,
+            title : subject,
+            url: ctxPath+url,
+            isResize: true,
+            sucCall:function(rtn){
+                    location.href=location.href;
+            }
+        });
+    }
+    
+    // 8院8部定制
+    function customFlowApprove(){
+    	// 打开流程审批任务列表
+    	var flowTaskUrl = '/dp/oa/portal/insPortal/getPortalHtml.do?colId=10000000370017';
+    	DialogUtil.open({
+    		height:600,
+    		width: 1000,
+    		title : '任务列表',
+    		url: flowTaskUrl, 
+    		isResize: true,
+    		//自定义参数
+    		sucCall:function(rtn){
+    			if(rtn){
+    				window.location.reload(true);	
+    			}
+    		}
+    	});
+    }
+    
+</script>
+<div class="viewFramework-topbar clearFix" role="heading">
+    <div class="viewFramework-hd fl">
+        <div class="viewFramework-logo">
+            <img id="logoImg" src="${ctx}${currentSystem.systemLog}"
+                 onerror="document.getElementById('logoImg').src='${ctx}/styles/images/logo.png';"/>
+            <font>${currentSystem.companyName}${currentSystem.systemName}</font>
+        </div>
+    </div>
+
+    <div class="viewFramework-topbar-inner clearFix fr">
+        <ul class="fr">
+            <li class="v-t-menu fl">
+                <c:choose>
+                    <c:when test="${empty currentSystem.systemUrl}">
+                        <a class="t-menu v-t-m-i-01" href="${ctx}/oa/console/main.do">主页</a>
+                    </c:when>
+                    <c:otherwise>
+                        <a class="t-menu v-t-m-i-02" href="${currentSystem.systemUrl}">主页</a>
+                    </c:otherwise>
+                </c:choose>
+            </li>
+
+            <%--<li class="v-t-menu fl" id="help">--%>
+                <%--<font><a class="t-menu v-t-m-i-02" href="javascript:show('/help/help/manage.do','系统帮助(手册+视频)')" h>系统帮助(手册+视频)</a></font>--%>
+            <%--</li>--%>
+
+			<li class="v-t-menu fl" href="##" id="customFlowMsg">
+                <font><a class="t-menu v-t-m-i-03" href="javascript:customFlowApprove()">审批任务</a></font>
+            </li>
+            
+            <li class="v-t-menu fl" href="##" id="setting">
+                <font><a class="t-menu v-t-m-i-02">设置</a></font>
+            </li>
+
+            <li class="v-t-menu fl" id="message">
+                <font><a id="msg" class="t-menu v-t-m-i-03"
+                         href="javascript:addToTab('${ctx}/oa/system/messageReceiver/list.do','收到的消息')">消息
+                    <c:choose>
+                        <c:when test="${msgCount=='0'}">
+                            <span style="color:#fff;font-weight:bold">(${msgCount})</span>
+                        </c:when>
+                        <c:otherwise>
+                            <span id="countMsg" style="color:red;font-weight:bold">(${msgCount})</span>
+                        </c:otherwise>
+                    </c:choose>
+                </a></font>
+            </li>
+
+            <li class="v-t-menu fl" href="javascript:;">
+                <font class="v-t-m-i-04"><security:authentication property="principal.fullname"/></font>
+
+                <div class="v-t-menu-arrow" id="arrow">
+                    <i class="base-tool-arrow"><em></em><b></b></i>
+                </div>
+                <div class="v-t-menu-drop" id="userInfo">
+                    <a id="password" href="javascript:show('/oa/system/sysUser/modifyPwdView.do?userId=${userId}','修改密码')">修改密码</a>
+                    <a id="info" href="javascript:show('/oa/system/sysUser/get.do?userId=${userId}&canReturn=1','个人资料')">个人资料</a>
+                    <a href="${ctx}/logout">退出</a>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>

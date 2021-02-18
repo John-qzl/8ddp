@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cssrc.ibms.core.user.model.UserPosition">
+	<resultMap id="UserPosition" type="com.cssrc.ibms.core.user.model.UserPosition">
+		<id property="userPosId" column="USERPOSID" jdbcType="NUMERIC" />
+		<result property="orgId" column="ORGID" jdbcType="NUMERIC" />
+		<result property="posId" column="POSID" jdbcType="NUMERIC" />
+		<result property="jobId" column="JOBID" jdbcType="NUMERIC" />
+		<result property="userId" column="USERID" jdbcType="NUMERIC" />
+		<result property="isPrimary" column="ISPRIMARY" jdbcType="NUMERIC" />
+		<result property="isCharge" column="ISCHARGE" jdbcType="NUMERIC" />
+		<result property="isDelete" column="ISDELETE" jdbcType="NUMERIC" />
+		<result property="position_updateId" column="position_updateId" jdbcType="NUMERIC"/>
+		<result property="position_updateTime" column="position_updateTime" jdbcType="TIMESTAMP"/>
+		<result property="position_creatorId" column="position_creatorId" jdbcType="NUMERIC"/>
+		<result property="position_createTime" column="position_createTime" jdbcType="TIMESTAMP"/>
+	</resultMap>
+
+	<sql id="columns">
+		a.USERPOSID,a.ORGID,a.POSID,a.USERID,a.ISPRIMARY,a.ISCHARGE,
+		a.ISDELETE,a.JOBID,a.position_updateId,a.position_updateTime,
+		a.position_creatorId,a.position_createTime
+	</sql>
+
+	<sql id="dynamicWhere">
+		<where>
+			<if test="@Ognl@isNotEmpty(userPosId)"> AND a.USERPOSID =#{userPosId} </if>
+			<if test="@Ognl@isNotEmpty(orgId)"> AND a.ORGID in (${orgId}) </if>
+			<if test="@Ognl@isNotEmpty(posId)"> AND a.POSID =#{posId} </if>
+			<if test="@Ognl@isNotEmpty(userId)"> AND a.USERID =#{userId} </if>
+			<if test="@Ognl@isNotEmpty(isPrimary)"> AND a.ISPRIMARY =#{isPrimary} </if>
+			<if test="@Ognl@isNotEmpty(isCharge)"> AND a.ISCHARGE =#{isCharge} </if>
+			<if test="@Ognl@isNotEmpty(jobId)"> AND a.JOBID =#{jobId} </if>
+			<!-- <if test="@Ognl@isNotEmpty(isDelete)"> AND a.ISDELETE =#{isDelete} 
+				</if> -->
+			AND a.ISDELETE =0
+		</where>
+	</sql>
+
+	<insert id="add" parameterType="com.cssrc.ibms.core.user.model.UserPosition">
+		INSERT INTO CWM_SYS_USER_POSITION
+		(USERPOSID,ORGID,POSID,JOBID,USERID,ISPRIMARY,ISCHARGE,ISDELETE,
+		position_updateId,position_updateTime,position_creatorId,position_createTime)
+		VALUES
+		(#{userPosId,jdbcType=NUMERIC}, #{orgId,jdbcType=NUMERIC},
+		#{posId,jdbcType=NUMERIC},#{jobId,jdbcType=NUMERIC},
+		#{userId,jdbcType=NUMERIC}, #{isPrimary,jdbcType=NUMERIC},
+		#{isCharge,jdbcType=NUMERIC}, #{isDelete,jdbcType=NUMERIC},
+		#{position_updateId,jdbcType=NUMERIC},#{position_updateTime,jdbcType=TIMESTAMP},
+		#{position_creatorId,jdbcType=NUMERIC},#{position_createTime,jdbcType=TIMESTAMP})
+	</insert>
+	<!--不能删除组织类数据,应修改删除标志 <delete id="delById" parameterType="java.lang.Long"> 
+		DELETE FROM CWM_SYS_USER_POSITION WHERE USERPOSID=#{userPosId} </delete> -->
+
+
+	<!-- 根据组织id判断该组织下是否有人员 -->
+	<select id="isUserExistFromOrg" parameterType="java.lang.Long"
+		resultType="java.lang.Integer">
+		SELECT COUNT(*) FROM CWM_SYS_USER_POSITION WHERE ORGID=#{orgId} AND
+		ISDELETE=0
+	</select>
+
+
+
+	<update id="delById" parameterType="java.lang.Long">
+		update CWM_SYS_USER_POSITION
+		set isDelete=1
+		WHERE
+		USERPOSID=#{userPosId}
+	</update>
+
+	<update id="update" parameterType="com.cssrc.ibms.core.user.model.UserPosition">
+		UPDATE CWM_SYS_USER_POSITION
+		SET 
+		ORGID=#{orgId,jdbcType=NUMERIC},
+		<if test="@Ognl@isNotEmpty(posId)">
+		POSID=#{posId,jdbcType=NUMERIC},
+		</if>
+		<if test="@Ognl@isNotEmpty(jobId)">
+		JOBID=#{jobId,jdbcType=NUMERIC},
+		</if>
+		USERID=#{userId,jdbcType=NUMERIC},
+		ISPRIMARY=#{isPrimary,jdbcType=NUMERIC},
+		ISCHARGE=#{isCharge,jdbcType=NUMERIC},
+		ISDELETE=#{isDelete,jdbcType=NUMERIC},
+		<if test="@Ognl@isNotEmpty(position_creatorId)">
+		position_creatorId=#{position_creatorId,jdbcType=NUMERIC} ,
+		</if>
+		<if test="@Ognl@isNotEmpty(position_createTime)">
+		position_createTime=#{position_createTime,jdbcType=TIMESTAMP} ,
+		</if>
+		position_updateId=#{position_updateId,jdbcType=NUMERIC} ,
+		position_updateTime=#{position_updateTime,jdbcType=TIMESTAMP} 
+		WHERE
+		USERPOSID=#{userPosId}
+	</update>
+
+	<select id="getById" parameterType="java.lang.Long" resultMap="UserPosition">
+		SELECT
+		<include refid="columns" />
+		FROM CWM_SYS_USER_POSITION a
+		WHERE
+		a.USERPOSID=#{userPosId}  and a.isdelete=0
+	</select>
+
+	<select id="getAll" resultMap="UserPosition">
+		SELECT
+		<include refid="columns" />
+		, o.orgName,
+		(select  p.posName from CWM_SYS_POS p where p.posid=a.posid ) as posName,
+		(select j.jobName from CWM_SYS_JOB j where j.jobid=a.jobid) as jobName,u.fullname,u.username,u.status
+		 FROM CWM_SYS_USER_POSITION a
+ 		inner join CWM_SYS_USER u on a.userid=u.userid
+  		inner join CWM_SYS_ORG o on a.orgid=o.orgid 
+		<include refid="dynamicWhere" />
+		<if test="@Ognl@isNotEmpty(fullname)"> AND u.fullname like #{fullname} </if>
+		<if test="@Ognl@isNotEmpty(username)"> AND u.username like #{username} </if>
+		<if test="@Ognl@isNotEmpty(orderField)">
+			order by ${orderField}
+		</if>
+		<if test="@Ognl@isEmpty(orderField)">
+			order by a.USERPOSID desc
+		</if>
+	</select>
+	<select id="getByOrgIds" resultMap="UserPosition">
+		SELECT
+		<include refid="columns" />
+		, o.orgName,
+		(select  p.posName from CWM_SYS_POS p where p.posid=a.posid ) as posName,
+		(select j.jobName from CWM_SYS_JOB j where j.jobid=a.jobid) as jobName,u.fullname,u.username,u.status
+		 FROM CWM_SYS_USER_POSITION a
+ 		inner join CWM_SYS_USER u on a.userid=u.userid
+  		inner join CWM_SYS_ORG o on a.orgid=o.orgid 
+  		 where  a.ORGID in (${orgId})
+  		<if test="@Ognl@isNotEmpty(isCharge)"> AND a.ISCHARGE = #{isCharge} </if>
+		<if test="@Ognl@isNotEmpty(fullname)"> AND u.fullname like #{fullname} </if>
+		<if test="@Ognl@isNotEmpty(username)"> AND u.username like #{username} </if>
+		<if test="@Ognl@isNotEmpty(orderField)">
+			order by ${orderField}
+		</if>
+		<if test="@Ognl@isEmpty(orderField)">
+			order by a.USERPOSID desc
+		</if>
+	</select>
+	
+	<select id="getUserIdsByPosId" resultType="java.lang.Long">
+		select distinct userId
+		from CWM_SYS_USER_POSITION where posId=#{posId}
+	</select>
+	<!-- 删除某用户的岗位关系 -->
+	<delete id="delByUserId" parameterType="java.lang.Long">
+		DELETE FROM CWM_SYS_USER_POSITION  WHERE userId=#{userId}
+	</delete>
+
+	<select id="getByUserId" parameterType="java.lang.Long"
+		resultType="com.cssrc.ibms.core.user.model.UserPosition">
+		select distinct a.*,o.orgName,
+		(select  p.posName from CWM_SYS_POS p where p.posid=a.posid ) as posName,
+		o.company,o.companyId from
+		CWM_SYS_USER_POSITION a
+		inner join CWM_SYS_ORG o on o.orgid=a.orgid
+		where a.userId=#{userId} and a.isdelete=0
+	</select>
+
+	<select id="getByPosId" parameterType="java.lang.Long"
+		resultType="com.cssrc.ibms.core.user.model.UserPosition">
+		select distinct a.*,o.orgName,
+		(select  p.posName from CWM_SYS_POS p where p.posid=a.posId ) as posName,
+		u.fullname as userName from
+		CWM_SYS_USER_POSITION a
+		inner join CWM_SYS_ORG o on o.orgid=a.orgid
+		inner join CWM_SYS_USER u on u.userid=a.userid
+		where a.posId=#{posId} and a.isdelete=0
+	</select>
+
+
+	<select id="getOrgListByUserId" parameterType="java.lang.Long"
+		resultType="com.cssrc.ibms.core.user.model.UserPosition">
+		select p.orgid,
+		p.userid,
+		o.orgname,
+		u.fullname as username,
+		max(p.isprimary) as isprimary,
+		max(p.ischarge) as ischarge
+		from CWM_SYS_USER_POSITION p
+		left join CWM_SYS_ORG o on o.orgid = p.orgid
+		left join CWM_SYS_USER u on p.userid = u.userid
+		where p.userid = #{userId}
+		and p.isdelete = 0
+		group by p.orgid, p.userid, o.orgname, u.fullname
+	</select>
+
+	<select id="getPrimaryUserPositionByUserId" parameterType="java.lang.Long"
+		resultType="com.cssrc.ibms.core.user.model.UserPosition"  >
+		select * from CWM_SYS_USER_POSITION a
+		where a.userId=#{userId}  and ISDELETE=0
+		<!-- 因为不一定有岗位， 故去掉了主岗位的约束 and a.isprimary=1 -->
+		order by a.isprimary desc , a.ischarge desc
+	</select>
+
+	<select id="getUserByOrgIds" parameterType="String"
+		resultType="com.cssrc.ibms.core.user.model.UserPosition">
+		select a.*, u.username,u.fullname,o.orgname from
+		CWM_SYS_USER_POSITION a
+		inner join CWM_SYS_USER u on a.userid=u.userid
+		inner join CWM_SYS_ORG o on a.orgid=o.orgid
+		where a.orgId in (${orgIds}) and a.isdelete=0
+	</select>
+	<!-- 根据组织id获取组织负责人 -->
+	<select id="getChargeByOrgId" parameterType="Long"
+		resultType="com.cssrc.ibms.core.user.model.UserPosition">
+		select distinct a.orgid,a.userid,a.isprimary,a.ischarge,u.fullname
+		from CWM_SYS_USER_POSITION a
+		inner join CWM_SYS_USER u on u.userid=a.userid
+		where a.orgid=#{orgId} and a.ischarge=1
+		and a.isdelete=0 and u.status =1
+	</select>
+
+	<!-- 根据负责人获取组织 -->
+	<select id="getChargeOrgByUserId" parameterType="Long"
+		resultType="com.cssrc.ibms.core.user.model.UserPosition">
+		select a.*
+		from CWM_SYS_USER_POSITION a
+		where a.userid=#{userId}
+		and a.ischarge=1
+		and isdelete=0
+	</select>
+
+
+	<select id="getByOrgId" parameterType="Long"
+		resultType="com.cssrc.ibms.core.user.model.UserPosition">
+		select
+		a.userPosId,a.orgId,a.posId,a.USERID,a.ISPRIMARY,a.ISCHARGE,a.ISDELETE,
+		u.username,u.fullname,o.orgname
+		from CWM_SYS_USER_POSITION a
+		inner join CWM_SYS_USER u on a.userid=u.userid
+		inner join CWM_SYS_ORG o on a.orgid=o.orgid
+		where a.orgid=#{orgId}
+		and a.isdelete=0
+	</select>
+
+	<update id="delByOrgId" parameterType="Long">
+		UPDATE
+		CWM_SYS_USER_POSITION SET isdelete=1 WHERE orgId=#{orgId}
+	</update>
+
+	<!-- 需要级联删除该组织下的所有子组织与岗位的关系 -->
+	<update id="delLogicByOrgPath" parameterType="String">
+		UPDATE
+		CWM_SYS_USER_POSITION SET isdelete=1 WHERE orgId in(
+		select o.orgId
+		from CWM_SYS_ORG o where o.path like #{path})
+	</update>
+	
+	<update id="restoreLogicByOrgPath" parameterType="String">
+		UPDATE
+		CWM_SYS_USER_POSITION SET isdelete=0 WHERE orgId in(
+		select o.orgId
+		from CWM_SYS_ORG o where o.path like #{path})
+	</update>
+	
+	<delete id="delByOrgPath" parameterType="String">
+		delete from CWM_SYS_USER_POSITION WHERE orgId in(
+		select o.orgId
+		from CWM_SYS_ORG o where o.path like #{path})
+	</delete>
+
+	<update id="delByPosId">
+		UPDATE CWM_SYS_USER_POSITION SET isdelete=1 WHERE
+		posId=#{posId}
+	</update>
+	<!-- 根据组织ID删除组织负责人 -->
+	<update id="delChargeByOrgId" parameterType="java.lang.Long">
+		UPDATE
+		CWM_SYS_USER_POSITION SET isdelete=1 WHERE orgId=#{userId} and
+		ischarge=1
+	</update>
+	<!-- 根据职务ID更新关系表 -->
+	<update id="delByJobId">
+		UPDATE CWM_SYS_USER_POSITION SET isdelete=1 WHERE
+		jobId=#{jobId}
+	</update>
+
+	<select id="getUserPosModel" parameterType="java.util.Map"
+		resultMap="UserPosition">
+		select
+		<include refid="columns" />
+		from CWM_SYS_USER_POSITION a
+		where a.userId=#{userId} and a.posId=#{posId}
+		and a.isdelete=0
+	</select>
+
+	<!--在设置用户主岗位时，先将其他所有岗位设置成非主岗位， 一个人只有一个主岗位 -->
+	<update id="updNotPrimaryByUserId" parameterType="java.lang.Long">
+		UPDATE CWM_SYS_USER_POSITION SET isPrimary=0 WHERE userId=#{userId}
+	</update>
+
+	<select id="getPosByUserId" parameterType="java.lang.Long"
+		resultMap="UserPosition">
+		select * from CWM_SYS_USER_POSITION a
+		where a.userId=#{userId} and ISDELETE=0
+	</select>
+
+	<update id="delByUserIdAndPosId" parameterType="java.lang.Long">
+		update
+		CWM_SYS_USER_POSITION set isdelete =1 WHERE userId=#{userId} AND posId
+		in (${posId}) AND isdelete=0
+	</update>
+	
+	<select id="getUserOrgModel" parameterType="java.util.Map" resultMap="UserPosition">
+		select
+		<include refid="columns" />
+		from CWM_SYS_USER_POSITION a
+		where a.userId=#{userId} and a.orgId=#{orgId} and a.posId=#{posId}
+		and a.isdelete=0
+	</select>
+	
+	<select id="getOrgIdByUserAndJob" parameterType="java.util.Map" resultType="java.lang.Long">
+		SELECT DISTINCT ORGID FROM CWM_SYS_USER_POSITION WHERE USERID=#{userId}
+		<if test="@Ognl@isNotEmpty(jobId)"> AND JOBID=#{jobId}</if>
+	</select>
+		
+</mapper>

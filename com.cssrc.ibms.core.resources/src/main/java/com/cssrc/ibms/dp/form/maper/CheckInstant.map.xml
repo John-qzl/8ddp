@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cssrc.ibms.core.resources.datapackage.model.CheckInstant">
+	<resultMap id="CheckInstant" type="com.cssrc.ibms.core.resources.datapackage.model.CheckInstant">
+		<id property="ID" column="ID" jdbcType="NUMERIC" />
+		<result property="F_NAME" column="F_NAME" jdbcType="VARCHAR" />
+		<result property="F_NUMBER" column="F_NUMBER" jdbcType="VARCHAR" />
+		<result property="F_STATUS" column="F_STATUS" jdbcType="VARCHAR" />
+		<result property="F_CONTENT" column="F_CONTENT" jdbcType="CLOB" />
+		<result property="F_UPLOAD_TIME" column="F_UPLOAD_TIME" jdbcType="NUMERIC" />
+		<result property="F_TABLE_TEMP_ID" column="F_TABLE_TEMP_ID" jdbcType="VARCHAR" />
+		<result property="F_TASK_ID" column="F_TASK_ID" jdbcType="VARCHAR" />
+		<result property="F_VERSION" column="F_VERSION" jdbcType="VARCHAR" />
+		<result property="F_STARTTIME" column="F_STARTTIME" jdbcType="VARCHAR" />
+		<result property="F_ENDTIME" column="F_ENDTIME" jdbcType="VARCHAR" />
+		
+		
+	</resultMap>
+	<sql id="columns">
+		ID,F_NAME,F_NUMBER,F_STATUS,F_CONTENT,F_UPLOAD_TIME,F_TABLE_TEMP_ID,F_TASK_ID,F_VERSION,F_STARTTIME,F_ENDTIME
+	</sql>
+
+	<insert id="add" parameterType="com.cssrc.ibms.core.resources.datapackage.model.CheckInstant">
+		INSERT INTO W_TB_INSTANT
+		
+		VALUES
+		(#{ID,jdbcType=NUMERIC},
+		#{F_NAME,jdbcType=VARCHAR},
+		#{F_NUMBER,jdbcType=VARCHAR},
+		#{F_STATUS,jdbcType=VARCHAR},
+		#{F_CONTENT,jdbcType=CLOB},
+		#{F_UPLOAD_TIME,jdbcType=NUMERIC},
+		#{F_TABLE_TEMP_ID,jdbcType=VARCHAR},
+		#{F_TASK_ID,jdbcType=VARCHAR},
+		#{F_VERSION,jdbcType=VARCHAR},
+		#{F_STARTTIME,jdbcType=VARCHAR},
+		#{F_ENDTIME,jdbcType=VARCHAR}
+		)
+	</insert>
+
+	<!-- <update id="update" parameterType="com.cssrc.ibms.dp.form.model.CheckPackage">
+		UPDATE W_TABLE_TEMP SET
+		F_NAME=#{name,jdbcType=VARCHAR},
+		F_NUMBER=#{snum,jdbcType=VARCHAR},
+		F_REMARK=#{remark,jdbcType=VARCHAR},
+		F_TYPE=#{type,jdbcType=VARCHAR}
+		WHERE
+		ID=#{ID,jdbcType=NUMERIC}
+	</update> -->
+	<!-- <select id="isIdExists" resultType="Integer">
+		SELECT count(1) as count FROM
+		W_TABLE_TEMP WHERE F_NUMBER=#{snum}
+	</select> -->
+	<select id="getById" parameterType="java.util.Map" resultMap="CheckInstant">
+		SELECT
+		<include refid="columns" />
+		FROM W_TB_INSTANT WHERE ID=#{Id}
+	</select>
+	<!-- <delete id="deleteById">
+		DELETE FROM W_TABLE_TEMP WHERE ID=#{ID}
+	</delete> -->
+</mapper>

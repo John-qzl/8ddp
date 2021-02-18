@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cssrc.ibms.core.form.model.QuerySql">
+	<resultMap id="QuerySql" type="com.cssrc.ibms.core.form.model.QuerySql">
+		<id property="id" column="ID" jdbcType="NUMERIC" />
+		<result property="sql" column="SQL_" jdbcType="VARCHAR" />
+		<result property="name" column="NAME" jdbcType="VARCHAR" />
+		<result property="dsname" column="dsName" jdbcType="VARCHAR" />
+		<result property="alias" column="alias" jdbcType="VARCHAR" />
+		<result property="urlParams" column="URL_PARAMS" jdbcType="VARCHAR" />
+
+		<result property="categoryId" column="CATEGORYID" jdbcType="NUMERIC" />
+		<result property="categoryName" column="CATEGORYNAME" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<sql id="columns">
+		ID,SQL_,NAME,dsName,alias,CATEGORYID,URL_PARAMS
+	</sql>
+
+	<sql id="columnsAlias">
+		SQ.ID,SQ.SQL_,SQ.NAME,SQ.dsName,alias,SQ.CATEGORYID,SQ.URL_PARAMS
+	</sql>
+
+	<sql id="dynamicWhere">
+		<where>
+			<if test="@Ognl@isNotEmpty(categoryId)"> AND CATEGORYID =#{categoryId} </if>
+			<if test="@Ognl@isNotEmpty(name)"> AND NAME LIKE #{name}  </if>
+		</where>
+	</sql>
+
+	<insert id="add" parameterType="com.cssrc.ibms.core.form.model.QuerySql">
+		INSERT INTO CWM_SYS_QUERY_SQL
+		(ID,SQL_,NAME,dsName,alias,CATEGORYID,URL_PARAMS)
+		VALUES
+		(#{id,jdbcType=NUMERIC}, #{sql,jdbcType=VARCHAR},
+		#{name,jdbcType=VARCHAR},
+		#{dsname,jdbcType=VARCHAR},#{alias,jdbcType=VARCHAR},
+		#{categoryId,jdbcType=NUMERIC},#{urlParams,jdbcType=VARCHAR})
+	</insert>
+
+	<delete id="delById" parameterType="java.lang.Long">
+		DELETE FROM CWM_SYS_QUERY_SQL
+		WHERE
+		ID=#{id}
+	</delete>
+
+	<update id="update" parameterType="com.cssrc.ibms.core.form.model.QuerySql">
+		UPDATE CWM_SYS_QUERY_SQL SET
+		SQL_=#{sql,jdbcType=VARCHAR},
+		NAME=#{name,jdbcType=VARCHAR},
+		dsName=#{dsname,jdbcType=VARCHAR},
+		alias=#{alias,jdbcType=VARCHAR},
+		CATEGORYID=#{categoryId,jdbcType=NUMERIC},
+		URL_PARAMS=#{urlParams,jdbcType=VARCHAR}
+		WHERE
+		ID=#{id}
+	</update>
+
+	<select id="getById" parameterType="java.lang.Long" resultMap="QuerySql">
+		SELECT
+		<include refid="columns" />
+		FROM CWM_SYS_QUERY_SQL
+		WHERE
+		ID=#{id}
+	</select>
+
+	<select id="getAll" resultMap="QuerySql">
+		SELECT * FROM (
+		SELECT
+		<include refid="columnsAlias" />
+		,GT.TYPENAME AS CATEGORYNAME
+		FROM CWM_SYS_QUERY_SQL SQ
+		LEFT JOIN
+		CWM_SYS_GLTYPE GT ON SQ.CATEGORYID = GT.TYPEID
+		)TEMP
+		<include refid="dynamicWhere" />
+		<if test="@Ognl@isNotEmpty(alias)"> 
+			AND ALIAS LIKE #{alias} 
+		</if>
+		<if test="@Ognl@isNotEmpty(orderField)">
+			order by ${orderField} ${orderSeq}
+		</if>
+		<if test="@Ognl@isEmpty(orderField)">
+			order by ID desc
+		</if>
+	</select>
+	<select id="getByAlias" resultMap="QuerySql">
+		SELECT *
+		FROM CWM_SYS_QUERY_SQL
+		WHERE
+		alias=#{alias}
+	</select>
+
+	<select id="isAliasExists" resultType="java.lang.Integer">
+		SELECT count(*)
+		FROM CWM_SYS_QUERY_SQL
+		WHERE
+		alias=#{alias}
+		<if test="id>0">
+			and id!=#{id}
+		</if>
+	</select>
+
+	<select id="isExistAlias" parameterType="String" resultType="Integer">
+		SELECT count(*) amount FROM CWM_SYS_QUERY_SQL WHERE ALIAS=#{alias}
+	</select>
+
+	<select id="isExistAliasForUpd" parameterType="Map" resultType="Integer">
+		SELECT count(*) amount FROM CWM_SYS_QUERY_SQL WHERE id &lt;>#{id} and
+		ALIAS=#{alias}
+	</select>
+
+	<update id="updCategory">
+		UPDATE CWM_SYS_QUERY_SQL SET CATEGORYID = #{categoryId} where id
+		IN
+		<foreach collection="aryId" index="index" item="id" open="("
+			close=")" separator=",">
+			#{id}
+		</foreach>
+	</update>
+</mapper>

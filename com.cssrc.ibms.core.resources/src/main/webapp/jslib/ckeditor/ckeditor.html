@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<!--
+Copyright (c) 2003-2011, CKSource - Frederico Knabben. All rights reserved.
+For licensing, see LICENSE.html or http://ckeditor.com/license
+-->
+<html>
+<head>
+	<title>CKEditor</title>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<!-- CK控件JS -->
+		<script type="text/javascript" src="ckfinder/ckfinder.js"></script>
+		<script type="text/javascript" src="ckeditor_source.js"></script>
+	<script type="text/javascript">
+        window.onload = function()
+		{
+			var config =
+    		{
+      			customConfig: "cus_config.js",
+      			toolbar:  "DesignDefault",
+      			width:800,
+      			height:300
+    		};
+   		    
+    		var editor = CKEDITOR.replace('Ckeditor', config);
+    		CKFinder.setupCKEditor( editor, 'ckfinder/' ) ;
+		}
+    </script>
+</head>
+<body>
+   <h1 align="center" style="color:#383C3D;">
+		离线表单设计</h1>
+   <div align="center">
+      <div style="border: 1px solid #383C3D;;width:802px;">
+      <textarea id="Ckeditor" name="Ckeditor"></textarea>
+      </div>
+   </div>
+</body>
+</html>

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+<mapper namespace="com.cssrc.ibms.record.model.RecRoleSonUser">
+	<resultMap id="RecRoleSonUser" type="com.cssrc.ibms.record.model.RecRoleSonUser">
+		<id property="userId" column="userId" jdbcType="NUMERIC"/>
+		<result property="roleSonId" column="roleSonId" jdbcType="VARCHAR"/>
+		<result property="fullname" column="fullname" jdbcType="VARCHAR"/>
+		<result property="username" column="username" jdbcType="VARCHAR"/>
+		<result property="orgName" column="orgName" jdbcType="VARCHAR"/>
+		<result property="phone" column="phone" jdbcType="VARCHAR"/>
+		<result property="mobile" column="mobile" jdbcType="VARCHAR"/>
+	</resultMap>
+	<sql id="columns">
+		userId,roleSonId,fullname,username,orgName,phone,mobile
+	</sql>
+	<select id="getRecUser_oracle" resultMap="RecRoleSonUser" parameterType="map">
+		select <include refid="columns"/>  FROM (
+			select t.*,tt.orgName from (
+			    select USERID,USERNAME,FULLNAME,${roleSonId} roleSonId,phone,mobile from cwm_sys_user
+		    	<if test="@Ognl@isNotEmpty(filterSql)">
+					${filterSql}
+				</if>
+				<if test="@Ognl@isNotEmpty(defFilterSql)">
+					union select USERID,USERNAME,FULLNAME,${roleSonId} roleSonId,phone,mobile  from cwm_sys_user
+					${defFilterSql}
+				</if>
+				union select USERID,USERNAME,FULLNAME,${roleSonId} roleSonId,phone,mobile from cwm_sys_user  where userId in (${userAdd})
+			 )t left join (	
+			    select wm_concat(orgName) orgName,USERID from (
+				    select distinct a.*,o.orgName,
+				    (select  p.posName from CWM_SYS_POS p where p.posid=a.posid ) as posName,
+				    o.company, o.companyId 
+				    from  CWM_SYS_USER_POSITION a inner join CWM_SYS_ORG o on o.orgid=a.orgid
+				    where a.isdelete=0
+				) group by USERID
+			 )tt on t.userId = tt.userId
+		)ttt where ttt.userId not in (${userDel})
+	</select>
+	<select id="getRecUser_mysql" resultMap="RecRoleSonUser" parameterType="map">
+		select <include refid="columns"/>  FROM (
+			select t.*,tt.orgName from (
+			    select USERID,USERNAME,FULLNAME,${roleSonId} roleSonId,phone,mobile  from cwm_sys_user
+		    	<if test="@Ognl@isNotEmpty(filterSql)">
+					${filterSql}
+				</if>
+				<if test="@Ognl@isNotEmpty(defFilterSql)">
+					union select USERID,USERNAME,FULLNAME,${roleSonId} roleSonId,phone,mobile  from cwm_sys_user
+					${defFilterSql}
+				</if>
+				union select USERID,USERNAME,FULLNAME,${roleSonId} roleSonId,phone,mobile  from cwm_sys_user  where userId in (${userAdd})
+			 )t left join (	
+			 	select GROUP_CONCAT(orgName) orgName,USERID from (
+				    select distinct a.*,o.orgName,
+				    (select  p.posName from CWM_SYS_POS p where p.posid=a.posid ) as posName,
+				    o.company, o.companyId 
+				    from  CWM_SYS_USER_POSITION a inner join CWM_SYS_ORG o on o.orgid=a.orgid
+				    where a.isdelete=0
+				)t1 group by USERID
+			 )tt on t.userId = tt.userId
+		)ttt where ttt.userId not in (${userDel})
+	</select>
+</mapper>

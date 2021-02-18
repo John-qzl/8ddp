@@ -1,0 +1,993 @@
+/**=========add loading========**/
+.l-dialog-loading{
+    /* background: url("../images/common/loading.gif") no-repeat scroll center 40% transparent;
+    display: none;
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: 91000; */
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	opacity: 0.99;
+	filter: alpha(opacity=99);
+	-moz-opacity:0.99;
+	opacity: 0.99;
+	background: #fff;
+	font-size: 1px;
+	*zoom: 1;
+	overflow: hidden;
+	display: none;
+	z-index: 9000;
+}
+
+.l-dialog-loading-img{
+    position: absolute;
+    left:50%;
+    top:50%;
+    margin-left: -12px;
+    margin-top: -12px;
+	z-index: 91001;
+}
+
+.l-dialog-content>input{
+	display: none;
+}
+
+.l-taskbar {
+    background-image: url('../images/win/taskbar.png');
+    background-repeat: repeat-x;
+    height: 36px;
+    line-height: 36px;
+    overflow: hidden;
+    width: 100%;
+    position: fixed;
+    left: 0px;
+    bottom: -36px;
+    display: none;
+    z-index: 11000;
+}
+
+.l-taskbar-tasks {
+    width: 100%;
+    margin-top: 2px;
+}
+
+.l-taskbar-task {
+    height: 26px;
+    line-height: 26px;
+    overflow: hidden;
+    margin: 2px;
+    float: left;
+    margin-left: 2px;
+    position: relative;
+    cursor: pointer;
+    background-repeat: repeat-x;
+}
+
+.l-taskbar-task {
+    background-image: url('../images/win/taskbar-task.gif');
+    border: 1px solid #676F7F;
+}
+
+.l-taskbar-task-icon {
+    position: absolute;
+    left: 5px;
+    top: 3px;
+    width: 24px;
+    height: 25px;
+    overflow: hidden;
+    background: url('../images/win/taskicon.gif') no-repeat;
+}
+
+.l-taskbar-task-content {
+    margin-left: 27px;
+    color: White;
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+.l-taskbar-task-over {
+    border-color: #A7ADB5;
+    background-position: 0px -30px;
+}
+
+.l-taskbar-task-active {
+    border-color: #A2A8AF;
+    background-position: 0px -60px;
+}
+
+.l-taskbar {
+    _position: absolute;
+    _bottom: auto;
+    _top: expression(eval(document.documentElement.scrollTop+document.documentElement.clientHeight-this.offsetHeight-(parseInt(this.currentStyle.marginTop, 10)||0)-(parseInt(this.currentStyle.marginBottom, 10)||0)));
+    _background-image: url('../images/win/taskbar.gif');
+}
+
+.l-taskbar-top {
+    bottom: auto;
+    top: 0px;
+    background-color: White;
+    padding-bottom: 1px;
+    border-bottom: 1px solid #687079;
+}
+
+.l-taskbar-top {
+    _position: absolute;
+    _top: expression(eval(document.documentElement.scrollTop));
+}
+
+
+/* ------------------
+   *   messagebox  *
+* --------------- */
+
+.l-messagebox {
+    position: absolute;
+    top: 100px;
+    left: 100px;
+    width: 300px;
+    background: #F2F8FF;
+    border-bottom: 1px solid #6f767d;
+    z-index: 9001;
+}
+
+.l-messagebox-title,
+.l-messagebox-close,
+.l-messagebox-close-over,
+.l-messagebox-btn,
+.l-messagebox-btn-l,
+.l-messagebox-btn-r,
+.l-messagebox-lt,
+.l-messagebox-rt {
+    background-image: url('../images/win/button.png');
+    background-repeat: no-repeat;
+}
+
+.l-messagebox .l-messagebox-title {
+    background-repeat: repeat-x;
+}
+
+.l-messagebox-title {
+    height: 21px;
+    line-height: 21px;
+    color: White;
+    font-weight: bold;
+    background-position: 0px -99px;
+}
+
+.l-messagebox-image {
+    width: 35px;
+    height: 35px;
+    overflow: hidden;
+    display: none;
+    position: absolute;
+    top: 30px;
+    left: 15px;
+    background: url('../images/win/box-icons.gif') no-repeat;
+}
+
+.l-messagebox-image-donne {
+    background-position: 0px 0px;
+}
+
+.l-messagebox-image-error {
+    background-position: 0px -115px;
+}
+
+.l-messagebox-image-question {
+    background-position: 0px -70px;
+    height: 45px;
+}
+
+.l-messagebox-image-warn {
+    background-position: 0px -35px;
+}
+
+.l-messagebox-title-inner {
+    padding-left: 10px;
+}
+
+.l-messagebox-content {
+    padding-left: 20px;
+    padding-top: 10px;
+    padding-bottom: 20px;
+}
+
+.l-messagebox-buttons {
+    height: 30px;
+    position: relative;
+    text-align: center;
+    margin-top: 4px;
+}
+
+.l-messagebox-buttons-inner {
+    margin-left: 10px;
+}
+
+.l-messagebox-close {
+    width: 13px;
+    height: 13px;
+    overflow: hidden;
+    position: absolute;
+    right: 4px;
+    top: 4px;
+    cursor: pointer;
+    background-position: -8px -24px;
+}
+
+.l-messagebox-close-over {
+    background-position: -8px -37px;
+}
+
+.l-messagebox-lt {
+    width: 3px;
+    height: 3px;
+    overflow: hidden;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 12;
+    background-position: 0px -48px;
+}
+
+.l-messagebox-rt {
+    width: 3px;
+    height: 3px;
+    overflow: hidden;
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 12;
+    background-position: -4px -48px;
+}
+
+.l-messagebox-l {
+    background: #6f767d;
+    width: 1px;
+    height: 100%;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    overflow: hidden;
+}
+
+.l-messagebox-r {
+    background: #6f767d;
+    width: 1px;
+    height: 100%;
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    overflow: hidden;
+}
+
+.l-messagebox-btn {
+    height: 24px;
+    overflow: hidden;
+    background: url('../images/win/button.png')
+}
+
+.l-messagebox-btn-inner {
+    text-align: center;
+}
+
+
+/* --------------
+   *   window  *
+* ------------ */
+
+.l-window-mask {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    filter: alpha(opacity=75);
+    -moz-opacity: 0.75;
+    opacity: 0.75;
+    background: #000;
+    font-size: 1px;
+    *zoom: 1;
+    overflow: hidden;
+    display: none;
+    z-index: 9000;
+}
+
+.l-window-mask-nobackground {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    display1: none;
+    font-size: 1px;
+    *zoom: 1;
+    overflow: hidden;
+    display: none;
+    z-index: 9000;
+}
+
+.l-window-dragging {
+    filter: alpha(opacity=80);
+    opacity: 0.80;
+}
+
+.l-window-dragging .l-window-content {
+    visibility: hidden;
+}
+
+.l-window {
+    position: absolute;
+    border: 1px solid #AFCCF1;
+    background: #F5F8F9;
+    z-index: 9100;
+    left: 0;
+    top: 0;
+    margin: 0;
+    padding: 0;
+}
+
+.l-window-header {
+    position: relative;
+    padding-left: 10px;
+    color: #183152;
+    font-weight: bold;
+    height: 25px;
+    line-height: 24px;
+    background: #E2EDFE url('../images/panel/panel-header.gif') repeat-x;
+    overflow: hidden;
+}
+
+.l-window-header-buttons {
+    position: absolute;
+    top: 3px;
+    right: 3px;
+    height: 20px;
+}
+
+.l-window-toggle {
+    float: left;
+    height: 16px;
+    width: 16px;
+    overflow: hidden;
+    background: url('../images/panel/panel-tools.gif');
+    background-position: 0px 0px;
+    cursor: pointer;
+    margin-left: 5px;
+}
+
+.l-window-min {
+    float: left;
+    height: 16px;
+    width: 16px;
+    overflow: hidden;
+    background: url('../images/panel/panel-tools.gif');
+    background-position: -16px 0px;
+    cursor: pointer;
+    margin-left: 5px;
+}
+
+.l-window-max {
+    float: left;
+    height: 16px;
+    width: 16px;
+    overflow: hidden;
+    background: url('../images/panel/panel-tools.gif');
+    background-position: -16px -16px;
+    cursor: pointer;
+    margin-left: 5px;
+}
+
+.l-window-regain {
+    float: left;
+    height: 16px;
+    width: 16px;
+    overflow: hidden;
+    background: url('../images/panel/panel-tools.gif');
+    background-position: -32px -16px;
+    cursor: pointer;
+    margin-left: 5px;
+}
+
+.l-window-toggle-close {
+    background-position: 0px -16px;
+}
+
+.l-window-close {
+    float: left;
+    height: 16px;
+    width: 16px;
+    overflow: hidden;
+    background: url('../images/panel/panel-tools.gif');
+    background-position: -32px 0px;
+    cursor: pointer;
+    margin-left: 5px;
+}
+
+.l-window-content {
+    overflow: hidden;
+    width: 100%;
+}
+
+.l-window-content-scroll {
+    overflow: scroll;
+}
+
+.l-window-content iframe {
+    border: none;
+    width: 100%;
+    height: 100%;
+}
+
+
+/* --------------
+   *   dialog  *
+* ------------ */
+
+.l-dialog {
+    position: absolute;
+    z-index: 10000;
+    display: none;
+    border: none;
+}
+
+.l-dialog-title {
+    font-weight: 700;
+    padding-left: 15px;
+    padding-right: 20px;
+    text-align: left;
+    padding-top: 0px;
+    color: #fff;
+    background-color: #347EFE!important;
+}
+
+.l-dialog-frame {
+    position: absolute;
+    z-index: 1;
+}
+
+.l-dialog table {
+    table-layout: auto;
+}
+
+.l-dialog-fixed {
+    position: fixed;
+    right: 0px;
+    bottom: -100px;
+    _position: absolute;
+    _bottom: auto;
+    _top: expression(eval(document.documentElement.scrollTop+document.documentElement.clientHeight-this.offsetHeight-(parseInt(this.currentStyle.marginTop, 10)||0)-(parseInt(this.currentStyle.marginBottom, 10)||0)));
+}
+
+
+.l-dialog-table td {
+    padding: 0px;
+    border: none;
+    white-space: normal;
+    height: 0px;
+}
+
+/* .l-dialog-body {
+    position: relative;
+    overflow: hidden;
+    border: 1px solid #a7cff4; 
+} 
+*/
+
+.l-dialog {
+    padding: 0;
+    margin: 0;
+    font-size: 12px;
+}
+
+.l-dialog td,
+.l-dialog tr,
+.l-dialog td div {
+    font-size: 14px;
+}
+
+.l-dialog-cc {
+    background: #eee;
+}
+
+.l-dialog-tl,
+.l-dialog-tr,
+.l-dialog-bl,
+.l-dialog-br,
+.l-dialog-cl,
+.l-dialog-cr {
+    width: 6px;
+}
+
+.l-dialog-tl,
+.l-dialog-tc,
+.l-dialog-tr {
+    height: 26px;
+}
+
+.l-dialog-bl,
+.l-dialog-bc,
+.l-dialog-br {
+    height: 6px;
+}
+
+.l-dialog-tc {
+    /*border-top: 1px solid #D2D2D2;*/
+}
+
+.l-dialog-tl {
+    width: 1px;
+    /*border-left: 1px solid #D2D2D2;*/
+}
+
+.l-dialog-tr {
+    width: 1px;
+    /*border-right: 1px solid #D2D2D2;*/
+}
+
+.l-dialog-bl {
+    width: 1px;
+    /*border-left: 1px solid #D2D2D2;*/
+}
+
+.l-dialog-bc {}
+
+.l-dialog-br {
+    width: 1px;
+    /*border-right: 1px solid #D2D2D2;*/
+}
+
+.l-dialog-cl {
+    width: 1px;
+    /*border-left: 1px solid #D2D2D2;*/
+}
+
+.l-dialog-cr {
+    width: 1px;
+    /*border-right: 1px solid #D2D2D2;*/
+}
+
+
+/**鐎殿喖婀遍悰銉﹀緞閹绢喖鍔ラ柟绋款樀閹告娊宕堕悙顒傚灱Start**/
+
+.l-dialog-winbtns {
+    position: absolute;
+    right: 10px;
+    top: 4px;
+    height: 20px;
+}
+
+.l-dialog-winbtn {
+    cursor: pointer;
+    overflow: hidden;
+    width: 20px;
+    height: 25px;
+    float: right;
+    position: relative;
+    top: -2px;
+    font-size: 16px;
+    color: rgb(255, 255, 255);
+    text-align: left;
+}
+
+.l-dialog-close{	
+	background: url(../../../images/icons/close_white.png) no-repeat center center;
+}
+.l-dialog-close:hover,
+.l-dialog-close-over{	
+	background: url(../../../images/icons/close_white_hover.png) no-repeat center center;
+}
+.l-dialog-close-disabled {
+	background: url(../../../images/icons/close_white_disable.png) no-repeat center center;
+}
+.l-dialog-collapse{
+	background: url(../../../images/icons/up.png) no-repeat center center;
+}
+.l-dialog-collapse-over {	
+	background: url(../../../images/icons/up_hover.png) no-repeat center center;
+}
+.l-dialog-collapse-disabled{
+	background: url(../../../images/icons/up_disable.png) no-repeat center center;
+}
+.l-dialog-extend{
+	background: url(../../../images/icons/down.png) no-repeat center center;
+}
+.l-dialog-extend-over {
+	background: url(../../../images/icons/down_hover.png) no-repeat center center;
+}
+.l-dialog-extend-disabled{
+	background: url(../../../images/icons/down_disable.png) no-repeat center center;
+}
+.l-dialog-max{
+	background: url(../../../images/icons/fullScreen.png) no-repeat center center;
+}
+.l-dialog-max-over {
+	background: url(../../../images/icons/fullScreen_hover.png) no-repeat center center;
+}
+.l-dialog-max-disabled{
+	background: url(../../../images/icons/fullScreen_disable.png) no-repeat center center;
+}
+.l-dialog-recover{
+	background: url(../../../images/icons/miniScreen.png) no-repeat center center;
+}
+.l-dialog-recover-over {
+	background: url(../../../images/icons/miniScreen_hover.png) no-repeat center center;
+}
+.l-dialog-recover-disabled {
+	background: url(../../../images/icons/miniScreen_disable.png) no-repeat center center;
+}
+/* .l-dialog-close:before {
+    content: "\e69a";
+    position: absolute;
+    top: -1px;
+    font-family: "iconfont";
+}
+
+.l-dialog-close-over:before {
+    font-weight: bolder;
+    font-size: 16px;
+}
+
+.l-dialog-close-disabled {
+    cursor: default;
+    color: rgb(154, 154, 154);
+}
+
+.l-dialog-collapse:before {
+    content: "\e63d";
+    position: absolute;
+    top: -1px;
+    font-size: 14px;
+    font-family: "iconfont";
+}
+
+.l-dialog-collapse-over:before {
+    font-size: 16px;
+    font-weight: bolder;
+}
+
+.l-dialog-collapse-disabled {
+    color: rgb(154, 154, 154);
+    cursor: default;
+}
+
+.l-dialog-extend:before {
+    content: "\e643";
+    position: absolute;
+    top: -1px;
+    font-size: 14px;
+    font-family: "iconfont";
+}
+
+.l-dialog-extend-over:before {
+    font-size: 16px;
+    font-weight: bolder;
+}
+
+.l-dialog-extend-disabled {
+    color: rgb(154, 154, 154);
+    cursor: default;
+} */
+
+.l-dialog-min:before {
+    content: "\e6fe";
+    position: absolute;
+    top: -1px;
+    font-size: 16px;
+    font-family: "iconfont";
+}
+
+.l-dialog-min-over:before {
+    font-weight: bolder;
+}
+
+.l-dialog-min-disabled:before {
+    color: rgb(154, 154, 154);
+    cursor: default;
+}
+
+/* .l-dialog-max:before {
+    content: "\e60d";
+    position: absolute;
+    top: -1px;
+    font-size: 14px;
+    font-family: "iconfont";
+}
+
+.l-dialog-max-over:before {
+    font-size: 16px;
+    font-weight: bolder;
+}
+
+.l-dialog-max-disabled:before {
+    color: rgb(154, 154, 154);
+    cursor: default;
+}
+
+.l-dialog-recover:before {
+    content: "\e601";
+    position: absolute;
+    top: -1px;
+    font-size: 14px;
+    font-family: "iconfont";
+}
+
+.l-dialog-recover-over:before {
+    font-size: 16px;
+    font-weight: bolder;
+}
+
+.l-dialog-recover-disabled {
+    color: rgb(154, 154, 154);
+    cursor: default;
+} */
+
+.l-dialog-tc-inner {
+    position: relative;
+    height: 35px;
+    line-height: 35px;
+    width: 100%;
+    background: #347EFE;
+}
+
+/* .l-dialog-tc-inner .l-dialog-icon:before {
+    position: absolute;
+    left: 6px;
+    top: 0px;
+    color: #fff;
+    content: "\e612";
+    font-family: "iconfont";
+} */
+
+
+/**鐎殿喖婀遍悰銉﹀緞閹绢喖鍔ラ柟绋款樀閹告娊宕堕悙顒傚灱end**/
+
+.l-dialog-content {
+    padding-left: 18px;
+    padding-top: 20px;
+    padding-bottom: 12px;
+}
+.l-dialog-image + .l-dialog-content {
+	height: auto !important;
+	padding-bottom: 30px !important;
+}
+.l-dialog-content>div {
+	max-height: 300px;
+	overflow: auto;
+}
+.l-dialog-body{
+	/* border: 1px #898989 solid; */
+	border-top: none;
+	background-color: #fff;
+	border-left: 1px solid #a7cff4;
+	/* border-right: 1px solid #a7cff4; */
+	border-bottom: 1px solid #a7cff4;
+}
+
+.l-dialog-content-noimage {
+    padding-left: 0px;
+    padding-top: 0px;
+    padding-bottom: 10px;
+    box-sizing: border-box;
+}
+
+.l-dialog-win .l-dialog-content {
+    /* padding-top: 3px; */
+    /*padding-bottom: 3px;*/
+    overflow: hidden;
+    height:100%;
+}
+
+.l-dialog-content-nopadding {
+    padding: 0;
+}
+
+.l-dialog-content iframe {
+    border: none;
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+.l-dialog-image {
+    width: 48px;
+    height: 48px;
+    overflow: hidden;
+    display: none;
+    position: absolute;
+    top: 48px;
+    left: 10px;
+}
+
+.l-dialog-image-donne:before {
+    position: absolute;
+    top: 0px;
+    left: 15px;
+    font-size: 26px;
+    color: #43CD80;
+    content: "\e604";
+    z-index: 2;
+    font-family: "iconfont";
+}
+
+.l-dialog-image-error:before {
+    position: absolute;
+    top: -1px;
+    left: 17px;
+    font-size: 29px;
+    color: #CD0000;
+    opacity: .8;
+    content: "\e619";
+    z-index: 2;
+    font-family: "iconfont";
+}
+
+.l-dialog-image-question:before {
+    position: absolute;
+    top: 10px;
+    left: 12px;
+    font-size: 26px;
+    font-family: "iconfont";
+    content: "\e6ff";
+    z-index: 2;
+}
+
+.l-dialog-image-warn:before {
+    position: absolute;
+    top: 6px;
+    left: 12px;
+    font-size: 26px;
+    font-family: "iconfont";
+    color: #FFB90F;
+    content: "\e68b";
+    z-index: 2;
+}
+
+/* .l-dialog-image-warn:after {
+    display: block;
+    width: 5px;
+    height: 20px;
+    background: #000000;
+    position: absolute;
+    top: 10px;
+    left: 22px;
+    content: "";
+} */
+
+.l-dialog-buttons {
+    position: relative;
+    background: #ffffff;
+    overflow: hidden;
+    text-align: center;
+	border-top: 1px solid #4092D0;
+}
+
+.l-dialog-buttons-inner {
+    display: inline-block;
+}
+
+.l-dialog-btn {
+    overflow: hidden;
+    width: 70px;
+    position: relative;
+    float: right;
+    background-color: #fff;
+    border-radius: 3px;
+    line-height: 28px;
+    height: 26px;
+    cursor: pointer;
+    margin: 5px 5px;
+    font-size: 14px;
+    border: 1px solid #4092D0;
+    color: #4092D0;
+}
+
+.l-dialog-btn-inner {
+    text-align: center;
+}
+
+.l-dialog-btn-inner:hover{
+	background-color: #3eaaf5;
+	color: #fff;
+}
+
+.l-dialog-btn .l-dialog-btn-inner:before {
+    font-family: "iconfont";
+    content: "\e645";
+}
+
+.l-dialog-btn.l-dialog-btn-ok .l-dialog-btn-inner:before {
+    font-family: "iconfont";
+    content: "\e645";
+    margin-right:3px;
+}
+
+.l-dialog-btn.l-dialog-btn-no .l-dialog-btn-inner:before {
+    font-family: "iconfont";
+    content: "\e657";
+    margin-right:3px;
+}
+
+.l-dialog-btn.l-dialog-btn-cancle .l-dialog-btn-inner:before {
+    font-family: "iconfont";
+    content: "\e7c1";
+    margin-right:3px;
+}
+
+.l-dialog-inputtext {
+    width: 280px;
+    line-height: 23px;
+    height: 25px;
+}
+
+.l-dialog-textarea {
+    width: 280px;
+    height: 80px;
+}
+
+.l-messagebox-btn,
+.l-dialog-btn {
+    background-position: 0px 0px;
+}
+
+.l-messagebox-btn-l,
+.l-dialog-btn-l {
+    height: 24px;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    width: 4px;
+    background-position: 0px -24px;
+}
+
+.l-messagebox-btn-r,
+.l-dialog-btn-r {
+    height: 24px;
+    position: absolute;
+    right: 0px;
+    top: 0px;
+    width: 4px;
+    background-position: -4px -24px;
+}
+
+.div_error_msg {
+    font-weight: bold;
+    font-size: 20px!important;
+}
+
+.div_toggle {
+    margin-top: 5px;
+    padding-left: 10px;
+    background: url("../images/icon/icon-up.gif") no-repeat 0 5px;
+    height: 16px;
+    cursor: pointer;
+}
+
+.div_toggle_down {
+    background: url("../images/icon/icon-down.gif") no-repeat 0 5px;
+}
+
+.div_error_detail {
+    overflow: auto;
+    height: 120px;
+    width: 300px;
+}
+
+.div_tipdialog_msg {
+    font-weight: bold;
+    font-size: 16px!important;
+    color: red;
+}
+
+.div_tipdialog_detail {
+    display: block;
+    overflow: auto;
+    height: 80px;
+    width: 350px;
+    border: 1px solid #000000;
+}

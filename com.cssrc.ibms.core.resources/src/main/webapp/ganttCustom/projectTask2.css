@@ -1,0 +1,30 @@
+.gantt_link_control div {
+	behavior:url(ie-css3.htc); /*ie8-,���ýű�*/
+}
+
+.gantt_tree_icon.gantt_ptrw {
+  	background-image: url(images/ptrw.png);
+}
+.gantt_tree_icon.gantt_jd {
+  	background-image: url(images/jieduan.png);
+}
+.gantt_tree_icon.gantt_htjd {
+  	background-image: url(images/htjd.png);
+}
+.gantt_tree_icon.gantt_kzjd {
+  	background-image: url(images/kzjd.png);
+}
+.gantt_tree_icon.gantt_bmxzrw {
+  	background-image: url(images/bmxzrw.png);
+}
+.gantt_tree_icon.gantt_wxrw {
+  	background-image: url(images/wxrw.png);
+}
+
+.gantt_qi_big_icon.icon_reset {
+	color: #454545;
+}
+.gantt_cal_qi_controls .gantt_menu_icon.icon_reset {
+	width: 20px;
+	background-image: url(images/bmxzrw.png);
+}

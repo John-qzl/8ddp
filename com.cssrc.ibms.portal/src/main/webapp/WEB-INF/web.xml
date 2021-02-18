@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app id="WebApp_ID" version="2.4"
+	xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
+	
+	<display-name>portal</display-name>
+	<description>IBMS Application</description>
+	<context-param>
+		<param-name>webAppRootKey</param-name>
+		<param-value>webapp.root</param-value>
+	</context-param>
+	<!-- 配置文件根目录 -->
+	<context-param>
+		<param-name>contextInitializerClasses</param-name>
+		<param-value>com.cssrc.ibms.init.SystemConfInit</param-value>
+	</context-param>
+	<!-- app-context -->
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>classpath:app-context.xml</param-value>
+	</context-param>
+	<!--log4j 日志输出配置 -->
+	<listener>
+		<listener-class>com.cssrc.ibms.core.log.listener.Log4jInit</listener-class>
+	</listener>
+	<!--分布式文件FastDFS连接服务器 -->
+	<!-- <listener>
+		<listener-class>com.cssrc.ibms.core.util.listener.FastDFS</listener-class>
+	</listener> -->
+	<!--Spring 日志输出配置 -->
+	<listener>
+		<listener-class>org.springframework.web.util.Log4jConfigListener</listener-class>
+	</listener>
+	<!-- Spring 上下文配置文件的加载 context对象保存在AppUtil.servletContext中 -->
+	<listener>
+		<listener-class>com.cssrc.ibms.listener.StartupListner</listener-class>
+	</listener>
+	<!--Spring 刷新Introspector防止内存泄露 -->
+	<listener>
+		<listener-class>org.springframework.web.util.IntrospectorCleanupListener</listener-class>
+	</listener>
+	<!-- 在线用户的session监测 -->
+	<listener>
+		<listener-class>com.cssrc.ibms.core.user.listener.UserSessionListener</listener-class>
+	</listener>
+	<!-- 系统启动初始化相关系统模板 -->
+	<listener>
+		<listener-class>com.cssrc.ibms.listener.ServerListener</listener-class>
+	</listener>
+
+	<!-- url访问数据编码 -->
+	<filter>
+		<filter-name>encodingFilter</filter-name>
+		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+		<init-param>
+			<param-name>encoding</param-name>
+			<param-value>UTF-8</param-value>
+		</init-param>
+		<init-param>
+			<param-name>forceEncoding</param-name>
+			<param-value>true</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>encodingFilter</filter-name>
+		<url-pattern>*.do</url-pattern>
+	</filter-mapping>
+
+
+	<!-- 不进行缓存 -->
+	<filter>
+		<filter-name>NoCache</filter-name>
+		<filter-class>com.cssrc.ibms.core.web.filter.ResponseHeaderFilter</filter-class>
+		<init-param>
+			<param-name>Cache-Control</param-name>
+			<param-value>no-cache, must-revalidate</param-value>
+		</init-param>
+	</filter>
+	<!--压缩js的filter -->
+	<filter>
+		<filter-name>GzipJsFilter</filter-name>
+		<filter-class>com.cssrc.ibms.core.web.filter.GzipJsFilter</filter-class>
+		<init-param>
+			<param-name>headers</param-name>
+			<param-value>Content-Encoding=gzip</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>GzipJsFilter</filter-name>
+		<url-pattern>*.gzjs</url-pattern>
+	</filter-mapping>
+
+	<!--spring安全策略过滤 -->
+	<filter>
+		<filter-name>springSecurityFilterChain</filter-name>
+		<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>springSecurityFilterChain</filter-name>
+		<url-pattern>/logout</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>springSecurityFilterChain</filter-name>
+		<url-pattern>/j_spring_security_check</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>springSecurityFilterChain</filter-name>
+		<url-pattern>/j_spring_cas_security_check</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>springSecurityFilterChain</filter-name>
+		<url-pattern>/j_spring_security_exit_user</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>springSecurityFilterChain</filter-name>
+		<url-pattern>/j_spring_security_switch_user</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>springSecurityFilterChain</filter-name>
+		<url-pattern>*.do</url-pattern>
+		<dispatcher>REQUEST</dispatcher>
+		<dispatcher>ERROR</dispatcher>
+		<dispatcher>FORWARD</dispatcher>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>springSecurityFilterChain</filter-name>
+		<url-pattern>*.jsp</url-pattern>
+	</filter-mapping>
+	<!--response 编码filter -->
+	<!-- 页面编码拦截器 -->
+	<filter>
+		<filter-name>responseHeaderFilter</filter-name>
+		<filter-class>com.cssrc.ibms.core.web.filter.ResponseEncodeFilter</filter-class>
+		<init-param>
+			<param-name>encoding</param-name>
+			<param-value>UTF-8</param-value>
+		</init-param>
+		<init-param>
+			<param-name>contentType</param-name>
+			<param-value>text/html;charset=UTF-8</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>responseHeaderFilter</filter-name>
+		<url-pattern>*.do</url-pattern>
+	</filter-mapping>
+
+	<!--初始化参数 -->
+	<servlet>
+		<servlet-name>init</servlet-name>
+		<servlet-class>com.cssrc.ibms.init.servlet.InitApplication</servlet-class>
+		<load-on-startup>0</load-on-startup>
+	</servlet>
+	<!-- 显示关闭连接池 -->
+	<servlet>
+		<servlet-name>loadServlet</servlet-name>
+		<servlet-class>com.cssrc.ibms.core.web.servlet.HouseKeeperServlet</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	
+	<!-- springmvc DispatcherServlet配置 -->
+<!-- 	<servlet>
+		<servlet-name>action</servlet-name>
+		<servlet-class>com.cssrc.ibms.core.web.servlet.SpringMvcServlet</servlet-class>
+		<init-param>
+			<param-name>contextClass</param-name>
+			<param-value>
+				org.springframework.web.context.support.AnnotationConfigWebApplicationContext
+			</param-value>
+		</init-param>
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			扫描 包com.cssrc.ibms.core.web.conf 下的java 类配置文件
+			<param-value>com.cssrc.ibms.core.web.conf</param-value>
+		</init-param>
+		<load-on-startup>2</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>action</servlet-name>
+		<url-pattern>*.do</url-pattern>
+	</servlet-mapping> -->
+	
+	<servlet>
+		<servlet-name>action</servlet-name>
+		<servlet-class>com.cssrc.ibms.core.web.servlet.SpringMvcServlet</servlet-class>
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>classpath:app-action.xml</param-value>
+		</init-param>
+		<load-on-startup>2</load-on-startup>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>action</servlet-name>
+		<url-pattern>*.do</url-pattern>
+	</servlet-mapping>
+
+	<!--webservice的接口 -->
+	<servlet>
+		<servlet-name>XFireServlet</servlet-name>
+		<servlet-class>org.codehaus.xfire.spring.XFireSpringServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>XFireServlet</servlet-name>
+		<url-pattern>/services/*</url-pattern>
+	</servlet-mapping>
+	<!--超时设置 -->
+	<session-config>
+		<session-timeout>300</session-timeout>
+	</session-config>
+	<!-- 403错误界面 -->
+	<error-page>
+		<error-code>403</error-code>
+		<location>/commons/403.jsp</location>
+	</error-page>
+
+	<!-- 500错误界面 -->
+	<error-page>
+		<error-code>500</error-code>
+		<location>/error.do</location>
+	</error-page>
+
+	<!-- 404错误界面 -->
+	<error-page>
+		<error-code>404</error-code>
+		<location>/commons/404.jsp</location>
+	</error-page>
+
+	<!-- lang异常界面 -->
+	<error-page>
+		<exception-type>java.lang.Exception</exception-type>
+		<location>/error.do</location>
+	</error-page>
+
+	<welcome-file-list>
+		<welcome-file>login.jsp</welcome-file>
+	</welcome-file-list>
+
+	<jsp-config>
+		<taglib>
+			<taglib-uri>http://www.cssrc.com.cn/functions</taglib-uri>
+			<taglib-location>/WEB-INF/tld/IbmsTag.tld</taglib-location>
+		</taglib>
+	</jsp-config>
+
+	<!-- PageOffice Begin -->
+	<servlet>
+		<servlet-name>poserver</servlet-name>
+		<servlet-class>com.zhuozhengsoft.pageoffice.poserver.Server</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>poserver</servlet-name>
+		<url-pattern>/poserver.do</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>poserver</servlet-name>
+		<url-pattern>/pageoffice.cab</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>poserver</servlet-name>
+		<url-pattern>/popdf.cab</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>poserver</servlet-name>
+		<url-pattern>/sealsetup.exe</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>poserver</servlet-name>
+		<url-pattern>/posetup.exe</url-pattern>
+	</servlet-mapping>
+	<!-- PageOffice End -->
+
+
+</web-app>

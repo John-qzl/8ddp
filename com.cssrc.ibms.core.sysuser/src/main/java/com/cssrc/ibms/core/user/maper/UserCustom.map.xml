@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+<mapper namespace="com.cssrc.ibms.core.user.model.UserCustom">
+	<resultMap id="UserCustom" type="com.cssrc.ibms.core.user.model.UserCustom">
+		<id property="userId" column="userId" jdbcType="NUMERIC"/>
+		<result property="customInfo" column="customInfo" jdbcType="CLOB" />		
+	</resultMap>
+	
+	<sql id="columns">
+		userId,customInfo
+	</sql>
+	
+	<sql id="dynamicWhere">
+		<where>
+			<if test="@Ognl@isNotEmpty(userId)"> AND userId  =#{userId} </if>
+		</where>
+	</sql>
+    
+    
+	<insert id="add" parameterType="com.cssrc.ibms.core.user.model.SysUser">
+		INSERT INTO cwm_sys_user_cust
+		(<include refid="columns"/>)
+		VALUES
+		(#{userId,jdbcType=NUMERIC}, #{customInfo,jdbcType=CLOB})
+	</insert>
+	
+	<delete id="delById" parameterType="java.lang.Long">
+		DELETE FROM cwm_sys_user_cust 
+		WHERE
+		userId=#{userId}
+	</delete>
+	
+
+	<update id="update" parameterType="com.cssrc.ibms.core.user.model.UserCustom">
+		UPDATE cwm_sys_user_cust SET
+		customInfo=#{customInfo,jdbcType=CLOB} 
+		WHERE
+		userId=#{userId}
+	</update>
+	
+	<select id="getById" parameterType="java.lang.Long" resultMap="UserCustom">
+		SELECT <include refid="columns"/>
+		FROM cwm_sys_user_cust
+		WHERE
+		userId=#{userId}
+	</select>		
+	<select id="getAll" resultMap="UserCustom">
+		SELECT <include refid="columns"/>
+		FROM cwm_sys_user_cust  
+		order by userId desc
+	</select>	
+</mapper>

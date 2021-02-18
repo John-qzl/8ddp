@@ -1,0 +1,407 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+<mapper namespace="com.cssrc.ibms.system.model.SysFile">
+	
+	<resultMap id="SysFile" type="com.cssrc.ibms.system.model.SysFile">
+		<id property="fileId" column="FILEID" jdbcType="NUMERIC"/>
+		<result property="filename" column="FILENAME" jdbcType="VARCHAR"/>
+		<result property="filepath" column="FILEPATH" jdbcType="VARCHAR"/>
+		<result property="createtime" column="CREATETIME" jdbcType="TIMESTAMP"/>
+		<result property="ext" column="EXT" jdbcType="VARCHAR"/>
+		<result property="fileType" column="FILETYPE" jdbcType="VARCHAR"/>
+		<result property="note" column="NOTE" jdbcType="VARCHAR"/>
+		<result property="creatorId" column="CREATORID" jdbcType="NUMERIC"/>
+		<result property="creator" column="CREATOR" jdbcType="VARCHAR"/>
+		<result property="totalBytes" column="TOTALBYTES" jdbcType="NUMERIC"/>
+		<result property="delFlag" column="DELFLAG" jdbcType="NUMERIC"/>
+		<result property="protypeId" column="PROTYPEID" jdbcType="NUMERIC"/>
+		<result property="tableId" column="TABLEID" jdbcType="VARCHAR"/>
+		<result property="dataId" column="DATAID" jdbcType="VARCHAR"/>
+		<result property="shared" column="SHARED" jdbcType="NUMERIC"/>
+		<result property="folderid" column="FOLDERID" jdbcType="NUMERIC"/>
+		<result property="fileatt" column="FILEATT" jdbcType="NUMERIC"/>
+		<result property="folderPath" column="FOLDERPATH" jdbcType="VARCHAR"/>
+		<result property="security" column="SECURITY_" jdbcType="VARCHAR"/>
+		<result property="describe" column="DESCRIBE_" jdbcType="VARCHAR"/>
+		<result property="fileBlob" column="FILEBLOB" jdbcType="BLOB"/>
+		<result property="filing" column="FILING" jdbcType="NUMERIC"/>
+		<result property="parentId" column="PARENTID" jdbcType="NUMERIC"/>
+		<result property="isnew" column="ISNEW" jdbcType="NUMERIC"/>
+		<result property="isEncrypt" column="ISENCRYPT" jdbcType="NUMERIC"/>
+		<result property="version" column="VERSION" jdbcType="VARCHAR"/>
+		<result property="storeWay" column="STOREWAY" jdbcType="NUMERIC"/>
+		<result property="dimension" column="DIMENSION" jdbcType="VARCHAR"/>
+	</resultMap>
+	
+	<sql id="columns">
+		FILEID,FILENAME,FILEPATH,CREATETIME,EXT,FILETYPE,NOTE,CREATORID,CREATOR,TOTALBYTES,DELFLAG,
+		PROTYPEID,TABLEID,DATAID,SHARED,FOLDERID,FILEATT,FOLDERPATH,SECURITY_,DESCRIBE_,FILEBLOB,FILING,PARENTID,ISNEW,ISENCRYPT,VERSION,STOREWAY,DIMENSION
+	</sql>
+	<sql id="columns_NoBlob">
+		FILEID,FILENAME,FILEPATH,CREATETIME,EXT,FILETYPE,NOTE,CREATORID,CREATOR,TOTALBYTES,DELFLAG,
+		PROTYPEID,TABLEID,DATAID,SHARED,FOLDERID,FILEATT,FOLDERPATH,SECURITY_,DESCRIBE_,FILING,PARENTID,ISNEW,ISENCRYPT,VERSION,STOREWAY,DIMENSION
+	</sql>
+	
+	<sql id="dynamicWhere">
+		<where>
+			<if test="@Ognl@isNotEmpty(fileId)"> AND FILEID =#{fileId} </if>
+			<if test="@Ognl@isNotEmpty(filename)"> AND FILENAME LIKE '%${filename}%' </if>
+			<if test="@Ognl@isNotEmpty(filepath)"> AND FILEPATH LIKE '%${filepath}%' </if>
+			<if test="@Ognl@isNotEmpty(createtime)"> AND CREATETIME =#{createtime} </if>
+			<if test="@Ognl@isNotEmpty(ext)"> AND EXT LIKE '%${ext}%'  </if>
+			<if test="@Ognl@isNotEmpty(fileType)"> AND FILETYPE =#{fileType} </if>
+			<if test="@Ognl@isNotEmpty(creatorId)"> AND CREATORID =#{creatorId} </if>
+			<if test="@Ognl@isNotEmpty(creator)"> AND CREATOR LIKE '%${creator}%'  </if>
+			<if test="@Ognl@isNotEmpty(totalBytes)"> AND TOTALBYTES =#{totalBytes} </if>
+			<if test="@Ognl@isNotEmpty(delFlag)"> AND DELFLAG =#{delFlag} </if>
+			<if test="@Ognl@isNotEmpty(protypeId)"> AND PROTYPEID =#{protypeId} </if>
+			<if test="@Ognl@isNotEmpty(tableId)"> AND TABLEID =#{tableId} </if>
+			<if test="@Ognl@isNotEmpty(dataId)"> AND DATAID =#{dataId} </if>
+			<if test="@Ognl@isNotEmpty(shared)"> AND SHARED =#{shared}  </if>
+			<if test="@Ognl@isNotEmpty(folderid)"> AND FOLDERID =#{folderid} </if>
+			<if test="@Ognl@isNotEmpty(fileatt)"> AND FILEATT =#{fileatt} </if>
+			<if test="@Ognl@isNotEmpty(folderPath)"> AND FOLDERPATH LIKE '%${folderPath}%'  </if>
+			<if test="@Ognl@isNotEmpty(security)"> AND SECURITY_ =#{security} </if>
+			<if test="@Ognl@isNotEmpty(filing)"> AND FILING =#{filing} </if>
+			<if test="@Ognl@isNotEmpty(parentId)"> AND PARENTID =#{parentId} </if>
+			<if test="@Ognl@isNotEmpty(isnew)"> AND ISNEW =#{isnew} </if>
+			<if test="@Ognl@isNotEmpty(isEncrypt)"> AND ISENCRYPT =#{isEncrypt} </if>
+			<if test="@Ognl@isNotEmpty(version)"> AND VERSION LIKE'%${version}%' </if>
+			<if test="@Ognl@isNotEmpty(storeWay)"> AND STOREWAY=#{storeWay}</if>
+		</where>
+	</sql>
+
+	<insert id="add" parameterType="com.cssrc.ibms.system.model.SysFile">
+		INSERT INTO CWM_SYS_FILE
+		(
+			<include refid="columns"/>
+		)
+		VALUES
+		(
+			#{fileId,jdbcType=NUMERIC}, 
+			#{filename,jdbcType=VARCHAR}, 
+			#{filepath,jdbcType=VARCHAR}, 
+			#{createtime,jdbcType=TIMESTAMP}, 
+			#{ext,jdbcType=VARCHAR}, 
+			#{fileType,jdbcType=VARCHAR}, 
+			#{note,jdbcType=VARCHAR},
+			#{creatorId,jdbcType=NUMERIC}, 
+			#{creator,jdbcType=VARCHAR}, 
+			#{totalBytes,jdbcType=NUMERIC}, 
+			#{delFlag,jdbcType=NUMERIC}, 
+			#{protypeId,jdbcType=NUMERIC}, 
+			#{tableId,jdbcType=VARCHAR}, 
+			#{dataId,jdbcType=VARCHAR},
+			#{shared,jdbcType=NUMERIC}, 
+			#{folderid,jdbcType=NUMERIC}, 
+			#{fileatt,jdbcType=NUMERIC}, 
+			#{folderPath,jdbcType=VARCHAR}, 
+			#{security,jdbcType=VARCHAR}, 
+			#{describe,jdbcType=VARCHAR},
+			#{fileBlob,jdbcType=BLOB},
+			#{filing,jdbcType=NUMERIC},
+			#{parentId,jdbcType=NUMERIC},
+			#{isnew,jdbcType=NUMERIC},
+			#{isEncrypt,jdbcType=NUMERIC},
+			#{version,jdbcType=VARCHAR},
+			#{storeWay,jdbcType=NUMERIC},
+			#{dimension,jdbcType=VARCHAR}
+		)
+	</insert>
+	
+	<delete id="delById" parameterType="java.lang.Long">
+		DELETE FROM CWM_SYS_FILE 
+		WHERE
+		FILEID=#{fileId}
+	</delete>
+	
+	<delete id="delByDataId" parameterType="java.lang.Long">
+		DELETE FROM CWM_SYS_FILE 
+		where dataid = #{virtual_dataId} and tableId = #{tableId}
+		and CREATORID = #{userId}	
+	</delete>
+	
+	<update id="update" parameterType="com.cssrc.ibms.system.model.SysFile">
+		UPDATE CWM_SYS_FILE SET
+		FILENAME=#{filename,jdbcType=VARCHAR}, 
+		FILEPATH=#{filepath,jdbcType=VARCHAR}, 
+		CREATETIME=#{createtime,jdbcType=TIMESTAMP}, 
+		EXT=#{ext,jdbcType=VARCHAR}, 
+		FILETYPE=#{fileType,jdbcType=VARCHAR}, 
+		NOTE=#{note,jdbcType=VARCHAR},
+		CREATORID=#{creatorId,jdbcType=NUMERIC}, 
+		CREATOR=#{creator,jdbcType=VARCHAR}, 
+		TOTALBYTES=#{totalBytes,jdbcType=NUMERIC}, 
+		DELFLAG=#{delFlag,jdbcType=NUMERIC}, 
+		PROTYPEID=#{protypeId,jdbcType=NUMERIC}, 
+		TABLEID=#{tableId,jdbcType=VARCHAR}, 
+		DATAID=#{dataId,jdbcType=VARCHAR},
+		SHARED=#{shared,jdbcType=NUMERIC}, 
+		FOLDERID=#{folderid,jdbcType=NUMERIC}, 
+		FILEATT=#{fileatt,jdbcType=NUMERIC}, 
+		FOLDERPATH=#{folderPath,jdbcType=VARCHAR}, 
+		SECURITY_=#{security,jdbcType=VARCHAR}, 
+		DESCRIBE_=#{describe,jdbcType=VARCHAR},
+		FILING=#{filing,jdbcType=NUMERIC},
+		PARENTID=#{parentId,jdbcType=NUMERIC},
+		ISNEW=#{isnew,jdbcType=NUMERIC},
+		ISENCRYPT=#{isEncrypt,jdbcType=NUMERIC},
+		VERSION=#{version,jdbcType=VARCHAR},
+		STOREWAY=#{storeWay,jdbcType=NUMERIC},
+		DIMENSION=#{dimension,jdbcType=VARCHAR}
+		WHERE
+		FILEID=#{fileId}
+	</update>
+	
+	<update id="updateDataId" parameterType="com.cssrc.ibms.system.model.SysFile">
+		UPDATE CWM_SYS_FILE SET DATAID=#{real_dataId}
+		where tableId = #{tableId} and
+		dataid = #{virtual_dataId}
+		and CREATORID = #{userId}		
+	</update>	
+	<select id="getById" parameterType="java.lang.Long" resultMap="SysFile">
+		SELECT <include refid="columns"/>
+		FROM CWM_SYS_FILE
+		WHERE
+		FILEID=#{fileId}
+	</select>
+	
+	<select id="getPhoto"  resultMap="SysFile">
+		SELECT <include refid="columns"/>
+		FROM CWM_SYS_FILE
+		WHERE
+		TABLEID is not null
+	</select>
+	
+	<select id="getByParams" parameterType="java.util.Map" resultMap="SysFile">
+		SELECT <include refid="columns"/>
+		FROM CWM_SYS_FILE
+		<include refid="dynamicWhere" />
+	</select>
+	
+	<select id="getSysFileByFolderId" parameterType="java.util.Map" resultMap="SysFile">
+		SELECT <include refid="columns"/>
+		FROM CWM_SYS_FILE
+		<include refid="dynamicWhere" />
+	</select>
+	
+	<select id="getSysFileByFilePath" parameterType="java.util.Map" resultMap="SysFile">
+		SELECT <include refid="columns"/>
+		FROM CWM_SYS_FILE
+		<include refid="dynamicWhere" />
+	</select>
+	
+	<select id="getSysFileByFileId" parameterType="java.lang.String" resultMap="SysFile">
+		SELECT <include refid="columns"/>
+		FROM CWM_SYS_FILE
+		WHERE FILEID IN (${fileId})
+	</select>
+	
+	<select id="getSysFileByRootFolder" resultMap="SysFile">
+	
+		select <include refid="columns"/>
+		from (
+			select <include refid="columns"/>
+			from CWM_SYS_FILE 
+			where CREATORID=#{creatorId}
+				and DELFLAG=#{delFlag}
+				and FILEATT=#{fileatt}
+			<if test="@Ognl@isNotEmpty(filename)"> AND FILENAME LIKE '%${filename}%' </if>
+			<if test="@Ognl@isNotEmpty(ext)"> AND EXT LIKE '%${ext}%'  </if>
+			union all
+			select <include refid="columns"/>
+			from CWM_SYS_FILE 
+			where SHARED=#{shared}
+			and CREATORID!=#{creatorId}
+			and DELFLAG=#{delFlag}
+			and FILEATT=#{fileatt}
+			<if test="@Ognl@isNotEmpty(filename)"> AND FILENAME LIKE '%${filename}%' </if>
+			<if test="@Ognl@isNotEmpty(ext)"> AND EXT LIKE '%${ext}%'  </if>
+		)tab_sysfile
+		<if test="@Ognl@isNotEmpty(orderField)">
+			order by ${orderField} ${orderSeq}
+		</if>
+		<if test="@Ognl@isEmpty(orderField)">
+			order by FILEID DESC
+		</if>
+	</select>
+	
+	<select id="getSysFileBySharedFolder" resultMap="SysFile">
+		select <include refid="columns"/>
+		from (
+			select <include refid="columns"/>
+			from CWM_SYS_FILE 
+			where CREATORID=#{creatorId}
+				and DELFLAG=#{delFlag}
+				and FILEATT=#{fileatt}
+				and SHARED=#{shared}
+				and FOLDERPATH like #{folderPath}
+				<if test="@Ognl@isNotEmpty(filename)"> AND FILENAME LIKE '%${filename}%' </if>
+				<if test="@Ognl@isNotEmpty(ext)"> AND EXT LIKE '%${ext}%'  </if>
+			union all
+			select <include refid="columns"/> 
+			from CWM_SYS_FILE 
+			where SHARED=#{shared}
+			and CREATORID!=#{creatorId}
+			and DELFLAG=#{delFlag}
+			and FILEATT=#{fileatt}
+			<if test="@Ognl@isNotEmpty(filename)"> AND FILENAME LIKE '%${filename}%' </if>
+			<if test="@Ognl@isNotEmpty(ext)"> AND EXT LIKE '%${ext}%'  </if>
+		)tab_sysfile
+		<if test="@Ognl@isNotEmpty(orderField)">
+			order by ${orderField} ${orderSeq}
+		</if>
+		<if test="@Ognl@isEmpty(orderField)">
+			order by FILEID DESC
+		</if>
+	</select>
+	
+	<select id="getSysFileByFolder" resultMap="SysFile">
+		select <include refid="columns"/>
+		from (
+			select <include refid="columns"/>
+			from CWM_SYS_FILE 
+			where CREATORID=#{creatorId}
+				and DELFLAG=#{delFlag}
+				and FILEATT=#{fileatt}
+				and SHARED=#{shared}
+				and FOLDERPATH like #{folderPath}
+				<if test="@Ognl@isNotEmpty(filename)"> AND FILENAME LIKE '%${filename}%' </if>
+				<if test="@Ognl@isNotEmpty(ext)"> AND EXT LIKE '%${ext}%'  </if>
+		)tab_sysfile
+		<if test="@Ognl@isNotEmpty(orderField)">
+			order by ${orderField} ${orderSeq}
+		</if>
+		<if test="@Ognl@isEmpty(orderField)">
+			order by FILEID DESC
+		</if>
+	</select>
+	
+	<select id="getAll" resultMap="SysFile">
+		select <include refid="columns"/>
+		from CWM_SYS_FILE 
+		<include refid="dynamicWhere" />
+		<if test="@Ognl@isNotEmpty(orderField)">
+			order by ${orderField} ${orderSeq}
+		</if>
+		<if test="@Ognl@isEmpty(orderField)">
+			order by FILEID DESC
+		</if>
+	</select>
+	
+	<select id="getFileBySecurity" resultMap="SysFile">
+		select <include refid="columns"/>
+		from CWM_SYS_FILE where -1=-1 
+		<if test="@Ognl@isNotEmpty(conditions)">
+			 and (${conditions})
+		</if>
+	</select>
+	
+		<!--最新附件  -->
+	<select id="getAllPersonalFile" resultMap="SysFile">
+	select <include refid="columns_NoBlob"/>
+		from (
+		select <include refid="columns_NoBlob"/>
+ 		from CWM_SYS_FILE Where DELFLAG=0
+		<if test="@Ognl@isNotEmpty(filename)"> AND FILENAME LIKE '%${filename}%' </if>
+		<if test="@Ognl@isNotEmpty(ext)"> AND EXT LIKE '%${ext}%'  </if>
+		<if test="@Ognl@isNotEmpty(creator)"> AND CREATOR LIKE '%${creator}%'  </if>
+		<if test="@Ognl@isNotEmpty(protypeId)"> AND (PROTYPEID in (${protypeId})
+			<foreach collection="dimensionList" item="dimension">
+			  OR  DIMENSION like '%,${dimension},%' 
+			</foreach>
+			) 
+		</if>
+		<if test="@Ognl@isNotEmpty(tableId)"> AND TABLEID =#{tableId} </if>
+		<if test="@Ognl@isNotEmpty(dataId)"> AND DATAID =#{dataId} </if>
+		<if test="@Ognl@isNotEmpty(filing)"> AND FILING =#{filing} </if>
+		<if test="@Ognl@isNotEmpty(isnew)"> AND ISNEW =#{isnew} </if>
+		<if test="@Ognl@isNotEmpty(isEncrypt)"> AND ISENCRYPT =#{isEncrypt} </if>
+		<if test="@Ognl@isNotEmpty(parentId)"> AND PARENTID =#{parentId} </if>
+		<if test="@Ognl@isNotEmpty(version)"> AND VERSION LIKE'%${version}%' </if>		
+		
+		<if test="@Ognl@isNotEmpty(beginTime)">
+			AND CREATETIME&gt;=#{beginTime,jdbcType=TIMESTAMP}
+		</if>
+		<if test="@Ognl@isNotEmpty(securityConditions)">
+			AND (${securityConditions})
+		</if>
+		<if test="@Ognl@isNotEmpty(endTime)"> 
+			AND CREATETIME&lt;=#{endTime,jdbcType=TIMESTAMP}
+		</if>
+		<if test="@Ognl@isNotEmpty(mainFileIdId)"> OR fileId in(${mainFileIdId})</if>
+		<if test="@Ognl@isNotEmpty(addSql)">
+		${addSql}
+		</if>
+		)tab_sysfile
+		
+		<if test="@Ognl@isNotEmpty(orderField)">
+		order by tab_sysfile.${orderField} ${orderSeq}
+		</if>
+		<if test="@Ognl@isEmpty(orderField)">
+		order by tab_sysfile.createtime  desc
+		</if>
+	</select>
+	<!-- 获取数据列表dataId和表id获取附件列表  -->
+	<select id="getFileListByDataIds" parameterType="java.lang.String" resultMap="SysFile">
+		SELECT <include refid="columns"/>
+		FROM CWM_SYS_FILE
+		WHERE -1=-1 
+		<if test="@Ognl@isNotEmpty(dataId)"> and DATAID IN (${dataId}) </if> 
+		<if test="@Ognl@isNotEmpty(tableId)"> and TABLEID IN (${tableId}) </if>
+	</select>
+	<!--获取筛选条件下的系统附件列表  -->
+	<select id="getSysFilesByConditions" resultMap="SysFile">
+		select <include refid="columns"/>
+ 		from CWM_SYS_FILE Where DELFLAG=0
+		<if test="@Ognl@isNotEmpty(filename)"> AND FILENAME LIKE '%${filename}%' </if>
+		<if test="@Ognl@isNotEmpty(ext)"> AND EXT LIKE '%${ext}%'  </if>
+		<if test="@Ognl@isNotEmpty(creator)"> AND CREATOR LIKE '%${creator}%'  </if>
+		<if test="@Ognl@isNotEmpty(fileType)"> AND FILETYPE = ${fileType}  </if>
+		<if test="@Ognl@isNotEmpty(dataId)"> AND DATAID in (${dataId})  </if>
+		<if test="@Ognl@isNotEmpty(beginTime)">
+			AND CREATETIME&gt;=#{beginTime,jdbcType=TIMESTAMP}
+		</if>
+		<if test="@Ognl@isNotEmpty(securityConditions)">
+			AND (${securityConditions})
+		</if>
+		<if test="@Ognl@isNotEmpty(endTime)"> 
+			AND CREATETIME&lt;=#{endTime,jdbcType=TIMESTAMP}
+		</if>
+	</select>
+	
+	
+	<select id="getByFileType" resultMap="SysFile">
+		select <include refid="columns"/>
+ 		from CWM_SYS_FILE 
+ 		WHERE FILETYPE=#{fileType} 
+		AND CREATORID = #{creatorId}
+	</select>
+	
+	<update id="updateFilePath" parameterType="java.util.Map">
+		UPDATE CWM_SYS_FILE SET
+		FILEPATH=#{filepath,jdbcType=VARCHAR}
+		WHERE
+		FILEID=#{fileId}
+	</update>	
+	
+	<select id="getFileVersionList" resultMap="SysFile">
+		SELECT <include refid="columns"/> FROM CWM_SYS_FILE WHERE PARENTID LIKE(
+			SELECT PARENTID FROM CWM_SYS_FILE WHERE FILEID = #{fileId}
+		)ORDER BY VERSION DESC
+	</select>
+	<select id="getCurFileVersion" resultMap="SysFile">
+		SELECT <include refid="columns"/> FROM CWM_SYS_FILE WHERE PARENTID LIKE(
+			SELECT PARENTID FROM CWM_SYS_FILE WHERE FILEID = #{fileId}
+		)and isnew = 1
+	</select>
+	<select id="getFileByDataId"  parameterType="java.util.Map" resultMap="SysFile">
+	select <include refid="columns"/> 
+	from CWM_SYS_FILE where DATAID=#{dataId}
+	</select>
+	
+		<select id="getFileByFileId"  parameterType="java.util.Map" resultMap="SysFile">
+	select <include refid="columns"/> 
+	from CWM_SYS_FILE where FILEID=#{fileId}
+	</select>
+</mapper>

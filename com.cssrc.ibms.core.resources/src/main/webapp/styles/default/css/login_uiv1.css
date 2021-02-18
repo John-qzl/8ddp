@@ -1,0 +1,670 @@
+/*!
+ * Bootstrap v3.0.3 (http://getbootstrap.com)
+ * Copyright 2013 Twitter, Inc.
+ * Licensed under http://www.apache.org/licenses/LICENSE-2.0
+ */
+
+/*! normalize.css v2.1.3 | MIT License | git.io/normalize */
+@import url("iconfont.css");
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+main,
+nav,
+section,
+summary {
+    display: block;
+}
+
+audio,
+canvas,
+video {
+    display: inline-block;
+}
+
+audio:not([controls]) {
+    display: none;
+    height: 0;
+}
+
+[hidden],
+template {
+    display: none;
+}
+
+html {
+    font-family: sans-serif;
+    -webkit-text-size-adjust: 100%;
+    -ms-text-size-adjust: 100%;
+}
+
+body {
+    margin: 0;
+}
+
+a {
+    background: transparent;
+}
+
+a:focus {
+    outline:none;
+}
+
+a:active,
+a:hover {
+    outline: 0;
+}
+
+h1 {
+    margin: 0.67em 0;
+    font-size: 2em;
+}
+
+abbr[title] {
+    border-bottom: 1px dotted;
+}
+
+b,
+strong {
+    font-weight: bold;
+}
+
+dfn {
+    font-style: italic;
+}
+
+hr {
+    height: 0;
+    -moz-box-sizing: content-box;
+    box-sizing: content-box;
+}
+
+mark {
+    color: #000;
+    background: #ff0;
+}
+
+code,
+kbd,
+pre,
+samp {
+    font-family: monospace, serif;
+    font-size: 1em;
+}
+
+pre {
+    white-space: pre-wrap;
+}
+
+q {
+    quotes: "\201C" "\201D" "\2018" "\2019";
+}
+
+small {
+    font-size: 80%;
+}
+
+sub,
+sup {
+    position: relative;
+    font-size: 75%;
+    line-height: 0;
+    vertical-align: baseline;
+}
+
+sup {
+    top: -0.5em;
+}
+
+sub {
+    bottom: -0.25em;
+}
+
+img {
+    border: 0;
+}
+
+svg:not(:root) {
+    overflow: hidden;
+}
+
+figure {
+    margin: 0;
+}
+
+fieldset {
+    padding: 0.35em 0.625em 0.75em;
+    margin: 0 2px;
+    border: 1px solid #c0c0c0;
+}
+
+legend {
+    padding: 0;
+    border: 0;
+}
+
+button,
+input,
+select,
+textarea {
+    margin: 0;
+    font-family: inherit;
+    font-size: 100%;
+}
+
+button,
+input {
+    line-height: normal;
+}
+
+button,
+select {
+    text-transform: none;
+}
+
+button,
+html input[type="button"],
+input[type="reset"],
+input[type="submit"] {
+    cursor: pointer;
+    -webkit-appearance: button;
+}
+
+button[disabled],
+html input[disabled] {
+    cursor: default;
+}
+
+input[type="checkbox"],
+input[type="radio"] {
+    padding: 0;
+    box-sizing: border-box;
+}
+
+input[type="search"] {
+    -webkit-box-sizing: content-box;
+    -moz-box-sizing: content-box;
+    box-sizing: content-box;
+    -webkit-appearance: textfield;
+}
+
+input[type="search"]::-webkit-search-cancel-button,
+input[type="search"]::-webkit-search-decoration {
+    -webkit-appearance: none;
+}
+
+button::-moz-focus-inner,
+input::-moz-focus-inner {
+    padding: 0;
+    border: 0;
+}
+
+textarea {
+    overflow: auto;
+    vertical-align: top;
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+html {
+    font-size: 62.5%;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+body {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    line-height: 1.428571429;
+    color: #333333;
+    background-color: #ffffff;
+}
+
+input,
+button,
+select,
+textarea {
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
+}
+
+a {
+    color: #428bca;
+    text-decoration: none;
+}
+
+a:hover,
+a:focus {
+    color: #2a6496;
+    text-decoration: underline;
+}
+
+a:focus {
+    outline: thin dotted;
+    outline: 5px auto -webkit-focus-ring-color;
+    outline-offset: -2px;
+}
+
+input:focus {
+    outline:none;
+    border: none;
+}
+
+img {
+    vertical-align: middle;
+}
+
+.btn {
+    display: inline-block;
+    padding: 6px 12px;
+    margin-bottom: 0;
+    font-size: 14px;
+    font-weight: normal;
+    line-height: 1.428571429;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    cursor: pointer;
+    background-image: none;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -o-user-select: none;
+    user-select: none;
+}
+.changePassword {
+	width: 46px;
+	height: 25px; 
+	border-radius: 3px; 
+	display: inline-block; 
+	text-align: center; 
+	line-height: 26px; 
+	color: #fff; 
+	margin-left: 10px; 
+	cursor: pointer;
+}
+/* wctp */
+.login_btn { 
+	background: url(../images/button.png) repeat-x; 
+}
+.btn:focus {
+    outline: thin dotted;
+    outline: 5px auto -webkit-focus-ring-color;
+    outline-offset: -2px;
+}
+
+.btn:hover,
+.btn:focus {
+    color: #333333;
+    text-decoration: none;
+    outline: 0;
+}
+
+.btn:active,
+.btn.active {
+    background-image: none;
+    outline: 0;
+    -webkit-box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+    box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+a:focus {
+    outline: none;
+}
+
+.pr {
+    position: relative
+}
+
+.fl {
+    float: left;
+    display: block
+
+}
+
+.fr {
+    float: right;
+    display: block;
+}
+
+.clear {
+    clear: both;
+}
+
+.clearFix {
+    *zoom: 1;
+}
+
+html {
+    height: 100%
+}
+
+body {
+    height: 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    position: relative;
+    z-index: 0;
+    min-width: 1024px;
+    background-repeat: no-repeat\9;
+    background-image: none\9;
+}
+
+.banner {
+	display: none;
+    width: 42%;
+    height: 165px;
+    position: absolute;
+    top: 50%;
+    margin-top: -120px;
+    left: 5%;
+}
+
+.banner img {
+    width: 100%;
+    max-width: 587px;
+    min-width: 455px;
+}
+
+.loginBox {
+    background: #fff;
+    width: 380px;
+    height: 500px;
+    position: absolute;
+    top: 50%;
+    margin-top: -250px;
+    right: 50%;
+    margin-right: -190px;
+    box-shadow: 0 10px 10px rgba(0,0,0,.2);
+    /* border-radius: 5px; */
+}
+
+.loginBox-inner {
+    padding: 0 40px;
+}
+
+.lbox-hd {
+    /* height: 50px; */
+    padding: 50px 0 25px 0;
+    text-align: center;
+}
+
+.lbox-hd-h1 {
+    height: 24px;
+    /*color: #3eaaf5;*/
+    font: 500 26px/26px Microsoft YaHei,tahoma,\5b8b\4f53;
+}
+
+.system_name{
+	margin-top: 24px;
+	font-size: 20px;
+	font-weight: bold;
+}
+
+.system_name:after{
+	display: block;
+    margin: 10px auto 10px;
+    width: 80px;
+    height: 1px;
+    background: #3399FF;
+    content: "";
+}
+
+.lbox-hd-v {
+    height: 8px;
+    /*color: #3eaaf5;*/
+    font: 500 26px/26px Microsoft YaHei,tahoma,\5b8b\4f53;
+}
+
+.lbox-hd a:hover {
+    color: #3c8fed;
+}
+
+.lbox-hd a {
+    font: 12px/24px Microsoft YaHei,tahoma,\5b8b\4f53;
+}
+
+.lbox-hd .down {
+    padding-top: 23px;
+    padding-left: 23px;
+    background: url(../images/login/login-Down.png) no-repeat 0 21px;
+    /*color: #3eaaf5*/
+}
+.lbox-hd .down a{
+   /*color: #3eaaf5*/
+}
+.lbox-hd .down a:hover{
+   color: #08c
+}
+
+.txt-count-tipIcon {
+    font: 12px/30px Microsoft YaHei,tahoma,\5b8b\4f53;
+    position: relative;
+    height: 30px;
+    overflow: hidden;
+     white-space: nowrap;
+     color: #ff7034;
+}
+.ibms-tipIcon-correct {
+    background-image: url(../images/login/ibms-tip-icon.png);
+    background-position: -5px -3px;
+    background-repeat: no-repeat;
+}
+
+.ibms-tipIcon-error {
+    background-image: url(../images/login/ibms-tip-icon.png);
+    background-position: -5px -37px;
+    background-repeat: no-repeat;
+}
+.ibms-tipIcon {
+    width: 20px;
+    height: 25px;
+    margin-right: 8px;
+}
+
+.fm-ipt {
+    border: 1px solid #d9d9d9;
+    /*border-radius: 8px;*/
+    overflow: hidden;
+    margin-bottom: 20px;
+}
+input:focus {
+    border-color: #0c64eb;
+    outline: 0;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(12,100,235,.6);
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(12,100,235,.6);
+}
+.fm-ipt-txt {
+    font: 12px/18px Microsoft YaHei,tahoma,\5b8b\4f53;
+    height: 18px;
+    border: none 0;
+    background: #fff;
+    padding: 10px 0;
+    width: 100%;
+    text-indent: 3.5em;
+    /*border-radius: 3px;*//*去掉在chrome和火狐下显示圆角*/
+}
+
+/*.fm-ipt-txt:focus {
+     -webkit-box-shadow: inset 0 3px 5px rgba(0,0,0,.125);
+    box-shadow: inset 0 3px 5px rgba(0,0,0,.125)
+}*//*去掉阴影*/
+
+.fm-ipt-mask {
+    display: none;
+    z-index: 11;
+    width: 100%;
+    float: left;
+    clear: both;
+    position: relative;
+    color: #aaa;
+    height: 18px;
+    font: 12px/18px Microsoft YaHei,tahoma,\5b8b\4f53;
+    padding: 9px 0;
+    margin: -36px 0 0 0;
+    text-indent: 3.5em;
+}
+
+.fm-ipt-left {
+    position: absolute;
+    height: 36px;
+    width: 35px;
+    line-height: 36px;
+    top: 1px;
+    left: 0;
+    z-index: 1;
+}
+
+.log-reme {
+    font-size: 12px;
+    clear: both;
+    height: 18px;
+    line-height: 18px;
+}
+
+.log-afr {
+    float: right;
+    color: #1c85e0;
+    display: block;
+    font-family: \5b8b\4f53;
+}
+
+.log-checkbox {
+    position: relative;
+    top: 3px;
+    margin: 0;
+    padding: 0;
+    margin-right: 4px;
+    float: left;
+}
+
+.ie7 .log-checkbox {
+    top: -2px;
+}
+
+.ie8 .log-checkbox {
+    top: 4px;
+}
+
+.icon-name {
+    background: url(../images/login/login-icon.png) no-repeat 10px 4px;
+}
+
+.icon-pwd {
+    background: url(../images/login/login-icon.png) no-repeat 10px -58px;
+}
+
+.btnbox {
+    margin: 25px 0;
+}
+
+.btn {
+    /*background: #3eaaf5;*/
+    transition: translateZ .2s linear 0s;
+    display: block;
+    text-align: center;
+    border-radius: 4px;
+    box-shadow: 0 0 1px rgba(0,0,0,0);
+    position: relative;
+    overflow: hidden;
+}
+
+.btn:hover {
+    opacity: .95;
+    filter: alpha(opacity=95);
+    text-decoration: none;
+}
+
+.btn:active {
+    opacity: 1;
+    filter: alpha(opacity=100)
+}
+
+.btn button {
+    font: 16px/26px Microsoft YaHei,tahoma,\5b8b\4f53;
+    width: 100%;
+    color: #fff;
+    display: block;
+    background-color: transparent;
+    border: 0;
+    outline: 0;
+    overflow: visible;
+    padding: 0 12px;
+    letter-spacing: 1px;
+    white-space: nowrap;
+    cursor: pointer;
+    padding: 0 2.5em;
+}
+
+
+
+
+.checkboxLabel{cursor: pointer; }
+.checkbox{position: relative;top:2px;left:1px;cursor: pointer;margin-right:8px;width:15px;height:15px;line-height:15px;overflow:hidden;text-indent:-9999px;background: url(../images/login/ibms-cbrd.png) no-repeat 0 0;}
+.checkboxLabel .checked{background-position:0 -18px}
+.ie8 .checkbox {top:3px;}
+
+.down_link{
+    width:100%;
+    height:auto;
+    /*position:fixed;
+    bottom:0px;*/
+    padding-top:10px;
+    padding-bottom:10px;
+    text-align:center;
+}
+
+.down_link a{
+    margin-right:10px;
+    color:#666666;
+}
+
+body{
+	 font-family:"microsoft yahei";
+}
+
+.version{
+	position:absolute;
+	bottom:25px;
+	right:20px;
+	size:5px;
+	color:black;
+	font-style:oblique;
+	cursor: pointer;
+}
+/*版权信息*/
+.login-copyright{
+    width: 100%;
+    height: auto;
+    text-align: center;
+    position: fixed;
+    bottom:10px;
+    color: #fff;
+  
+}
+.login-copyright>.copyright-en{
+    font-weight: bolder;
+    font-size: 20px;
+}
+.login-copyright>.copyright-zh{
+    font-size: 14px;
+}
+.btn {
+    background: #347EFE;
+}

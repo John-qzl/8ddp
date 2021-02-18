@@ -1,0 +1,55 @@
+<!DOCTYPE databases PUBLIC
+"-//EXOLAB/Castor Mapping DTD Version 1.0//EN"
+"http://castor.exolab.org/mapping.dtd">
+<mapping>
+<class name="com.cssrc.ibms.dp.sync.bean.UserRwTableBean" identity="userset">
+		<map-to xml="users" />
+		<field name="userset" collection="set"
+			type="com.cssrc.ibms.dp.sync.model.SyncUserXML">
+			<bind-xml name="user" />
+		</field>	
+	</class>
+
+<class name="com.cssrc.ibms.dp.sync.model.SyncUserXML">
+	<map-to xml="user" />
+		<field name="userId">
+			<bind-xml name="userId" node="attribute" />
+		</field>
+		<field name="username">
+			<bind-xml name="username" node="attribute" />
+		</field>
+		<field name="rw" collection="set"
+			type="com.orient.sync.model.Project">
+			<bind-xml name="rw" />
+		</field>	
+</class>
+
+<class name="com.cssrc.ibms.dp.sync.bean.Project">
+	<map-to xml="rw" />
+		<field name="rwid">
+			<bind-xml name="rwid" node="attribute" />
+		</field>
+		<field name="rwname">
+			<bind-xml name="rwname" node="attribute" />
+		</field>
+		<field name="rw" collection="set"
+			type="com.orient.sync.model.TableInstance">
+			<bind-xml name="table" />
+		</field>	
+</class>
+
+<class name="com.cssrc.ibms.dp.sync.bean.TableInstance">
+	<map-to xml="table" />
+		<field name=tableid>
+			<bind-xml name="tableid" node="attribute" />
+		</field>
+		<field name="tablename">
+			<bind-xml name="tablename" node="attribute" />
+		</field>
+		<field name="location">
+			<bind-xml name="location" node="attribute" />
+		</field>	
+</class>
+
+
+</mapping>

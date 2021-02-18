@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+<mapper namespace="com.cssrc.ibms.skin.model.SysSkin">
+	<resultMap id="SysSkin" type="com.cssrc.ibms.skin.model.SysSkin">
+		<id property="id" column="ID" jdbcType="NUMERIC"/>
+		<result property="skinName" column="SKINNAME" jdbcType="VARCHAR"/>
+		<result property="skinFilePath" column="SKIN_FILEPATH" jdbcType="VARCHAR"/>
+		<result property="description" column="DESCRIPTION" jdbcType="VARCHAR"/>
+		<result property="creator" column="CREATOR" jdbcType="VARCHAR"/>
+		<result property="creatorId" column="CREATORID" jdbcType="NUMERIC"/>
+		<result property="datetime" column="CREATIME" jdbcType="TIMESTAMP"/>
+		<result property="appId" column="APPID" jdbcType="NUMERIC"/>
+	</resultMap>
+	
+	<sql id="columns">
+		id,skinName,skinFilePath,description,creator,creatorId,datetime,appId
+	</sql>
+
+	<insert id="add" parameterType="com.cssrc.ibms.skin.model.SysSkin">
+		INSERT INTO CWM_SYS_SKIN
+		(
+			<include refid="columns"/>
+		)
+		VALUES
+		(
+			#{id,jdbcType=NUMERIC}, 
+			#{skinName,jdbcType=VARCHAR}, 
+			#{skinFilePath,jdbcType=VARCHAR},
+			#{description,jdbcType=VARCHAR}, 
+			#{creator,jdbcType=VARCHAR},
+			#{creatorId,jdbcType=NUMERIC}, 
+			#{datetime,jdbcType=TIMESTAMP},
+			#{appId,jdbcType=NUMERIC}
+		)
+	</insert>
+	
+	<update id="update" parameterType="com.cssrc.ibms.skin.model.SysSkin">
+		UPDATE CWM_SYS_SKIN SET SKIN_FILEPATH=#{skinFilePath} WHERE ID=#{id}
+	</update>
+	
+	<select id="isExist" parameterType="java.lang.Long" resultType="java.lang.Integer">
+		SELECT count(*) FROM CWM_SYS_SKIN where APPID=#{appId}
+	</select>
+	
+	<select id="getSkinByAppId" parameterType="java.lang.Long" resultType="com.cssrc.ibms.layout.model.SysLayout">
+		SELECT SKIN_FILEPATH FROM CWM_SYS_SKIN where APPID=#{appId}
+	</select>
+</mapper>

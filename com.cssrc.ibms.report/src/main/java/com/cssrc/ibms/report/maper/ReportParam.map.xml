@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cssrc.ibms.report.model.ReportParam">
+	<resultMap id="ReportParam" type="com.cssrc.ibms.report.model.ReportParam">
+		<id column="PARAMID" property="paramid" jdbcType="BIGINT" />
+		<result column="REPORTID" property="reportid" jdbcType="BIGINT" />
+		<result column="NAME" property="name" jdbcType="VARCHAR" />
+		<result column="VALUE_" property="value_" jdbcType="VARCHAR" />
+		<result column="PARAMTYPE" property="paramtype" jdbcType="VARCHAR" />
+		<result column="PARAM_SIZE" property="paramSize" jdbcType="BIGINT" />
+		<result column="DESCP" property="descp" jdbcType="VARCHAR" />
+		<result column="CREATETIME" property="createtime" jdbcType="TIMESTAMP" />
+		<result column="UPDATETIME" property="updatetime" jdbcType="TIMESTAMP" />
+	</resultMap>
+	<sql id="columns">
+		PARAMID, REPORTID, NAME,VALUE_ ,PARAMTYPE,PARAM_SIZE,DESCP, CREATETIME, UPDATETIME
+	</sql>
+	<sql id="dynamicWhere">
+		<where>
+			<if test="@Ognl@isNotEmpty(reportid)"> AND REPORTID =#{reportid} </if>
+			<if test="@Ognl@isNotEmpty(name)"> AND TITLE =#{name} </if>
+		</where>
+	</sql>
+
+	<insert id="add" parameterType="com.cssrc.ibms.report.model.ReportTemplate">
+		INSERT INTO cwm_sys_report_param
+		(
+		<include refid="columns" />
+		)
+		values
+		(#{paramid,jdbcType=BIGINT},
+		#{reportid,jdbcType=BIGINT},
+		#{name,jdbcType=VARCHAR},
+		#{value_,jdbcType=VARCHAR},
+		#{paramtype,jdbcType=VARCHAR},
+		#{paramSize,jdbcType=BIGINT},
+		#{descp,jdbcType=VARCHAR},
+		#{createtime,jdbcType=TIMESTAMP},
+		#{updatetime,jdbcType=TIMESTAMP}
+		)
+	</insert>
+
+	<delete id="delById" parameterType="java.lang.Long">
+		delete from
+		cwm_sys_report_param
+		where PARAMID = #{paramid,jdbcType=BIGINT}
+	</delete>
+	
+	
+	<update id="update" parameterType="com.cssrc.ibms.report.model.ReportParam">
+		update
+		cwm_sys_report_param
+		set REPORTID=#{reportid,jdbcType=BIGINT},
+		NAME=#{name,jdbcType=VARCHAR},
+		VALUE_=#{value_,jdbcType=VARCHAR},
+		PARAMTYPE=#{paramtype,jdbcType=VARCHAR},
+		PARAM_SIZE=#{paramSize,jdbcType=VARCHAR},
+		DESCP=#{descp,jdbcType=VARCHAR},
+		CREATETIME=#{createtime,jdbcType=TIMESTAMP},
+		UPDATETIME=#{updatetime,jdbcType=TIMESTAMP}
+		where PARAMID=#{paramid,jdbcType=BIGINT}
+	</update>
+	
+	<select id="getById" parameterType="java.lang.Long" resultMap="ReportParam">
+		SELECT
+		<include refid="columns" />
+		FROM cwm_sys_report_param
+		WHERE
+		PARAMID=#{paramid}
+	</select>
+			
+	<select id="getAll" resultMap="ReportParam">
+		SELECT
+		<include refid="columns" />
+		FROM cwm_sys_report_param
+		<include refid="dynamicWhere" />
+	</select>
+
+	<select id="getByName" resultMap="ReportParam">
+		SELECT
+		<include refid="columns" />
+		FROM cwm_sys_report_param
+		<include refid="dynamicWhere" />
+	</select>	
+	
+	<select id="getByReportid" resultMap="ReportParam">
+		SELECT
+		<include refid="columns" />
+		FROM cwm_sys_report_param
+		<include refid="dynamicWhere" />
+	</select>	
+	
+	<delete id="delByReportId" parameterType="java.lang.Long">
+		delete from
+		cwm_sys_report_param
+		where REPORTID = #{reportid,jdbcType=BIGINT}
+	</delete>	
+	
+</mapper>

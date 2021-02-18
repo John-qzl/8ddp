@@ -1,0 +1,437 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cssrc.ibms.core.user.model.SysOrg">
+	<resultMap id="Result" type="com.cssrc.ibms.core.user.model.SysOrg">
+		<id property="orgId" column="orgId" jdbcType="NUMERIC" />
+		<result property="demId" column="demId" jdbcType="NUMERIC" />
+		<result property="orgName" column="orgName" jdbcType="VARCHAR" />
+		<result property="orgShortName" column="orgShortName" jdbcType="VARCHAR" />
+		<result property="orgPathname" column="orgPathname" jdbcType="VARCHAR" />
+		<result property="orgDesc" column="orgDesc" jdbcType="VARCHAR" />
+		<result property="orgSupId" column="orgSupId" jdbcType="NUMERIC" />
+		<result property="leader" column="leader" jdbcType="VARCHAR" />
+		<result property="viceLeader" column="vice_leader" jdbcType="VARCHAR" />
+		<result property="path" column="path" jdbcType="VARCHAR" />
+		<result property="depth" column="depth" jdbcType="NUMERIC" />
+		<result property="orgType" column="orgType" jdbcType="NUMERIC" />
+		<result property="creatorId" column="creatorId" jdbcType="NUMERIC" />
+		<result property="createtime" column="createtime" jdbcType="TIMESTAMP" />
+		<result property="updateId" column="updateId" jdbcType="NUMERIC" />
+		<result property="updatetime" column="updatetime" jdbcType="TIMESTAMP" />
+		<result property="sn" column="sn" jdbcType="NUMERIC" />
+		<result property="fromType" column="fromType" jdbcType="NUMERIC" />
+		<result property="code" column="code" jdbcType="VARCHAR" />
+		<result property="companyId" column="COMPANYID" jdbcType="NUMERIC" />
+		<result property="company" column="COMPANY" jdbcType="VARCHAR" />
+		<result property="orgStaff" column="ORGSTAFF" jdbcType="NUMERIC" />
+	</resultMap>
+
+
+	<sql id="columns">
+		orgId,demId,orgName,orgShortName,orgDesc,orgSupId,leader,vice_leader,path,orgPathname,depth,orgType,
+		creatorId,createtime,updateId,updatetime,sn,fromType,code,companyId,company,orgStaff
+	</sql>
+
+	<sql id="dynamicWhere">
+		<where>
+			<!-- 注意 这里不能加orgId列 -->
+			<if test="@Ognl@isNotEmpty(demId)"> AND demId =#{demId} </if>
+			<if test="@Ognl@isNotEmpty(orgName)"> AND orgName LIKE #{orgName}  </if>
+			<if test="@Ognl@isNotEmpty(orgShortName)"> AND orgShortName LIKE #{orgShortName}  </if>
+			<if test="@Ognl@isNotEmpty(orgSupId)"> AND orgSupId =#{orgSupId} </if>
+			<if test="@Ognl@isNotEmpty(path)"> AND path LIKE #{path}  </if>
+			<if test="@Ognl@isNotEmpty(orgType)"> AND orgType =#{orgType} </if>
+			<if test="@Ognl@isNotEmpty(fromType)"> AND fromType =#{fromType} </if>
+			and isdelete=0
+		</where>
+	</sql>
+
+	<insert id="add" parameterType="com.cssrc.ibms.core.user.model.SysOrg">
+		INSERT INTO CWM_SYS_ORG
+		(
+		<include refid="columns" />
+		)
+		VALUES
+		(#{orgId,jdbcType=NUMERIC}, #{demId,jdbcType=NUMERIC},
+		#{orgName,jdbcType=VARCHAR},#{orgShortName,jdbcType=VARCHAR},#{orgDesc,jdbcType=VARCHAR}, 
+		#{orgSupId,jdbcType=NUMERIC}, #{leader,jdbcType=VARCHAR}, 
+		#{viceLeader,jdbcType=VARCHAR}, #{path,jdbcType=VARCHAR},
+		#{orgPathname,jdbcType=VARCHAR},#{depth,jdbcType=NUMERIC},
+		#{orgType,jdbcType=NUMERIC}, #{creatorId,jdbcType=NUMERIC},
+		#{createtime,jdbcType=TIMESTAMP}, #{updateId,jdbcType=NUMERIC},
+		#{updatetime,jdbcType=TIMESTAMP},
+		#{sn,jdbcType=NUMERIC},#{fromType,jdbcType=NUMERIC},#{code,jdbcType=VARCHAR},
+		#{companyId,jdbcType=NUMERIC},#{company,jdbcType=VARCHAR},#{orgStaff,jdbcType=NUMERIC})
+	</insert>
+
+	<delete id="delById" parameterType="java.lang.Long">
+		DELETE FROM CWM_SYS_ORG
+		WHERE
+		orgId=#{orgId}
+	</delete>
+	
+	<select id="isOrgExist"  resultType="Integer">
+	    select count(*) from cwm_sys_org  where ORGID=#{orgId}
+	</select>
+	
+	
+	<select id="isOrgExistByCode"  resultType="Integer">
+	    select count(*) from cwm_sys_org  where CODE=#{code}
+	</select>
+	
+	
+	
+	<update id="update" parameterType="com.cssrc.ibms.core.user.model.SysOrg">
+		UPDATE CWM_SYS_ORG SET
+		demId=#{demId,jdbcType=NUMERIC} ,
+		orgName=#{orgName,jdbcType=VARCHAR} ,
+		orgShortName=#{orgShortName,jdbcType=VARCHAR} ,
+		orgDesc=#{orgDesc,jdbcType=VARCHAR} ,
+		orgSupId=#{orgSupId,jdbcType=NUMERIC} ,
+		LEADER=#{leader,jdbcType=VARCHAR} ,
+		VICE_LEADER=#{viceLeader,jdbcType=VARCHAR} ,
+		path=#{path,jdbcType=VARCHAR} ,
+		orgPathname=#{orgPathname,jdbcType=VARCHAR} ,
+		depth=#{depth,jdbcType=NUMERIC} ,
+		orgType=#{orgType,jdbcType=NUMERIC} ,
+		creatorId=#{creatorId,jdbcType=NUMERIC} ,
+		createtime=#{createtime,jdbcType=TIMESTAMP} ,
+		<if test="@Ognl@isNotEmpty(updateId)">
+		updateId=#{updateId,jdbcType=NUMERIC} ,
+		</if>
+		<if test="@Ognl@isNotEmpty(updatetime)">
+		updatetime=#{updatetime,jdbcType=TIMESTAMP} ,
+		</if>
+		sn=#{sn,jdbcType=NUMERIC} ,
+		fromType=#{fromType,jdbcType=NUMERIC},
+		code=#{code,jdbcType=VARCHAR},
+		companyId=#{companyId,jdbcType=NUMERIC},
+		company=#{company,jdbcType=VARCHAR},
+		orgStaff=#{orgStaff,jdbcType=NUMERIC}
+		WHERE
+		orgId=#{orgId}
+	</update>
+
+	<update id="updSn" parameterType="Map">
+		UPDATE CWM_SYS_ORG SET
+		sn=#{sn,jdbcType=NUMERIC}
+		WHERE
+		orgId=#{orgId}
+	</update>
+
+	<select id="getByOrgIds" resultMap="Result">
+		select * from CWM_SYS_ORG t where t.orgid in
+		<foreach collection="list" index="index" item="orgId" open="("
+			close=")" separator=",">
+			#{orgId}
+		</foreach>
+		where t.isdelete=0
+		order by depth,sn ,orgname
+	</select>
+
+
+	<select id="getByOrgMonGroup" resultMap="Result">
+		SELECT * FROM CWM_SYS_ORG o where o.orgid in (SELECT distinct ORGID FROM
+		ibms_mon_orgrole WHERE groupId=#{groupId}) and isdelete=0
+	</select>
+
+	<select id="getById" parameterType="java.lang.Long"
+		resultType="com.cssrc.ibms.core.user.model.SysOrg">
+		SELECT
+		a.orgId,a.demId,a.orgName,a.orgShortName,a.orgDesc,a.orgSupId,a.path,a.orgPathname,
+		a.depth,a.orgType,a.creatorId,a.createtime,a.updateId,a.updatetime,
+		b.demName,a.LEADER as "leader",a.VICE_LEADER as "viceLeader",
+		c.orgName OrgSupName,d.fullname createName,u.fullname
+		updateName,a.sn,a.fromType,a.code,a.companyId,a.company,a.orgStaff
+		FROM CWM_SYS_ORG a
+		left join CWM_SYS_ORG c on a.orgSupId=c.orgId
+		join cwm_sys_demension b on a.demId=b.demId
+		left join CWM_SYS_USER d on a.creatorId=d.userId
+		left join CWM_SYS_USER u
+		on a.updateId=u.userId
+		where a.orgId=#{orgId}
+	</select>
+
+	<select id="getByCode" resultType="com.cssrc.ibms.core.user.model.SysOrg">
+		SELECT a.* FROM CWM_SYS_ORG a
+		where a.code=#{code} and a.isdelete=0
+	</select>
+
+	<select id="getByOrgName" parameterType="java.util.Map"
+		resultMap="Result">
+		select
+		<include refid="columns" />
+		from CWM_SYS_ORG where orgName=#{orgName}
+	</select>
+
+	<select id="getAll" resultMap="Result">
+		SELECT
+		<include refid="columns" />
+		FROM CWM_SYS_ORG
+		<include refid="dynamicWhere" />
+		<if test="@Ognl@isNotEmpty(orderField)">
+			order by ${orderField} ${orderSeq}
+		</if>
+		<if test="@Ognl@isEmpty(orderField)">
+			order by orgId desc
+		</if>
+	</select>
+	
+	<delete id="delByPath" parameterType="String">
+		DELETE FROM CWM_SYS_ORG 
+		where path like #{path}
+	</delete>
+	
+	<update id="delLogicByPath" parameterType="java.util.Map">
+		update CWM_SYS_ORG set
+		isdelete=1 ,updatetime=#{updateTime,jdbcType=DATE} where path like #{path}
+	</update>
+
+	<update id="restoreLogicOrg" parameterType="java.util.Map">
+		update CWM_SYS_ORG set
+		isdelete=0 ,updatetime=#{updateTime,jdbcType=DATE} where path like #{path}
+	</update>
+
+	<select id="getOrgByOrgId" resultType="com.cssrc.ibms.core.user.model.SysOrg">
+		SELECT
+		a.orgId,a.demId,a.orgName,a.orgShortName,a.orgDesc,a.orgSupId,a.path,a.orgPathname,a.depth,a.orgType,
+		a.creatorId,a.createtime,a.updateId,a.updatetime,b.demName,c.orgName
+		OrgSupName
+		FROM CWM_SYS_ORG a left join CWM_SYS_ORG c on a.orgSupId=c.orgId join
+		cwm_sys_demension b on a.demId=b.demId
+		where 1=1 and c.isdelete=0 and a.isdelete=0
+		<if test="@Ognl@isNotEmpty(path)"> AND a.path LIKE #{path}  </if>
+		<if test="@Ognl@isNotEmpty(orgName)"> AND a.orgName LIKE #{orgName}  </if>
+		<if test="@Ognl@isNotEmpty(orgDesc)"> AND a.orgDesc LIKE #{orgDesc}  </if>
+		<if test="@Ognl@isNotEmpty(orderField)">
+			order by ${orderField} ${orderSeq}
+		</if>
+		<if test="@Ognl@isEmpty(orderField)">
+			order by a.path asc
+		</if>
+	</select>
+	<!-- 取得所有组织列表或按维度取得所有组织 -->
+	<select id="getOrgsByDemIdOrAll" parameterType="java.util.Map"
+		resultType="com.cssrc.ibms.core.user.model.SysOrg">
+		select * from CWM_SYS_ORG org where 1=1 and isdelete=0
+		<if test="@Ognl@isNotEmpty(demId)">and org.demId=#{demId}</if>
+		order by org.sn asc, org.path asc
+	</select>
+	<!-- 根据工号获取主组织 -->
+	<select id="getOrgByUsername" resultMap="Result">
+		select distinct org.* from CWM_SYS_ORG org , CWM_SYS_USER_POSITION
+		uo,CWM_SYS_USER u where org.orgid=uo.orgid and uo.userid=u.userid 
+		<!--and uo.isprimary=1-->
+		and u.username=#{username} and org.isdelete=0 and
+		uo.isdelete=0 order by uo.isprimary desc, uo.ischarge desc
+	</select>
+	<select id="getOrgs" parameterType="Long"
+		resultType="com.cssrc.ibms.core.user.model.SysOrg">
+		select * from CWM_SYS_ORG org where org.demId=#{demId} and
+		org.isdelete=0 order by org.path asc, org.sn asc
+	</select>
+
+	<select id="getOrgByDemId" parameterType="Long"
+		resultType="com.cssrc.ibms.core.user.model.SysOrg">
+		SELECT
+		a.orgId,a.demId,a.orgName,a.orgShortName,a.orgDesc,a.orgSupId,a.path,a.orgPathname,a.depth,a.orgType,
+		a.creatorId,a.createtime,a.updateId,a.updatetime,a.sn,a.fromType,
+		b.demName,a.companyId,a.company,a.orgStaff
+		FROM CWM_SYS_ORG a join
+		cwm_sys_demension b on a.demId=b.demId
+		where a.demId=#{demId}
+		and a.isdelete=0
+		order by a.sn
+	</select>
+
+
+
+	<select id="getByUserId" parameterType="java.lang.Long"
+		resultType="com.cssrc.ibms.core.user.model.SysOrg">
+		SELECT distinct o.*,uo.isPrimary FROM CWM_SYS_ORG o join
+		CWM_SYS_USER_POSITION uo
+		on o.orgId = uo.orgId
+		where uo.userId=#{userId}
+		and o.isdelete=0
+		and uo.isdelete=0
+	</select>
+
+	<select id="getOrgsByUserId" parameterType="java.lang.Long"
+		resultType="com.cssrc.ibms.core.user.model.SysOrg">
+		select distinct org.* from CWM_SYS_ORG org inner join
+		CWM_SYS_USER_POSITION uo on uo.orgId=org.orgId where
+		uo.userId=#{userId}
+		and org.isdelete=0 and uo.isdelete=0
+	</select>
+
+
+
+	<select id="getByDepth" resultType="com.cssrc.ibms.core.user.model.SysOrg">
+		select * from CWM_SYS_ORG
+		where depth=#{depth} and isdelete=0 order by sn asc
+	</select>
+
+	<select id="getByOrgPath" resultType="com.cssrc.ibms.core.user.model.SysOrg">
+		select * from CWM_SYS_ORG
+		where path LIKE #{path} and isdelete=0 order by path asc, sn asc
+	</select>
+
+	<select id="getPrimaryOrgByUserId" parameterType="Long"
+		resultType="com.cssrc.ibms.core.user.model.SysOrg">
+		select distinct a.* 
+		from CWM_SYS_ORG a,CWM_SYS_USER_POSITION b
+		where a.orgId=b.orgId 
+		and b.isPrimary=1 
+		and b.userId=#{userId} 
+		and a.isdelete=0 
+		and b.isdelete=0
+	</select>
+	<select id="getChargeOrgByUserId" parameterType="Map"
+		resultType="com.cssrc.ibms.core.user.model.SysOrg">
+		select distinct a.* 
+		from CWM_SYS_ORG a,CWM_SYS_USER_POSITION b
+		where a.orgId=b.orgId
+		and b.ischarge=1
+		and b.userId=#{userId}
+		and a.isdelete=0
+		and b.isdelete=0
+	</select>
+
+	<select id="getByFromType" parameterType="java.lang.Long"
+		resultType="com.cssrc.ibms.core.user.model.SysOrg">
+		select * from CWM_SYS_ORG where fromType=#{fromType} and
+		isdelete=0 order by orgSupId asc
+	</select>
+
+	<select id="getOrgByIds" parameterType="Map"
+		resultType="com.cssrc.ibms.core.user.model.SysOrg">
+		select * from CWM_SYS_ORG org where org.orgId in
+		(${orgIds}) order by org.path asc
+	</select>
+
+	<select id="getOrgByOrgSupId" parameterType="Map"
+		resultType="com.cssrc.ibms.core.user.model.SysOrg">
+		select
+		a.ORGID,a.DEMID,a.ORGNAME,a.ORGSHORTNAME,a.ORGDESC,a.ORGSUPID,a.PATH,a.DEPTH,a.ORGTYPE,a.CREATORID,a.CREATETIME,a.UPDATEID,
+		a.UPDATETIME,a.SN,a.FROMTYPE,a.ORGPATHNAME,a.ISDELETE,a.CODE,a.ORGSTAFF,
+		(select count(*) from CWM_SYS_ORG t where t.orgsupid=a.orgid and
+		t.isdelete=0) isLeaf,
+		a.companyId,a.company from CWM_SYS_ORG a where a.orgsupid=#{orgSupId}
+		and a.isdelete=0
+		order by a.sn asc
+	</select>
+	
+	<select id="getOrgManageByOrgSupId" parameterType="Map"
+		resultType="com.cssrc.ibms.core.user.model.SysOrg">
+		select
+		a.ORGID,a.DEMID,a.ORGNAME,a.ORGSHORTNAME,a.ORGDESC,a.ORGSUPID,a.PATH,a.DEPTH,a.ORGTYPE,a.CREATORID,a.CREATETIME,a.UPDATEID,
+		a.UPDATETIME,a.SN,a.FROMTYPE,a.ORGPATHNAME,a.ISDELETE,a.CODE,a.ORGSTAFF,
+		(select count(*) from CWM_SYS_ORG t where t.orgsupid=a.orgid) isLeaf,
+		a.companyId,a.company from CWM_SYS_ORG a where a.orgsupid=#{orgSupId}
+		order by a.sn asc
+	</select>
+
+	<select id="getOrgByOrgName" parameterType="Map"
+		resultType="com.cssrc.ibms.core.user.model.SysOrg">
+		select * from CWM_SYS_ORG where orgName = #{orgName} and
+		isdelete=0
+	</select>
+
+	<select id="getOrgByUserIdPath" parameterType="Map"
+		resultType="com.cssrc.ibms.core.user.model.SysOrg">
+		select distinct o.* from CWM_SYS_ORG o inner join
+		CWM_SYS_USER_POSITION u on o.orgid=u.orgid
+		where u.userId=#{userId} and o.path LIKE #{path} and o.isdelete=0 and
+		u.isdelete=0
+	</select>
+
+	<select id="getBySupId4MobileOrg" parameterType="java.util.Map"
+		resultType="com.cssrc.ibms.core.user.model.SysOrg">
+		SELECT
+		<include refid="columns" />
+		FROM CWM_SYS_ORG
+		<where>
+			<if test="@Ognl@isEmpty(orgName)">AND orgSupId=#{orgid}</if>
+			<if test="@Ognl@isNotEmpty(orgName)">
+				AND orgid in (select i.orgid from CWM_SYS_ORG i start with
+				i.orgid=#{orgid}
+				connect by prior i.orgid =i.orgsupid)
+				AND orgName LIKE '%'||#{orgName,jdbcType=VARCHAR}||'%'
+			</if>
+		</where>
+		order by depth ,sn ,orgname
+	</select>
+
+	<select id="getByOrgType" parameterType="java.lang.Long"
+		resultType="com.cssrc.ibms.core.user.model.SysOrg">
+		select * from CWM_SYS_ORG where orgType = #{orgType} and
+		isdelete=0
+	</select>
+	<select id="getCompany" resultType="java.util.HashMap">
+		SELECT DISTINCT
+		COMPANYID,COMPANY FROM CWM_SYS_ORG
+		WHERE COMPANYID IS NOT NULL AND COMPANY IS NOT NULL
+	</select>
+
+	<select id="getCountByCode" resultType="java.lang.Integer">
+		SELECT count(*) from CWM_SYS_ORG where code=#{code}
+		<if test="id!=null &amp;&amp; id>0">
+			and orgid!=#{id}
+		</if>
+	</select>
+
+	<!-- 根据path查找出所有组织 -->
+	<select id="getOrgByPath" parameterType="java.lang.String"
+		resultType="com.cssrc.ibms.core.user.model.SysOrg">
+		select * from CWM_SYS_ORG where path like #{path} and isdelete=0
+	</select>
+	<!-- 指定维度下的组织用户信息 -->
+	<select id="getByUserIdAndDemId" parameterType="java.util.Map"
+		resultType="com.cssrc.ibms.core.user.model.SysOrg">
+		select
+		org.*
+		from CWM_SYS_ORG org 
+		inner join cwm_sys_demension b on org.demId=b.demId 
+		inner join CWM_SYS_USER_POSITION uo on uo.ORGID=org.ORGID 
+		where
+		uo.userId=#{userId} and org.demId=#{demId} 
+		and org.isdelete=0 and uo.isdelete=0
+	</select>
+
+	<select id="getChargeOrg" resultType="java.lang.Long" parameterType="java.lang.Long">
+		SELECT up.ORGID FROM
+		`cwm_sys_user_position` up WHERE up.ISCHARGE=1 AND
+		up.USERID=#{userId}
+	</select>
+
+	<select id="getByAllLeader" resultType="java.lang.Long"
+		parameterType="java.lang.Long">
+		SELECT DISTINCT ORGID FROM(
+		select cwm_sys_org.ORGID FROM cwm_sys_org WHERE (#{userId} in(LEADER))
+		UNION ALL
+		select cwm_sys_org.ORGID FROM cwm_sys_org WHERE (#{userId} in(VICE_LEADER))
+		) orgs
+	</select>
+	
+	<select id="getByLeader" resultType="java.lang.Long" parameterType="java.lang.Long">
+		select cwm_sys_org.ORGID FROM cwm_sys_org WHERE (#{userId} in(LEADER))
+	</select>	
+	
+	<select id="getByViceLeader" resultType="java.lang.Long" parameterType="java.lang.Long">
+		select cwm_sys_org.ORGID FROM cwm_sys_org WHERE (#{userId} in(VICE_LEADER))
+	</select>
+	
+	<!-- 指定维度下的组织用户信息 -->
+	<select id="getByParentIdAndType" parameterType="java.util.Map"
+		resultType="com.cssrc.ibms.core.user.model.SysOrg">
+		select
+		org.*
+		from CWM_SYS_ORG org 
+		where
+		org.orgsupid=#{orgId} 
+		<if test="@Ognl@isNotEmpty(orgType)">
+		AND org.orgType=#{orgType}
+		</if>
+	</select>
+	
+</mapper>

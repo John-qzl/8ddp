@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+<mapper namespace="com.cssrc.ibms.system.model.GlobalType">
+	<resultMap id="GlobalType" type="com.cssrc.ibms.system.model.GlobalType">
+		<id property="typeId" column="typeId" jdbcType="NUMERIC"/>
+		<result property="typeName" column="typeName" jdbcType="VARCHAR"/>
+		<result property="nodePath" column="nodePath" jdbcType="VARCHAR"/>
+		<result property="depth" column="depth" jdbcType="NUMERIC"/>
+		<result property="parentId" column="parentId" jdbcType="NUMERIC"/>
+		<result property="nodeKey" column="nodeKey" jdbcType="VARCHAR"/>
+		<result property="sn" column="sn" jdbcType="NUMERIC"/>
+		<result property="userId" column="userId" jdbcType="NUMERIC"/>
+		<result property="depId" column="depId" jdbcType="NUMERIC"/>
+		<result property="type" column="type" jdbcType="NUMERIC"/>
+		<result property="catKey" column="catKey" jdbcType="VARCHAR"/>
+		<result property="isLeaf" column="isLeaf" jdbcType="NUMERIC"/>
+		<result property="nodeCode" column="nodeCode" jdbcType="VARCHAR"/>
+		<result property="nodeCodeType" column="nodeCodeType" jdbcType="VARCHAR"/>
+		<result property="gltype_delFlag" column="gltype_delFlag" jdbcType="NUMERIC"/>
+		<result property="gltype_updateId" column="gltype_updateId" jdbcType="NUMERIC"/>
+		<result property="gltype_updateTime" column="gltype_updateTime" jdbcType="DATE"/>
+		<result property="gltype_creatorId" column="gltype_creatorId" jdbcType="NUMERIC"/>
+		<result property="gltype_createTime" column="gltype_createTime" jdbcType="DATE"/>
+	</resultMap>
+	<resultMap type="com.cssrc.ibms.system.model.GlobalType" id="GlobalTypeExt">
+		<result property="childNodes" column="childNodes" jdbcType="NUMERIC"/>
+	</resultMap>
+	
+	<sql id="columns">
+		typeId,typeName,nodePath,depth,parentId,nodeKey,sn,userId,depId,type,catKey,isLeaf,nodeCode,nodeCodeType,gltype_updateId,gltype_updateTime,gltype_creatorId,gltype_createTime,gltype_delFlag
+	</sql>
+	
+	<sql id="dynamicWhere">
+		<where>
+			<if test="@Ognl@isNotEmpty(typeName)"> AND typeName  LIKE #{typeName}  </if>
+			<if test="@Ognl@isNotEmpty(nodePath)"> AND nodePath  LIKE #{nodePath}  AND nodePath  != #{nodePath}</if>
+			<if test="@Ognl@isNotEmpty(nodeKey)"> AND nodeKey  = #{nodeKey}  </if>
+		</where>
+	</sql>
+
+	<insert id="add" parameterType="com.cssrc.ibms.system.model.GlobalType">
+		INSERT INTO CWM_SYS_GLTYPE
+		(<include refid="columns"/>)
+		VALUES
+		(#{typeId,jdbcType=NUMERIC}, #{typeName,jdbcType=VARCHAR}, #{nodePath,jdbcType=VARCHAR}, 
+		#{depth,jdbcType=NUMERIC}, #{parentId,jdbcType=NUMERIC}, #{nodeKey,jdbcType=VARCHAR}, 
+		#{sn,jdbcType=NUMERIC}, #{userId,jdbcType=NUMERIC}, #{depId,jdbcType=NUMERIC}, 
+		#{type,jdbcType=NUMERIC}, #{catKey,jdbcType=VARCHAR}, #{isLeaf,jdbcType=NUMERIC},
+		#{nodeCode,jdbcType=VARCHAR}, #{nodeCodeType,jdbcType=VARCHAR},
+		#{gltype_updateId,jdbcType=NUMERIC},#{gltype_updateTime,jdbcType=DATE},#{gltype_creatorId,jdbcType=NUMERIC},
+		#{gltype_createTime,jdbcType=DATE},#{gltype_delFlag,jdbcType=NUMERIC})
+	</insert>
+	
+	<delete id="delById" parameterType="java.lang.Long">
+		DELETE FROM CWM_SYS_GLTYPE 
+		WHERE
+		typeId=#{typeId}
+	</delete>
+
+	
+	<update id="update" parameterType="com.cssrc.ibms.system.model.GlobalType">
+		UPDATE CWM_SYS_GLTYPE SET
+		typeName=#{typeName,jdbcType=VARCHAR} , 
+		nodePath=#{nodePath,jdbcType=VARCHAR} , 
+		depth=#{depth,jdbcType=NUMERIC} , 
+		nodeKey=#{nodeKey,jdbcType=VARCHAR} , 
+		sn=#{sn,jdbcType=NUMERIC} , 
+		parentId=#{parentId,jdbcType=NUMERIC},
+		userId=#{userId,jdbcType=NUMERIC} , 
+		depId=#{depId,jdbcType=NUMERIC} , 
+		type=#{type,jdbcType=NUMERIC} , 
+		catKey=#{catKey,jdbcType=VARCHAR} , 
+		isLeaf=#{isLeaf,jdbcType=NUMERIC} ,
+		nodeCode=#{nodeCode,jdbcType=NUMERIC} ,
+		nodeCodeType=#{nodeCodeType,jdbcType=NUMERIC} ,
+		gltype_delFlag =#{gltype_delFlag,jdbcType=NUMERIC},
+		<if test="@Ognl@isNotEmpty(gltype_creatorId)">
+		gltype_creatorId=#{gltype_creatorId,jdbcType=NUMERIC} ,
+		</if>
+		<if test="@Ognl@isNotEmpty(gltype_createTime)">
+		gltype_createTime=#{gltype_createTime,jdbcType=DATE} ,
+		</if>
+		gltype_updateId=#{gltype_updateId,jdbcType=NUMERIC} ,
+		gltype_updateTime=#{gltype_updateTime,jdbcType=DATE}
+		WHERE
+		typeId=#{typeId}
+	</update>
+	
+	<update id="updSn" parameterType="com.cssrc.ibms.system.model.GlobalType">
+		UPDATE CWM_SYS_GLTYPE SET sn=#{sn,jdbcType=NUMERIC}  WHERE typeId=#{typeId}
+	</update>
+	
+	<update id="updateStatus" parameterType="java.util.Map">
+		UPDATE CWM_SYS_GLTYPE SET gltype_delFlag =#{status},gltype_updateTime=#{updateTime,jdbcType=DATE},gltype_updateId=#{currentUserId} WHERE nodepath like #{path}
+	</update>
+	
+	<select id="getById" parameterType="java.lang.Long" resultMap="GlobalType">
+		SELECT <include refid="columns"/>
+		FROM CWM_SYS_GLTYPE
+		WHERE
+		typeId=#{typeId}
+	</select>
+	
+	
+	<select id="getAll" resultMap="GlobalType" parameterType="java.util.Map">
+		SELECT <include refid="columns"/>
+		FROM CWM_SYS_GLTYPE  WHERE CATKEY='FLOW'  
+		<include refid="dynamicWhere" />
+		<if test="@Ognl@isNotEmpty(orderField)">
+		order by ${orderField} ${orderSeq}
+		</if>
+		<if test="@Ognl@isEmpty(orderField)">
+		order by sn
+		</if>
+	</select>
+	
+	<select id="getByParentId" parameterType="java.lang.Long" resultMap="GlobalTypeExt">
+		select t.*, (select count(*) from CWM_SYS_GLTYPE a where a.parentid=t.typeId) childNodes  
+		from CWM_SYS_GLTYPE t  
+		where parentId=#{parentId}
+		order by sn
+	</select>
+	
+	
+	
+	<select id="isNodeKeyExists" resultType="java.lang.Integer">
+		SELECT count(*) FROM CWM_SYS_GLTYPE where nodeKey = #{nodeKey,jdbcType=VARCHAR} and catkey=#{catkey,jdbcType=VARCHAR}
+	</select>
+	
+	<select id="isNodeKeyExistsForUpdate" resultType="java.lang.Integer">
+		SELECT count(*) FROM CWM_SYS_GLTYPE where typeId &lt;>#{typeId,jdbcType=NUMERIC} and  nodeKey = #{nodeKey,jdbcType=VARCHAR} and catkey=#{catkey,jdbcType=VARCHAR}
+	</select>
+	
+	<select id="getByNodePath" parameterType="String"  resultMap="GlobalType">
+		SELECT * FROM CWM_SYS_GLTYPE WHERE nodePath LIKE #{nodePath} order by sn
+	</select>
+	
+	<select id="getByCatKey" parameterType="String"  resultMap="GlobalTypeExt">
+		select t.*, (select count(*) from CWM_SYS_GLTYPE a where a.parentid=t.typeId) childNodes  
+		from CWM_SYS_GLTYPE t  
+		where catkey=#{catkey,jdbcType=VARCHAR}
+		order by sn
+	</select>
+	
+	<select id="getByDictNodeKey" parameterType="String"  resultMap="GlobalType">
+		SELECT * FROM CWM_SYS_GLTYPE 	WHERE catKey='DIC' and nodeKey=#{nodeKey,jdbcType=VARCHAR}
+	</select>
+	
+	<select id="getByCateKeyAndNodeKey" parameterType="Map"  resultMap="GlobalType">
+		SELECT * FROM CWM_SYS_GLTYPE 	WHERE catKey=#{catKey,jdbcType=VARCHAR} and nodeKey=#{nodeKey,jdbcType=VARCHAR}
+	</select>
+	
+	<select id="getPersonType" parameterType="Map"  resultMap="GlobalType">
+		SELECT * FROM CWM_SYS_GLTYPE 	WHERE catkey=#{catkey,jdbcType=VARCHAR} and (userId=0 or userId=#{userId,jdbcType=NUMERIC})
+	</select>
+	
+	<select id="getByCatKeyAndTypeName" parameterType="Map"  resultMap="GlobalType">
+		SELECT * FROM CWM_SYS_GLTYPE 	WHERE catKey=#{catKey,jdbcType=VARCHAR} and typeName=#{typeName,jdbcType=VARCHAR}
+	</select>
+	
+</mapper>

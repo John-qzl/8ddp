@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans   http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd" >
+	
+	<bean id="iCache" class="com.cssrc.ibms.core.cache.impl.MemoryCache" ></bean>
+	<bean id="processEngineConfiguration"
+		class="org.activiti.spring.SpringProcessEngineConfiguration">
+		<property name="dataSource" ref="dataSource" />
+		<property name="databaseType" value="${jdbc.dbType}" />
+		<property name="dbIdentityUsed" value="false" /> 
+		<property name="transactionManager" ref="transactionManager" /> 
+		<property name="databaseSchemaUpdate" value="false" />
+		<property name="jobExecutorActivate" value="false" />
+		<property name="idGenerator" ref="idGenerator" />
+		<property name="processDefinitionCache" ref="activitiDefCache"/>
+	</bean>
+	<bean id="activitiDefCache" class="com.cssrc.ibms.core.activity.cache.ActivitiDefCache" />
+	<bean id="idGenerator" class="com.cssrc.ibms.core.engine.ActivitiIdGenerator"/>
+	
+	<bean id="processEngine" class="org.activiti.spring.ProcessEngineFactoryBean">
+		<property name="processEngineConfiguration" ref="processEngineConfiguration" />
+	</bean>
+	
+	<bean id="repositoryService" factory-bean="processEngine" factory-method="getRepositoryService" />
+	<bean id="runtimeService" factory-bean="processEngine" factory-method="getRuntimeService" />
+	<bean id="taskService" factory-bean="processEngine" factory-method="getTaskService" />
+	<bean id="historyService" factory-bean="processEngine" factory-method="getHistoryService" />
+	<bean id="managementService" factory-bean="processEngine" factory-method="getManagementService" />
+	
+	<bean id="scriptTask" class="com.cssrc.ibms.core.bpm.entity.ScriptTask"></bean>
+	<bean id="startEventListener" class="com.cssrc.ibms.core.flow.listener.StartEventListener"></bean>
+	<bean id="endEventListener" class="com.cssrc.ibms.core.flow.listener.EndEventListener"></bean>
+	<bean id="subProcessStartListener" class="com.cssrc.ibms.core.flow.listener.SubProcessStartListener"></bean>
+	<bean id="subProcessEndListener" class="com.cssrc.ibms.core.flow.listener.SubProcessEndListener"></bean>
+	<bean id="taskCreateListener" class="com.cssrc.ibms.core.flow.listener.TaskCreateListener"></bean>
+	<bean id="taskAssignListener" class="com.cssrc.ibms.core.flow.listener.TaskAssignListener"></bean>
+	<bean id="taskCompleteListener" class="com.cssrc.ibms.core.flow.listener.TaskCompleteListener"></bean>
+	<bean id="autoTaskListener" class="com.cssrc.ibms.core.flow.listener.AutoTaskListener"></bean>
+	<bean id="messageTask" class="com.cssrc.ibms.core.flow.service.MessageTask"></bean>
+	<bean id="webServiceTask" class="com.cssrc.ibms.core.flow.service.WebServiceTask"></bean>
+	<bean id="taskSignCreateListener" class="com.cssrc.ibms.core.flow.listener.TaskSignCreateListener"></bean>
+	<bean id="callSubProcessStartListener" class="com.cssrc.ibms.core.flow.listener.CallSubProcessStartListener"></bean>
+	<bean id="callSubProcessEndListener" class="com.cssrc.ibms.core.flow.listener.CallSubProcessEndListener"></bean>
+
+
+	<!-- 流程状态 -->
+	<bean id="flowStatusService" class="com.cssrc.ibms.core.flow.status.FlowStatusService">
+		<property name="proStatusDao"  ref="proStatusDao"/>
+		<property name="stataConf"  value="${conf.root}/flow/status.xml"/>
+	</bean>
+
+
+</beans>

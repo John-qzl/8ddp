@@ -1,0 +1,68 @@
+.tree-tab {
+    /* width: 50%; */
+    height: 34px;
+    line-height: 34px;
+    /* height: 28px;
+		line-height: 28px; */
+    float: left;
+    text-align: center;
+    /* margin-top: 2px; */
+    /* background: #3eaaf5; */
+    background: #fff;
+    color: #333;
+    font-weight: bold;
+    cursor: pointer;
+}
+.tree-tab:hover{
+	color: #347efe;
+}
+/* #productTree {color: orange;}
+	#projectTree {width: 48%; margin-left: 2%;} */
+#productTree {
+    margin-right: 15px;
+    color: #347efe;
+}
+.l-layout-left .l-layout-header-toggle:before {
+    color: #a9adb1;
+}
+.l-layout-left .l-layout-header {
+    border: 1px solid #d9d9d9;
+    border-top: 0;
+    height: 34px;
+    line-height: 34px;
+    background: #fff;
+}
+.l-layout-content {
+    border-right: 0;
+}
+.tree-toolbar {
+    padding: 0;
+    border: 1px solid #d9d9d9;
+    border-top: 0;
+    border-bottom: 0;
+    background: #f5f5f5;
+}
+.group {
+    margin: 0 4px;
+    height: 32px;
+    line-height: 32px;
+}
+#prodTree {
+    border: 1px solid #d9d9d9;
+}
+.tree-toolbar a {
+    float: none;
+}
+a.link {
+    color: #666!important;
+}
+a.link:hover{
+	color: #347EFE!important;
+}
+a.link.reload:before,
+a.link.expand::before,
+a.link.collapse:before,
+a.link.import:before {
+    margin-right: 5px;
+    color: #347efe !important;
+}

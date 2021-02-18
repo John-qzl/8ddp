@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+<mapper namespace="com.cssrc.ibms.record.model.RecRoleFun">
+	<resultMap id="RecRoleFun" type="com.cssrc.ibms.record.model.RecRoleFun">
+		<id property="roleFunId" column="roleFunId" jdbcType="NUMERIC"/>
+		<result property="roleId" column="roleId" jdbcType="NUMERIC"/>
+		<result property="funId" column="funId" jdbcType="NUMERIC"/>
+		<result property="buttons" column="buttons" jdbcType="VARCHAR"/>
+	</resultMap>
+	
+	<sql id="columns">
+		roleFunId,roleId,funId,buttons
+	</sql>
+	
+	<sql id="dynamicWhere">
+		<where>
+			<if test="@Ognl@isNotEmpty(roleFunId)"> AND roleFunId  =#{roleFunId} </if>
+			<if test="@Ognl@isNotEmpty(roleId)"> AND roleId  =#{roleId} </if>
+			<if test="@Ognl@isNotEmpty(funId)"> AND funId  =#{funId} </if>
+			<if test="@Ognl@isNotEmpty(buttons)"> AND funId  =#{buttons} </if>
+		</where>
+	</sql>
+
+	<insert id="add" parameterType="com.cssrc.ibms.record.model.RecRoleFun">
+		INSERT INTO IBMS_REC_ROLE_FUN
+		(<include refid="columns"/>)
+		VALUES
+		(#{roleFunId,jdbcType=NUMERIC}, #{roleId,jdbcType=NUMERIC}, #{funId,jdbcType=NUMERIC}, #{buttons,jdbcType=VARCHAR})
+	</insert>
+	
+	<delete id="delById" parameterType="java.lang.Long">
+		DELETE FROM IBMS_REC_ROLE_FUN 
+		WHERE
+		roleFunId=#{roleFunId}
+	</delete>
+	
+	<delete id="delByFunId" parameterType="java.lang.Long" >
+		DELETE FROM   IBMS_REC_ROLE_FUN  WHERE  funId=#{funId}
+	</delete>
+		
+	<delete id="delByRoleId" parameterType="java.util.Map" >
+		delete  FROM IBMS_REC_ROLE_FUN  WHERE roleId=#{roleId}
+	</delete>
+	
+	<delete id="delByRoleAndFun" parameterType="java.util.Map" >
+		delete  FROM IBMS_REC_ROLE_FUN  WHERE roleId in 
+		<foreach close=")" collection="roleIds" item="roleId" open="(" 
+			separator=",">#{roleId}</foreach>
+		And funId in 
+		 <foreach close=")" collection="funIds" item="funId" open="(" 
+					separator=",">#{funId}</foreach>
+	</delete>
+	<update id="update" parameterType="com.cssrc.ibms.record.model.RecRoleFun">
+		UPDATE IBMS_REC_ROLE_FUN SET
+		roleId=#{roleId,jdbcType=NUMERIC} , 
+		funId=#{funId,jdbcType=NUMERIC} 
+		WHERE
+		roleFunId=#{roleFunId}
+	</update>
+	<update id="updateByRoleFunID" parameterType="com.cssrc.ibms.record.model.RecRoleFun">
+		UPDATE IBMS_REC_ROLE_FUN SET
+		roleId=#{roleId,jdbcType=NUMERIC} , 
+		funId=#{funId,jdbcType=NUMERIC} 
+		WHERE
+		roleFunId=#{roleFunId}
+	</update>
+	
+	<select id="getById" parameterType="java.lang.Long" resultMap="RecRoleFun">
+		SELECT <include refid="columns"/>
+		FROM IBMS_REC_ROLE_FUN
+		WHERE
+		roleFunId=#{roleFunId}
+	</select>
+	
+	<select id="getAll" resultMap="RecRoleFun">
+		SELECT <include refid="columns"/>
+		FROM IBMS_REC_ROLE_FUN   
+		<include refid="dynamicWhere" />
+		<if test="@Ognl@isNotEmpty(orderField)">
+		order by ${orderField} ${orderSeq}
+		</if>
+		<if test="@Ognl@isEmpty(orderField)">
+		order by roleFunId  desc
+		</if>
+	</select>	
+	
+	<select id="getByRoleId" parameterType="java.util.Map" resultMap="RecRoleFun">
+		SELECT <include refid="columns"/>  
+		FROM IBMS_REC_ROLE_FUN  
+		WHERE roleId=#{roleId}
+	</select>
+	
+	<select id="getByfunId" parameterType="java.lang.Long" resultMap="RecRoleFun">
+		SELECT <include refid="columns"/>
+		FROM   IBMS_REC_ROLE_FUN  
+		WHERE  funId=#{funId}
+	</select>
+	<select id="getByFunAndRole" parameterType="java.util.Map" resultMap="RecRoleFun">
+		SELECT <include refid="columns"/>
+		FROM   IBMS_REC_ROLE_FUN  
+		WHERE  funId=#{funId} and roleId=#{roleId}
+	</select>
+	<select id="getByRoleAliasFun" parameterType="java.util.Map" resultMap="RecRoleFun">
+		select ibms_rec_role_fun.*  from ibms_rec_role_fun  
+		left join ibms_rec_role on ibms_rec_role.ROLEID = ibms_rec_role_fun.ROLEID
+		where 
+		ibms_rec_role.ALIAS in (${roleAlias}) 
+		and funId= #{funId}
+	</select>
+</mapper>

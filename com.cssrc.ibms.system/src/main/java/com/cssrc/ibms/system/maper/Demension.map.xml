@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cssrc.ibms.system.model.Demension">
+	<resultMap id="Result" type="com.cssrc.ibms.system.model.Demension">
+		<id property="demId" column="demId" jdbcType="NUMERIC" />
+		<result property="demName" column="demName" jdbcType="VARCHAR" />
+		<result property="demDesc" column="demDesc" jdbcType="VARCHAR" />
+		<result property="demOrgPath" column="demOrgPath" jdbcType="VARCHAR" />
+		<result property="demension_updateId" column="demension_updateId" jdbcType="NUMERIC"/>
+		<result property="demension_updateTime" column="demension_updateTime" jdbcType="TIMESTAMP"/>
+		<result property="demension_creatorId" column="demension_creatorId" jdbcType="NUMERIC"/>
+		<result property="demension_createTime" column="demension_createTime" jdbcType="TIMESTAMP"/>
+		<result property="demension_delFlag" column="demension_delFlag" jdbcType="NUMERIC"/>
+	</resultMap>
+
+
+	<sql id="columns">
+		demId,demName,demDesc,demension_updateId,demension_updateTime,demension_creatorId,demension_createTime,demension_delFlag
+	</sql>
+
+	<sql id="dynamicWhere">
+		<where>
+			<if test="demName!=null"> AND demName LIKE #{demName}  </if>
+			<if test="demDesc!=null"> AND demDesc LIKE #{demDesc}  </if>
+		</where>
+	</sql>
+
+	<insert id="add" parameterType="com.cssrc.ibms.system.model.Demension">
+		INSERT INTO cwm_sys_demension
+		(
+		<include refid="columns" />
+		)
+		VALUES
+		(#{demId,jdbcType=NUMERIC}, #{demName,jdbcType=VARCHAR},
+		#{demDesc,jdbcType=VARCHAR},#{demension_updateId,jdbcType=NUMERIC},
+		#{demension_updateTime,jdbcType=TIMESTAMP},#{demension_creatorId,jdbcType=NUMERIC},
+		 #{demension_createTime,jdbcType=TIMESTAMP},#{demension_delFlag,jdbcType=NUMERIC})
+	</insert>
+
+	<delete id="delById" parameterType="java.lang.Long">
+		DELETE FROM cwm_sys_demension
+		WHERE
+		demId=#{demId}
+	</delete>
+
+	<update id="update" parameterType="com.cssrc.ibms.system.model.Demension">
+		UPDATE cwm_sys_demension SET
+		demName=#{demName,jdbcType=VARCHAR} ,
+		demDesc=#{demDesc,jdbcType=VARCHAR} ,
+		demension_delFlag =#{demension_delFlag,jdbcType=NUMERIC},
+		<if test="@Ognl@isNotEmpty(demension_creatorId)">
+		demension_creatorId=#{demension_creatorId,jdbcType=NUMERIC} ,
+		</if>
+		<if test="@Ognl@isNotEmpty(demension_createTime)">
+		demension_createTime=#{demension_createTime,jdbcType=TIMESTAMP} ,
+		</if>
+		demension_updateId=#{demension_updateId,jdbcType=NUMERIC} ,
+		demension_updateTime=#{demension_updateTime,jdbcType=TIMESTAMP} 
+		WHERE
+		demId=#{demId}
+	</update>
+
+	<select id="getExists" resultType="java.lang.Integer">
+		select count(demId) from cwm_sys_demension
+		where demName=#{demName}
+	</select>
+
+	<select id="getById" parameterType="java.lang.Long" resultMap="Result">
+		SELECT
+		<include refid="columns" />
+		FROM cwm_sys_demension
+		WHERE
+		demId=#{demId}
+	</select>
+
+	<select id="getByName" parameterType="java.lang.String" resultMap="Result">
+		SELECT
+		<include refid="columns" />
+		FROM cwm_sys_demension
+		WHERE
+		demName=#{demName}
+	</select>
+
+
+	<select id="getAll" resultMap="Result">
+		SELECT
+		<include refid="columns" />
+		FROM cwm_sys_demension
+		<include refid="dynamicWhere" />
+		<if test="@Ognl@isNotEmpty(orderField)">
+			order by ${orderField} ${orderSeq}
+		</if>
+		<if test="@Ognl@isEmpty(orderField)">
+			order by demId desc
+		</if>
+	</select>
+
+	<select id="getDemenByQuery" resultMap="Result">
+		SELECT
+		<include refid="columns" />
+		FROM cwm_sys_demension
+		<where>
+			<if test="demName!=null"> AND demName LIKE #{demName}  </if>
+			<if test="demDesc!=null"> AND demDesc LIKE #{demDesc}  </if>
+		</where>
+		<if test="@Ognl@isNotEmpty(orderField)">
+			order by ${orderField} ${orderSeq}
+		</if>
+		<if test="@Ognl@isEmpty(orderField)">
+			order by demId desc
+		</if>
+	</select>
+
+</mapper>

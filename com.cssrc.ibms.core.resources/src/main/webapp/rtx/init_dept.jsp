@@ -1,0 +1,15 @@
+<%@ page contentType="text/html;charset=utf-8"%> 
+<%@ page import = "rtx.*"%>
+<html>
+<head>
+<title>init dept</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link rel="stylesheet" href="common.css" type="text/css">
+</head>
+<body bgcolor="#FFFFFF" text="#000000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+<%
+RTXUtil.initDepts("0");
+ 
+%>
+</body>
+</html>

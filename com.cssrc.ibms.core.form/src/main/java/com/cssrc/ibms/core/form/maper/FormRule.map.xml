@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cssrc.ibms.core.form.model.FormRule">
+	<resultMap id="FormRule" type="com.cssrc.ibms.core.form.model.FormRule">
+		<id property="id" column="id" jdbcType="NUMERIC" />
+		<result property="name" column="name" jdbcType="VARCHAR" />
+		<result property="rule" column="REGULATION" jdbcType="VARCHAR" />
+		<result property="memo" column="memo" jdbcType="VARCHAR" />
+		<result property="tipInfo" column="tipInfo" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<sql id="columns">
+		id,name,REGULATION,memo,tipInfo
+	</sql>
+
+	<sql id="dynamicWhere">
+		<where>
+			<if test="@Ognl@isNotEmpty(id)"> AND id =#{id} </if>
+			<if test="@Ognl@isNotEmpty(name)"> AND name LIKE #{name}  </if>
+			<if test="@Ognl@isNotEmpty(rule)"> AND REGULATION LIKE #{rule}  </if>
+			<if test="@Ognl@isNotEmpty(memo)"> AND memo LIKE #{memo}  </if>
+			<if test="@Ognl@isNotEmpty(tipInfo)"> AND tipInfo LIKE #{tipInfo}  </if>
+		</where>
+	</sql>
+
+	<insert id="add" parameterType="com.cssrc.ibms.core.form.model.FormRule">
+		INSERT INTO ibms_form_rule
+		(
+		<include refid="columns" />
+		)
+		VALUES
+		(#{id,jdbcType=NUMERIC}, #{name,jdbcType=VARCHAR},
+		#{rule,jdbcType=VARCHAR}, #{memo,jdbcType=VARCHAR},
+		#{tipInfo,jdbcType=VARCHAR})
+	</insert>
+
+	<delete id="delById" parameterType="java.lang.Long">
+		DELETE FROM ibms_form_rule
+		WHERE
+		id=#{id}
+	</delete>
+
+	<update id="update" parameterType="com.cssrc.ibms.core.form.model.FormRule">
+		UPDATE ibms_form_rule SET
+		name=#{name,jdbcType=VARCHAR} ,
+		REGULATION=#{rule,jdbcType=VARCHAR} ,
+		memo=#{memo,jdbcType=VARCHAR} ,
+		tipInfo=#{tipInfo,jdbcType=VARCHAR}
+		WHERE
+		id=#{id}
+	</update>
+
+	<select id="getById" parameterType="java.lang.Long" resultMap="FormRule">
+		SELECT
+		<include refid="columns" />
+		FROM ibms_form_rule
+		WHERE
+		id=#{id}
+	</select>
+
+	<select id="getAll" resultMap="FormRule">
+		SELECT
+		<include refid="columns" />
+		FROM ibms_form_rule
+		<include refid="dynamicWhere" />
+		<if test="@Ognl@isNotEmpty(orderField)">
+			order by ${orderField} ${orderSeq}
+		</if>
+		<if test="@Ognl@isEmpty(orderField)">
+			order by id desc
+		</if>
+	</select>
+</mapper>

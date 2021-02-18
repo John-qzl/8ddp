@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:amq="http://activemq.apache.org/schema/core"
+	xmlns:jms="http://www.springframework.org/schema/jms"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans   
+        http://www.springframework.org/schema/beans/spring-beans-3.1.xsd   
+        http://www.springframework.org/schema/context   
+        http://www.springframework.org/schema/context/spring-context-3.1.xsd
+        http://www.springframework.org/schema/jms
+        http://www.springframework.org/schema/jms/spring-jms-3.1.xsd
+        http://activemq.apache.org/schema/core
+        http://activemq.apache.org/schema/core/activemq-core-5.8.0.xsd">
+
+
+	<!--(嵌入配置)activeMq消息容器 暂时先不集成部署 mq 服务器，mq会锁文件导致无法启动两个tomcat -->
+	<!-- <amq:broker useJmx="true" persistent="true">
+		<amq:managementContext>
+			<amq:managementContext createConnector="true" connectorPort="${jms.connectorPort.port}"/>
+		</amq:managementContext>
+		<amq:persistenceAdapter>
+			<amq:kahaDB directory="${jmsDir}">
+			</amq:kahaDB>
+		</amq:persistenceAdapter>
+		<amq:transportConnectors>
+			<amq:transportConnector uri="tcp://${jms.ip}:${jms.port}" />
+		</amq:transportConnectors>
+	</amq:broker> -->
+	
+	
+	<!-- 系统内消息连接工厂类 brokerURL表示连接工厂消息代理的位置 -->
+	<bean id="amqConnectionFactory" class="org.apache.activemq.ActiveMQConnectionFactory">
+		<!-- mq 服务器连接地址 -->
+		<property name="brokerURL" value="tcp://${jms.ip}:${jms.port}"></property>
+		<!-- 是否异步发送 -->
+		<property name="useAsyncSend" value="true"></property>
+	</bean>
+	<!-- spring 缓存连接池配置 -->
+	<bean id="simpleJmsConnectionFactory"
+		class="com.cssrc.ibms.core.jms.factory.MessageConnectionFactory">
+		<constructor-arg ref="amqConnectionFactory" />
+		<!-- session 缓存数量 -->
+		<property name="sessionCacheSize" value="100" />
+		<property name="cacheConsumers" value="true"></property>
+		<!-- 异常监听器 -->
+		<property name="exceptionListener" ref="jmsExceptionListener" />
+		<!--按照IP-端口-系统名生成用户唯一id-->
+		<property name="clientId" value="${jdbc.username}"></property>
+	</bean>
+
+	<!-- ====Producer side start==== -->
+	<!-- 定义JmsTemplate的Queue类型 -->
+	<bean id="jmsQueueTemplate" class="org.springframework.jms.core.JmsTemplate">
+		<constructor-arg ref="simpleJmsConnectionFactory" />
+		<!-- 非pub/sub模型（发布/订阅），即队列模式 -->
+		<property name="pubSubDomain" value="false" />
+	</bean>
+	<!-- 定义JmsTemplate的Topic类型 -->
+	<bean id="jmsTopicTemplate" class="org.springframework.jms.core.JmsTemplate">
+		<constructor-arg ref="simpleJmsConnectionFactory" />
+		<!-- pub/sub模型（发布/订阅） -->
+		<property name="pubSubDomain" value="true" />
+	</bean>
+
+	<!-- ====Producer side end==== -->
+
+
+	<!-- ====Consumer side start==== -->
+	<!-- 定义Queue监听器 -->
+	<jms:listener-container destination-type="queue"
+		message-converter="activeMqMessageConverter" container-type="default"
+		connection-factory="simpleJmsConnectionFactory" receive-timeout="3000"
+		acknowledge="auto">
+		<jms:listener destination="${jms.massage.queue}" ref="messageConsumer"
+			method="sendMessage" />
+	</jms:listener-container>
+
+	<!-- 定义Topic监听器 -->
+	<jms:listener-container destination-type="durableTopic"
+		client-id="${jdbc.username}" container-type="default" receive-timeout="3000"
+		connection-factory="simpleJmsConnectionFactory" acknowledge="auto">
+		<jms:listener destination="${jms.massage.topic.syncreldata}" ref="relTableSyncDataReceiver" />
+	</jms:listener-container>
+
+	<!-- ====Consumer side end==== -->
+
+
+</beans>	

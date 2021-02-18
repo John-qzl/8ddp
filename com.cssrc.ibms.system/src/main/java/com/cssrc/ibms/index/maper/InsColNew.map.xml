@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cssrc.ibms.index.model.InsColNew" >
+  <resultMap id="InsColNew" type="com.cssrc.ibms.index.model.InsColNew" >
+    <id column="ID_" property="id" jdbcType="NUMERIC" />
+    <result column="COL_ID_" property="colId" jdbcType="NUMERIC" />
+    <result column="NEW_ID_" property="newId" jdbcType="NUMERIC" />
+    <result column="SN_" property="sn" jdbcType="INTEGER" />
+    <result column="START_TIME_" property="startTime" jdbcType="TIMESTAMP" />
+    <result column="END_TIME_" property="endTime" jdbcType="TIMESTAMP" />
+    <result column="IS_LONG_VALID_" property="isLongValid" jdbcType="VARCHAR" />
+    <result column="ORG_ID_" property="orgId" jdbcType="VARCHAR" />
+    <result column="CREATE_BY_" property="createBy" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME_" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_BY_" property="updateBy" jdbcType="VARCHAR" />
+    <result column="UPDATE_TIME_" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  
+  <sql id="columns" >
+    ID_, COL_ID_, NEW_ID_, SN_, START_TIME_, END_TIME_, IS_LONG_VALID_, ORG_ID_, CREATE_BY_, 
+    CREATE_TIME_, UPDATE_BY_, UPDATE_TIME_
+  </sql>
+  
+  <sql id="dynamicWhere">
+		<where>
+			<if test="@Ognl@isNotEmpty(id)"> AND ID_ =#{id} </if>
+			<if test="@Ognl@isNotEmpty(colId)"> AND COL_ID_ =#{colId}  </if>
+			<if test="@Ognl@isNotEmpty(newId)"> AND NEW_ID_={newId}  </if>
+			<if test="@Ognl@isNotEmpty(sn)"> AND SN_=#{sn}  </if>
+			<if test="@Ognl@isNotEmpty(startTime)"> AND START_TIME_ &gt;=#{startTime}  </if>
+			<if test="@Ognl@isNotEmpty(endTime)"> AND END_TIME_ &lt;=#{endTime}  </if>
+			<if test="@Ognl@isNotEmpty(orgId)"> AND ORG_ID_ = #{orgId}  </if>
+			<if test="@Ognl@isNotEmpty(createBy)"> AND CREATE_BY_ = #{createBy}  </if>
+			<if test="@Ognl@isNotEmpty(createTime)"> AND CREATE_TIME_ &gt;=#{createTime}</if>
+			<if test="@Ognl@isNotEmpty(updateTime)"> AND UPDATE_TIME_ &lt;=#{updateTime}</if>
+			<if test="@Ognl@isNotEmpty(updateBy)"> AND UPDATE_BY_ = #{updateBy}  </if>
+		</where>
+  </sql>
+  
+  <select id="getById" resultMap="InsColNew" parameterType="java.lang.Long" >
+    select 
+    <include refid="columns" />
+    from ins_col_new
+    where ID_ = #{id}
+  </select>
+  
+  <delete id="delById" parameterType="java.lang.Long" >
+    delete from ins_col_new
+    where ID_ = #{id}
+  </delete>
+  
+  <insert id="add" parameterType="com.cssrc.ibms.index.model.InsColNew" >
+    insert into ins_col_new (
+  	 	<include refid="columns" />
+      )
+    values (#{id,jdbcType=NUMERIC}, #{colId,jdbcType=NUMERIC}, #{newId,jdbcType=NUMERIC}, 
+      #{sn,jdbcType=INTEGER}, #{startTime,jdbcType=TIMESTAMP}, #{endTime,jdbcType=TIMESTAMP}, 
+      #{isLongValid,jdbcType=VARCHAR}, #{orgId,jdbcType=VARCHAR}, #{createBy,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateBy,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+
+  
+  <update id="update" parameterType="com.cssrc.ibms.index.model.InsColNew" >
+    update ins_col_new
+    set COL_ID_ = #{colId,jdbcType=NUMERIC},
+      NEW_ID_ = #{newId,jdbcType=NUMERIC},
+      SN_ = #{sn,jdbcType=INTEGER},
+      START_TIME_ = #{startTime,jdbcType=TIMESTAMP},
+      END_TIME_ = #{endTime,jdbcType=TIMESTAMP},
+      IS_LONG_VALID_ = #{isLongValid,jdbcType=VARCHAR},
+      ORG_ID_ = #{orgId,jdbcType=VARCHAR},
+      CREATE_BY_ = #{createBy,jdbcType=VARCHAR},
+      CREATE_TIME_ = #{createTime,jdbcType=TIMESTAMP},
+      UPDATE_BY_ = #{updateBy,jdbcType=VARCHAR},
+      UPDATE_TIME_ = #{updateTime,jdbcType=TIMESTAMP}
+    where ID_ = #{id}
+  </update>
+  
+   <select id="getAll" resultMap="InsColNew">
+		SELECT
+		<include refid="columns" />
+		FROM ins_col_new
+		<include refid="dynamicWhere" />
+		<if test="@Ognl@isNotEmpty(orderField)">
+			order by ${orderField} ${orderSeq}
+		</if>
+		<if test="@Ognl@isEmpty(orderField)">
+			order by ID_ desc
+		</if>
+	</select>
+	
+	
+	<delete id="delByColId" parameterType="Map" >
+    	delete from ins_col_new 
+    	WHERE COL_ID_=#{colId} 
+    	<if test="@Ognl@isNotEmpty(orgId)"> AND ORG_ID_=#{orgId}</if>  
+  	</delete>
+  	
+  	<delete id="delByNewId" parameterType="Map" >
+    	delete from ins_col_new 
+    	WHERE NEW_ID_=#{newId} 
+    	<if test="@Ognl@isNotEmpty(orgId)"> AND ORG_ID_=#{orgId}</if>  
+  	</delete>
+  	
+  	<select id="getByColIdNewId" parameterType="Map" resultMap="InsColNew">
+		SELECT <include refid="columns"/> 
+		FROM ins_col_new 
+		WHERE COL_ID_=#{colId} 
+		AND NEW_ID_=#{newId}
+		<if test="@Ognl@isNotEmpty(orgId)"> AND ORG_ID_=#{orgId}</if>  
+  	</select>
+  	
+  	<delete id="delByColIdNewId" parameterType="Map" >
+    	delete from ins_col_new 
+    	WHERE COL_ID_=#{colId} 
+    	AND NEW_ID_=#{newId}
+  	</delete>
+  
+</mapper>

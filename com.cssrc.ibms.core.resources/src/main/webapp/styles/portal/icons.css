@@ -1,0 +1,721 @@
+.icon-bookOpen{
+		background:url(../../images/portal/icons/book_open.png) no-repeat;
+}
+.icon-flows{
+	background:url(../../images/portal/icons/flows.png) no-repeat;
+}
+
+.icon-fullscreenBlack{
+	background:url(../../images/portal/icons/fullscreen_black.png) no-repeat;
+}
+
+.icon-fullscreen{
+	background:url(../../images/portal/icons/fullscreen.png) no-repeat;
+}
+
+.icon-picture{
+    background:url(../../images/portal/icons/picture.png) no-repeat;
+}
+.icon-pictureAdd{
+    background:url(../../images/portal/icons/picture_add.png) no-repeat;
+}
+.icon-pictureDelete{
+    background:url(../../images/portal/icons/picture_delete.png) no-repeat;
+}
+.icon-arrowUp{
+    background:url(../../images/portal/icons/arrowUp.png) no-repeat;
+}
+.icon-arrowDown{
+    background:url(../../images/portal/icons/arrowDown.png) no-repeat;
+}
+.icon-notEssence{
+    background:url(../../images/portal/icons/notEssence.png) no-repeat;
+}
+.icon-essence{
+    background:url(../../images/portal/icons/essence.png) no-repeat;
+}
+.icon-report{
+    background:url(../../images/portal/icons/report.png) no-repeat;
+}
+.icon-excel{
+    background:url(../../images/portal/icons/excel.png) no-repeat;
+}
+.icon-pdf{
+    background:url(../../images/portal/icons/pdf.png) no-repeat;
+}
+
+.icon-btn{
+	background:url(../../images/portal/icons/button.png) no-repeat;
+}
+.icon-clear{
+    background:url(../../images/portal/icons/clear.png) no-repeat;
+}
+
+.icon-error{
+	background:url(../../images/portal/icons/error.png) no-repeat;
+}
+
+.icon-task{
+	background:url(../../images/portal/icons/task.png) no-repeat;
+}
+
+.icon-reset{
+    background:url(../../images/portal/icons/reset.png) no-repeat;
+}
+.icon-debug{
+	background:url(../../images/portal/icons/debug.png) no-repeat;
+}
+
+.icon-var{
+    background:url(../../images/portal/icons/var.png) no-repeat;
+}
+
+.icon-scripts{
+    background:url(../../images/portal/icons/scripts.png) no-repeat;
+}
+
+.icon-read{
+    background:url(../../images/portal/icons/read.png) no-repeat;
+}
+
+.icon-hide{
+    background:url(../../images/portal/icons/hide.png) no-repeat;
+}
+
+.icon-doc{
+    background:url(../../images/portal/icons/doc.png) no-repeat;
+}
+.icon-help{
+    background:url(../../images/portal/icons/help.png) no-repeat;
+}
+.icon-parameter{
+    background:url(../../images/portal/icons/parameter.png) no-repeat;
+}
+.icon-oddraft{
+    background:url(../../images/portal/icons/icon-oddraft.png) no-repeat;
+}
+.icon-reportView{
+    background:url(../../images/portal/icons/report-view.png) no-repeat;
+}
+.icon-publish{
+    background:url(../../images/portal/icons/publish.png) no-repeat;
+}
+.icon-emailAdd{
+    background:url(../../images/portal/icons/email_add.png) no-repeat;
+}
+
+.icon-group{
+    background:url(../../images/portal/icons/group.png) no-repeat;
+}
+.icon-newMsg{
+    background:url(../../images/portal/icons/mail.png) no-repeat;
+}
+.icon-readedMsg{
+    background:url(../../images/portal/icons/mail_open.png) no-repeat;
+}
+.icon-to-receive{
+    background:url(../../images/portal/icons/icon-to-receive.png) no-repeat;
+}
+
+.icon-export{
+	background:url(../../images/portal/icons/export.png) no-repeat;
+}
+
+.icon-import{
+	background:url(../../images/portal/icons/import.png) no-repeat;
+}
+
+.icon-sendMsg{
+    background:url(../../images/portal/icons/msg_send.png) no-repeat;
+}
+.icon-addMsgPerson{
+    background:url(../../images/portal/icons/people_add.png) no-repeat;
+}
+.icon-addMsgGroup{
+    background:url(../../images/portal/icons/group_add.png) no-repeat;
+}
+.icon-mailDown{
+    background:url(../../images/portal/icons/mail_light_down.png) no-repeat;
+}
+.icon-mailUp{
+    background:url(../../images/portal/icons/mail_light_up.png) no-repeat;
+}
+
+.icon-home{
+    background:url(../../images/portal/icons/home.png) no-repeat;
+}
+.icon-next{
+    background:url(../../images/portal/icons/next.gif) no-repeat;
+}
+
+.icon-prev{
+    background:url(../../images/portal/icons/prev.gif) no-repeat;
+}
+
+.icon-detail{
+    background:url(../../images/portal/icons/detail.png) no-repeat;
+}
+
+.icon-edit{
+    background:url(../../images/portal/icons/edit.png) no-repeat;
+}
+
+.icon-form{
+    background:url(../../images/portal/icons/form.png) no-repeat;
+}
+
+.icon-create{
+    background:url(../../images/portal/icons/add.png) no-repeat;
+}
+
+.icon-info{
+	background:url(../../images/portal/icons/info.png) no-repeat;
+}
+
+.icon-copyAdd{
+    background:url(../../images/portal/icons/copyAdd.png) no-repeat;
+}
+
+.icon-search{
+    background:url(../../images/portal/icons/search.png) no-repeat;
+}
+
+.icon-addSearch{
+    background:url(../../images/portal/icons/addSearch.png) no-repeat;
+}
+
+.icon-delSearch{
+    background:url(../../images/portal/icons/delSearch.png) no-repeat;
+}
+
+.icon-loadSearch{
+    background:url(../../images/portal/icons/loadSearch.png) no-repeat;
+}
+
+.icon-attach{
+    background:url(../../images/portal/icons/attach.png) no-repeat;
+}
+.icon-myword{
+    background:url(../../images/portal/icons/icon-myword.png) no-repeat;
+}
+.icon-myexcel{
+    background:url(../../images/portal/icons/icon-myexcel.png) no-repeat;
+}
+.icon-myppt{
+    background:url(../../images/portal/icons/icon-myppt.png) no-repeat;
+}
+
+.icon-attachAdd{
+    background:url(../../images/portal/icons/attachAdd.png) no-repeat;
+}
+
+.icon-preview{
+    background:url(../../images/portal/icons/preview.png) no-repeat;
+}
+
+.icon-download{
+    background:url(../../images/portal/icons/download.png) no-repeat;
+}
+
+.icon-printer{
+    background:url(../../images/portal/icons/printer.png) no-repeat;
+}
+
+.icon-excel{
+    background:url(../../images/portal/icons/excel.gif) no-repeat;
+}
+
+.icon-archives{
+    background:url(../../images/portal/icons/archives.png) no-repeat;
+}
+
+.icon-setting{
+    background:url(../../images/portal/icons/setting.png) no-repeat;
+}
+
+.icon-saveAll{
+    background:url(../../images/portal/icons/save_all.png) no-repeat;
+}
+
+.icon-refresh{
+    background:url(../../images/portal/icons/refresh.png) no-repeat;
+}
+
+.icon-select{
+    background:url(../../images/portal/icons/select.png) no-repeat ;
+}
+
+.icon-rowafter{
+	 background:url(../../images/portal/icons/arrow_turn_right.png) no-repeat ;
+}
+.icon-rowbefore{
+	 background:url(../../images/portal/icons/arrow_turn_left.png) no-repeat ;
+}
+
+.icon-lock{
+	 background:url(../../images/portal/icons/lock.png) no-repeat ;
+}
+
+.icon-unlock{
+	 background:url(../../images/portal/icons/unlock.png) no-repeat ;
+}
+
+.icon-org-set{
+	 background:url(../../images/portal/icons/org-set.png) no-repeat ;
+}
+
+.icon-tab-com{
+	background:url(../../images/portal/icons/tab-com.png) no-repeat;
+}
+
+.icon-relation{
+	background:url(../../images/portal/icons/relation.png) no-repeat;
+}
+
+.icon-dimension{
+	background:url(../../images/portal/icons/dimension.png) no-repeat;
+}
+
+.icon-user-button .mini-buttonedit-icon{
+	background:url(../../images/portal/icons/user.png) no-repeat;
+}
+
+.icon-group-button .mini-buttonedit-icon{
+	background:url(../../images/portal/icons/groups.png) no-repeat;
+}
+
+.icon-dep-button .mini-buttonedit-icon{
+	background:url(../../images/portal/icons/department.png) no-repeat;
+}
+
+.icon-groups{
+	background:url(../../images/portal/icons/groups.png) no-repeat;
+}
+
+.icon-department{
+	background:url(../../images/portal/icons/department.png) no-repeat;
+}
+
+.icon-calendar{
+	background:url(../../images/portal/icons/calendar.png) no-repeat;
+}
+
+.icon-flow{
+	background:url(../../images/portal/icons/flow.png) no-repeat;
+}
+
+.icon-up{
+	background:url(../../images/portal/icons/up.png) no-repeat;
+}
+
+.icon-down{
+	background:url(../../images/portal/icons/down.png) no-repeat;
+}
+
+.icon-account{
+	background:url(../../images/portal/icons/account.png) no-repeat;
+}
+
+.icon-rank{
+	background:url(../../images/portal/icons/rank.png) no-repeat;
+}
+
+.icon-modify-pwd{
+	background:url(../../images/portal/icons/modify-pwd.png) no-repeat;
+}
+
+.icon-grant{
+	background:url(../../images/portal/icons/icon-grant.png) no-repeat;
+}
+
+.icon-grant-to{
+	background:url(../../images/portal/icons/grant-to.png) no-repeat;
+}
+
+.icon-window{
+	background:url(../../images/portal/icons/icon-window.png) no-repeat;
+}
+
+.icon-system{
+	background:url(../../images/portal/icons/icon-system.png) no-repeat;
+}
+
+.icon-window2{
+	background:url(../../images/portal/icons/icon-window2.png) no-repeat;
+}
+
+.icon-check{
+	background:url(../../images/portal/icons/check.png) no-repeat;
+}
+
+.icon-uncheck{
+	background:url(../../images/portal/icons/uncheck.png) no-repeat;
+}
+
+.icon-col-news{
+	background:url(../../images/portal/icons/col-news.png) no-repeat;
+}
+
+.icon-flow-design{
+	background:url(../../images/portal/icons/flow-design.png) no-repeat;
+}
+
+.icon-flow-deploy{
+	background:url(../../images/portal/icons/icon-deploy.png) no-repeat;
+}
+
+.icon-version{
+	background:url(../../images/portal/icons/version.png) no-repeat;
+}
+
+.icon-main{
+	background:url(../../images/portal/icons/main.png) no-repeat;
+}
+
+.icon-script{
+	background:url(../../images/portal/icons/script.png) no-repeat;
+}
+
+.icon-mgr{
+	background:url(../../images/portal/icons/mgr.png) no-repeat;
+}
+
+.icon-xml{
+	background:url(../../images/portal/icons/xml.png) no-repeat;
+}
+
+.icon-start{
+	background:url(../../images/portal/icons/icon-start.png) no-repeat;
+}
+
+.icon-btn-mgr{
+	background:url(../../images/portal/icons/btn-mgr.png) no-repeat;
+}
+
+.icon-office{
+	background:url(../../images/portal/icons/office.png) no-repeat;
+}
+
+.icon-document{
+	background:url(../../images/portal/icons/document.png) no-repeat;
+}
+
+.icon-activate{
+	background:url(../../images/portal/icons/activate.png) no-repeat;
+}
+
+.icon-suspend{
+	background:url(../../images/portal/icons/suspend.png) no-repeat;
+}
+
+.icon-end{
+	background:url(../../images/portal/icons/end.png) no-repeat;
+}
+
+.icon-move{
+	background:url(../../images/portal/icons/transfer1.png) no-repeat;
+}
+
+.icon-commute{
+	background:url(../../images/portal/icons/commute.png) no-repeat;
+}
+
+.icon-ch-user{
+		background:url(../../images/portal/icons/user.png) no-repeat;
+}
+
+.icon-handle{
+	background:url(../../images/portal/icons/handle.png) no-repeat;
+}
+
+.icon-flow-img{
+	background:url(../../images/portal/icons/flow-img.png) no-repeat;
+}
+
+.icon-monitor{
+	background:url(../../images/portal/icons/monitor.png) no-repeat;
+}
+
+.icon-transfer{
+	background:url(../../images/portal/icons/transfer.png) no-repeat;
+}
+
+.icon-back{
+	background:url(../../images/portal/icons/back.png) no-repeat;
+}
+
+.icon-submit{
+	background:url(../../images/portal/icons/select.png) no-repeat;
+}
+
+.icon-users{
+	background:url(../../images/portal/icons/users.png) no-repeat;
+}
+
+.icon-word{
+	background:url(../../images/portal/icons/word.png) no-repeat;
+}
+
+.icon-ppt{
+	background:url(../../images/portal/icons/ppt.png) no-repeat;
+}
+
+.icon-excel{
+	background:url(../../images/portal/icons/excel.png) no-repeat;
+}
+
+.icon-html{
+	background:url(../../images/portal/icons/html.png) no-repeat;
+}
+
+.view-img{
+	cursor: pointer;
+}
+
+.icon-copyup{
+	background:url(../../images/portal/icons/copyup.png) no-repeat;
+}
+
+.icon-copydown{
+	background:url(../../images/portal/icons/copydown.png) no-repeat;
+}
+
+.icon-agree{
+	background:url(../../images/portal/icons/icon-agree.png) no-repeat;
+}
+
+.icon-refuse{
+	background:url(../../images/portal/icons/icon-refuse.png) no-repeat;
+}
+
+.icon-back{
+	background:url(../../images/portal/icons/icon-back.png) no-repeat;
+}	
+
+.icon-startor{
+	background:url(../../images/portal/icons/icon-startor.png) no-repeat;
+}
+.icon-attention{
+	background:url(../../images/portal/icons/icon-attention.png) no-repeat;
+}
+.icon-careAbout{
+	background:url(../../images/portal/icons/icon-careAbout.png) no-repeat;
+}
+
+.icon-abstain{
+	background:url(../../images/portal/icons/icon-abstain.png) no-repeat;
+}
+
+.icon-newmail{
+	background:url(../../images/portal/icons/icon-newmail.png) no-repeat;
+}
+
+.icon-readmail{
+	background:url(../../images/portal/icons/icon-readmail.png) no-repeat;
+}
+
+.icon-mail{
+	background:url(../../images/portal/icons/mail.png) no-repeat;
+}
+
+.icon-reply{
+	background:url(../../images/portal/icons/icon-reply.png) no-repeat;
+}
+
+.icon-getmail{
+	background:url(../../images/portal/icons/icon-getmail.png) no-repeat;
+}
+
+.icon-weixin{
+	background:url(../../images/portal/icons/weixin.png) no-repeat;
+}
+
+.icon-writemail{
+	background:url(../../images/portal/icons/icon-writemail.png) no-repeat;
+}
+
+.icon-transmit{
+	background:url(../../images/portal/icons/icon-transmit.png) no-repeat;
+}
+
+.icon-trash{
+	background:url(../../images/portal/icons/icon-trash.gif) no-repeat;
+}
+
+.icon-sender{
+	background:url(../../images/portal/icons/icon-sender.png) no-repeat;
+}
+
+.icon-receive{
+	background:url(../../images/portal/icons/icon-receive.png) no-repeat;
+}
+
+.icon-draft{
+	background:url(../../images/portal/icons/icon-draft.png) no-repeat;
+}
+
+.icon-send{
+	background:url(../../images/portal/icons/icon-send.png) no-repeat;
+}
+
+.icon-mailconnect{
+	background:url(../../images/portal/icons/icon-mailconnect.png) no-repeat;
+}
+
+.icon-normal{
+	background:url(../../images/portal/icons/icon-normal.png) no-repeat;
+}
+
+.icon-important{
+	background:url(../../images/portal/icons/icon-important.png) no-repeat;
+}
+
+.icon-vital{
+	background:url(../../images/portal/icons/icon-vital.png) no-repeat;
+}
+
+.icon-textbox{
+	background:url(../../images/portal/icons/icon-textbox.png) no-repeat;
+}
+
+.icon-textarea{
+	background:url(../../images/portal/icons/icon-textarea.png) no-repeat;
+}
+
+.icon-checkboxlist{
+	background:url(../../images/portal/icons/icon-checkboxlist.png) no-repeat;
+}
+
+.icon-radiobuttonlist{
+	background:url(../../images/portal/icons/icon-radiobutton.png) no-repeat;
+}
+
+.icon-checkbox{
+	background:url(../../images/portal/icons/icon-checkbox.png) no-repeat;
+}
+
+.icon-combobox{
+	background:url(../../images/portal/icons/icon-combobox.png) no-repeat;
+}
+
+.icon-datepicker{
+	background:url(../../images/portal/icons/icon-date.png) no-repeat;
+}
+
+.icon-monthpicker{
+	background:url(../../images/portal/icons/icon-month.png) no-repeat;
+}
+
+.icon-timespinner{
+	background:url(../../images/portal/icons/icon-timeinput.png) no-repeat;
+}
+
+.icon-spinner{
+	background:url(../../images/portal/icons/icon-numberinput.png) no-repeat;
+}
+
+.icon-ueditor{
+	background:url(../../images/portal/icons/icon-editor.png) no-repeat;
+}
+
+.icon-user{
+	background:url(../../images/portal/icons/icon-users.png) no-repeat;
+}
+
+.icon-upload{
+	background:url(../../images/portal/icons/icon-upload.png) no-repeat;
+}
+
+.icon-hidden{
+	background:url(../../images/portal/icons/icon-hidden.png) no-repeat;
+}
+
+.icon-buttonedit{
+	background:url(../../images/portal/icons/icon-buttoninput.png) no-repeat;
+}
+
+.icon-dep{
+	background:url(../../images/portal/icons/icon-dept.png) no-repeat;
+}
+
+.icon-table{
+	background:url(../../images/portal/icons/icon-table.png) no-repeat;
+}
+
+.rx-grid{
+	background:url(../../images/portal/icons/icon-table.png) no-repeat;
+}
+
+.icon-treeselect{
+	background:url(../../images/portal/icons/icon-treeselect.png) no-repeat;
+}
+
+.icon-property{
+	background:url(../../images/portal/icons/property.png) no-repeat;
+}
+
+.icon-libary{
+	background:url(../../images/portal/icons/icon-libary.png) no-repeat;
+}
+
+.icon-method{
+	background:url(../../images/portal/icons/icon-method.png) no-repeat;
+}
+
+.icon-msg{
+	background:url(../../images/portal/icons/messages.png) no-repeat;
+}
+
+.icon-bpm-draft{
+	background:url(../../images/portal/icons/icon-bpm-draft.png) no-repeat;
+}
+
+.icon-running{
+	background:url(../../images/portal/icons/icon-running.png) no-repeat;
+}
+
+.icon-success-end{
+	background:url(../../images/portal/icons/icon-success-end.png) no-repeat;
+}
+
+.icon-textboxlist{
+	background:url(../../images/portal/icons/icon-textboxlist.png) no-repeat;
+}
+
+.icon-history{
+	background:url(../../images/portal/icons/icon-history.png) no-repeat;
+}
+
+.icon-startEvent{
+	background:url(../../images/portal/icons/startEvent.png) no-repeat;
+}
+
+.icon-formula{
+	background:url(../../images/portal/icons/formula.png) no-repeat;
+}
+
+.icon-endEvent{
+	background:url(../../images/portal/icons/endEvent.png) no-repeat;
+}
+
+.icon-userTask{
+	background:url(../../images/portal/icons/userTask.png) no-repeat;
+}
+
+.icon-process{
+	background:url(../../images/portal/icons/process.png) no-repeat;
+}
+
+span.icon-button{
+	display:block;
+	width:20px;
+	height:16px;
+	padding-left:2px;
+	paddng-right:2px;
+	cursor: pointer;
+	float:left;
+}
+/*上传的图片标*/
+.upload-file{
+	cursor:pointer;
+}

@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cssrc.ibms.report.model.SignModel">
+	<resultMap id="SignModel" type="com.cssrc.ibms.report.model.SignModel">
+		<id column="ID" property="id" jdbcType="BIGINT" />
+		<result column="IMG_PATH" property="imgPath" jdbcType="CLOB" />
+		<result column="USER_ID" property="userId" jdbcType="BIGINT" />
+		<result column="CODE" property="code" jdbcType="VARCHAR" />
+		<result column="ORG_ID" property="orgId" jdbcType="BIGINT" />
+		<result column="NAME" property="name" jdbcType="VARCHAR" />
+		<result column="IS_DEFAULT" property="isDefault" jdbcType="INTEGER" />
+		<result column="DESC_" property="desc" jdbcType="VARCHAR" />
+		<result column="TYPE_" property="type" jdbcType="BIGINT" />
+		<result column="START_DATE" property="startDate" jdbcType="DATE" />
+		<result column="END_DATE" property="endDate" jdbcType="DATE" />
+		<result column="STATUS" property="status" jdbcType="BIGINT" />
+		<result column="VERSION" property="version" jdbcType="VARCHAR" />
+		<result column="PASSW" property="passw" jdbcType="VARCHAR" />
+		<result column="PATH_TYPE" property="pathType" jdbcType="INTEGER" />
+		
+	</resultMap>
+
+	<sql id="columns">
+		ID, IMG_PATH, USER_ID, CODE, ORG_ID, NAME, DESC_, TYPE_, START_DATE,
+		END_DATE, STATUS,IS_DEFAULT,VERSION,PASSW,PATH_TYPE
+	</sql>
+
+	<select id="getById" resultMap="SignModel" parameterType="java.lang.Long">
+		select
+		<include refid="columns" />
+		from cwm_sys_sign_model
+		where ID = #{id,jdbcType=BIGINT}
+	</select>
+
+	<delete id="delById" parameterType="java.lang.Long">
+		delete from
+		cwm_sys_sign_model
+		where ID = #{id,jdbcType=BIGINT}
+	</delete>
+	<insert id="add" parameterType="com.cssrc.ibms.report.model.SignModel">
+		insert into cwm_sys_sign_model (ID, IMG_PATH, USER_ID,
+		CODE, ORG_ID, NAME, DESC_,
+		TYPE_, START_DATE, END_DATE,
+		STATUS, VERSION,PASSW,PATH_TYPE)
+		values (#{id,jdbcType=BIGINT}, #{imgPath,jdbcType=CLOB},
+		#{userId,jdbcType=BIGINT},
+		#{code,jdbcType=VARCHAR}, #{orgId,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR},
+		#{desc,jdbcType=VARCHAR},
+		#{type,jdbcType=BIGINT}, #{startDate,jdbcType=DATE}, #{endDate,jdbcType=DATE},
+		#{status,jdbcType=BIGINT}, #{version,jdbcType=VARCHAR},
+		#{passw,jdbcType=VARCHAR}, #{pathType,jdbcType=INTEGER})
+	</insert>
+
+	<update id="update" parameterType="com.cssrc.ibms.report.model.SignModel">
+		update cwm_sys_sign_model
+		set IMG_PATH = #{imgPath,jdbcType=CLOB},
+		USER_ID = #{userId,jdbcType=BIGINT},
+		CODE = #{code,jdbcType=VARCHAR},
+		ORG_ID = #{orgId,jdbcType=BIGINT},
+		NAME = #{name,jdbcType=VARCHAR},
+		DESC_ = #{desc,jdbcType=VARCHAR},
+		TYPE_ = #{type,jdbcType=BIGINT},
+		START_DATE = #{startDate,jdbcType=DATE},
+		END_DATE = #{endDate,jdbcType=DATE},
+		STATUS = #{status,jdbcType=BIGINT},
+		VERSION = #{version,jdbcType=VARCHAR},
+		PASSW = #{passw,jdbcType=VARCHAR},
+		PATH_TYPE = #{pathType,jdbcType=VARCHAR}
+		where ID = #{id,jdbcType=BIGINT}
+	</update>
+
+	<select id="getByUserId" resultMap="SignModel" parameterType="java.lang.Long">
+		select
+		<include refid="columns" />
+		from cwm_sys_sign_model
+		where USER_ID = #{userId,jdbcType=BIGINT}
+	</select>
+	<update id="updateDefaultNot" parameterType="java.lang.Long">
+		update cwm_sys_sign_model
+		set IS_DEFAULT = 0
+		where USER_ID = #{userId,jdbcType=BIGINT}
+	</update>
+	<update id="updateDefault" parameterType="java.lang.Long">
+		update cwm_sys_sign_model
+		set IS_DEFAULT = 1
+		where ID = #{id,jdbcType=BIGINT}
+	</update>
+	<select id="getDefaultByUserId" resultMap="SignModel" parameterType="java.lang.Long">
+		select
+		<include refid="columns" />
+		from cwm_sys_sign_model
+		where USER_ID = #{userId,jdbcType=BIGINT}
+		and IS_DEFAULT = 1
+	</select>
+</mapper>

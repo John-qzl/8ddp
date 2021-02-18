@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cssrc.ibms.core.user.model.SysOrgParam">
+	<resultMap id="SysOrgParam" type="com.cssrc.ibms.core.user.model.SysOrgParam">
+		<id property="valueId" column="valueId" jdbcType="NUMERIC" />
+		<result property="orgId" column="orgId" jdbcType="NUMERIC" />
+		<result property="paramId" column="paramId" jdbcType="NUMERIC" />
+		<result property="paramValue" column="paramValue" jdbcType="VARCHAR" />
+		<result property="paramIntValue" column="paramIntValue"
+			jdbcType="NUMERIC" />
+		<result property="paramDateValue" column="paramDateValue"
+			jdbcType="DATE" />
+		<result property="orgParam_updateId" column="orgParam_updateId" jdbcType="NUMERIC"/>
+		<result property="orgParam_updateTime" column="orgParam_updateTime" jdbcType="TIMESTAMP"/>
+		<result property="orgParam_creatorId" column="orgParam_creatorId" jdbcType="NUMERIC"/>
+		<result property="orgParam_createTime" column="orgParam_createTime" jdbcType="TIMESTAMP"/>
+		<result property="orgParam_delFlag" column="orgParam_delFlag" jdbcType="NUMERIC"/>
+	</resultMap>
+
+	<sql id="columns">
+		valueId,orgId,paramId,paramValue,paramIntValue,paramDateValue,orgParam_updateId,orgParam_updateTime,orgParam_creatorId,orgParam_createTime,orgParam_delFlag
+	</sql>
+
+	<sql id="dynamicWhere">
+		<where>
+			<if test="@Ognl@isNotEmpty(valueId)"> AND valueId =#{valueId} </if>
+			<if test="@Ognl@isNotEmpty(orgId)"> AND orgId =#{orgId} </if>
+			<if test="@Ognl@isNotEmpty(paramId)"> AND paramId =#{paramId} </if>
+			<if test="@Ognl@isNotEmpty(paramValue)"> AND paramValue LIKE #{paramValue}  </if>
+		</where>
+	</sql>
+
+	<insert id="add" parameterType="com.cssrc.ibms.core.user.model.SysOrgParam">
+		INSERT INTO cwm_sys_org_param
+		(
+		<include refid="columns" />
+		)
+		VALUES
+		(#{valueId,jdbcType=NUMERIC}, #{orgId,jdbcType=NUMERIC},
+		#{paramId,jdbcType=NUMERIC}, #{paramValue,jdbcType=VARCHAR},
+		#{paramIntValue,jdbcType=NUMERIC},#{paramDateValue,jdbcType=DATE},
+		#{orgParam_updateId,jdbcType=NUMERIC},
+		#{orgParam_updateTime,jdbcType=TIMESTAMP},#{orgParam_creatorId,jdbcType=NUMERIC},
+		 #{orgParam_createTime,jdbcType=TIMESTAMP},#{orgParam_delFlag,jdbcType=NUMERIC})
+	</insert>
+
+	<delete id="delById" parameterType="java.lang.Long">
+		DELETE FROM cwm_sys_org_param
+		WHERE
+		valueId=#{valueId}
+	</delete>
+
+	<update id="update" parameterType="com.cssrc.ibms.core.user.model.SysOrgParam">
+		UPDATE cwm_sys_org_param SET
+		orgId=#{orgId,jdbcType=NUMERIC} ,
+		paramId=#{paramId,jdbcType=NUMERIC} ,
+		paramValue=#{paramValue,jdbcType=VARCHAR},
+
+		paramIntValue=#{paramIntValue,jdbcType=NUMERIC},
+		paramDateValue=#{paramDateValue,jdbcType=DATE} ,
+		orgParam_delFlag =#{orgParam_delFlag,jdbcType=NUMERIC},
+		<if test="@Ognl@isNotEmpty(orgParam_creatorId)">
+		orgParam_creatorId=#{orgParam_creatorId,jdbcType=NUMERIC} ,
+		</if>
+		<if test="@Ognl@isNotEmpty(orgParam_createTime)">
+		orgParam_createTime=#{orgParam_createTime,jdbcType=TIMESTAMP} ,
+		</if>
+		orgParam_updateId=#{orgParam_updateId,jdbcType=NUMERIC} ,
+		orgParam_updateTime=#{orgParam_updateTime,jdbcType=TIMESTAMP} 
+		WHERE
+		valueId=#{valueId}
+	</update>
+
+	<select id="getById" parameterType="java.lang.Long" resultMap="SysOrgParam">
+		SELECT
+		<include refid="columns" />
+		FROM cwm_sys_org_param
+		WHERE
+		valueId=#{valueId}
+	</select>
+
+	<select id="getAll" resultMap="SysOrgParam">
+		SELECT v.valueId,v.orgId,v.paramId,v.paramValue,p.paramName,p.dataType
+		FROM cwm_sys_org_param v,CWM_SYS_PARAM p
+		WHERE 1=1
+		AND p.paramId=v.paramId
+		<if test="@Ognl@isNotEmpty(valueId)"> AND valueId =#{valueId} </if>
+		<if test="@Ognl@isNotEmpty(orgId)"> AND orgId =#{orgId} </if>
+		<if test="@Ognl@isNotEmpty(paramId)"> AND paramId =#{paramId} </if>
+		<if test="@Ognl@isNotEmpty(paramValue)"> AND paramValue LIKE #{paramValue}  </if>
+		<if test="@Ognl@isNotEmpty(orderField)">
+			order by ${orderField} ${orderSeq}
+		</if>
+		<if test="@Ognl@isEmpty(orderField)">
+			order by paramId desc
+		</if>
+	</select>
+
+	<select id="getByOrgId" parameterType="java.lang.Long"
+		resultMap="SysOrgParam">
+		SELECT
+		pv.valueId,pv.orgId,pv.paramId,pv.paramValue,p.paramName,p.dataType,pv.paramIntValue,pv.paramDateValue,p.belongDem
+		FROM cwm_sys_org_param pv,CWM_SYS_PARAM p
+		WHERE p.paramId=pv.paramId
+		AND pv.orgId=#{orgId}
+	</select>
+	<delete id="delByOrgId" parameterType="java.lang.Long">
+		DELETE FROM
+		cwm_sys_org_param
+		WHERE
+		orgId=#{orgId}
+	</delete>
+
+	<select id="getByParamKeyAndOrgId" resultMap="SysOrgParam">
+		SELECT
+		OP.valueId,OP.orgId,OP.paramId,OP.paramValue,OP.paramIntValue,OP.paramDateValue
+		FROM cwm_sys_org_param OP
+		INNER JOIN CWM_SYS_PARAM SP ON SP.PARAMID = OP.PARAMID
+		WHERE SP.PARAMKEY = #{paramKey} AND OP.ORGID = #{orgId}
+	</select>
+
+
+</mapper>

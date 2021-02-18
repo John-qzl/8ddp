@@ -1,0 +1,59 @@
+.l-layout-left .l-layout-left-select {
+    padding: 5px;
+    box-sizing: border-box;
+}
+
+.l-layout-left .l-layout-left-select .x-input.x-input-leftTree {
+    display: inline-block;
+    vertical-align: middle;
+    border: 1px solid #ccc;
+    width: 60%;
+    height: 28px;
+    line-height: 28px;
+    padding: 0 6px;
+    box-sizing: border-box;
+}
+
+.l-layout-left .l-layout-left-select a.link {
+    display: inline-block;
+    vertical-align: middle;
+    width: auto;
+    text-align: center;
+    height: 28px;
+    line-height: 28px;
+    padding: 0 6px;
+    border: 1px solid #4092D0;
+    color: #4092D0;
+    box-sizing: border-box;
+}
+
+.l-layout-left .l-layout-left-select a.link:hover {
+    background: #4092d0;
+    color: #fff;
+}
+
+.l-layout-left .x-select.x-select-leftTree {
+    display: inline-block;
+    vertical-align: middle;
+    border: 1px solid #ccc;
+    width: 98%;
+    height: 28px;
+    line-height: 28px;
+    margin: 4px auto;
+    padding-left: 6px;
+    outline: none;
+    box-sizing: border-box;
+}
+
+.l-layout-right .x-input.x-input-leftTree {
+    border: 1px solid #ccc;
+    background: #fff;
+    padding: 1px 0px;
+    box-sizing: border-box;
+}
+
+.l-layout-right .x-input.x-input-find {
+    width: 75px;
+	border: 1px solid #c2c2c2;
+    height: 26px;
+}

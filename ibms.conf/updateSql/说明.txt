@@ -1,0 +1,22 @@
+--------------------2016-08-26-------------------------
+0.以前需要各实施人员执行数据库更新脚本， 从现在起，该操作将取消。 由系统自动执行。
+1.数据库结构变更写在对应的  oracle_synStruct_姓名.sql文件中  加系统数据 写在对应的  oracle_synData_姓名.sql文件中  。
+2.oracle_synStruct.sql, oracle_synData.sql  是写好的  供参考。
+3.这个脚本写起来比较麻烦，如需调试 需要用plsql进行存储过程调试。  但对实施人员有好处。他们不用因为忘记 执行脚本 报错 而找研发。
+
+4.oracle脚本需要加“TABLESPACE_NAME=upper(owneruser)”或者“AND OWNER=upper(owneruser)”。
+ select count(*) into countt   from tabs where table_name = upper('CWM_SYS_PWD_STRATEGY') 
+         AND TABLESPACE_NAME=upper(owneruser);
+ select count(*) into countt  FROM ALL_TAB_COLUMNS WHERE TABLE_NAME ='CWM_SYS_TYPEKEY' 
+         AND COLUMN_NAME ='FLAG'  AND OWNER=upper(owneruser);
+
+
+5.mysql脚本需要加“TABLE_SCHEMA=spacename”：
+SELECT COUNT(*) INTO countt FROM information_schema.`TABLES` WHERE TABLE_SCHEMA=spacename AND TABLE_NAME=upper('ibms_form_def_tree');
+
+6.写sql脚本insert新数据的时候指定set哪些field。否则后面新增字段后会导致前面写的脚本报错。
+   insert into CWM_SYS_PARAMETER(ID,NAME,DATATYPE,VALUE,DESCRIPTION) 
+                          values('4002','IS_COMMUNICATE_EMAIL','0','1#1#1','');
+
+7.约定下 以后系统表加数据 写死id的 不同的开发人员用不同的段号。避免咱们三个冲突，  
+     洪华军从1001开始写。 张新光从2001开始写。 杨波从3001开始写。 刘博从4001开始写。邓文杰从5001开始写。宋晨晨从6001开始写。

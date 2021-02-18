@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cssrc.ibms.dp.template.model.Template">
+	<resultMap id="Template" type="com.cssrc.ibms.dp.template.model.Template">
+		<id property="ID" column="ID" jdbcType="NUMERIC" />
+		<result property="templateName" column="F_NAME" jdbcType="VARCHAR" />
+		<result property="templateCode" column="F_NUMBER" jdbcType="VARCHAR" />
+		<result property="projectId" column="F_PROJECT_ID" jdbcType="VARCHAR" />
+		<result property="contents" column="F_CONTENTS" jdbcType="CLOB" />
+		<result property="remark" column="F_REMARK" jdbcType="VARCHAR" />
+		<result property="folderId" column="F_TEMP_FILE_ID" jdbcType="VARCHAR" />
+		<result property="type" column="F_TYPE" jdbcType="VARCHAR" />
+		<result property="status" column="F_STATUS" jdbcType="VARCHAR" />
+		<result property="moduleId" column="F_MODULE_ID" jdbcType="VARCHAR" />
+		<result property="modelType" column="F_ZL" jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="columns">
+		ID,F_NAME,F_NUMBER,F_PROJECT_ID,F_CONTENTS,F_REMARK,F_TEMP_FILE_ID,F_TYPE,F_STATUS,F_MODULE_ID,F_ZL
+	</sql>
+
+	<insert id="add" parameterType="com.cssrc.ibms.dp.template.model.Template">
+		INSERT INTO W_TABLE_TEMP
+		(ID,F_NAME,F_NUMBER,F_PROJECT_ID,F_CONTENTS,F_REMARK,F_TEMP_FILE_ID,F_TYPE,F_STATUS,F_MODULE_ID,F_ZL)
+		VALUES
+		(#{ID,jdbcType=NUMERIC},
+		#{templateName,jdbcType=VARCHAR},
+		#{templateCode,jdbcType=VARCHAR},
+		#{projectId,jdbcType=NUMERIC},
+		#{contents,jdbcType=CLOB},
+		#{remark,jdbcType=VARCHAR},
+		#{folderId,jdbcType=NUMERIC},
+		#{type,jdbcType=VARCHAR},
+		#{status,jdbcType=VARCHAR},
+		#{moduleId,jdbcType=VARCHAR},
+		#{modelType,jdbcType=VARCHAR}
+		)
+	</insert>
+
+	<update id="update" parameterType="com.cssrc.ibms.dp.template.model.Template">
+		UPDATE W_TABLE_TEMP SET
+		F_NAME=#{templateName,jdbcType=VARCHAR},
+		F_NUMBER=#{templateCode,jdbcType=VARCHAR},
+		F_REMARK=#{remark,jdbcType=VARCHAR},
+		F_TYPE=#{type,jdbcType=VARCHAR}
+		WHERE
+		ID=#{ID,jdbcType=NUMERIC}
+	</update>
+	
+	<select id="getById" parameterType="java.util.Map" resultMap="Template">
+		SELECT
+		<include refid="columns" />
+		FROM W_TABLE_TEMP WHERE ID=#{templateId}
+	</select>
+	
+	<delete id="delById">
+		DELETE FROM W_TABLE_TEMP WHERE ID=#{templateId}
+	</delete>
+	
+</mapper>

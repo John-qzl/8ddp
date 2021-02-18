@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cssrc.ibms.index.model.InsPortCol" >
+  <resultMap id="InsPortCol" type="com.cssrc.ibms.index.model.InsPortCol" >
+    <id column="CONF_ID_" property="confId" jdbcType="NUMERIC" />
+    <result column="PORT_ID_" property="portId" jdbcType="NUMERIC" />
+    <result column="COL_ID_" property="colId" jdbcType="NUMERIC" />
+    <result column="WIDTH_" property="width" jdbcType="INTEGER" />
+    <result column="HEIGHT_" property="height" jdbcType="INTEGER" />
+    <result column="WIDTH_UNIT_" property="widthUnit" jdbcType="VARCHAR" />
+    <result column="HEIGHT_UNIT_" property="heightUnit" jdbcType="VARCHAR" />
+    <result column="COL_NUM_" property="colNum" jdbcType="INTEGER" />
+    <result column="SN_" property="sn" jdbcType="INTEGER" />
+    <result column="ORG_ID_" property="orgId" jdbcType="VARCHAR" />
+    <result column="CREATE_BY_" property="createBy" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME_" property="createTime" jdbcType="DATE" />
+    <result column="UPDATE_BY_" property="updateBy" jdbcType="VARCHAR" />
+    <result column="UPDATE_TIME_" property="updateTime" jdbcType="DATE" />
+  </resultMap>
+  <sql id="columns" >
+    CONF_ID_, PORT_ID_, COL_ID_, WIDTH_, HEIGHT_, WIDTH_UNIT_, HEIGHT_UNIT_, COL_NUM_, 
+    SN_, ORG_ID_, CREATE_BY_, CREATE_TIME_, UPDATE_BY_, UPDATE_TIME_
+  </sql>
+  
+  <sql id="dynamicWhere">
+		<where>
+			<if test="@Ognl@isNotEmpty(confId)"> AND CONF_ID_ =#{confId} </if>
+			<if test="@Ognl@isNotEmpty(portId)"> AND PORT_ID_ =#{portId}  </if>
+			<if test="@Ognl@isNotEmpty(colId)"> AND COL_ID_ =#{colId}  </if>
+			<if test="@Ognl@isNotEmpty(width)"> AND WIDTH_ =#{width}  </if>
+			<if test="@Ognl@isNotEmpty(height)"> AND HEIGHT_ = #{height}  </if>
+			<if test="@Ognl@isNotEmpty(colNum)"> AND COL_NUM_ = #{colNum}  </if>
+			<if test="@Ognl@isNotEmpty(sn)"> AND SN_ = #{sn}  </if>
+			<if test="@Ognl@isNotEmpty(orgId)"> AND ORG_ID_ = #{orgId}  </if>
+			<if test="@Ognl@isNotEmpty(createBy)"> AND CREATE_BY_ = #{createBy}  </if>
+			<if test="@Ognl@isNotEmpty(updateBy)"> AND UPDATE_BY_ = #{updateBy}  </if>
+		</where>
+	</sql>
+	
+	
+  <select id="getById" resultMap="InsPortCol" parameterType="java.lang.Long" >
+    select 
+    <include refid="columns" />
+    from ins_port_col
+    where CONF_ID_ = #{confId}
+  </select>
+  
+  <delete id="delById" parameterType="java.lang.Long" >
+    delete from ins_port_col
+    where CONF_ID_ = #{confId}
+  </delete>
+  
+  <insert id="add" parameterType="com.cssrc.ibms.index.model.InsPortCol" >
+    insert into ins_port_col 
+   (
+		<include refid="columns" />
+	)
+    values (#{confId,jdbcType=NUMERIC}, #{portId,jdbcType=NUMERIC}, #{colId,jdbcType=NUMERIC}, 
+      #{width,jdbcType=INTEGER}, #{height,jdbcType=INTEGER}, #{widthUnit,jdbcType=VARCHAR}, 
+      #{heightUnit,jdbcType=VARCHAR}, #{colNum,jdbcType=INTEGER}, #{sn,jdbcType=INTEGER}, 
+      #{orgId,jdbcType=VARCHAR}, #{createBy,jdbcType=VARCHAR}, #{createTime,jdbcType=DATE}, 
+      #{updateBy,jdbcType=VARCHAR}, #{updateTime,jdbcType=DATE})
+  </insert>
+  
+  <update id="update" parameterType="com.cssrc.ibms.index.model.InsPortCol" >
+    update ins_port_col
+    set PORT_ID_ = #{portId,jdbcType=NUMERIC},
+      COL_ID_ = #{colId,jdbcType=NUMERIC},
+      WIDTH_ = #{width,jdbcType=INTEGER},
+      HEIGHT_ = #{height,jdbcType=INTEGER},
+      WIDTH_UNIT_ = #{widthUnit,jdbcType=VARCHAR},
+      HEIGHT_UNIT_ = #{heightUnit,jdbcType=VARCHAR},
+      COL_NUM_ = #{colNum,jdbcType=INTEGER},
+      SN_ = #{sn,jdbcType=INTEGER},
+      ORG_ID_ = #{orgId,jdbcType=VARCHAR},
+      CREATE_BY_ = #{createBy,jdbcType=VARCHAR},
+      CREATE_TIME_ = #{createTime,jdbcType=DATE},
+      UPDATE_BY_ = #{updateBy,jdbcType=VARCHAR},
+      UPDATE_TIME_ = #{updateTime,jdbcType=DATE}
+    where CONF_ID_ = #{confId}
+  </update>
+  
+  <select id="getAll" resultMap="InsPortCol">
+		SELECT
+		<include refid="columns" />
+		FROM ins_port_col
+		<include refid="dynamicWhere" />
+		<if test="@Ognl@isNotEmpty(orderField)">
+			order by ${orderField} ${orderSeq}
+		</if>
+		<if test="@Ognl@isEmpty(orderField)">
+			order by CONF_ID_ desc
+		</if>
+	</select>
+	
+	<select id="getPortCols" parameterType="Map" resultMap="InsPortCol">
+		SELECT <include refid="columns"/> 
+		FROM ins_port_col 
+		WHERE PORT_ID_=#{portId} 
+		<if test="@Ognl@isNotEmpty(orgId)"> AND ORG_ID_=#{orgId}</if>  
+		<if test="@Ognl@isNotEmpty(userId)"> AND createBy=#{userId}</if>  
+		order by SN_
+  	</select>
+  
+  
+  	<select id="getByPortCol" parameterType="Map" resultMap="InsPortCol">
+		SELECT <include refid="columns"/> 
+		FROM ins_port_col 
+		WHERE PORT_ID_=#{portId} 
+		AND COL_ID_=#{colId}
+		<if test="@Ognl@isNotEmpty(orgId)"> AND ORG_ID_=#{orgId}</if>  
+		order by SN_
+  	</select>
+	
+	<delete id="delByPortCol" parameterType="Map" >
+    	delete from ins_port_col 
+    	WHERE PORT_ID_=#{portId} 
+		AND COL_ID_=#{colId}
+    	<if test="@Ognl@isNotEmpty(orgId)"> AND ORG_ID_=#{orgId}</if>  
+  	</delete>
+  	
+  	<delete id="delByPortal" parameterType="Map" >
+    	delete from ins_port_col 
+    	WHERE PORT_ID_=#{portId}
+    	<if test="@Ognl@isNotEmpty(orgId)">  AND ORG_ID_=#{orgId}</if>  
+  	</delete>
+  	
+  	<update id="updateHeight" parameterType="Map">
+		UPDATE ins_port_col SET
+		HEIGHT_=#{height,jdbcType=INTEGER}
+		WHERE
+		COL_ID_=#{colId}
+	</update>
+	
+</mapper>

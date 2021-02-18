@@ -1,0 +1,124 @@
+package com.cssrc.ibms.api.log.util;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import com.cssrc.ibms.api.sysuser.model.ISysUser;
+import com.cssrc.ibms.api.sysuser.util.UserContextUtil;
+
+/**
+ * 用于 系统日志 保存线程相关的信息 
+ * @author zhulongchao
+ *
+ */
+public class LogThreadLocalHolder
+{
+    public static final short RESULT_SUCCESS = 1;
+    
+    public static final short RESULT_FAIL = 0;
+    //流程执行日志
+    public static final String ACT_RUN_LOG_ID = "actRunLogId";
+    
+    /**
+     * 日志明细信息
+     */
+    private static ThreadLocal<String> detailLocal = new ThreadLocal<String>();
+    
+    /**
+     * 执行结果
+     */
+    private static ThreadLocal<Short> resultLocal = new ThreadLocal<Short>();
+    
+    /**
+     * 参数
+     */
+    private static ThreadLocal<Map<String, Object>> paramertersLocal = new ThreadLocal<Map<String, Object>>();
+    
+    /**
+     * 
+     */
+    private static ThreadLocal<Boolean> shouldLogLocal = new ThreadLocal<Boolean>();
+    
+    public static String getDetail()
+    {
+        return detailLocal.get();
+    }
+    
+    public static void setDatail(String detail)
+    {
+        detailLocal.set(detail);
+    }
+    
+    public static void clearDetail()
+    {
+        detailLocal.remove();
+    }
+    
+    public static Short getResult()
+    {
+        return resultLocal.get();
+    }
+    
+    public static void setResult(Short result)
+    {
+        resultLocal.set(result);
+    }
+    
+    public static void clearResult()
+    {
+        resultLocal.remove();
+    }
+    
+    public static Boolean getShouldLog()
+    {
+        return shouldLogLocal.get();
+    }
+    
+    public static void setShouldLog(Boolean shouldLog)
+    {
+        shouldLogLocal.set(shouldLog);
+    }
+    
+    public static void clearShouldLog()
+    {
+        shouldLogLocal.remove();
+    }
+    
+    public static Map<String, Object> getParamerters()
+    {
+        if (paramertersLocal.get() == null)
+        {
+            paramertersLocal.set(new HashMap<String, Object>());
+        }
+        return paramertersLocal.get();
+    }
+    
+    public static Object getParamerter(String key)
+    {
+        if (paramertersLocal.get() == null)
+        {
+            paramertersLocal.set(new HashMap<String, Object>());
+        }
+        return paramertersLocal.get().get(key);
+    }
+    
+    public static void putParamerter(String key, Object value)
+    {
+        if (paramertersLocal.get() == null)
+        {
+            paramertersLocal.set(new HashMap<String, Object>());
+        }
+        paramertersLocal.get().put(key, value);
+    }
+    
+    public static void clearParameters()
+    {
+        paramertersLocal.remove();
+    }
+    
+    public static void putUserInfo()
+    {
+        ISysUser currentUser = (ISysUser)UserContextUtil.getCurrentUser();
+        putParamerter("loginName", currentUser.getFullname());
+    }
+}

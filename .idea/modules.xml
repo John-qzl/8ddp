@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/com.cssrc.ibms.iml" filepath="$PROJECT_DIR$/com.cssrc.ibms.iml" />
+      <module fileurl="file://$PROJECT_DIR$/com.cssrc.ibms.core/com.cssrc.ibms.core.iml" filepath="$PROJECT_DIR$/com.cssrc.ibms.core/com.cssrc.ibms.core.iml" />
+      <module fileurl="file://$PROJECT_DIR$/com.cssrc.ibms.core.activity/com.cssrc.ibms.core.activity.iml" filepath="$PROJECT_DIR$/com.cssrc.ibms.core.activity/com.cssrc.ibms.core.activity.iml" />
+      <module fileurl="file://$PROJECT_DIR$/com.cssrc.ibms.core.form/com.cssrc.ibms.core.form.iml" filepath="$PROJECT_DIR$/com.cssrc.ibms.core.form/com.cssrc.ibms.core.form.iml" />
+      <module fileurl="file://$PROJECT_DIR$/com.cssrc.ibms.core.jms/com.cssrc.ibms.core.jms.iml" filepath="$PROJECT_DIR$/com.cssrc.ibms.core.jms/com.cssrc.ibms.core.jms.iml" />
+      <module fileurl="file://$PROJECT_DIR$/com.cssrc.ibms.core.log/com.cssrc.ibms.core.log.iml" filepath="$PROJECT_DIR$/com.cssrc.ibms.core.log/com.cssrc.ibms.core.log.iml" />
+      <module fileurl="file://$PROJECT_DIR$/com.cssrc.ibms.core.resources/com.cssrc.ibms.core.resources.iml" filepath="$PROJECT_DIR$/com.cssrc.ibms.core.resources/com.cssrc.ibms.core.resources.iml" />
+      <module fileurl="file://$PROJECT_DIR$/com.cssrc.ibms.core.rpc/com.cssrc.ibms.core.rpc.iml" filepath="$PROJECT_DIR$/com.cssrc.ibms.core.rpc/com.cssrc.ibms.core.rpc.iml" />
+      <module fileurl="file://$PROJECT_DIR$/com.cssrc.ibms.core.sysuser/com.cssrc.ibms.core.sysuser.iml" filepath="$PROJECT_DIR$/com.cssrc.ibms.core.sysuser/com.cssrc.ibms.core.sysuser.iml" />
+      <module fileurl="file://$PROJECT_DIR$/com.cssrc.ibms.core.util/com.cssrc.ibms.core.util.iml" filepath="$PROJECT_DIR$/com.cssrc.ibms.core.util/com.cssrc.ibms.core.util.iml" />
+      <module fileurl="file://$PROJECT_DIR$/com.cssrc.ibms.migration/com.cssrc.ibms.migration.iml" filepath="$PROJECT_DIR$/com.cssrc.ibms.migration/com.cssrc.ibms.migration.iml" />
+      <module fileurl="file://$PROJECT_DIR$/com.cssrc.ibms.portal/com.cssrc.ibms.portal.iml" filepath="$PROJECT_DIR$/com.cssrc.ibms.portal/com.cssrc.ibms.portal.iml" />
+      <module fileurl="file://$PROJECT_DIR$/com.cssrc.ibms.report/com.cssrc.ibms.report.iml" filepath="$PROJECT_DIR$/com.cssrc.ibms.report/com.cssrc.ibms.report.iml" />
+      <module fileurl="file://$PROJECT_DIR$/com.cssrc.ibms.rtx/com.cssrc.ibms.rtx.iml" filepath="$PROJECT_DIR$/com.cssrc.ibms.rtx/com.cssrc.ibms.rtx.iml" />
+      <module fileurl="file://$PROJECT_DIR$/com.cssrc.ibms.statistics/com.cssrc.ibms.statistics.iml" filepath="$PROJECT_DIR$/com.cssrc.ibms.statistics/com.cssrc.ibms.statistics.iml" />
+      <module fileurl="file://$PROJECT_DIR$/com.cssrc.ibms.system/com.cssrc.ibms.system.iml" filepath="$PROJECT_DIR$/com.cssrc.ibms.system/com.cssrc.ibms.system.iml" />
+      <module fileurl="file://$PROJECT_DIR$/com.cssrc.ibms.webPortal/com.cssrc.ibms.webPortal.iml" filepath="$PROJECT_DIR$/com.cssrc.ibms.webPortal/com.cssrc.ibms.webPortal.iml" />
+    </modules>
+  </component>
+</project>

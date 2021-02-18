@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates>
+	<!-- 控件宏模版 -->	
+	<template alias="fieldControl" name="自定义表单控件宏" type="macro" templateDesc="自定义表单控件宏"/>
+	<!-- 主表 -->
+	<template alias="oneColumn" name="单列模板" type="main" templateDesc="单列模板" macroAlias="fieldControl"/>
+	<template alias="twoColumn" name="两列模板" type="main" templateDesc="两列模板" macroAlias="fieldControl"/>
+	<template alias="threeColumn" name="叁列模板" type="main" templateDesc="叁列模板" macroAlias="fieldControl"/>
+	<template alias="fourColumn" name="四列模板" type="main" templateDesc="四列模板" macroAlias="fieldControl"/>
+	<template alias="twoColumnDiv" name="两列模板DIV" type="main" templateDesc="两列模板DIV" macroAlias="fieldControl"/>
+	
+	<!-- 子表 
+	<template alias="inTable2" name="表内编辑模式二" type="subTable" templateDesc="表内编辑模式二" macroAlias="fieldControl"/>
+	<template alias="inTable" name="表内编辑模式" type="subTable" templateDesc="表内编辑模式" macroAlias="fieldControl"/>
+	<template alias="openWindow" name="弹出窗口模板" type="subTable" templateDesc="弹出窗口模板" macroAlias="fieldControl"/>
+	-->
+	<template alias="inTable" name="表内编辑模式" type="subTable" templateDesc="表内编辑模式" macroAlias="fieldControl"/>
+	<template alias="openWindow" name="弹出窗口模板" type="subTable" templateDesc="弹出窗口模板" macroAlias="fieldControl"/>
+	<template alias="inTableNo" name="表内编辑模式(序号)" type="subTable" templateDesc="表内编辑模式(序号)" macroAlias="fieldControl"/>
+	<template alias="openWindowNo" name="弹出窗口模板(序号)" type="subTable" templateDesc="弹出窗口模板(序号)" macroAlias="fieldControl"/>
+	<template alias="blockTemplate1" name="块模板(单列)" type="subTable" templateDesc="块模板(单列)" macroAlias="fieldControl"/>
+	<template alias="blockTemplate2" name="块模板(两列)" type="subTable" templateDesc="块模板(两列)" macroAlias="fieldControl"/>
+	<template alias="blockTemplate3" name="块模板(三列)" type="subTable" templateDesc="块模板(三列)" macroAlias="fieldControl"/>
+	<!-- 关系表 -->
+	<template alias="inTable_Rel" name="表内编辑模式" type="relTable" templateDesc="表内编辑模式" macroAlias="fieldControl"/>
+	<template alias="openWindow_Rel" name="弹出窗口模板" type="relTable" templateDesc="弹出窗口模板" macroAlias="fieldControl"/>
+	<template alias="inTableNo_Rel" name="表内编辑模式(序号)" type="relTable" templateDesc="表内编辑模式(序号)" macroAlias="fieldControl"/>
+	<template alias="inTableCK_Rel" name="表内编辑模式(checkbox)" type="relTable" templateDesc="表内编辑模式(checkbox)" macroAlias="fieldControl"/>
+	<template alias="openWindowNo_Rel" name="弹出窗口模板(序号)" type="relTable" templateDesc="弹出窗口模板(序号)" macroAlias="fieldControl"/>
+	<template alias="blockTemplate1_Rel" name="块模板(单列)" type="relTable" templateDesc="块模板(单列)" macroAlias="fieldControl"/>
+	<template alias="blockTemplate2_Rel" name="块模板(两列)" type="relTable" templateDesc="块模板(两列)" macroAlias="fieldControl"/>
+	<template alias="blockTemplate3_Rel" name="块模板(三列)" type="relTable" templateDesc="块模板(三列)" macroAlias="fieldControl"/>
+	
+	
+	<!-- 明细模版 -->
+	<template alias="detail" name="明细模板" type="detail" templateDesc="明细模板"/>
+	<!-- 明细模版 -->
+	<template alias="listBusiness" name="业务数据列表模板" type="list" templateDesc="业务数据列表模板"/>
+	<template alias="listFlow" name="流程数据列表模板" type="list" templateDesc="流程数据列表模板"/>
+	<template alias="listFlowStart" name="流程数据列表模板(启动流程)" type="list" templateDesc="流程数据列表模板(启动流程)"/>
+	<!-- 自定义表管理模板 -->
+	<template alias="tableManageList" name="自定义表管理列表模板" type="tableManage" templateDesc="自定义表管理列表模板"/>
+	<!-- 业务数据模板 -->
+	<template alias="dataTemplateList" name="业务数据模板" type="dataTemplate" templateDesc="业务数据模板"/>
+	<template alias="dataTemplateList_qms" name="业务数据模板_QMS" type="dataTemplate" templateDesc="业务数据模板_QMS"/>
+	<!-- 业务数据模板 -->
+	<template alias="queryDataTemplate" name="业务数据多表查询模板" type="queryDataTemplate" templateDesc="业务数据多表查询模板"/>
+
+	<!-- 审批意见模板 -->
+	<template alias="groupopinio_tablelist" name="审批意见表格" type="groupopinion" templateDesc="审批意见表格"/>
+	<template alias="groupopinio_div" name="审批意见div" type="groupopinion" templateDesc="审批意见div"/>
+	<template alias="groupopinio_onlyCur" name="审批意见只显示当前意见" type="groupopinion" templateDesc="审批意见只显示当前意见"/>
+	<!-- 代办已办模板 -->
+	<template alias="pendingSetting" name="待办已办页面模板" type="pendingSetting" templateDesc="待办已办页面模板"/>
+	<template alias="pendingSettingView" name="待办已办详细页面模板" type="pendingSettingView" templateDesc="待办已办详细页面模板"/>
+	
+	
+</templates>
+

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+<mapper namespace="com.cssrc.ibms.statistics.model.Address">
+	<resultMap id="Address" type="com.cssrc.ibms.statistics.model.Address">
+		<id property="addressId" column="addressId" jdbcType="NUMERIC"/>
+		<result property="toolId" column="toolId" jdbcType="NUMERIC"/>
+		<result property="alias" column="alias" jdbcType="VARCHAR"/>
+		<result property="url" column="url" jdbcType="VARCHAR"/>
+		<result property="viewDef" column="viewDef" jdbcType="CLOB"/>
+		<result property="addressDesc" column="addressDesc" jdbcType="VARCHAR"/>
+	</resultMap>
+	<sql id="columns">
+		addressId,toolId,alias,url,viewDef,addressDesc
+	</sql>
+	<sql id="dynamicWhere">
+		<where>
+			<if test="@Ognl@isNotEmpty(addressId)"> AND addressId =#{addressId} </if>
+			<if test="@Ognl@isNotEmpty(toolId)"> AND toolId LIKE #{toolId} </if>
+			<if test="@Ognl@isNotEmpty(alias)"> AND alias LIKE #{alias} </if>			
+			<if test="@Ognl@isNotEmpty(url)"> AND url LIKE #{url} </if>
+			<if test="@Ognl@isNotEmpty(addressDesc)"> AND url LIKE #{addressDesc} </if>
+		</where>
+	</sql>
+	
+	<insert id="add" parameterType="com.cssrc.ibms.statistics.model.Address">
+		INSERT INTO IBMS_STA_ADDRESS
+		(<include refid="columns"/>)
+		VALUES
+		(#{addressId,jdbcType=NUMERIC},#{toolId,jdbcType=NUMERIC},
+		 #{alias,jdbcType=VARCHAR},#{url,jdbcType=VARCHAR},
+		 #{viewDef,jdbcType=CLOB},#{addressDesc,jdbcType=VARCHAR}
+		 )
+	</insert>
+	
+	<delete id="delById" parameterType="java.lang.Long">
+		DELETE FROM IBMS_STA_ADDRESS 
+		WHERE
+		addressId=#{addressId}
+	</delete>
+	
+	<update id="update" parameterType="com.cssrc.ibms.statistics.model.Address">
+			UPDATE IBMS_STA_ADDRESS SET
+			toolId=#{toolId,jdbcType=NUMERIC} , 
+			alias = #{alias,jdbcType=VARCHAR},
+			url=#{url,jdbcType=VARCHAR},
+		 	viewDef=#{viewDef,jdbcType=CLOB},
+		 	addressDesc=#{addressDesc,jdbcType=VARCHAR}
+			WHERE
+			addressId=#{addressId}
+	</update>
+	
+	<select id="getById" parameterType="java.lang.Long" resultMap="Address">
+		SELECT <include refid="columns"/>
+		FROM IBMS_STA_ADDRESS
+		WHERE
+		addressId=#{addressId}
+	</select>	
+	<select id="getAll" resultMap="Address">
+		SELECT <include refid="columns"/>
+		FROM IBMS_STA_ADDRESS 
+		<include refid="dynamicWhere" />
+		<if test="@Ognl@isNotEmpty(orderField)">
+			ORDER BY ${orderField} ${orderSeq}
+		</if>
+		<if test="@Ognl@isEmpty(orderField)">
+			ORDER BY alias
+		</if>
+	</select>
+	<select id="isAliasExists" resultType="Integer">
+		SELECT count(1) as count FROM IBMS_STA_ADDRESS  WHERE alias=#{alias}
+	</select>
+	<select id="getByAlias" resultMap="Address">
+		SELECT <include refid="columns"/> 
+		FROM IBMS_STA_ADDRESS  WHERE alias=#{alias}
+	</select>
+	
+	<select id="getByToolId" resultMap="Address">
+		SELECT <include refid="columns"/> 
+		FROM IBMS_STA_ADDRESS  WHERE toolId=#{toolId}
+	</select>
+	<select id="getByAliasToolId" parameterType="java.util.Map" resultMap="Address">
+		SELECT <include refid="columns"/> 
+		FROM IBMS_STA_ADDRESS  WHERE toolId=#{toolId} and alias=#{alias}
+	</select>
+</mapper>

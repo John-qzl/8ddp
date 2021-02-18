@@ -1,0 +1,90 @@
+
+@charset "UTF-8";
+.rowOps {
+    width:50px;
+    text-align:center;
+    overflow: visible !important;
+}
+.ops_container_type1 {
+    float: right;
+    font-size: 12px;
+    left: -22px;
+    position: relative;
+}
+.ops_container_type2 {
+    /*float: right;*/
+    font-size: 12px;
+    position: relative;
+    /*left: -25px;
+    position: relative;
+    top: -10px;*/
+}
+.ops_container a {
+    text-decoration: none;
+}
+.ops_btn{
+	cursor:pointer;
+}
+.ops_btn:before {
+    font-family:"iconfont";
+    content: "\e669";
+    /*color: #4092d0;*/
+    font-size: 1.3em;
+    z-index: 1;
+}
+.ops_btn.ops_active:before {
+    font-family:"iconfont";
+    content: "\e66a";
+    padding: 0 !important;
+    /*color:#3eaaf5;*/
+}
+
+
+
+.ops_box {
+    position: absolute;
+    right: 3px;
+    top: 27px;
+    z-index: 5;
+}
+.ops_itemDiv {
+    background-color: #FFFFFF;
+    border: 1px solid #c1c1c1;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 5px;
+    display: none;
+    right: -5px;
+    max-width: 150px;
+    max-height: 256px;
+    overflow-y:scroll;
+}
+.ops_itemDiv ul {
+	 width:auto;
+     padding: 2px 2px;
+}
+.ops_itemDiv ul li {
+     padding: 8px 0;
+}
+.ops_itemDiv li a:hover {
+  background-color: #347EFE!important;
+  border-radius: 3px;
+  color:#ffffff!important;
+}
+
+.ops_shadeEm {
+}
+a.ops_more {
+	background-position: 10px 5px !important;
+    color: #347EFE!important;
+    font-size: 14px;
+    padding: 7px 8px 7px 8px;
+
+}
+a.ops_more:hover{
+	color: #3d7abb!important;
+}
+li.ops_li {
+  	text-align: left;
+}

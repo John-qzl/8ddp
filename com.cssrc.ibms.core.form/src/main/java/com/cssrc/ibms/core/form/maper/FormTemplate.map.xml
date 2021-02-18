@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cssrc.ibms.core.form.model.FormTemplate">
+	<resultMap id="FormTemplate" type="com.cssrc.ibms.core.form.model.FormTemplate">
+		<id property="templateId" column="templateId" jdbcType="NUMERIC" />
+		<result property="templateName" column="templateName" jdbcType="VARCHAR" />
+		<result property="templateType" column="templateType" jdbcType="VARCHAR" />
+		<result property="macroTemplateAlias" column="macroTemplateAlias"
+			jdbcType="VARCHAR" />
+		<result property="html" column="html" jdbcType="CLOB" />
+		<result property="templateDesc" column="templateDesc" jdbcType="VARCHAR" />
+		<result property="alias" column="alias" jdbcType="VARCHAR" />
+		<result property="canEdit" column="canEdit" jdbcType="NUMERIC" />
+		<result property="headHtml" column="headHtml" jdbcType="CLOB" />
+	</resultMap>
+
+	<sql id="columns">
+		templateId,templateName,templateType,macroTemplateAlias,html,templateDesc,alias,canEdit,headHtml
+	</sql>
+
+	<sql id="dynamicWhere">
+		<where>
+			<if test="@Ognl@isNotEmpty(templateName)"> AND templateName LIKE #{templateName}  </if>
+			<if test="@Ognl@isNotEmpty(templateType)"> AND templateType =#{templateType} </if>
+			<if test="@Ognl@isNotEmpty(alias)"> AND alias =#{alias} </if>
+		</where>
+	</sql>
+
+	<insert id="add" parameterType="com.cssrc.ibms.core.form.model.FormTemplate">
+		INSERT INTO IBMS_FORM_TEMPLATE
+		(
+		<include refid="columns" />
+		)
+		VALUES
+		(#{templateId,jdbcType=NUMERIC},
+		#{templateName,jdbcType=VARCHAR}, #{templateType,jdbcType=VARCHAR},
+		#{macroTemplateAlias,jdbcType=VARCHAR}, #{html,jdbcType=CLOB},
+		#{templateDesc,jdbcType=VARCHAR},#{alias,jdbcType=VARCHAR},
+		#{canEdit,jdbcType=NUMERIC},#{headHtml,jdbcType=CLOB})
+	</insert>
+
+	<delete id="delById" parameterType="java.lang.Long">
+		DELETE FROM
+		IBMS_FORM_TEMPLATE
+		WHERE
+		templateId=#{templateId}
+	</delete>
+
+	<delete id="delSystem">
+		DELETE FROM IBMS_FORM_TEMPLATE WHERE canEdit=0
+	</delete>
+
+	<update id="update" parameterType="com.cssrc.ibms.core.form.model.FormTemplate">
+		UPDATE IBMS_form_template SET
+		templateName=#{templateName,jdbcType=VARCHAR} ,
+		templateType=#{templateType,jdbcType=NUMERIC} ,
+		macroTemplateAlias=#{macroTemplateAlias,jdbcType=VARCHAR} ,
+		html=#{html,jdbcType=CLOB} ,
+		templateDesc=#{templateDesc,jdbcType=VARCHAR},
+		canEdit=#{canEdit,jdbcType=NUMERIC},
+		headHtml=#{headHtml,jdbcType=CLOB}
+		WHERE
+		templateId=#{templateId}
+	</update>
+
+	<select id="getById" parameterType="java.lang.Long" resultMap="FormTemplate">
+		SELECT
+		<include refid="columns" />
+		FROM IBMS_FORM_TEMPLATE
+		WHERE
+		templateId=#{templateId}
+	</select>
+
+	<select id="getAll" resultMap="FormTemplate">
+		SELECT
+		<include refid="columns" />
+		FROM IBMS_FORM_TEMPLATE
+		<include refid="dynamicWhere" />
+		<if test="@Ognl@isNotEmpty(orderField)">
+			order by ${orderField} ${orderSeq}
+		</if>
+		<if test="@Ognl@isEmpty(orderField)">
+			order by templateId desc
+		</if>
+	</select>
+
+	<select id="getByTemplateAlias" resultMap="FormTemplate"
+		parameterType="String">
+		SELECT
+		<include refid="columns" />
+		FROM IBMS_FORM_TEMPLATE
+		WHERE alias =#{alias}
+	</select>
+
+	<select id="getHasData" resultType="Integer" parameterType="String">
+		SELECT count(*) amount
+		FROM IBMS_FORM_TEMPLATE
+	</select>
+</mapper>

@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cssrc.ibms.index.model.InsNews" >
+  <resultMap id="InsNews" type="com.cssrc.ibms.index.model.InsNews" >
+    <id column="NEW_ID_" property="newId" jdbcType="NUMERIC" />
+    <result column="SUBJECT_" property="subject" jdbcType="VARCHAR" />
+    <result column="TAG_" property="tag" jdbcType="VARCHAR" />
+    <result column="KEYWORDS_" property="keywords" jdbcType="VARCHAR" />
+    <result column="IS_IMG_" property="isImg" jdbcType="VARCHAR" />
+    <result column="IMG_FILE_ID_" property="imgFileId" jdbcType="VARCHAR" />
+    <result column="READ_TIMES_" property="readTimes" jdbcType="INTEGER" />
+    <result column="AUTHOR_" property="author" jdbcType="VARCHAR" />
+    <result column="ALLOW_CMT_" property="allowCmt" jdbcType="VARCHAR" />
+    <result column="STATUS_" property="status" jdbcType="VARCHAR" />
+    <result column="ORG_ID_" property="orgId" jdbcType="VARCHAR" />
+    <result column="CREATE_BY_" property="createBy" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME_" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_BY_" property="updateBy" jdbcType="VARCHAR" />
+    <result column="UPDATE_TIME_" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="CONTENT_" property="content" jdbcType="CLOB" />
+  </resultMap>
+  
+  <sql id="columns" >
+    NEW_ID_, SUBJECT_, TAG_, KEYWORDS_, IS_IMG_, IMG_FILE_ID_, READ_TIMES_, AUTHOR_, 
+    ALLOW_CMT_, STATUS_, ORG_ID_, CREATE_BY_, CREATE_TIME_, UPDATE_BY_, UPDATE_TIME_,CONTENT_
+  </sql>
+  
+   <sql id="dynamicWhere">
+		<where>
+			<if test="@Ognl@isNotEmpty(newId)"> AND NEW_ID_ =#{newId} </if>
+			<if test="@Ognl@isNotEmpty(subject)"> AND SUBJECT_ =#{subject}  </if>
+			<if test="@Ognl@isNotEmpty(tag)"> AND TAG_={tag}  </if>
+			<if test="@Ognl@isNotEmpty(sn)"> AND SN_=#{sn}  </if>
+			<if test="@Ognl@isNotEmpty(keywords)"> AND KEYWORDS_=#{keywords}  </if>
+			<if test="@Ognl@isNotEmpty(isImg)"> AND IS_IMG_=#{isImg}  </if>
+			<if test="@Ognl@isNotEmpty(imgFileId)"> AND IMG_FILE_ID_=#{imgFileId}  </if>
+			<if test="@Ognl@isNotEmpty(readTimes)"> AND READ_TIMES_=#{readTimes}  </if>
+			<if test="@Ognl@isNotEmpty(author)"> AND AUTHOR_ =#{author}  </if>
+			<if test="@Ognl@isNotEmpty(allowCmt)"> AND ALLOW_CMT_ =#{allowCmt}  </if>
+			<if test="@Ognl@isNotEmpty(status)"> AND STATUS_ =#{status}</if>
+			<if test="@Ognl@isNotEmpty(orgId)"> AND ORG_ID_ = #{orgId}  </if>
+			<if test="@Ognl@isNotEmpty(createBy)"> AND CREATE_BY_ = #{createBy}  </if>
+			<if test="@Ognl@isNotEmpty(createTime)"> AND CREATE_TIME_ &gt;=#{createTime}</if>
+			<if test="@Ognl@isNotEmpty(updateTime)"> AND UPDATE_TIME_ &lt;=#{updateTime}</if>
+			<if test="@Ognl@isNotEmpty(updateBy)"> AND UPDATE_BY_ = #{updateBy}  </if>
+			<if test="@Ognl@isNotEmpty(content)"> AND CONTENT_ = #{content}  </if>
+		</where>
+  </sql>
+  
+
+  <select id="getById" resultMap="InsNews" parameterType="java.lang.Long" >
+    select 
+    <include refid="columns" />
+    from ins_news
+    where NEW_ID_ = #{newId}
+  </select>
+  
+  <delete id="delById" parameterType="java.lang.Long" >
+    delete from ins_news
+    where NEW_ID_ = #{newId}
+  </delete>
+  
+  <insert id="add" parameterType="com.cssrc.ibms.index.model.InsNews" >
+    insert into ins_news (
+   		<include refid="columns" />
+   	)
+    values (#{newId,jdbcType=NUMERIC}, #{subject,jdbcType=VARCHAR}, #{tag,jdbcType=VARCHAR}, 
+      #{keywords,jdbcType=VARCHAR}, #{isImg,jdbcType=VARCHAR}, #{imgFileId,jdbcType=VARCHAR}, 
+      #{readTimes,jdbcType=INTEGER}, #{author,jdbcType=VARCHAR}, #{allowCmt,jdbcType=VARCHAR}, 
+      #{status,jdbcType=VARCHAR}, #{orgId,jdbcType=VARCHAR}, #{createBy,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateBy,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{content,jdbcType=CLOB})
+  </insert>
+  
+  <update id="update" parameterType="com.cssrc.ibms.index.model.InsNews" >
+    update ins_news
+    set SUBJECT_ = #{subject,jdbcType=VARCHAR},
+      TAG_ = #{tag,jdbcType=VARCHAR},
+      KEYWORDS_ = #{keywords,jdbcType=VARCHAR},
+      IS_IMG_ = #{isImg,jdbcType=VARCHAR},
+      IMG_FILE_ID_ = #{imgFileId,jdbcType=VARCHAR},
+      READ_TIMES_ = #{readTimes,jdbcType=INTEGER},
+      AUTHOR_ = #{author,jdbcType=VARCHAR},
+      ALLOW_CMT_ = #{allowCmt,jdbcType=VARCHAR},
+      STATUS_ = #{status,jdbcType=VARCHAR},
+      ORG_ID_ = #{orgId,jdbcType=VARCHAR},
+      CREATE_BY_ = #{createBy,jdbcType=VARCHAR},
+      CREATE_TIME_ = #{createTime,jdbcType=TIMESTAMP},
+      UPDATE_BY_ = #{updateBy,jdbcType=VARCHAR},
+      CONTENT_ = #{content,jdbcType=CLOB},
+      UPDATE_TIME_ = #{updateTime,jdbcType=TIMESTAMP}
+    where NEW_ID_ = #{newId}
+  </update>
+  
+  <select id="getAll" resultMap="InsNews">
+		SELECT
+		<include refid="columns" />
+		FROM ins_news
+		<include refid="dynamicWhere" />
+		<if test="@Ognl@isNotEmpty(orderField)">
+			order by ${orderField} ${orderSeq}
+		</if>
+		<if test="@Ognl@isEmpty(orderField)">
+			order by NEW_ID_ desc
+		</if>
+	</select>
+  
+  
+</mapper>

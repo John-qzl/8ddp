@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+<mapper namespace="com.cssrc.ibms.dp.form.model.Equipment">
+	<resultMap id="Equipment" type="com.cssrc.ibms.dp.form.model.Equipment">
+		<id property="ID" column="ID" jdbcType="NUMERIC"/>
+		<result property="equipmentNum" column="F_sbbh" jdbcType="VARCHAR"/>
+		<result property="EquipmentName" column="F_sbmc" jdbcType="VARCHAR"/>
+		<result property="EquipmentStatus" column="F_sbzt" jdbcType="VARCHAR"/>
+		</resultMap>
+	<sql id="columns">
+		ID,F_sbbh,F_sbmc,F_sbzt
+	</sql>
+	<select id="findEquipmentByNum" parameterType="String" resultMap="Equipment">
+	 select * from W_padglb where F_sbbh=#{equipmentNum}
+	</select>
+	
+	<update id="updataStatus" parameterType="java.util.Map" >
+		update W_padglb set F_sbzt=#{status} where F_sbbh=#{equipmentNum}
+	</update>
+	
+	<insert id="insertEquipment" parameterType="com.cssrc.ibms.dp.form.model.Equipment">
+		insert into W_padglb(ID,F_sbbh,F_sbmc,F_sbID,F_sbzt) values(#{ID},#{equipmentNum},#{EquipmentName},#{EquipmentID},#{EquipmentStatus})
+	</insert>
+</mapper>

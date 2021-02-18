@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8">
+	<script type="text/javascript" src="jslib/jquery/jquery.js"></script>
+	<script type="text/javascript">
+		//获取tab的引用
+		
+		var url=window.location.href;
+		//alert("BBB");
+		//more->index
+		if(url.indexOf("altern-/3&5g")!=-1){
+			//var exepath=localpath+encodeURI("indexv2.html?queryString="+$("#queryStr").val()+"&curPage="+1);
+			//$(iframe).attr('src',h+"&url="+exepath);
+			var exepath=url.split("altern-/3&5g")[1].split("&url=")[1];
+			//alert(exepath);
+			window.top.moreToindexTab(exepath)
+			//var tab=window.top.document.getElementsByClassName("l-selected")[0];
+		/* 	var tab=$(".l-selected",window.top.document);
+			//alert(tab.attr('tabid'));
+			var timestamp=new Date().getTime();
+			//tab.setAttribute('tabid',timestamp);
+			tab.attr('tabid',timestamp);
+			alert(timestamp);
+			tab.find("a").text("全文搜索"); */
+			//tab.getElementsByTagName("a")[0].innerHTML = "全文搜索";
+		}else{
+			//index->more
+			//	a[1]= a+"&ibms_name="+name+"&ibms_id="+id;
+			var a=url.split("ibms_url=");
+			var b=a[1].split("&ibms_name=");
+			var iurl=b[0];//b[1]=+name+"&ibms_id="+id;
+			a=b[1].split("&ibms_id=");
+			var iname=a[0];
+			var id=a[1];
+			//alert("DDD");
+			//alert(iurl);
+			/* alert(iurl);
+			alert(iname);
+			alert(id); */
+			
+			window.top.addToTab_solr(iurl,decodeURI(iname),id,"");
+		}
+		
+		
+	</script>
+</head>
+<body>
+<!-- 
+<input id="urla" type="text" />
+<input id="name" type="text" />
+<input id="id" type="text" />
+<input id="addTab" type="button" onclick="addTab()"/>
+
+
+ -->
+
+</body>
+</html>

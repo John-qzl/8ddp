@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FunctionManager xmlVersion="20151125" releaseVersion="8.0.0">
+<FunctionDefList>
+
+<FunctionDef name="ImageSign">
+<Class className="com.fr.function.ImageSign"/>
+<Description>
+<![CDATA[]]></Description>
+</FunctionDef>
+
+<FunctionDef name="getOpinion">
+<Class className="com.cssrc.ibms.reportclient.TaskOpinion"/>
+<Description>
+<![CDATA[
+方法说明：该方法是为了获取ibms平台数据的审批意见，并且按照一定以图片的形式格式输出报表
+参数说明：
+参数1：displayId（业务数据所属表单模板的ID）,使用方式$displayId,必填
+参数2：id（业务数据主键id）,使用方式$id,必填
+参数3：nodeSetKey（任务节点key）,必填
+参数4：appclient（客户端单位名.客户端系统名）,如：hzy.htglxt,必填
+参数5：voteCode（审批意见模板code编号）,可选
+]]></Description>
+</FunctionDef>
+
+<FunctionDef name="json2String">
+<Class className="com.cssrc.ibms.reportclient.Json2String"/>
+<Description>
+<![CDATA[
+方法说明：该方法是为了从json格式的字符串中获取某个key对应的值
+参数说明：
+参数1：json,json字符串，必填
+参数2：key,json中的key
+]]>
+</Description>
+</FunctionDef>
+
+</FunctionDefList>
+
+
+</FunctionManager>

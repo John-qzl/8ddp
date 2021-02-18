@@ -1,0 +1,356 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mapping>
+	<description>Table Instance and Template related Data XML</description>
+	
+	<class name="com.cssrc.ibms.core.resources.ioOld2New.bean.InstanceIOModel" auto-complete="true">
+		<map-to xml="instance"/>
+		<field name="id" type="java.lang.String">
+			<bind-xml name="id" node="attribute"/>
+		</field>
+		<field name="name" type="java.lang.String">
+			<bind-xml name="name" node="attribute"/>
+		</field>
+		<field name="number" type="java.lang.String">
+			<bind-xml name="number" node="attribute"/>
+		</field>
+		<field name="content" type="java.lang.String">
+			<bind-xml name="content" node="attribute"/>
+		</field>
+		<field name="tempid" type="java.lang.String">
+			<bind-xml name="tempid" node="attribute"/>
+		</field>
+		<field name="status" type="java.lang.String">
+			<bind-xml name="status" node="attribute"/>
+		</field>
+		<field name="version" type="java.lang.String">
+			<bind-xml name="version" node="attribute"/>
+		</field>
+		<field name="bb" type="java.lang.String">
+			<bind-xml name="bb" node="attribute"/>
+		</field>
+		<field name="template" type="com.cssrc.ibms.core.resources.ioOld2New.bean.TemplateIOModel" >
+			<bind-xml name="template" node="element"/>
+		</field>
+ 		<field name="conditionresList" type="com.cssrc.ibms.core.resources.ioOld2New.bean.ConditionResIOModel" collection="arraylist">
+			<bind-xml name="conditionresList" node="element"/>
+		</field>
+		<field name="signresList" type="com.cssrc.ibms.core.resources.ioOld2New.bean.SignResIOModel" collection="arraylist">
+			<bind-xml name="signresList" node="element"/>
+		</field>
+		<field name="ckresList" type="com.cssrc.ibms.core.resources.ioOld2New.bean.CkIOModel" collection="arraylist">
+			<bind-xml name="ckresList" node="element"/>
+		</field>
+	</class>
+	
+	<class name="com.cssrc.ibms.core.resources.ioOld2New.bean.TemplateIOModel" auto-complete="true">
+		<map-to xml="template"/>
+		<field name="id" type="java.lang.String">
+			<bind-xml name="id" node="attribute"/>
+		</field>
+		<field name="name" type="java.lang.String">
+			<bind-xml name="name" node="attribute"/>
+		</field>
+		<field name="number" type="java.lang.String">
+			<bind-xml name="number" node="attribute"/>
+		</field>
+		<field name="projectid" type="java.lang.String">
+			<bind-xml name="projectid" node="attribute"/>
+		</field>
+		<field name="contents" type="java.lang.String">
+			<bind-xml name="contents" node="attribute"/>
+		</field>
+		<field name="templateFolderId" type="java.lang.String">
+			<bind-xml name="templateFolderId" node="attribute"/>
+		</field>
+		<field name="rownum" type="java.lang.String">
+			<bind-xml name="rownum" node="attribute"/>
+		</field>
+		<field name="conditionList" type="com.cssrc.ibms.core.resources.ioOld2New.bean.ConditionIOModel" collection="arraylist">
+			<bind-xml name="conditionList" node="element"/>
+		</field>
+		<field name="signList" type="com.cssrc.ibms.core.resources.ioOld2New.bean.SignIOModel" collection="arraylist">
+			<bind-xml name="signList" node="element"/>
+		</field>
+<!-- 		<field name="item" type="com.cssrc.ibms.core.resources.ioOld2New.bean.CkIOModel" collection="arraylist">
+			<bind-xml name="item" node="element"/>
+		</field>
+		<field name="cell" type="com.cssrc.ibms.core.resources.ioOld2New.bean.CellIOModel" collection="arraylist">
+			<bind-xml name="cell" node="element"/>
+		</field> -->
+		<field name="headerList" type="com.cssrc.ibms.core.resources.ioOld2New.bean.HeaderIOModel" collection="arraylist">
+			<bind-xml name="headerList" node="element"/>
+		</field>
+	</class>
+	
+	<class name="com.cssrc.ibms.core.resources.ioOld2New.bean.ConditionResIOModel" auto-complete="true">
+		<map-to xml="conditionres"/>
+		<field name="id" type="java.lang.String">
+			<bind-xml name="id" node="attribute"/>
+		</field>
+		<field name="conditionid" type="java.lang.String">
+			<bind-xml name="conditionid" node="attribute"/>
+		</field>
+		<field name="instanceid" type="java.lang.String">
+			<bind-xml name="instanceid" node="attribute"/>
+		</field>
+		<field name="value" type="java.lang.String">
+			<bind-xml name="value" node="attribute"/>
+		</field>
+		<field name="condition" type="com.cssrc.ibms.core.resources.ioOld2New.bean.ConditionIOModel">
+			<bind-xml name="condition" node="element"/>
+		</field>
+	</class>
+	
+	<class name="com.cssrc.ibms.core.resources.ioOld2New.bean.SignResIOModel" auto-complete="true">
+		<map-to xml="signres"/>
+		<field name="id" type="java.lang.String">
+			<bind-xml name="id" node="attribute"/>
+		</field>
+		<field name="signdefid" type="java.lang.String">
+			<bind-xml name="signdefid" node="attribute"/>
+		</field>
+		<field name="instanceid" type="java.lang.String">
+			<bind-xml name="instanceid" node="attribute"/>
+		</field>
+		<field name="signtime" type="java.lang.String">
+			<bind-xml name="signtime" node="attribute"/>
+		</field>
+		<field name="sign" type="com.cssrc.ibms.core.resources.ioOld2New.bean.SignIOModel">
+			<bind-xml name="sign" node="element"/>
+		</field>
+		<field name="signfile" type="com.cssrc.ibms.core.resources.ioOld2New.bean.SignFileModel">
+			<bind-xml name="signfile" node="element"/>
+		</field>
+	</class>
+	
+	<class name="com.cssrc.ibms.core.resources.ioOld2New.bean.SignFileModel" auto-complete="true">
+		<map-to xml="signresfile"/>
+		<field name="dataId" type="java.lang.String">
+			<bind-xml name="dataId" node="attribute"/>
+		</field>
+		<field name="fileId" type="java.lang.String">
+			<bind-xml name="fileId" node="attribute"/>
+		</field>
+		<field name="filelocation" type="java.lang.String">
+			<bind-xml name="filelocation" node="attribute"/>
+		</field>
+		<field name="fileName" type="java.lang.String">
+			<bind-xml name="fileName" node="attribute"/>
+		</field>
+		<field name="filesize" type="java.lang.String">
+			<bind-xml name="filesize" node="attribute"/>
+		</field>
+		<field name="filetype" type="java.lang.String">
+			<bind-xml name="filetype" node="attribute"/>
+		</field>
+		<field name="finalName" type="java.lang.String">
+			<bind-xml name="finalName" node="attribute"/>
+		</field>
+		<field name="schemaId" type="java.lang.String">
+			<bind-xml name="schemaId" node="attribute"/>
+		</field>
+		<field name="tableId" type="java.lang.String">
+			<bind-xml name="tableId" node="attribute"/>
+		</field>
+		<field name="uploaddate" type="java.lang.String">
+			<bind-xml name="uploaddate" node="attribute"/>
+		</field>
+		<field name="uploaduser" type="java.lang.String">
+			<bind-xml name="uploaduser" node="attribute"/>
+		</field>
+	</class>
+	
+	<class name="com.cssrc.ibms.core.resources.ioOld2New.bean.CkIOModel" auto-complete="true">
+		<map-to xml="ckres"/>
+		<field name="id" type="java.lang.String">
+			<bind-xml name="id" node="attribute"/>
+		</field>
+		<field name="itemdefid" type="java.lang.String">
+			<bind-xml name="itemdefid" node="attribute"/>
+		</field>
+		<field name="value" type="java.lang.String">
+			<bind-xml name="value" node="attribute"/>
+		</field>
+		<field name="instanceid" type="java.lang.String">
+			<bind-xml name="instanceid" node="attribute"/>
+		</field>
+		<field name="ifnull" type="java.lang.String">
+			<bind-xml name="ifnull" node="attribute"/>
+		</field>
+		<field name="result" type="java.lang.String">
+			<bind-xml name="result" node="attribute"/>
+		</field>
+		<field name="sketchmap" type="java.lang.String">
+			<bind-xml name="sketchmap" node="attribute"/>
+		</field>
+		<field name="itemModel" type="com.cssrc.ibms.core.resources.ioOld2New.bean.ItemIOModel">
+			<bind-xml name="itemModel" node="element"/>
+		</field>
+		<field name="CKFile" type="com.cssrc.ibms.core.resources.ioOld2New.bean.CKFileIOModel" collection="arraylist">
+			<bind-xml name="CKFile" node="element"/>
+		</field>
+	</class>
+	
+	<class name="com.cssrc.ibms.core.resources.ioOld2New.bean.CKFileIOModel" auto-complete="true">
+		<map-to xml="ckFileList"/>
+		<field name="dataId" type="java.lang.String">
+			<bind-xml name="dataId" node="attribute"/>
+		</field>
+		<field name="fileId" type="java.lang.String">
+			<bind-xml name="fileId" node="attribute"/>
+		</field>
+		<field name="filelocation" type="java.lang.String">
+			<bind-xml name="filelocation" node="attribute"/>
+		</field>
+		<field name="fileName" type="java.lang.String">
+			<bind-xml name="fileName" node="attribute"/>
+		</field>
+		<field name="filesize" type="java.lang.String">
+			<bind-xml name="filesize" node="attribute"/>
+		</field>
+		<field name="filetype" type="java.lang.String">
+			<bind-xml name="filetype" node="attribute"/>
+		</field>
+		<field name="finalName" type="java.lang.String">
+			<bind-xml name="finalName" node="attribute"/>
+		</field>
+		<field name="schemaId" type="java.lang.String">
+			<bind-xml name="schemaId" node="attribute"/>
+		</field>
+		<field name="tableId" type="java.lang.String">
+			<bind-xml name="tableId" node="attribute"/>
+		</field>
+		<field name="uploaddate" type="java.lang.String">
+			<bind-xml name="uploaddate" node="attribute"/>
+		</field>
+		<field name="uploaduser" type="java.lang.String">
+			<bind-xml name="uploaduser" node="attribute"/>
+		</field>
+	</class>
+	
+	<class name="com.cssrc.ibms.core.resources.ioOld2New.bean.ConditionIOModel" auto-complete="true">
+		<map-to xml="conditionList"/>
+		<field name="id" type="java.lang.String">
+			<bind-xml name="id" node="attribute"/>
+		</field>
+		<field name="name" type="java.lang.String">
+			<bind-xml name="name" node="attribute"/>
+		</field>
+		<field name="tempid" type="java.lang.String">
+			<bind-xml name="tempid" node="attribute"/>
+		</field>
+		<field name="order" type="java.lang.String">
+			<bind-xml name="order" node="attribute"/>
+		</field>
+	</class>
+	
+	<class name="com.cssrc.ibms.core.resources.ioOld2New.bean.SignIOModel" auto-complete="true">
+		<map-to xml="signList"/>
+		<field name="id" type="java.lang.String">
+			<bind-xml name="id" node="attribute"/>
+		</field>
+		<field name="name" type="java.lang.String">
+			<bind-xml name="name" node="attribute"/>
+		</field>
+		<field name="tempid" type="java.lang.String">
+			<bind-xml name="tempid" node="attribute"/>
+		</field>
+		<field name="order" type="java.lang.String">
+			<bind-xml name="order" node="attribute"/>
+		</field>
+	</class>
+	
+	<class name="com.cssrc.ibms.core.resources.ioOld2New.bean.HeaderIOModel" auto-complete="true">
+		<map-to xml="headerList"/>
+		<field name="id" type="java.lang.String">
+			<bind-xml name="id" node="attribute"/>
+		</field>
+		<field name="name" type="java.lang.String">
+			<bind-xml name="name" node="attribute"/>
+		</field>
+		<field name="order" type="java.lang.String">
+			<bind-xml name="order" node="attribute"/>
+		</field>
+		<field name="tempid" type="java.lang.String">
+			<bind-xml name="tempid" node="attribute"/>
+		</field>
+		<field name="cellList" type="com.cssrc.ibms.core.resources.ioOld2New.bean.CellIOModel" collection="arraylist">
+			<bind-xml name="cellList" node="element"/>
+		</field>
+	</class>
+	
+	<class name="com.cssrc.ibms.core.resources.ioOld2New.bean.CellIOModel" auto-complete="true">
+		<map-to xml="cellList"/>
+		<field name="id" type="java.lang.String">
+			<bind-xml name="id" node="attribute"/>
+		</field>
+		<field name="tempId" type="java.lang.String">
+			<bind-xml name="tempId" node="attribute"/>
+		</field>
+		<field name="rnumber" type="java.lang.String">
+			<bind-xml name="rnumber" node="attribute"/>
+		</field>
+		<field name="itemdefid" type="java.lang.String">
+			<bind-xml name="itemdefid" node="attribute"/>
+		</field>
+		<field name="content" type="java.lang.String">
+			<bind-xml name="content" node="attribute"/>
+		</field>
+		<field name="resulttype" type="java.lang.String">
+			<bind-xml name="resulttype" node="attribute"/>
+		</field>
+		<field name="header" type="java.lang.String">
+			<bind-xml name="header" node="attribute"/>
+		</field>
+		<field name="ifresult" type="java.lang.String">
+			<bind-xml name="ifresult" node="attribute"/>
+		</field>
+		<field name="item" type="com.cssrc.ibms.core.resources.ioOld2New.bean.ItemIOModel">
+			<bind-xml name="item" node="element"/>
+		</field>
+	</class>
+	
+	<class name="com.cssrc.ibms.core.resources.ioOld2New.bean.ItemIOModel" auto-complete="true">
+		<map-to xml="itemList"/>
+		<field name="id" type="java.lang.String">
+			<bind-xml name="id" node="attribute"/>
+		</field>
+		<field name="name" type="java.lang.String">
+			<bind-xml name="name" node="attribute"/>
+		</field>
+		<field name="ildd" type="java.lang.String">
+			<bind-xml name="ildd" node="attribute"/>
+		</field>
+		<field name="iildd" type="java.lang.String">
+			<bind-xml name="iildd" node="attribute"/>
+		</field>
+		<field name="type" type="java.lang.String">
+			<bind-xml name="type" node="attribute"/>
+		</field>
+		<field name="ifmedia" type="java.lang.String">
+			<bind-xml name="ifmedia" node="attribute"/>
+		</field>
+		<field name="tempid" type="java.lang.String">
+			<bind-xml name="tempid" node="attribute"/>
+		</field>
+		<field name="description" type="java.lang.String">
+			<bind-xml name="description" node="attribute"/>
+		</field>
+		<field name="zhycdz" type="java.lang.String">
+			<bind-xml name="zhycdz" node="attribute"/>
+		</field>
+		<field name="njljyq" type="java.lang.String">
+			<bind-xml name="njljyq" node="attribute"/>
+		</field>
+		<field name="ycn" type="java.lang.String">
+			<bind-xml name="ycn" node="attribute"/>
+		</field>
+		<field name="rowNumber" type="java.lang.String">
+			<bind-xml name="rowNumber" node="attribute"/>
+		</field>
+		<field name="CellNumber" type="java.lang.String">
+			<bind-xml name="CellNumber" node="attribute"/>
+		</field>
+	</class>
+	
+</mapping>

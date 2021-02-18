@@ -1,0 +1,33 @@
+<html>
+<table width="100%" class="layui-table" border="1">
+    <tbody>
+        <tr class="firstRow">
+            <td valign="top" rowspan="5" colspan="6">
+                A<br/>
+            </td>
+            <td valign="top" rowspan="5" colspan="1">
+                B
+            </td>
+            <td valign="top" rowspan="5" colspan="1">
+                C
+            </td>
+        </tr>
+        <tr></tr>
+        <tr></tr>
+        <tr></tr>
+        <tr></tr>
+        <tr>
+            <td valign="top" rowspan="2" colspan="6">
+                D<br/>
+            </td>
+            <td valign="top" rowspan="2" colspan="1">
+                E<br/>
+            </td>
+            <td valign="top" rowspan="2" colspan="1">
+                F<br/>
+            </td>
+        </tr>
+        <tr></tr>
+    </tbody>
+</table>
+</html>

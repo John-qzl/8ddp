@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+<mapper namespace="com.cssrc.ibms.statistics.model.Tool">
+	<resultMap id="Tool" type="com.cssrc.ibms.statistics.model.Tool">
+		<id property="toolId" column="toolId" jdbcType="NUMERIC"/>
+		<result property="name" column="name" jdbcType="VARCHAR"/>
+		<result property="alias" column="alias" jdbcType="VARCHAR"/>
+		<result property="toolDesc" column="toolDesc" jdbcType="VARCHAR"/>
+	</resultMap>
+	<sql id="columns">
+		toolId,name,alias,toolDesc
+	</sql>
+	<sql id="dynamicWhere">
+		<where>
+			<if test="@Ognl@isNotEmpty(toolId)"> AND toolId =#{toolId} </if>
+			<if test="@Ognl@isNotEmpty(name)"> AND name LIKE #{name} </if>
+			<if test="@Ognl@isNotEmpty(alias)"> AND alias LIKE #{alias} </if>			
+			<if test="@Ognl@isNotEmpty(toolDesc)"> AND toolDesc LIKE #{toolDesc} </if>
+		</where>
+	</sql>
+	
+	<insert id="add" parameterType="com.cssrc.ibms.statistics.model.Tool">
+		INSERT INTO IBMS_STA_TOOL
+		(<include refid="columns"/>)
+		VALUES
+		(#{toolId,jdbcType=NUMERIC},#{name,jdbcType=VARCHAR},#{alias,jdbcType=VARCHAR},#{toolDesc,jdbcType=VARCHAR})
+	</insert>
+	
+	<delete id="delById" parameterType="java.lang.Long">
+		DELETE FROM IBMS_STA_TOOL 
+		WHERE
+		toolId=#{toolId}
+	</delete>
+	
+	<update id="update" parameterType="com.cssrc.ibms.statistics.model.Tool">
+			UPDATE IBMS_STA_TOOL SET
+			name=#{name,jdbcType=VARCHAR} , 
+			alias=#{alias,jdbcType=VARCHAR} , 
+			toolDesc=#{toolDesc,jdbcType=VARCHAR}
+			WHERE
+			toolId=#{toolId}
+	</update>
+	
+	<select id="getById" parameterType="java.lang.Long" resultMap="Tool">
+		SELECT <include refid="columns"/>
+		FROM IBMS_STA_TOOL
+		WHERE
+		toolId=#{toolId}
+	</select>	
+	<select id="getAll" resultMap="Tool">
+		SELECT <include refid="columns"/>
+		FROM IBMS_STA_TOOL 
+		<include refid="dynamicWhere" />
+		<if test="@Ognl@isNotEmpty(orderField)">
+			ORDER BY ${orderField} ${orderSeq}
+		</if>
+		<if test="@Ognl@isEmpty(orderField)">
+			ORDER BY alias
+		</if>
+	</select>
+	<select id="isAliasExists" resultType="Integer">
+		SELECT count(1) as count FROM IBMS_STA_TOOL  WHERE alias=#{alias}
+	</select>
+	<select id="getByAlias" resultMap="Tool">
+		SELECT <include refid="columns"/> 
+		FROM IBMS_STA_TOOL  WHERE alias=#{alias}
+	</select>
+</mapper>

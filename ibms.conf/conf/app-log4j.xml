@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+<log4j:configuration xmlns:log4j="http:/jakarta.apache.org/log4j/">
+    <appender name="CONSOLE" class="org.apache.log4j.ConsoleAppender">
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern"
+                value="[IBMS] %-d{yyyy-MM-dd HH:mm:ss} %p [%t] %c.%M(%L) | %m%n"/>
+        </layout>
+    </appender>  
+ 
+     <appender name="APPLOGFILE" class="org.apache.log4j.DailyRollingFileAppender">
+    	<param name="encoding" value="UTF-8" />
+	    <param name="File" value="${catalina.base}/logs/ibms.log" />
+	    <param name="DatePattern" value="'.'yyyy-MM-dd" />
+	    <param name="Append" value="true" />
+	    <layout class="org.apache.log4j.PatternLayout">
+	      <param name="ConversionPattern" value="[IBMS] %-d{yyyy-MM-dd HH:mm:ss} %-5p %-15c: %m%n"/>
+	    </layout>
+     </appender>
+  
+     <appender name="IBMS.REPORT" class="org.apache.log4j.DailyRollingFileAppender">
+    	<param name="encoding" value="UTF-8" />
+	    <param name="File" value="${catalina.base}/logs/report/ibms.log" />
+	    <param name="DatePattern" value="'.'yyyy-MM-dd" />
+	    <param name="Append" value="true" />
+	    <param name="threshold" value="error"></param>
+	    <layout class="org.apache.log4j.PatternLayout">
+	      <param name="ConversionPattern" value="[IBMS.REPORT] %-d{yyyy-MM-dd HH:mm:ss} %-5p %-15c: %m%n"/>
+	    </layout>
+     </appender>
+         
+    <logger name="java.sql">
+        <level value="ERROR" />
+    </logger>
+    
+    <logger name="org.apache.ibatis">
+        <level value="ERROR" />
+    </logger>
+    
+    <logger name="com.cssrc.ibms.core.web.filter">
+    	<level value="ERROR"/>
+    </logger>
+    
+     <logger name="com.cssrc.ibms.core.web.servlet.SpringMvcServlet">
+    	<level value="ERROR" />
+    </logger>
+    
+    <logger name="com.cssrc.ibms">
+        <level value="ERROR"/>
+    </logger>
+    <root>
+        <level value="ERROR"/>
+        <appender-ref ref="CONSOLE"/>
+        <appender-ref ref="APPLOGFILE"/>
+    </root>
+
+</log4j:configuration>

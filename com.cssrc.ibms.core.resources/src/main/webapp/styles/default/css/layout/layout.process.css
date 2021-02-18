@@ -1,0 +1,53 @@
+.x-foldBox {
+    border-top: 2px solid #4092D0;
+    clear: both;
+    display: inline-block;
+    position: relative;
+    width: 100%;
+    margin: 15px 0;
+    background: #fff;
+}
+
+.x-foldBox a.drop {
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.x-foldBox .x-foldBox-title {
+    background: #fff;
+    color: #4092D0;
+    font-size: 14px;
+    font-weight: bold;
+    left: 12px;
+    padding-left: 10px;
+    padding-right: 15px;
+    box-sizing: border-box;
+    position: absolute;
+    top: -12px;
+}
+
+.x-foldBox .x-foldBox-title .x-select.x-select-foldBox {
+    font-size: 14px;
+    font-weight: normal;
+}
+
+.x-foldBox .drop {
+    background: none repeat scroll 0 0 #F0F1F1;
+    color: #4092D0;
+    font-weight: bold;
+    padding: 0 10px;
+    position: absolute;
+    right: 12px;
+    top: -12px;
+}
+
+.x-foldBox .drop span {
+    display: inline-block;
+    height: 6px;
+    width: 12px;
+}
+
+.x-foldBox .x-table {
+    margin-top: 16px;
+    font-size: 14px;
+}

@@ -1,0 +1,404 @@
+div.panel {
+    height: 100%;
+    background: #FFF;
+}
+
+div.panel p {
+    background: #fff;
+}
+
+
+/* panel-top闂佸搫绉撮崲鑼閿燂拷 */
+
+div.panel-top {
+    display: block;
+    z-index: 100;
+    box-sizing: border-box;
+    margin: 0px auto 0 auto;
+    padding-top: 1px;
+    background-color: #fff;
+}
+
+div.panel-bottom {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    text-align: right;
+    background: #fff;
+	border-top: 1px solid #E0DFE0;
+    box-shadow: 3px 3px 4px 6px rgba(238,238,238,0.5);
+    box-sizing: border-box;
+    padding: 0 20px;
+}
+div.panel-bottom .btn-component{
+	float: right;
+}
+div.panel-bottom .btn-component .x-btn {
+    float: right;
+    margin: 0 2px;
+}
+.panel-container {
+    position: relative;
+    width: 100%;
+    margin: 0px auto;
+    height: 100%;
+    box-sizing: border-box;
+}
+
+
+/* panel-top婵炴垶鎸搁鍥р枔閹寸媴鎷峰☉娆忓闁告ɑ鎸惧Σ鎰版偐瀹曞洤顥庨悗娈垮櫙閹凤拷 */
+
+div.panel-top .panel-top-title {
+    display: none;
+    width: 100%;
+    color: #3eaaf5;
+    text-align: left;
+    font-weight: bold;
+    padding: 0px 0px 4px 10px;
+    border-bottom: 1px white solid;
+    border-bottom: 4px solid #eee;
+}
+
+.tbar-title {
+    width: 100%;
+    color: #fff;
+    text-align: center;
+    padding: 5px 0;
+}
+
+div.panel-top .panel-toolbar {
+    padding: 5px 5px 5px 5px;
+    box-sizing: border-box;
+    white-space: nowrap;
+    overflow-x: auto;
+    /* margin-top: -12px;
+    margin-bottom: 5px; */
+}
+
+div.panel-top .panel-search {
+    width: 98.7%;
+    position: relative;
+    /* margin-left: 0.35%; */
+    /* padding: 10px 5px 6px; */
+    padding: 0;
+    margin: 0 5px;
+    box-sizing: border-box;
+/*     font-family: "microsoft yahei", "iconfont"; */
+	font-family: "microsoft yahei";
+    font-size: 14px;
+    border-top: solid 0px #c0c0c0;
+    /* margin-top: 15px; */
+}
+
+div.panel-top .panel-more-fast-search {
+    width: 82%;
+    position: relative;
+    margin-left: 0.35%;
+    padding: 0;
+    box-sizing: border-box;
+/*     font-family: "microsoft yahei", "iconfont"; */
+	font-family: "microsoft yahei";
+    font-size: 14px;
+    border-top: none;
+    margin-top: 15px;
+}
+
+/*
+鏇村鏌ヨ
+*/
+div.panel-top .panel-must-search {
+    width: 98.7%;
+    position: relative;
+    margin-left: 0.35%;
+    padding: 0;
+    box-sizing: border-box;
+/*     font-family: "microsoft yahei", "iconfont"; */
+	font-family: "microsoft yahei";
+    font-size: 14px;
+    border-top: none;
+    margin-top: 1px;
+    background: #eee;
+}
+
+div.panel-top .panel-search .title {
+	display: none;
+    cursor: pointer;
+    font-size: 13px;
+    left: 0;
+    padding-left: 5px;
+    padding-right: 10px;
+    position: absolute;
+    top: -12px;
+    background: #fff;
+}
+
+div.panel-top .panel-search .drop {
+	display: none;
+    padding-left: 10px;
+    padding-right: 5px;
+    position: absolute;
+    /* right: 0px; */
+    left: 0;
+    top: -12px;
+    font-size: 13px;
+    cursor: pointer;
+    background: #fff;
+    margin-left: 30px;
+}
+.drop a{
+	color: #555;
+}
+
+div.panel-top .panel-search .drop a:before {
+    content: "\e6a6";
+    padding-right: 8px;
+    line-height: 28px;
+    font-weight: bolder;
+    font-family: "iconfont";
+}
+
+div.panel-top .panel-search .drop a.activi:before {
+    content: "\e6a5";
+    line-height: 0px;
+    font-weight: bolder;
+    font-family: "iconfont";
+}
+
+
+/* panel-body闂佹眹鍔岀�氼參鎮ч崡鐑嗗殨闁跨噦鎷� */
+
+div.panel-body {
+    overflow: auto;
+    background: inherit;
+    position: relative;
+    background-color: #fff;
+}
+
+div.panel-diog{
+    background-color: #fff;
+}
+
+div.panel-body .panel-body-title {
+    display: none;
+    width: 100%;
+    background: #d5d5d5;
+    color: #666;
+    text-align: center;
+    padding: 5px 0;
+}
+
+div.panel-body div.table-top {
+    width: 100%;
+    height: auto;
+    box-sizing: border-box;
+    background: #d5d5d5;
+    color: #666;
+    margin: 1px 0;
+}
+
+div.panel-body .table-top-left {
+    width: 100%;
+    height: auto;
+    padding: 0 5px;
+    box-sizing: border-box;
+    border-top: 1px solid #e6e6e6;
+}
+
+div.panel-body .table-top-right {
+    width: 100%;
+    height: auto;
+    padding: 0 5px;
+    box-sizing: border-box;
+    background-color: #fff;
+}
+
+div.panel-body fieldset {
+    width: 98%;
+    margin: 0 auto;
+    padding: 5px;
+    box-sizing: border-box;
+    border: 1px solid #e5e5e5;
+}
+
+div.panel-body fieldset legend {
+    margin-left: 10px
+}
+div.panel-body form{
+    background-color: #fff;
+    margin-top: 5px;
+}
+div.panel-body form.form-full{
+	width: 100%;
+    height: 100%;
+    padding:10px;
+    box-sizing: border-box;
+}
+
+div.panel-body h2.setting {
+    color: #333;
+    font-size: 14px;
+}
+
+div.panel-body .panel-body-ul {
+    list-style: none;
+}
+
+div.panel-body .panel-body-ul li {
+    display: block;
+    margin: 5px 0;
+}
+
+div.panel-body .import-tip {
+    margin-top: 10px;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+
+/* 闂佸憡甯掑Λ婵嬪Υ婢舵劕鍐�鐎瑰嫭澹嗙涵锟� */
+
+div.panel-page {
+    width: 100%;
+    background: #FFFFFF;
+    border-top: 1px solid #fff;
+    color: #999;
+    padding: 5px 0px;
+    box-sizing: border-box;
+    white-space: nowrap;
+}
+
+
+/* 闁圭厧鐡ㄥú鐔煎磿绾炬姪sition=bottom */
+
+div[position="bottom"].bottom {
+    text-align: center;
+    position: relative;
+    min-height: 50px;
+    padding: 5px 0;
+    border-top: 1px solid #4092D0;
+    background: #fff;
+    box-sizing: border-box;
+}
+
+.panel-detail .tab-box {
+    width: 100%;
+    height: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.panel-detail .tab-box>ul.tab-menu {
+    width: 100%;
+    height: 32px;
+    line-height: 32px;
+    background: #f2f2f2;
+    border: 1px solid #e6e6e6;
+}
+
+.panel-detail .tab-menu>li {
+    float: left;
+    height: 100%;
+    text-align: center;
+    padding: 0 12px;
+    cursor: pointer;
+    box-sizing: border-box;
+    color: #666;
+}
+
+.panel-detail .tab-menu>li.current {
+    background: #fff;
+    color: #4092D0;
+}
+
+.panel-detail .tab-content .tab-layout.helpField {
+    border: 1px solid #ccc;
+    margin: .4em;
+    text-align: left;
+}
+
+.panel-detail .tab-content .x-input.x-input-sql {
+    width: 120px;
+    height: 28px;
+    line-height: 28px;
+}
+
+.panel-detail .tab-content>.fieldBtnDiv:after {
+    content: "";
+    display: block;
+    overflow: hidden;
+    height: 0;
+    clear: both;
+}
+
+
+/* 闁荤偞绋忛崝宥夋偋閿燂拷 */
+
+.panel-table .area-export {
+    text-align: right;
+    clear: both;
+    margin: 0;
+    padding: 0;
+    padding-top: 6px;
+    height: 23px;
+    border-top: none;
+}
+
+.panel-table .area-export .exportlinks {
+    display: inline-table;
+    margin-right: 20px;
+    text-align: right;
+}
+
+.area-export input {
+    vertical-align: middle;
+}
+
+.area-export .exportlinks .export {
+    padding: 0 4px 1px 20px;
+    display: inline;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.exportlinks a {
+    text-decoration: none;
+}
+
+.area-export .exportlinks .excel :before {
+    content: "\e73f";
+    margin-right: 4px;
+}
+
+div.panel.dialog-page .page-component {
+    width: auto;
+    min-width: 0px;
+}
+
+div.panel.dialog-page .page-component .x-page.x-page-left {
+    display: none;
+}
+
+div.panel.dialog-page .page-component .x-page.x-page-right {
+    width: 100%;
+    text-align: center;
+}
+
+div.panel.dialog-page .x-page.x-page-right .x-page-total {
+    display: none;
+}
+
+
+/* tab濠电姴锕ラ懝鐐叏閳哄懎绾ч柨鐕傛嫹 */
+
+div.panel.panel-tab .l-tab-links {
+    overflow-x: auto;
+}
+
+div.panel.panel-tab .l-tab-links ul {
+    width: auto;
+    white-space: nowrap;
+}
+
+div.panel.panel-tab .l-tab-links ul li {
+    display: inline-block;
+}

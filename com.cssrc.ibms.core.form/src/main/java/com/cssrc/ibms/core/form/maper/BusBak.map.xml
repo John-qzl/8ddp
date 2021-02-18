@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cssrc.ibms.core.form.model.BusBak">
+	<resultMap id="BusBak" type="com.cssrc.ibms.core.form.model.BusBak">
+		<id property="busId" column="BUS_ID" jdbcType="NUMERIC" />
+		<result property="busPk" column="BUS_PK" jdbcType="NUMERIC" />
+		<result property="tableId" column="TABLE_ID" jdbcType="VARCHAR" />
+		<result property="bakData" column="DATA_BAK" jdbcType="VARCHAR" />
+		<result property="swichBakData" column="SWICH_DATA_BAK"
+			jdbcType="VARCHAR" />
+		<result property="bakDate" column="BAK_DATE" jdbcType="TIMESTAMP" />
+		<result property="version" column="VERSION" jdbcType="TIMESTAMP" />
+
+	</resultMap>
+
+	<sql id="dynamicWhere">
+		<where>
+			<if test="@Ognl@isNotEmpty(busId)"> AND BUS_ID =#{busId} </if>
+			<if test="@Ognl@isNotEmpty(busPk)"> AND BUS_PK =#{busPk} </if>
+			<if test="@Ognl@isNotEmpty(tableId)"> AND TABLE_ID =#{tableId} </if>
+			<if test="@Ognl@isNotEmpty(version)"> AND VERSION = #{version}  </if>
+		</where>
+	</sql>
+
+
+	<sql id="columns">
+		BUS_ID,
+		BUS_PK,
+		BAK_DATE,
+		VERSION,
+		DATA_BAK,
+		SWICH_DATA_BAK,
+		TABLE_ID
+	</sql>
+
+	<insert id="add" parameterType="com.cssrc.ibms.core.form.model.BusBak">
+		INSERT INTO IBMS_BUS_BAK
+		(BUS_ID,BUS_PK,BAK_DATE,VERSION,DATA_BAK,SWICH_DATA_BAK,TABLE_ID)
+		VALUES
+		(#{busId,jdbcType=NUMERIC}, #{busPk,jdbcType=NUMERIC},
+		#{bakDate,jdbcType=TIMESTAMP},
+		#{version,jdbcType=VARCHAR},
+		#{bakData,jdbcType=VARCHAR},
+		#{swichBakData,jdbcType=VARCHAR},
+		#{tableId,jdbcType=NUMERIC})
+	</insert>
+
+	<select id="getAll" resultMap="BusBak">
+		SELECT
+		<include refid="columns" />
+		FROM IBMS_BUS_BAK
+		<include refid="dynamicWhere" />
+		ORDER BY VERSION DESC
+	</select>
+
+</mapper>

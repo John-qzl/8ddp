@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DatasourceManager xmlVersion="20151125" releaseVersion="8.0.0">
+<ConnectionMap>
+
+<Connection name="FRDemo" class="com.fr.data.impl.JDBCDatabaseConnection">
+<DatabaseAttr originalCharsetName="UTF-8" newCharsetName="UTF-8"/>
+<JDBCDatabaseAttr url="jdbc:oracle:thin:@192.168.8.123:1521:ORCL" driver="oracle.jdbc.driver.OracleDriver" user="fbzh" password="fbzh" encryptPassword="true">
+<DBCPAttr/>
+</JDBCDatabaseAttr>
+</Connection>
+
+<Connection name="jdbc3" class="com.fr.data.impl.JDBCDatabaseConnection">
+<DatabaseAttr originalCharsetName="UTF-8" newCharsetName="UTF-8"/>
+<JDBCDatabaseAttr url="jdbc:mysql://192.168.8.27:3306/ibms" driver="com.mysql.jdbc.Driver" user="root" password="root" encryptPassword="true">
+<DBCPAttr/>
+</JDBCDatabaseAttr>
+</Connection>
+
+<Connection name="JDBC5" class="com.fr.data.impl.JDBCDatabaseConnection">
+<DatabaseAttr originalCharsetName="UTF-8" newCharsetName="UTF-8"/>
+<JDBCDatabaseAttr url="jdbc:oracle:thin:@localhost:1521:ORCL" driver="oracle.jdbc.driver.OracleDriver" user="DP8D" password="DP8D" encryptPassword="true">
+<DBCPAttr/>
+</JDBCDatabaseAttr>
+</Connection>
+</ConnectionMap>
+</DatasourceManager>

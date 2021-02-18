@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:amq="http://activemq.apache.org/schema/core"
+	xmlns:jms="http://www.springframework.org/schema/jms"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans   
+        http://www.springframework.org/schema/beans/spring-beans-3.1.xsd   
+        http://www.springframework.org/schema/context   
+        http://www.springframework.org/schema/context/spring-context-3.1.xsd
+        http://www.springframework.org/schema/jms
+        http://www.springframework.org/schema/jms/spring-jms-3.1.xsd
+        http://activemq.apache.org/schema/core
+        http://activemq.apache.org/schema/core/activemq-core-5.8.0.xsd">
+
+
+	<!-- 用户 组织 角色 岗位 数据同步监听配置 该配置只需要在主数据管理系统启用，其他系统不需要启用 -->
+	<bean id="userEventListener" class="com.cssrc.ibms.core.user.listener.UserEventListener">
+		<!-- 监听发送的队列名称 -->
+		<property name="queueName" value="${jms.massage.queue.syncmdm}"></property>
+	</bean>
+	<!-- 主数据管理系统 启用配置，监听 用户数据同步队列 该队列只完成本地 消息发送与消费 -->
+	<jms:listener-container destination-type="queue" container-type="default"
+		connection-factory="simpleJmsConnectionFactory" receive-timeout="3000"
+		acknowledge="auto">
+		<jms:listener destination="${jms.massage.queue.syncmdm}" ref="syncMdmDataMsgRecive"
+			method="syncData" />
+	</jms:listener-container>
+	<!-- 消息处理类 -->
+	
+	<!-- 只处理本地队列消息 此处要注意，所有主数据的同步发起点在这，如果只是本地同步，那么不会调用dubbo往所的mq发送消息。-->
+	<bean id="syncMdmDataMsgRecive" class="com.cssrc.ibms.core.mdmsync.SyncMdmDataMsgRecive">
+		<!-- 0:只做本地同步 -->
+		<!-- 1:只做rpc 远程同步只同步本单位的应用系统 -->
+		<!-- 2:本系统 远程rpc 都进行同步 -->
+		<property name="syncType" value="0"></property>
+	</bean>
+	
+	<!-- 该监听只处理远程发送过来的消息，比如主数据管理系统 -->
+	<jms:listener-container destination-type="durableTopic"
+		client-id="${jdbc.username}" container-type="default" receive-timeout="3000"
+		connection-factory="simpleJmsConnectionFactory" acknowledge="auto">
+		<jms:listener destination="${jms.massage.topic.syncmdm}" ref="syncRpcMdmDataMsgRecive" />
+	</jms:listener-container>
+	
+	<!-- 该消息消费者只处理 远程发送过来的消息。 -->
+	<bean id="syncRpcMdmDataMsgRecive" class="com.cssrc.ibms.core.mdmsync.SyncRpcMdmDataMsgRecive">
+	</bean>
+		
+
+</beans>	

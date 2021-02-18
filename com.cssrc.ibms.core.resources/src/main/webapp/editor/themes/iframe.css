@@ -1,0 +1,39 @@
+/*可以在这里添加你自己的css*/
+ table{
+	border-collapse: separate!important;
+	border-spacing: 0px;
+}
+td{
+	white-space: nowrap;
+}
+.dpCheckbox {
+    vertical-align: middle;
+}
+
+.cellHiding{
+	visibility:hidden;
+}
+tr.firstRow td>.markup {
+    color: red;
+    font-size: 10px;
+}
+.dpInputBtn {
+	vertical-align: middle;
+	background-color: #3EAAF5;
+	color: white;
+	border: none;
+}
+
+.dpInputText {
+	vertical-align: middle;
+}
+/* 表单分三部分： 'tablefront','tabletitle','tabletail' */
+.dpTrFront{
+	background-color: #fef897;
+}
+.dpTrTitle{
+	background-color: #1e9fff;
+}
+.dpTrTail{
+	background-color: #e3f6fc;
+}

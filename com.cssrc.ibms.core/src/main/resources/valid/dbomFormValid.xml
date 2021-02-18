@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+
+<form-validation>
+	<formset>
+		<!-- dbom start -->
+		<form name="dbom">
+			<field property="code" depends="required,maxlength">
+				<arg position="0" key="dbom.code" />
+				<arg position="1" name="maxlength" key="${var:maxlength}"
+					resource="false" />
+				<var>
+					<var-name>maxlength</var-name>
+					<var-value>100</var-value>
+				</var>
+			</field>
+			<field property="name" depends="required,maxlength">
+				<arg position="0" key="dbom.name" />
+				<arg position="1" name="maxlength" key="${var:maxlength}"
+					resource="false" />
+				<var>
+					<var-name>maxlength</var-name>
+					<var-value>100</var-value>
+				</var>
+			</field>
+			<field property="description" depends="maxlength">
+				<arg position="0" key="dbom.description" />
+				<arg position="1" name="maxlength" key="${var:maxlength}"
+					resource="false" />
+				<var>
+					<var-name>maxlength</var-name>
+					<var-value>300</var-value>
+				</var>
+			</field>
+		</form>
+		<form name="dbomNode">
+			<field property="code" depends="required,maxlength">
+				<arg position="0" key="dbomNode.code" />
+				<arg position="1" name="maxlength" key="${var:maxlength}"
+					resource="false" />
+				<var>
+					<var-name>maxlength</var-name>
+					<var-value>100</var-value>
+				</var>
+			</field>
+			<field property="name" depends="required,maxlength">
+				<arg position="0" key="dbomNode.name" />
+				<arg position="1" name="maxlength" key="${var:maxlength}"
+					resource="false" />
+				<var>
+					<var-name>maxlength</var-name>
+					<var-value>100</var-value>
+				</var>
+			</field>
+			<field property="datasource" depends="required,maxlength">
+				<arg position="0" key="dbomNode.datasource" />
+				<arg position="1" name="maxlength" key="${var:maxlength}"
+					resource="false" />
+				<var>
+					<var-name>maxlength</var-name>
+					<var-value>300</var-value>
+				</var>
+			</field>
+			<field property="dynamicNode" depends="required,maxlength">
+				<arg position="0" key="dbomNode.dynamicNode" />
+				<arg position="1" name="maxlength" key="${var:maxlength}"
+					resource="false" />
+				<var>
+					<var-name>maxlength</var-name>
+					<var-value>300</var-value>
+				</var>
+			</field>
+			<field property="dataFormat" depends="required,maxlength">
+				<arg position="0" key="dbomNode.dataFormat" />
+				<arg position="1" name="maxlength" key="${var:maxlength}"
+					resource="false" />
+				<var>
+					<var-name>maxlength</var-name>
+					<var-value>300</var-value>
+				</var>
+			</field>
+			<field property="url" depends="required,maxlength">
+				<arg position="0" key="dbomNode.url" />
+				<arg position="1" name="maxlength" key="${var:maxlength}"
+					resource="false" />
+				<var>
+					<var-name>maxlength</var-name>
+					<var-value>300</var-value>
+				</var>
+			</field>
+			<field property="description" depends="maxlength">
+				<arg position="0" key="dbomNode.description" />
+				<arg position="1" name="maxlength" key="${var:maxlength}"
+					resource="false" />
+				<var>
+					<var-name>maxlength</var-name>
+					<var-value>300</var-value>
+				</var>
+			</field>
+		</form>
+		<!-- end dbom -->
+
+	</formset>
+</form-validation>
+ 
+
+ 

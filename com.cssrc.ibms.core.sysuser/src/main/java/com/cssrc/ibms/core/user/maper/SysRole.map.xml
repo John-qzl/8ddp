@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+<mapper namespace="com.cssrc.ibms.core.user.model.SysRole">
+	<resultMap id="Result" type="com.cssrc.ibms.core.user.model.SysRole">
+		<id property="roleId" column="roleId" jdbcType="NUMERIC"/>
+		<result property="alias" column="alias" jdbcType="VARCHAR"/>
+		<result property="roleName" column="roleName" jdbcType="VARCHAR"/>
+		<result property="roleDesc" column="roleDesc" jdbcType="VARCHAR"/>
+		<result property="allowDel" column="allowDel" jdbcType="NUMERIC"/>
+		<result property="allowEdit" column="allowEdit" jdbcType="NUMERIC"/>
+		<result property="status" column="status" jdbcType="NUMERIC"/>
+		<result property="category" column="category" jdbcType="VARCHAR"/> 
+	</resultMap>
+	<sql id="columns">
+		roleId,alias,roleName,roleDesc,allowDel,allowEdit,status,category
+	</sql>
+	
+	<sql id="dynamicWhere">
+		<where>
+			<if test="@Ognl@isNotEmpty(roleId)"> AND role.roleId  =#{roleId} </if>
+			<if test="@Ognl@isNotEmpty(alias)"> AND role.alias  LIKE #{alias}  </if>
+			<if test="@Ognl@isNotEmpty(roleName)"> AND role.roleName  LIKE #{roleName}  </if>
+			<if test="@Ognl@isNotEmpty(roleDesc)"> AND role.roleDesc  LIKE #{roleDesc}  </if>
+			<if test="@Ognl@isNotEmpty(allowDel)"> AND role.allowDel  =#{allowDel} </if>
+			<if test="@Ognl@isNotEmpty(allowEdit)"> AND role.allowEdit  =#{allowEdit} </if>
+			<if test="@Ognl@isNotEmpty(status)"> AND role.status  =#{status} </if>
+			<if test="@Ognl@isNotEmpty(category)"> AND role.category  =#{category} </if>
+			AND role.roleId not in (-1,-2,-3,-4) 
+		</where>
+	</sql>
+
+	<insert id="add" parameterType="com.cssrc.ibms.core.user.model.SysRole">
+		INSERT INTO cwm_sys_role
+		(<include refid="columns"/>)
+		VALUES
+		(#{roleId,jdbcType=NUMERIC}, #{alias,jdbcType=VARCHAR}, #{roleName,jdbcType=VARCHAR}, #{roleDesc,jdbcType=VARCHAR}, #{allowDel,jdbcType=NUMERIC}, #{allowEdit,jdbcType=NUMERIC}, #{status,jdbcType=NUMERIC},#{category,jdbcType=VARCHAR})
+	</insert>
+	
+	<delete id="delById" parameterType="java.lang.Long">
+		DELETE FROM cwm_sys_role 
+		WHERE
+		roleId=#{roleId}
+	</delete>
+	
+	<update id="update" parameterType="com.cssrc.ibms.core.user.model.SysRole">
+		UPDATE cwm_sys_role SET 
+		alias=#{alias,jdbcType=VARCHAR} , 
+		roleName=#{roleName,jdbcType=VARCHAR} , 
+		roleDesc=#{roleDesc,jdbcType=VARCHAR} , 
+		allowDel=#{allowDel,jdbcType=NUMERIC} , 
+		allowEdit=#{allowEdit,jdbcType=NUMERIC} , 
+		status=#{status,jdbcType=NUMERIC},
+		category=#{category,jdbcType=VARCHAR}
+		WHERE
+		roleId=#{roleId}
+	</update>
+	
+	<select id="getById" parameterType="java.lang.Long" resultMap="Result">
+		select * from cwm_sys_role role where role.roleId=#{roleId}
+	</select>
+		
+	<select id="getByRoleName" parameterType="java.util.Map"  resultType="com.cssrc.ibms.core.user.model.SysRole">
+		select * from cwm_sys_role role where role.roleName=#{roleName}
+	</select>
+
+	<!-- 判断角色别名是否存在 -->
+	<select id="isExistRoleAlias" resultType="int">
+	  SELECT count(*) amount FROM cwm_sys_role where alias=#{alias}
+	</select>
+	
+	<select id="getByRoleAlias" parameterType="java.lang.String" resultMap="Result">
+		select * from cwm_sys_role r where r.alias=#{alias}
+	</select>
+	
+	<select id="isExistRoleAliasForUpd" resultType="int">
+	  SELECT count(*) amount FROM cwm_sys_role where alias=#{alias} and roleId &lt;> #{roleId} 
+	</select>
+	<!-- 与user,org等表关联查询 -->
+	<select id="getByUserId" parameterType="java.lang.Long"  resultMap="Result">
+	  SELECT r.*  FROM cwm_sys_role r join CWM_SYS_ROLE_USER ur 
+	  on r.roleId = ur.roleId  where ur.userId=#{userId} and r.status=1
+	</select>
+	
+	<select id="getByOrgId" parameterType="java.lang.Long"  resultMap="Result">
+	  SELECT r.*  FROM cwm_sys_role r where r.roleid
+	  in (select t.roleid from CWM_SYS_ORG_ROLE t where t.orgid=#{orgId})
+	</select>
+	
+	<select id="getRole" resultMap="Result">
+		SELECT role.*
+		FROM cwm_sys_role role
+		<include refid="dynamicWhere" />
+		<if test="@Ognl@isNotEmpty(orderField)">
+		order by role.${orderField} ${orderSeq}
+		</if>
+		<if test="@Ognl@isEmpty(orderField)">
+		order by role.roleId  desc
+		</if>
+	</select>
+	
+	<select id="getAll" resultMap="Result">
+		SELECT role.*
+		FROM cwm_sys_role role 
+		where role.status=1 and role.roleId not in (-1,-2,-3,-4) 
+		<if test="@Ognl@isNotEmpty(alias)"> AND role.alias  LIKE #{alias}  </if>
+		<if test="@Ognl@isNotEmpty(roleName)"> AND role.roleName  LIKE #{roleName}  </if>
+		<if test="@Ognl@isNotEmpty(orderField)">
+		order by ${orderField} ${orderSeq}
+		</if>
+		<if test="@Ognl@isEmpty(orderField)">
+		order by roleId  desc
+		</if>
+	</select>
+	<select id="getByAuthId" parameterType="Long" resultMap="Result"> 
+		SELECT a.* 
+		FROM cwm_sys_role a 
+		left join CWM_SYS_AUTH_ROLE b  on a.roleId = b.role_Id  
+     	where b.auth_id=#{authId} and a.status=1
+	</select>	
+	<select id="getUserAssignRole" parameterType="java.util.Map"  resultMap="Result">
+		SELECT distinct a.*
+		FROM cwm_sys_role a 
+		left join CWM_SYS_AUTH_ROLE b  on a.roleId = b.role_Id  
+		left join CWM_SYS_ORGAUTH  d on b.auth_id = d.id 
+     	where d.user_id=#{userId} and a.status=1 and a.roleId not in (-1,-2,-3,-4) 
+		<if test="@Ognl@isNotEmpty(roleName)"> AND a.roleName  LIKE #{roleName}  </if>
+	</select>
+	
+	<select id="getDistinctCategory" resultType="java.lang.String">
+		SELECT DISTINCT CATEGORY FROM cwm_sys_role where CATEGORY  is not null
+	</select>
+	
+	<select id="getManageRolesByOrgId" parameterType="Long" resultMap="Result">
+		SELECT r.*  FROM CWM_SYS_ROLE r join   CWM_SYS_ORG_ROLEMANAGE ur 
+      on r.roleId = ur.roleId  where ur.orgId=#{orgId} 
+	</select>
+</mapper>

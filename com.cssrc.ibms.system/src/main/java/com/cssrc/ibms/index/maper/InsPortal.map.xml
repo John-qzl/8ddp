@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cssrc.ibms.index.model.InsPortal" >
+  <resultMap id="InsPortal" type="com.cssrc.ibms.index.model.InsPortal" >
+    <id column="PORT_ID_" property="portId" jdbcType="NUMERIC" />
+    <result column="NAME_" property="name" jdbcType="VARCHAR" />
+    <result column="KEY_" property="key" jdbcType="VARCHAR" />
+    <result column="COL_NUMS_" property="colNums" jdbcType="INTEGER" />
+    <result column="COL_WIDTHS_" property="colWidths" jdbcType="VARCHAR" />
+    <result column="IS_DEFAULT_" property="isDefault" jdbcType="VARCHAR" />
+    <result column="DESC_" property="desc" jdbcType="VARCHAR" />
+    <result column="USER_ID_" property="userId" jdbcType="VARCHAR" />
+    <result column="ORG_ID_" property="orgId" jdbcType="VARCHAR" />
+    <result column="CREATE_BY_" property="createBy" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME_" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_BY_" property="updateBy" jdbcType="VARCHAR" />
+    <result column="UPDATE_TIME_" property="updateTime" jdbcType="TIMESTAMP" />
+	<result column="LAYOUT_INFO_" property="layoutInfo" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="columns" >
+    PORT_ID_, NAME_, KEY_, COL_NUMS_, COL_WIDTHS_, IS_DEFAULT_, DESC_, USER_ID_, ORG_ID_, 
+    CREATE_BY_, CREATE_TIME_, UPDATE_BY_, UPDATE_TIME_, LAYOUT_INFO_
+  </sql>
+  
+  <sql id="dynamicWhere">
+		<where>
+			<if test="@Ognl@isNotEmpty(portId)"> AND PORT_ID_ =#{portId} </if>
+			<if test="@Ognl@isNotEmpty(name)"> AND NAME_ =#{name}  </if>
+			<if test="@Ognl@isNotEmpty(key)"> AND KEY_ =#{key}  </if>
+			<if test="@Ognl@isNotEmpty(colNums)"> AND COL_NUMS_ =#{colNums}  </if>
+			<if test="@Ognl@isNotEmpty(isDefault)"> AND IS_DEFAULT_ = #{isDefault}  </if>
+			<if test="@Ognl@isNotEmpty(userId)"> AND USER_ID_ = #{userId}  </if>
+			<if test="@Ognl@isNotEmpty(orgId)"> AND ORG_ID_ = #{orgId}  </if>
+			<if test="@Ognl@isNotEmpty(createBy)"> AND CREATE_BY_ = #{createBy}  </if>
+			<if test="@Ognl@isNotEmpty(createTime)"> AND CREATE_TIME_ &gt;=#{createTime}  </if>
+			<if test="@Ognl@isNotEmpty(updateBy)"> AND UPDATE_BY_ = #{updateBy}  </if>
+			<if test="@Ognl@isNotEmpty(updateTime)"> AND UPDATE_TIME_ &lt;=#{updateTime}  </if>
+			<if test="@Ognl@isNotEmpty(layoutInfo)"> AND LAYOUT_INFO_ =#{layoutInfo}  </if>
+		</where>
+	</sql>
+  
+  
+  <select id="getById" resultMap="InsPortal" parameterType="java.lang.Long" >
+    select 
+    <include refid="columns" />
+    from ins_portal
+    where PORT_ID_ = #{portId}
+  </select>
+  
+  <delete id="delById" parameterType="java.lang.Long" >
+    delete from ins_portal
+    where PORT_ID_ = #{portId}
+  </delete>
+  
+  <insert id="add" parameterType="com.cssrc.ibms.index.model.InsPortal" >
+    insert into ins_portal 
+	(
+		<include refid="columns" />
+	)
+    values (#{portId,jdbcType=NUMERIC}, #{name,jdbcType=VARCHAR}, #{key,jdbcType=VARCHAR}, 
+      #{colNums,jdbcType=INTEGER}, #{colWidths,jdbcType=VARCHAR}, #{isDefault,jdbcType=VARCHAR}, 
+      #{desc,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, #{orgId,jdbcType=VARCHAR}, 
+      #{createBy,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateBy,jdbcType=VARCHAR}, 
+      #{updateTime,jdbcType=TIMESTAMP},#{layoutInfo,jdbcType=CLOB})
+  </insert>
+
+  <update id="update" parameterType="com.cssrc.ibms.index.model.InsPortal" >
+    update ins_portal
+    set NAME_ = #{name,jdbcType=VARCHAR},
+      KEY_ = #{key,jdbcType=VARCHAR},
+      COL_NUMS_ = #{colNums,jdbcType=INTEGER},
+      COL_WIDTHS_ = #{colWidths,jdbcType=VARCHAR},
+      IS_DEFAULT_ = #{isDefault,jdbcType=VARCHAR},
+      DESC_ = #{desc,jdbcType=VARCHAR},
+      USER_ID_ = #{userId,jdbcType=VARCHAR},
+      ORG_ID_ = #{orgId,jdbcType=VARCHAR},
+      CREATE_BY_ = #{createBy,jdbcType=VARCHAR},
+      CREATE_TIME_ = #{createTime,jdbcType=TIMESTAMP},
+      UPDATE_BY_ = #{updateBy,jdbcType=VARCHAR},
+      UPDATE_TIME_ = #{updateTime,jdbcType=TIMESTAMP},
+      LAYOUT_INFO_ = #{layoutInfo,jdbcType=VARCHAR}
+    where PORT_ID_ = #{portId}
+  </update>
+  
+  <select id="getAll" resultMap="InsPortal">
+		SELECT
+		<include refid="columns" />
+		FROM ins_portal
+		<include refid="dynamicWhere" />
+		<if test="@Ognl@isNotEmpty(orderField)">
+			order by ${orderField} ${orderSeq}
+		</if>
+		<if test="@Ognl@isEmpty(orderField)">
+			order by PORT_ID_ desc
+		</if>
+	</select>
+
+  
+  <select id="getByKey" parameterType="Map" resultMap="InsPortal">
+		SELECT <include refid="columns"/> 
+		FROM ins_portal 
+		WHERE KEY_=#{key} 
+		<if test="@Ognl@isNotEmpty(dataId)"> AND ORG_ID_=#{orgId}</if>  
+  </select>
+	
+  <select id="getByIdKey" parameterType="Map" resultMap="InsPortal">
+		SELECT <include refid="columns"/> 
+		FROM ins_portal
+		WHERE KEY_=#{key} 
+		AND USER_ID_ = #{userId} 
+		<if test="@Ognl@isNotEmpty(orgId)"> AND ORG_ID_=#{orgId}</if> 
+  </select>
+		
+ <select id="getPortal" parameterType="Map" resultMap="InsPortal">
+		SELECT <include refid="columns"/> 
+		FROM ins_portal a WHERE a.PORT_ID_ in
+		(select OBJECT_ID FROM CWM_SYS_OBJRIGHTS WHERE OBJ_TYPE=#{objType} AND OWNER_ID =#{ownerId})
+  </select>
+  	
+</mapper>

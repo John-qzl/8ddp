@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cssrc.ibms.core.form.model.ReportTemplate">
+	<resultMap id="ReportTemplate" type="com.cssrc.ibms.core.form.model.ReportTemplate">
+		<id property="id" column="ID" jdbcType="NUMERIC" />
+		<result property="formKey" column="FORMKEY" jdbcType="NUMERIC" />
+		<result property="tableId" column="TABLEID" jdbcType="NUMERIC" />
+		<result property="name" column="NAME" jdbcType="VARCHAR" />
+		<result property="content" column="CONTENT" jdbcType="CLOB" />
+		<result property="content_spyj" column="CONTENT_SPYJ" jdbcType="CLOB" />
+		<result property="filepath" column="FILEPATH" jdbcType="VARCHAR" />
+		<result property="create_user" column="CREATE_USER" jdbcType="VARCHAR" />
+		<result property="create_time" column="CREATE_TIME" jdbcType="TIMESTAMP" />
+		<result property="type" column="TYPE" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<sql id="columns">
+		ID,FORMKEY,TABLEID,NAME,CONTENT,CONTENT_SPYJ,FILEPATH,CREATE_USER,CREATE_TIME,TYPE
+	</sql>
+
+	<sql id="dynamicWhere">
+		<where>
+			<if test="@Ognl@isNotEmpty(id)"> AND ID =#{id} </if>
+			<if test="@Ognl@isNotEmpty(formKey)"> AND FORMKEY =#{formKey} </if>
+			<if test="@Ognl@isNotEmpty(tableId)"> AND TABLEID =#{formKey} </if>
+			<if test="@Ognl@isNotEmpty(name)"> AND NAME LIKE #{name}  </if>
+		</where>
+	</sql>
+
+	<insert id="add" parameterType="com.cssrc.ibms.core.form.model.ReportTemplate">
+		INSERT INTO IBMS_FORM_REPORTS
+		(
+		<include refid="columns" />
+		)
+		VALUES
+		(#{id,jdbcType=NUMERIC},
+		#{formKey,jdbcType=NUMERIC},
+		#{tableId,jdbcType=NUMERIC},
+		#{name,jdbcType=VARCHAR},
+		#{content,jdbcType=CLOB},
+		#{content_spyj,jdbcType=CLOB},
+		#{filepath,jdbcType=VARCHAR},
+		#{create_user,jdbcType=VARCHAR},
+		#{create_time,jdbcType=TIMESTAMP},
+		#{type,jdbcType=VARCHAR}
+		)
+	</insert>
+
+	<delete id="delById" parameterType="java.lang.Long">
+		DELETE FROM IBMS_FORM_REPORTS
+		WHERE
+		ID=#{id}
+	</delete>
+
+	<update id="update" parameterType="com.cssrc.ibms.core.form.model.ReportTemplate">
+		UPDATE IBMS_FORM_REPORTS SET
+		NAME=#{name,jdbcType=VARCHAR},
+		TYPE=#{type,jdbcType=VARCHAR},
+		CONTENT=#{content,jdbcType=CLOB},
+		CONTENT_SPYJ=#{content_spyj,jdbcType=CLOB}
+		WHERE
+		ID=#{id}
+	</update>
+
+	<select id="getById" parameterType="java.lang.Long" resultMap="ReportTemplate">
+		SELECT
+		<include refid="columns" />
+		FROM IBMS_FORM_REPORTS
+		WHERE
+		ID=#{id}
+	</select>
+
+
+	<select id="getAll" resultMap="ReportTemplate">
+		SELECT
+		<include refid="columns" />
+		FROM IBMS_FORM_REPORTS
+		<include refid="dynamicWhere" />
+	</select>
+
+	<select id="getByFormKey" parameterType="java.lang.Long"
+		resultMap="ReportTemplate">
+		SELECT
+		<include refid="columns" />
+		FROM IBMS_FORM_REPORTS
+		WHERE
+		formKey=#{formKey}
+	</select>
+	<select id="getByTableId" parameterType="java.lang.Long"
+		resultMap="ReportTemplate">
+		SELECT
+		<include refid="columns" />
+		FROM IBMS_FORM_REPORTS
+		WHERE
+		tableId=#{tableId}
+	</select>
+
+	<delete id="delByFormKey" parameterType="java.lang.Long">
+		delete from
+		IBMS_FORM_REPORTS
+		WHERE
+		formKey=#{formKey}
+	</delete>
+
+	<select id="getCountByFormKey" parameterType="java.lang.Long"
+		resultType="java.lang.Integer">
+		select count(*) from IBMS_FORM_REPORTS
+		WHERE
+		formKey=#{formKey}
+	</select>
+
+
+</mapper>

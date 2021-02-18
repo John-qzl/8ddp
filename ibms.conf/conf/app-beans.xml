@@ -1,0 +1,376 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+         http://www.springframework.org/schema/beans/spring-beans.xsd"
+	default-autowire="byName" default-lazy-init="false">
+
+	<!-- 动态加载上下文，安装时，动态加载context -->
+	<bean id="dynamicLoadBean" class="com.cssrc.ibms.core.util.string.DynamicLoadBean" />
+
+	<bean id="confValidator"
+		class="org.springmodules.validation.commons.ConfigurableBeanValidator">
+		<property name="validatorFactory" ref="validatorFactory" />
+	</bean>
+	<bean id="validatorFactory"
+		class="org.springmodules.validation.commons.DefaultValidatorFactory">
+		<property name="validationConfigLocations">
+			<list>
+				<value>classpath*:/valid/*.xml</value>
+			</list>
+		</property>
+	</bean>
+	<!-- 资源文件操作类 -->
+	<bean id="resourceUtil" class="com.cssrc.ibms.core.util.common.ResourceUtil" />
+	<!-- 缓存操作类，如果需要修改缓存的实现，修改实现的class就可以了，id不要修改。 -->
+	<bean id="iCache" class="com.cssrc.ibms.core.cache.impl.MemoryCache"></bean>
+	<!-- 表创建器 -->
+	<bean id="tableOperator" class="com.cssrc.ibms.core.table.TableOperatorFactoryBean">
+		<property name="dbType" value="${jdbc.dbType}" />
+		<property name="jdbcTemplate" ref="jdbcTemplate" />
+		<property name="dialect" ref="dialect"></property>
+	</bean>
+	<!-- 工作台类 -->
+	<!-- <bean id="indexService" class="com.ibms.oa.service.system.IndexService"></bean> -->
+
+	<bean id="sysdatasource" class="com.cssrc.ibms.system.model.SysDataSource">
+		<property name="alias" value="system-datasource"></property>
+		<property name="driverName" value="${jdbc.driverClassName}"></property>
+		<property name="url" value="${jdbc.url}"></property>
+		<property name="userName" value="${jdbc.username}"></property>
+		<property name="password" value="${jdbc.password}"></property>
+		<property name="dbType" value="${jdbc.dbType}"></property>
+	</bean>
+	<!-- 数据库脚本同步配置 -->
+	<bean id="syncMysqlDB" class="com.cssrc.ibms.core.db.util.SyncMysqlDB">
+		<property name="sysDataSource" ref="sysdatasource"></property>
+	</bean>
+	<bean id="syncOracleDB" class="com.cssrc.ibms.core.db.util.SyncOracleDB">
+		<property name="sysDataSource" ref="sysdatasource"></property>
+	</bean>
+	<bean id="syncDBUtil" class="com.cssrc.ibms.core.db.util.SyncDBUtil">
+		<property name="dbType" value="${jdbc.dbType}" />
+		<property name="dBSynchronization">
+			<map>
+				<entry key="syncdb.oracle" value-ref="syncOracleDB" />
+				<entry key="syncdb.mysql" value-ref="syncMysqlDB" />
+			</map>
+		</property>
+
+	</bean>
+
+
+	<!-- 方言 -->
+	<bean id="dialect"
+		class="com.cssrc.ibms.core.db.mybatis.dialect.DialectFactoryBean">
+		<property name="dbType" value="${jdbc.dbType}" />
+	</bean>
+	<!-- jdbcDao 实现了分页查询。 -->
+	<bean id="jdbcDao" class="com.cssrc.ibms.core.db.mybatis.dao.JdbcDao">
+		<constructor-arg name="jdbcTemplate" ref="jdbcTemplate"> </constructor-arg>
+		<constructor-arg name="dialect" ref="dialect"> </constructor-arg>
+	</bean>
+	<!--动态数据源缓存器 -->
+	<bean id="dynamicDataSourceCache" class="com.cssrc.ibms.core.cache.impl.DynamicDataSourceCache" />
+	<!-- 脚本引擎 -->
+	<bean id="scriptEngine" class="com.cssrc.ibms.core.engine.GroovyScriptEngine"></bean>
+
+	<!-- 暴露给脚本引擎的代码，凡实现了IScript接口的类都被注入到groovy引擎使用 -->
+	<bean id="scriptImpl" class="com.cssrc.ibms.core.flow.service.impl.ScriptImpl"></bean>
+
+	<!-- 定时器服务类 -->
+	<bean id="schedulerService" class="com.cssrc.ibms.core.job.quartz.SchedulerService"></bean>
+
+	<bean id="orgCalculation"
+		class="com.cssrc.ibms.core.flow.service.impl.NodeUserCalculationOrg"></bean>
+	<bean id="orgAttrCalculation"
+		class="com.cssrc.ibms.core.flow.service.impl.NodeUserCalculationOrgAttr"></bean>
+	<bean id="orgChargeCalculation"
+		class="com.cssrc.ibms.core.flow.service.impl.NodeUserCalculationOrgCharge"></bean>
+	<bean id="positionCalculation"
+		class="com.cssrc.ibms.core.flow.service.impl.NodeUserCalculationPosition"></bean>
+	<bean id="pervTypeUserLeaderCalculation"
+		class="com.cssrc.ibms.core.flow.service.impl.NodeUserCalculationPrevTypeUserLeader"></bean>
+	<bean id="roleCalculation"
+		class="com.cssrc.ibms.core.flow.service.impl.NodeUserCalculationRole"></bean>
+	<bean id="sameNodeCalculation"
+		class="com.cssrc.ibms.core.flow.service.impl.NodeUserCalculationSameNode"></bean>
+	<bean id="scriptCalculation"
+		class="com.cssrc.ibms.core.flow.service.impl.NodeUserCalculationScript"></bean>
+	<bean id="startUserCalculation"
+		class="com.cssrc.ibms.core.flow.service.impl.NodeUserCalculationStartUser"></bean>
+	<bean id="userCalculation"
+		class="com.cssrc.ibms.core.flow.service.impl.NodeUserCalculationUser"></bean>
+	<bean id="formVarCalculation"
+		class="com.cssrc.ibms.core.flow.service.impl.NodeUserCalculationFormVar"></bean>
+	<bean id="startOrPrevCalculation"
+		class="com.cssrc.ibms.core.flow.service.impl.NodeUserCalculationStartOrPrev"></bean>
+	<bean id="orgLeaderCalculation"
+		class="com.cssrc.ibms.core.flow.service.impl.NodeUserCalculationOrgLeader"></bean>
+	<bean id="startOrPrevWithOrgCalculation"
+		class="com.cssrc.ibms.core.flow.service.impl.NodeUserCalculationStartOrPrevWithOrg"></bean>
+	<bean id="approveCalculation"
+		class="com.cssrc.ibms.core.flow.service.impl.NodeUserCalculationApprove"></bean>
+	<bean id="sameNodeCalculationDepartment"
+		class="com.cssrc.ibms.core.flow.service.impl.NodeUserCalculationSameNodeDepartment"></bean>
+	<bean id="sameNodeUserLeaderCalculation"
+		class="com.cssrc.ibms.core.flow.service.impl.NodeUserCalculationSameNodeUserLeader"></bean>
+	<!--<bean id="jobCalculation" class="com.cssrc.ibms.core.flow.service.impl.NodeUserCalculationJob"></bean> -->
+	<!--<bean id="userAttrCalculation" class="com.cssrc.ibms.core.flow.service.impl.NodeUserCalculationUserAttr"></bean> -->
+	<!--<bean id="upLowCalculation" class="com.cssrc.ibms.core.flow.service.impl.NodeUserCalculationUpLow"></bean> -->
+	<bean id="nodeUserCalculationSelector"
+		class=" com.cssrc.ibms.core.flow.service.NodeUserCalculationSelector">
+		<property name="nodeUserCalculation">
+			<map>
+				<!-- 指定组织 -->
+				<entry key="org" value-ref="orgCalculation" />
+				<!-- 组织属性 -->
+				<entry key="orgAttr" value-ref="orgAttrCalculation" />
+				<!-- 指定组织负责人 -->
+				<entry key="orgCharge" value-ref="orgChargeCalculation" />
+				<!-- 指定岗位 -->
+				<entry key="pos" value-ref="positionCalculation" />
+
+				<!-- 部门的上级类型部门的负责人 -->
+				<entry key="orgTypeUserLeader" value-ref="pervTypeUserLeaderCalculation" />
+				<!-- 指定角色 -->
+				<entry key="role" value-ref="roleCalculation" />
+				<!-- 与已执行节点相同执行人 -->
+				<entry key="sameNode" value-ref="sameNodeCalculation" />
+				<!-- 使用脚本 -->
+				<entry key="script" value-ref="scriptCalculation" />
+				<!--发起人 -->
+				<entry key="startUser" value-ref="startUserCalculation" />
+				<!--指定用户 -->
+				<entry key="users" value-ref="userCalculation" />
+				<!--表单变量 -->
+				<entry key="formVar" value-ref="formVarCalculation" />
+				<!-- 发起人或上一任务执行人所属组织 的分管领导 -->
+				<entry key="orgLeader" value-ref="orgLeaderCalculation" />
+				<!--发起人或上一个任务执行人 -->
+				<entry key="startOrPrev" value-ref="startOrPrevCalculation" />
+				<!--发起人或上一个任务执行人的组织 -->
+				<entry key="startOrPrevWithOrg" value-ref="startOrPrevWithOrgCalculation" />
+				<!--审批过的人员 -->
+				<entry key="approve" value-ref="approveCalculation" />
+				<!--与已执行节点执行人相同部门 -->
+				<entry key="sameNodeDepartment" value-ref="sameNodeCalculationDepartment" />
+				<!--指定节点的执行人的负责人 -->
+				<entry key="sameNodeUserLeader" value-ref="sameNodeUserLeaderCalculation" />
+				<!-- 指定职务 <entry key="job" value-ref="jobCalculation" /> -->
+				<!-- 指定上下级 <entry key="upLow" value-ref="upLowCalculation" /> -->
+				<!-- 用户属性 <entry key="userAttr" value-ref="userAttrCalculation" /> -->
+			</map>
+		</property>
+	</bean>
+
+	<!-- 状态说明：-1:正在审批，0：弃权,1:同意,2:反对,3:驳回,4,追回,5:会签通过,6:会签不通过 14,终止,33.提交,34,重新提交,37.执行过(脚本使用) 
+		用户可以修改状态对应的颜色值，修改图片的颜色。 -->
+	<!-- <bean id="statusColorMap" class="java.util.HashMap">
+		<constructor-arg>
+			<map>
+				<entry key="1" value="#00FF00"></entry>
+				<entry key="0" value="#FFA500"></entry>
+				<entry key="-1" value="#FF0000"></entry>
+				<entry key="2" value="#0000FF"></entry>
+				<entry key="3" value="#8A0902"></entry>
+				<entry key="4" value="#023B62"></entry>
+				<entry key="5" value="#338848"></entry>
+				<entry key="6" value="#82B7D7"></entry>
+				<entry key="14" value="#EEAF97"></entry>
+				<entry key="33" value="#F89800"></entry>
+				<entry key="34" value="#FFE76E"></entry>
+				<entry key="37" value="#C33A1F"></entry>
+				<entry key="1" value="#3CB371"></entry>
+				<entry key="-1" value="#FF0000"></entry>
+
+			</map>
+		</constructor-arg>
+	</bean> -->
+
+	<!-- 会签定义完成条件类 -->
+	<bean id="signComplete" class="com.cssrc.ibms.core.flow.service.impl.SignComplete"></bean>
+
+	<bean id="queuesService" class="com.cssrc.ibms.core.jms.QueuesService"></bean>
+
+	<!-- 节点跳过设定 -->
+	<bean id="skipConditionMap" class="java.util.LinkedHashMap">
+		<constructor-arg>
+			<map>
+				<entry key="global" value-ref="globalSkipCondition" />
+				<entry key="sameUser" value-ref="sameUserSkipCondition" />
+				<entry key="approveUser" value-ref="approveUserSkipCondition" />
+			</map>
+		</constructor-arg>
+	</bean>
+	<bean id="orgServiceImpl" class="com.cssrc.ibms.core.user.service.OrgServiceImpl">
+		<property name="handMap">
+			<map>
+				<!-- 发起人 -->
+				<entry key="all" value-ref="orgHandlerAll" />
+				<entry key="self" value-ref="orgHandlerSelf" />
+				<entry key="grade" value-ref="orgHandlerGrade" />
+				<entry key="company" value-ref="orgHandlerGrade" />
+				<entry key="department" value-ref="orgHandlerGrade" />
+				<entry key="group" value-ref="orgHandlerGrade" />
+				<entry key="other" value-ref="orgHandlerGrade" />
+				<entry key="up" value-ref="orgHandlerUp" />
+				<entry key="orgId" value-ref="orgHandlerOrgId" />
+			</map>
+		</property>
+	</bean>
+	<bean id="orgHandlerAll" class="com.cssrc.ibms.core.user.service.handler.OrgHandlerAll"></bean>
+	<bean id="orgHandlerSelf" class="com.cssrc.ibms.core.user.service.handler.OrgHandlerSelf"></bean>
+	<bean id="orgHandlerUp" class="com.cssrc.ibms.core.user.service.handler.OrgHandlerUp"></bean>
+	<bean id="orgHandlerOrgId"
+		class="com.cssrc.ibms.core.user.service.handler.OrgHandlerOrgId"></bean>
+	<bean id="orgHandlerGrade"
+		class="com.cssrc.ibms.core.user.service.handler.GradeOrgHandler">
+		<property name="aliasMap">
+			<map>
+				<!-- 发起人 -->
+				<entry key="grade" value="1" />
+				<entry key="company" value="2" />
+				<entry key="department" value="3" />
+				<entry key="group" value="4" />
+				<entry key="other" value="5" />
+			</map>
+		</property>
+	</bean>
+
+	<!-- sysObjRights权限类型列表 -->
+	<bean id="allUserService" class="com.cssrc.ibms.core.user.service.curuser.AllUserService"></bean>
+	<bean id="curUserService" class="com.cssrc.ibms.core.user.service.curuser.CurUserService"></bean>
+	<bean id="roleUserService"
+		class="com.cssrc.ibms.core.user.service.curuser.RoleUserService"></bean>
+	<bean id="orgSubUserService"
+		class="com.cssrc.ibms.core.user.service.curuser.OrgSubUserService"></bean>
+	<bean id="orgUserService" class="com.cssrc.ibms.core.user.service.curuser.OrgUserService"></bean>
+	<bean id="posUserService" class="com.cssrc.ibms.core.user.service.curuser.PosUserService"></bean>
+	<bean id="chargeUserService"
+		class="com.cssrc.ibms.core.user.service.curuser.ChargeUserService"></bean>
+
+	<!-- 默认权限列表 -->
+	<bean id="defaultPermissionList" class="java.util.ArrayList">
+		<constructor-arg>
+			<list>
+				<ref bean="allUserService" />
+				<ref bean="curUserService" />
+				<ref bean="roleUserService" />
+				<ref bean="orgUserService" />
+				<ref bean="orgSubUserService" />
+				<ref bean="posUserService" />
+			</list>
+		</constructor-arg>
+	</bean>
+
+	<bean id="formPermissionList" class="java.util.ArrayList">
+		<constructor-arg>
+			<list>
+				<ref bean="curUserService" />
+				<ref bean="roleUserService" />
+				<ref bean="orgUserService" />
+				<ref bean="posUserService" />
+				<ref bean="chargeUserService" />
+			</list>
+		</constructor-arg>
+	</bean>
+
+	<!-- 权限共享 -->
+	<bean id="shareRightsCalc" class="com.cssrc.ibms.share.rights.ShareRightsCalc"></bean>
+	<bean id="shareRightsContainer" class="com.cssrc.ibms.share.rights.ShareRightsContainer">
+		<property name="shareRightsList">
+			<list>
+				<bean id="offFormDFRightsShare"
+					class="com.cssrc.ibms.share.rights.impl.OffFormDFRightsShare"></bean>
+				<!-- <bean id="roleDFRightsShare" class="com.cssrc.ibms.system.service.share.impl.RoleDFRightsShare"></bean> -->
+				<bean id="dataFormDFRightsShare"
+					class="com.cssrc.ibms.share.rights.impl.DataFormDFRightsShare"></bean>
+			</list>
+		</property>
+	</bean>
+
+
+	<bean id="sameUserSkipCondition"
+		class="com.cssrc.ibms.core.flow.service.skipimpl.SameUserSkipCondition"></bean>
+	<bean id="globalSkipCondition"
+		class="com.cssrc.ibms.core.flow.service.skipimpl.GlobalSkipCondition"></bean>
+	<bean id="approveUserSkipCondition"
+		class="com.cssrc.ibms.core.flow.service.skipimpl.ApproveUserSkipCondition"></bean>
+	<!-- <bean id="currentContext" class="com.ibms.oa.service.util.CurrentContext"></bean> -->
+
+	<bean id="multipartResolver" class="com.cssrc.ibms.core.web.CustomerMultipartResolver">
+		<!-- 设置上传文件的最大尺寸为6GB  6000*1024*1024-->
+		<property name="maxUploadSize">
+			<value>6291456000</value>
+		</property>
+	</bean>
+
+	<bean id="filedEncryptFactory" class="com.cssrc.ibms.core.encrypt.FiledEncryptFactory">
+		<property name="encryptCalculation">
+			<map>
+				<!-- 发起人 -->
+				<entry key="coder">
+					<value type="java.lang.Class">com.cssrc.ibms.core.encrypt.Coder</value>
+				</entry>
+			</map>
+		</property>
+	</bean>
+
+	<!-- 以下配置是系统内部代码架构模式需要的bean配置，比如消息转换等 -->
+
+	<!-- 消息生产者 bean 可以任意定义，只是发送消息类 -->
+	<bean id="messageProducer" class="com.cssrc.ibms.core.jms.MessageProducer" />
+
+	<!--消息异常监听器 -->
+	<bean id="jmsExceptionListener" class="com.cssrc.ibms.core.jms.JmsExceptionListener"></bean>
+
+	<!-- Message 转换器 -->
+	<bean id="activeMqMessageConverter" class="com.cssrc.ibms.core.jms.ActiveMqMessageConverter" />
+
+	<!-- topic 数据同步消息消费者 -->
+	<bean id="relTableSyncDataReceiver" class="com.cssrc.ibms.core.jms.RelTableSyncDataReceiver">
+	</bean>
+
+	<!-- 消息消费者 map配置的是队列中消息处理类。 键：队列中消息类 对应的类 全路径 如： com.ibms.core.model.MailModel 
+		值：消息处理类,需要实现接口类IJmsHandler 。如：com.cssrc.ibms.core.jms.impl.MailHandler 用户也可以配置自己的处理方式，配置到这里。 -->
+	<bean name="messageConsumer" class="com.cssrc.ibms.core.jms.MessageConsumer">
+		<property name="handlers">
+			<map>
+				<entry key="com.cssrc.ibms.api.jms.model.MessageModel">
+					<bean class=" com.cssrc.ibms.core.jms.MessageHandler"></bean>
+				</entry>
+				<entry key="com.cssrc.ibms.core.mail.model.SysMailModel">
+					<bean class=" com.cssrc.ibms.core.jms.SysMailHandler"></bean>
+				</entry>
+			</map>
+		</property>
+	</bean>
+	<!-- map配置的是队列中消息处理类。 键：1,2,3,4 值：消息处理类,需要实现接口类IMessageHandler 。 用户也可以配置自己的处理方式，配置到这里。 
+		每增加一种消息方式的时候,需要增加对应的处理器(如下,如mailMessageHandler实现IMessageHandler 接口) -->
+	<bean id="mailMessageHandler" class="com.cssrc.ibms.core.jms.MailMessageHandler"></bean>
+	<bean id="innerMessageHandler" class="com.cssrc.ibms.core.jms.InnerMessageHandler"></bean>
+	<bean id="rtxMessageHandler" class="com.cssrc.ibms.core.jms.RtxMessageHandler"></bean>
+	<bean id="handlersMap" class="java.util.LinkedHashMap">
+		<constructor-arg>
+			<map>
+				<entry key="1" value-ref="mailMessageHandler" />
+				<entry key="3" value-ref="innerMessageHandler" />
+				<entry key="4" value-ref="rtxMessageHandler" />
+			</map>
+		</constructor-arg>
+	</bean>
+	<bean id="messageHandlerContainer" class="com.cssrc.ibms.core.jms.MessageHandlerContainer">
+		<property name="handlersMap" ref="handlersMap" />
+	</bean>
+
+
+
+	<!-- 消息引擎代理类 -->
+	<bean id="messageEngine" class="com.cssrc.ibms.core.jms.MessageEngine">
+		<property name="mailUtil" ref="mailUtil" />
+	</bean>
+
+
+
+</beans>

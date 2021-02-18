@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans   http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<!-- 动态加载上下文，安装时，动态加载context -->
+	<bean id="dynamicLoadBean" class="com.cssrc.ibms.core.util.string.DynamicLoadBean" />
+	
+	<import resource="file:${conf.root}/conf/app-properties.xml" />
+	<import resource="file:${conf.root}/conf/app-resources.xml" />
+	<import resource="file:${conf.root}/conf/app-beans.xml" />
+	<import resource="file:${conf.root}/conf/app-security.xml" />
+	<import resource="file:${conf.root}/conf/app-activiti.xml" />
+	<import resource="file:${conf.root}/conf/app-jms.xml" />
+	<import resource="file:${conf.root}/conf/xfire-meta.xml" />
+	<import resource="file:${conf.root}/conf/app-quartz.xml" />
+	<import resource="file:${conf.root}/conf/app-sync.xml" />
+	<import resource="com/cssrc/ibms/conf/app-*.xml"/>
+	<import resource="com/ibms/*/conf/app-*.xml"/>
+	
+
+	<!-- dubbo服务端和客户端配置 -->
+	<!--正式环境下，需去掉注释 -->
+	<import resource="file:${conf.root}/interfaces/app-rpc.xml" />
+	<!-- dubbo服务端和客户端配置 -->
+
+	<!--正式环境下，需去掉注释 -->
+	<!-- dubbo服务消费者 -->
+	<import resource="file:${conf.root}/interfaces/impl/app-rpc-consumer-common.xml"/>
+	<!-- <import resource="file:${conf.root}/interfaces/impl/app-rpc-consumer-hzy.xml"/> -->
+	<import resource="file:${conf.root}/interfaces/impl/app-rpc-consumer-hks.xml"/>
+	<import resource="file:${conf.root}/interfaces/impl/app-rpc-consumer-qms.xml"/>
+	<import resource="file:${conf.root}/interfaces/impl/app-rpc-consumer-htgl.xml"/>
+
+	<!-- dubbo服务提供者 -->
+	<import resource="file:${conf.root}/interfaces/impl/app-rpc-provider-common.xml"/>
+	<!-- <import resource="file:${conf.root}/interfaces/impl/app-rpc-provider-hzy.xml"/>
+	<import resource="file:${conf.root}/interfaces/impl/app-rpc-provider-hks.xml"/>
+	<import resource="file:${conf.root}/interfaces/impl/app-rpc-provider-hks.xml"/> -->
+	<!-- <import resource="file:${conf.root}/interfaces/impl/app-rpc-provider-qms.xml"/> -->
+</beans>

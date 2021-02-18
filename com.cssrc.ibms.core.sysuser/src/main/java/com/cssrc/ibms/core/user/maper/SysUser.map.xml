@@ -1,0 +1,857 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+<mapper namespace="com.cssrc.ibms.core.user.model.SysUser">
+	<resultMap id="SysUser" type="com.cssrc.ibms.core.user.model.SysUser">
+		<id property="userId" column="userId" jdbcType="NUMERIC"/>
+		<result property="username" column="username" jdbcType="VARCHAR"/>
+		<result property="fullname" column="fullname" jdbcType="VARCHAR"/>
+		<result property="password" column="password" jdbcType="VARCHAR"/>
+		<result property="sex" column="sex" jdbcType="NUMERIC"/>
+		<result property="email" column="email" jdbcType="VARCHAR"/>
+		<result property="job" column="job" jdbcType="VARCHAR"/>
+		<result property="phone" column="phone" jdbcType="VARCHAR"/>
+		<result property="mobile" column="mobile" jdbcType="VARCHAR"/>
+		<result property="fax" column="fax" jdbcType="VARCHAR"/>
+		<result property="address" column="address" jdbcType="VARCHAR"/>
+		<result property="zip" column="zip" jdbcType="VARCHAR"/>
+		<result property="photo" column="photo" jdbcType="VARCHAR"/>
+		<result property="accessionTime" column="accessionTime" jdbcType="TIMESTAMP"/>
+		<result property="birthDay" column="birthDay" jdbcType="TIMESTAMP"/>
+		<result property="status" column="status" jdbcType="NUMERIC"/>
+		<result property="education" column="education" jdbcType="VARCHAR"/>
+		<result property="delFlag" column="delFlag" jdbcType="NUMERIC"/>
+		<result property="originalphoto" column="originalphoto" jdbcType="VARCHAR"/>
+		<result property="originalsign_pic" column="originalsign_pic" jdbcType="VARCHAR"/>
+		<result property="sign_pic" column="sign_pic" jdbcType="VARCHAR"/>
+		<result property="security" column="security" jdbcType="VARCHAR"/>
+		<result property="user_updateId" column="user_updateId" jdbcType="NUMERIC"/>
+		<result property="user_updateTime" column="user_updateTime" jdbcType="TIMESTAMP"/>
+		<result property="user_creatorId" column="user_creatorId" jdbcType="NUMERIC"/>
+		<result property="user_createTime" column="user_createTime" jdbcType="TIMESTAMP"/>
+		<result property="loginFailures" column="loginFailures" jdbcType="VARCHAR"/>
+		<result property="lastFailureTime" column="lastFailureTime" jdbcType="TIMESTAMP"/>
+		<result property="lockState" column="lockState" jdbcType="NUMERIC"/>
+		<result property="lockTime" column="lockTime" jdbcType="TIMESTAMP"/>
+		<result property="passwordSetTime" column="passwordSetTime" jdbcType="TIMESTAMP"/>
+		<result property="fromType" column="FROM_TYPE_" jdbcType="VARCHAR"/>
+		<result property="skilltitle" column="skilltitle" jdbcType="VARCHAR"/>
+		<result property="major" column="major" jdbcType="VARCHAR"/>
+	</resultMap>
+	
+	<sql id="columns">
+		userId,username,fullname,password,sex,email,job,phone,mobile,fax,address,zip,photo,accessionTime,
+		birthDay,status,education,delFlag,originalphoto,originalsign_pic,sign_pic,security,user_updateId,
+		user_updateTime,user_creatorId,user_createTime,loginFailures,lastFailureTime,
+		lockState,lockTime,passwordSetTime,FROM_TYPE_,skilltitle,major
+	</sql>
+	
+	<sql id="dynamicWhere">
+		<where>
+			<if test="@Ognl@isNotEmpty(userId)"> AND userId  =#{userId} </if>
+			<if test="@Ognl@isNotEmpty(fullname)"> AND fullname  LIKE #{fullname}  </if>
+			<if test="@Ognl@isNotEmpty(username)"> AND username  LIKE #{username}  </if>
+			<if test="@Ognl@isNotEmpty(lockState)"> AND lockState  =#{lockState} </if>			
+			<if test="@Ognl@isNotEmpty(status)"> AND status  =#{status} </if>
+			<if test="@Ognl@isNotEmpty(email)"> AND email  LIKE #{email} </if>
+			<if test="@Ognl@isNotEmpty(mobile)"> AND mobile  LIKE #{mobile}  </if>
+			<if test="@Ognl@isNotEmpty(phone)"> AND phone  LIKE #{phone}  </if>
+			<if test="@Ognl@isNotEmpty(sex)"> AND sex  LIKE {sex}  </if>
+			<if test="@Ognl@isNotEmpty(fax)"> AND fax = #{fax}  </if>
+			<if test="@Ognl@isNotEmpty(zip)"> AND zip = #{zip}  </if>
+			<if test="@Ognl@isNotEmpty(accessionTime)"> AND accessionTime LIKE #{accessionTime}  </if>
+			<if test="@Ognl@isNotEmpty(birthDay)"> AND birthDay LIKE #{birthDay}  </if>
+			<if test="@Ognl@isNotEmpty(hasSyncToWx)"> AND address = #{address}  </if>
+			<if test="@Ognl@isNotEmpty(hasSyncToWx)"> AND education = #{education}  </if>
+			<if test="@Ognl@isNotEmpty(fromType)"> AND FROM_TYPE_ like #{fromType}  </if>
+			 AND userId not in (-1,-2,-3,-4) 
+		</where>
+	</sql>
+    
+    
+	<insert id="add" parameterType="com.cssrc.ibms.core.user.model.SysUser">
+		INSERT INTO cwm_sys_user
+		(<include refid="columns"/>)
+		VALUES
+		(#{userId,jdbcType=NUMERIC}, #{username,jdbcType=VARCHAR}, #{fullname,jdbcType=VARCHAR},
+		 #{password,jdbcType=VARCHAR}, 
+		#{sex,jdbcType=NUMERIC},  #{email,jdbcType=VARCHAR}, #{job,jdbcType=VARCHAR}, 
+		#{phone,jdbcType=VARCHAR}, #{mobile,jdbcType=VARCHAR}, #{fax,jdbcType=VARCHAR}, 
+		 #{address,jdbcType=VARCHAR}, 
+		#{zip,jdbcType=VARCHAR},#{photo,jdbcType=VARCHAR},#{accessionTime,jdbcType=TIMESTAMP}, 
+		#{birthDay,jdbcType=TIMESTAMP},#{status,jdbcType=NUMERIC},#{education,jdbcType=VARCHAR}, 
+		#{delFlag,jdbcType=NUMERIC}, #{originalphoto,jdbcType=VARCHAR}, 
+		#{originalsign_pic,jdbcType=VARCHAR}, #{sign_pic,jdbcType=VARCHAR}, #{security,jdbcType=VARCHAR},
+		#{user_updateId,jdbcType=NUMERIC},#{user_updateTime,jdbcType=TIMESTAMP},#{user_creatorId,jdbcType=NUMERIC}, 
+		#{user_createTime,jdbcType=TIMESTAMP},#{loginFailures,jdbcType=VARCHAR},#{lastFailureTime,jdbcType=TIMESTAMP},
+		#{lockState,jdbcType=NUMERIC},#{lockTime,jdbcType=TIMESTAMP},#{passwordSetTime,jdbcType=TIMESTAMP},
+		#{fromType,jdbcType=VARCHAR},#{skilltitle,jdbcType=VARCHAR},#{major,jdbcType=VARCHAR})
+	</insert>
+	
+	<delete id="delById" parameterType="java.lang.Long">
+		DELETE FROM cwm_sys_user 
+		WHERE
+		userId=#{userId}
+	</delete>
+	
+	<!--不能删除用户数据,应修改删除标志，可以用来体现锁定功能 -->
+	<update id="deleteByDelFlag" parameterType="com.cssrc.ibms.core.user.model.SysUser">
+		UPDATE cwm_sys_user
+		set delFlag=1
+		WHERE
+		userId=#{userId}
+	</update>
+	<update id="update" parameterType="com.cssrc.ibms.core.user.model.SysUser">
+		UPDATE cwm_sys_user SET
+		username=#{username,jdbcType=VARCHAR} , 
+		fullname=#{fullname,jdbcType=VARCHAR} ,
+		password=#{password,jdbcType=VARCHAR} ,
+		sex=#{sex,jdbcType=NUMERIC} , 
+		email=#{email,jdbcType=VARCHAR},
+		job=#{job,jdbcType=VARCHAR} , 
+		phone=#{phone,jdbcType=VARCHAR} , 
+		mobile=#{mobile,jdbcType=VARCHAR} , 
+		fax=#{fax,jdbcType=VARCHAR} , 
+		address=#{address,jdbcType=VARCHAR},
+		zip=#{zip,jdbcType=VARCHAR},
+		photo=#{photo,jdbcType=VARCHAR},
+		accessionTime=#{accessionTime,jdbcType=TIMESTAMP},
+		status=#{status,jdbcType=NUMERIC},
+		education =#{education,jdbcType=VARCHAR},
+		delFlag =#{delFlag,jdbcType=NUMERIC},
+		originalphoto=#{originalphoto,jdbcType=VARCHAR} , 
+		originalsign_pic=#{originalsign_pic,jdbcType=VARCHAR} , 
+		sign_pic=#{sign_pic,jdbcType=VARCHAR} , 
+		security=#{security,jdbcType=VARCHAR} ,
+		<if test="@Ognl@isNotEmpty(user_creatorId)">
+		user_creatorId=#{user_creatorId,jdbcType=NUMERIC} ,
+		</if>
+		<if test="@Ognl@isNotEmpty(user_createTime)">
+		user_createTime=#{user_createTime,jdbcType=TIMESTAMP} ,
+		</if>
+		<if test="@Ognl@isNotEmpty(loginFailures)">
+		loginFailures=#{loginFailures,jdbcType=VARCHAR} ,
+		</if>
+		<if test="@Ognl@isNotEmpty(lastFailureTime)">
+		lastFailureTime=#{lastFailureTime,jdbcType=TIMESTAMP} ,
+		</if>
+		<if test="@Ognl@isNotEmpty(lockState)">
+		lockState=#{lockState,jdbcType=NUMERIC} ,
+		</if>
+		<if test="@Ognl@isNotEmpty(lockTime)">
+		lockTime=#{lockTime,jdbcType=TIMESTAMP} ,
+		</if>
+		<if test="@Ognl@isNotEmpty(passwordSetTime)">
+		passwordSetTime=#{passwordSetTime,jdbcType=TIMESTAMP} ,
+		</if>
+		user_updateId=#{user_updateId,jdbcType=NUMERIC} ,
+		user_updateTime=#{user_updateTime,jdbcType=TIMESTAMP} ,
+		FROM_TYPE_=#{fromType,jdbcType=VARCHAR},
+		skilltitle=#{skilltitle,jdbcType=VARCHAR},
+		major=#{major,jdbcType=VARCHAR} 
+		WHERE
+		userId=#{userId}
+	</update>
+	
+	<update id="updateLock" parameterType="Map">
+		UPDATE cwm_sys_user SET 
+		loginFailures=#{loginFailures,jdbcType=VARCHAR} ,
+		lastFailureTime=#{lastFailureTime,jdbcType=TIMESTAMP} ,
+		lockState=#{lockState,jdbcType=NUMERIC} ,
+		lockTime=#{lockTime,jdbcType=TIMESTAMP} 
+		WHERE 
+		userId=#{userId}
+	</update>
+
+<!--	由于用户自己更新信息时要求可以更新密码,于20200819增加了密码字段,去掉了fullname by zmz-->
+	<!--fullname=#{fullname,jdbcType=VARCHAR} ,-->
+	<update id="updateCommon" parameterType="com.cssrc.ibms.core.user.model.SysUser">
+		UPDATE cwm_sys_user SET
+		<if test="@Ognl@isNotEmpty(password)">
+			password=#{password,jdbcType=VARCHAR} ,
+		</if>
+		sex=#{sex,jdbcType=VARCHAR} , 
+		email=#{email,jdbcType=VARCHAR} , 
+		mobile=#{mobile,jdbcType=VARCHAR} , 
+		phone=#{phone,jdbcType=VARCHAR} , 
+		photo=#{photo,jdbcType=VARCHAR}
+		WHERE
+		userId=#{userId}
+	</update>
+	
+	<update id="updPwd" parameterType="Map">
+		UPDATE cwm_sys_user SET password=#{password,jdbcType=VARCHAR},passwordSetTime=#{passwordSetTime,jdbcType=TIMESTAMP} WHERE userId=#{userId}
+	</update>
+	
+	
+	<select id="getById" parameterType="java.lang.Long" resultMap="SysUser">
+		SELECT <include refid="columns"/>
+		FROM cwm_sys_user
+		WHERE
+		userId=#{userId}
+	</select>
+	
+	
+	<update id="updStatus" parameterType="Map">
+		UPDATE cwm_sys_user SET 
+		status=#{status,jdbcType=NUMERIC},user_updateId=#{currentUserId,jdbcType=NUMERIC} , 
+		user_updateTime=#{currentTime,jdbcType=TIMESTAMP} WHERE userId=#{userId}
+	</update>
+	
+	<update id="updFailure" parameterType="Map">
+		UPDATE cwm_sys_user 
+		SET 
+		loginFailures=#{loginFailures,jdbcType=VARCHAR} ,
+		LastFailureTime=#{LastFailureTime,jdbcType=TIMESTAMP} 
+		WHERE userId=#{userId}
+	</update>
+	
+	<update id="updSecurity" parameterType="Map">
+		UPDATE cwm_sys_user SET security=#{security,jdbcType=VARCHAR},user_updateId=#{currentUserId,jdbcType=NUMERIC} , 
+		user_updateTime=#{currentTime,jdbcType=TIMESTAMP} WHERE userId=#{userId}
+	</update>
+	
+	<select id="getByUsername" parameterType="java.lang.String" resultMap="SysUser">
+		SELECT <include refid="columns"/> 
+		from cwm_sys_user 
+		where username=#{username}
+	</select>
+	
+	<select id="getAll" resultMap="SysUser">
+		SELECT <include refid="columns"/>
+		FROM cwm_sys_user   
+		<include refid="dynamicWhere" />
+		<if test="@Ognl@isNotEmpty(orderField)">
+		order by ${orderField} ${orderSeq}
+		</if>
+		<if test="@Ognl@isEmpty(orderField)">
+		order by userId  desc
+		</if>
+	</select>
+	
+	
+	<select id="getUserByOrgId" resultType="com.cssrc.ibms.core.user.model.SysUser">
+		SELECT a.userId,a.fullname,a.username,a.accessionTime,a.status,b.orgId,c.orgName 
+	    FROM  cwm_sys_user a 
+	    join cwm_sys_user_position b  on  a.userId=b.userId
+	    join cwm_cwm_sys_org c on b.orgId=c.orgId
+		where 1=1
+		<if test="@Ognl@isNotEmpty(path)"> AND c.path  LIKE '${path}%'  </if>
+		<if test="@Ognl@isNotEmpty(fullname)"> AND a.fullname  LIKE #{fullname}  </if>
+		<if test="@Ognl@isNotEmpty(username)"> AND a.username  LIKE #{username}  </if>
+        <if test="@Ognl@isNotEmpty(sex)"> AND a.sex  LIKE #{sex}  </if>
+		<if test="@Ognl@isNotEmpty(orderField)">
+		order by ${orderField} ${orderSeq}
+		</if>
+		<if test="@Ognl@isEmpty(orderField)">
+		order by a.userId  desc
+		</if>
+	</select>
+	
+	<select id="getByOrgId" parameterType="Long" resultType="com.cssrc.ibms.core.user.model.SysUser">
+		SELECT distinct a.* from cwm_sys_user a inner join  cwm_sys_user_position userOrg on a.userId=userOrg.userId 
+		where userOrg.orgId=#{orgId} and delFlag=0 and status=1
+	</select>
+	
+	<select id="getByPosId" parameterType="Long" resultType="com.cssrc.ibms.core.user.model.SysUser">
+		SELECT distinct a.* from cwm_sys_user a inner join cwm_sys_user_position userPos on a.userId=userPos.userId 
+		where userPos.posId=#{posId} and delFlag=0 and status=1
+	</select>
+	
+	<select id="getByJobId" parameterType="Long" resultType="com.cssrc.ibms.core.user.model.SysUser">
+		SELECT distinct a.* from cwm_sys_user a inner join cwm_sys_user_position userPos on a.userId=userPos.userId 
+    inner join cwm_sys_pos p on p.posid= userPos.posid  where p.jobid=#{jobId} and delFlag=0 and status=1
+	</select>
+	
+	
+	<select id="getByRoleId" parameterType="Long" resultType="com.cssrc.ibms.core.user.model.SysUser">
+		SELECT distinct a.* from cwm_sys_user a inner join CWM_SYS_ROLE_USER userRole on a.userId=userRole.userId 
+		where userRole.roleId=#{roleId} and delFlag=0 and status=1
+	</select>
+	
+   <select id="getUserByQuery" resultType="com.cssrc.ibms.core.user.model.SysUser">
+		SELECT <include refid="columns"/>
+	    FROM cwm_sys_user 
+		where delFlag=0 and status=1 
+		and userid not in (-1,-2,-3,-4) 
+		<if test="@Ognl@isNotEmpty(userId)"> AND userId  = #{userId}  </if>
+		<if test="@Ognl@isNotEmpty(fullname)"> AND fullname  LIKE #{fullname}  </if>
+		<if test="@Ognl@isNotEmpty(username)"> AND username  LIKE #{username}  </if>
+		<if test="@Ognl@isNotEmpty(sex)"> AND sex  LIKE #{sex}  </if>
+		<if test="@Ognl@isNotEmpty(lockState)"> AND lockState  LIKE #{lockState}  </if>
+		<if test="@Ognl@isNotEmpty(accessionTime)"> AND accessionTime &lt;=#{accessionTime}</if>
+		<if test="@Ognl@isNotEmpty(orderField)">
+		order by ${orderField} ${orderSeq}
+		</if>
+		<if test="@Ognl@isEmpty(orderField)">
+		order by userId  desc
+		</if>
+	</select>
+	 <select id="getByIds" resultType="com.cssrc.ibms.core.user.model.SysUser">
+		SELECT <include refid="columns"/>
+	    FROM cwm_sys_user 
+		where delFlag=0 and status=1 
+		and userid not in (-1,-2,-3,-4) 
+		AND userId in 
+		<foreach collection="userIds" open="(" close=")" separator="," item="id" index="i">
+		#{id }
+		
+		</foreach>
+		<if test="@Ognl@isNotEmpty(fullname)"> AND fullname  LIKE #{fullname}  </if>
+		<if test="@Ognl@isNotEmpty(orderField)">
+		order by ${orderField} ${orderSeq}
+		</if>
+		<if test="@Ognl@isEmpty(orderField)">
+		order by userId  desc
+		</if>
+	</select>
+	 <select id="getByIdsFilter" resultType="com.cssrc.ibms.core.user.model.SysUser">
+		SELECT <include refid="columns"/>
+	    FROM cwm_sys_user 
+		where delFlag=0 and status=1 
+		and userid not in (-1,-2,-3,-4) 
+		AND userId not in 
+		<foreach collection="userIds" open="(" close=")" separator="," item="id" index="i">
+		#{id }
+		
+		</foreach>
+		<if test="@Ognl@isNotEmpty(fullname)"> AND fullname  LIKE #{fullname}  </if>
+		<if test="@Ognl@isNotEmpty(orderField)">
+		order by ${orderField} ${orderSeq}
+		</if>
+		<if test="@Ognl@isEmpty(orderField)">
+		order by userId  desc
+		</if>
+	</select>
+	
+	<select id="getUsersByQuery" resultType="com.cssrc.ibms.core.user.model.SysUser">
+		SELECT <include refid="columns"/>
+	    FROM cwm_sys_user 
+		where 1 = 1 
+		and userid not in (-1,-2,-3,-4) 
+		<if test="@Ognl@isNotEmpty(fullname)"> AND fullname  LIKE #{fullname}  </if>
+		<if test="@Ognl@isNotEmpty(username)"> AND username  LIKE #{username}  </if>
+		<if test="@Ognl@isNotEmpty(sex)"> AND sex  LIKE #{sex}  </if>
+		<if test="@Ognl@isNotEmpty(lockState)"> AND lockState  =#{lockState} </if>
+		<if test="@Ognl@isNotEmpty(status)"> AND status  =#{status} </if>
+		<if test="@Ognl@isNotEmpty(endcreatetime)"> AND accessionTime &lt;=#{accessionTime}</if>
+		<if test="@Ognl@isNotEmpty(orderField)">
+		order by ${orderField} ${orderSeq}
+		</if>
+		<if test="@Ognl@isEmpty(orderField)">
+		order by userId  desc
+		</if>
+	</select>
+	
+	
+	
+	<select id="getUserIdsByRoleId" resultType="java.lang.Long">
+		SELECT distinct userId from CWM_SYS_ROLE_USER where roleId=#{roleId}  
+	</select>
+	
+	
+	<select id="getUserByRoleId" resultType="com.cssrc.ibms.core.user.model.SysUser">
+		SELECT a.userId,a.fullname,a.username,a.password,a.delFlag,a.accessionTime
+		,a.status,a.email,a.mobile,a.phone,a.sex,a.photo
+	    FROM  cwm_sys_user a ,CWM_SYS_ROLE_USER b
+	    WHERE a.delFlag=0 and a.status=1 and a.userId=b.userId
+	    and b.roleId=#{roleId}
+		and a.userid not in (-1,-2,-3,-4) 
+		<if test="@Ognl@isNotEmpty(fullname)"> AND a.fullname  LIKE #{fullname}  </if>
+		<if test="@Ognl@isNotEmpty(username)"> AND a.username  LIKE #{username}  </if>
+		<if test="@Ognl@isNotEmpty(sex)"> AND a.sex  LIKE #{sex}  </if>
+		<if test="@Ognl@isNotEmpty(accessionTime)"> AND #{accessionTime}>=a.accessionTime</if>
+		<if test="@Ognl@isNotEmpty(orderField)">
+		order by ${orderField} ${orderSeq}
+		</if>
+		<if test="@Ognl@isEmpty(orderField)">
+		order by a.userId  desc
+		</if>
+	</select>
+	
+	
+	<select id="getDistinctUserByPosPath" resultType="com.cssrc.ibms.core.user.model.SysUser">
+		SELECT DISTINCT a.userId,a.fullname,a.username,a.password,a.delFlag
+		,a.accessionTime,a.status,a.email,a.mobile,a.photo,a.sex,a.sign_pic
+	    FROM  cwm_sys_user a 
+	    inner join cwm_sys_user_position b  on  a.userId=b.userId
+	    inner join cwm_sys_pos c on b.posId=c.posId
+		where a.delFlag=0 and a.status=1 and c.nodePath LIKE '${nodePath}%'
+		 and a.userid not in (-1,-2,-3,-4) 
+		<if test="@Ognl@isNotEmpty(fullname)"> AND a.fullname  LIKE #{fullname}  </if>
+		<if test="@Ognl@isNotEmpty(username)"> AND a.username  LIKE #{username}  </if>
+		<if test="@Ognl@isNotEmpty(sex)"> AND a.sex  LIKE #{sex}  </if>
+		<if test="@Ognl@isNotEmpty(accessionTime)"> AND #{accessionTime}>=a.accessionTime</if>
+		<if test="@Ognl@isNotEmpty(orderField)">
+		order by ${orderField} ${orderSeq}
+		</if>
+		<if test="@Ognl@isEmpty(orderField)">
+		order by a.userId  desc
+		</if>
+	</select>
+	<select id="getDistinctUserByPosId" resultType="com.cssrc.ibms.core.user.model.SysUser">
+		SELECT DISTINCT a.userId,a.fullname,a.username,a.password,a.delFlag
+		,a.accessionTime,a.status,a.email,a.mobile,a.phone,a.sex,a.photo,a.sign_pic
+	    FROM  cwm_sys_user a 
+	    inner join cwm_sys_user_position b  on  a.userId=b.userId
+	    inner join cwm_sys_pos c on b.posId=c.posId
+		where a.delFlag=0 and a.status=1 and c.posId= #{posId} and b.isdelete =0 
+		 and a.userid not in (-1,-2,-3,-4) 
+		<if test="@Ognl@isNotEmpty(fullname)"> AND a.fullname  LIKE #{fullname}  </if>
+		<if test="@Ognl@isNotEmpty(username)"> AND a.username  LIKE #{username}  </if>
+		<if test="@Ognl@isNotEmpty(sex)"> AND a.sex  LIKE #{sex}  </if>
+		<if test="@Ognl@isNotEmpty(accessionTime)"> AND #{accessionTime}>=a.accessionTime</if>
+		<if test="@Ognl@isNotEmpty(orderField)">
+		order by ${orderField} ${orderSeq}
+		</if>
+		<if test="@Ognl@isEmpty(orderField)">
+		order by a.userId  desc
+		</if>
+	</select>
+	
+	<select id="getUserNoOrg" resultType="com.cssrc.ibms.core.user.model.SysUser">
+	   select a.* from cwm_sys_user a where a.delFlag = 0 and a.status = 1 and a.userid not in(
+         select b.userid from  cwm_sys_user_position b where b.isPrimary=1
+     	)  and a.userid not in (-1,-2,-3,-4) 
+     	<if test="@Ognl@isNotEmpty(orderField)">
+		order by ${orderField} ${orderSeq}
+		</if>
+		<if test="@Ognl@isEmpty(orderField)">
+		order by a.userId  desc
+		</if>
+	</select>
+	
+	<select id="getDistinctUserByOrgPath" resultType="com.cssrc.ibms.core.user.model.SysUser">
+		select * from (		
+		SELECT DISTINCT a.userId,a.username, a.fullname,a.email,a.mobile,a.phone,a.accessionTime
+	    FROM  cwm_sys_user a 
+	    inner join  cwm_sys_user_position b  on  a.userId=b.userId
+	    <if test="@Ognl@isNotEmpty(isPrimary)">and b.isPrimary = 1</if>
+	    inner join cwm_sys_org c on b.orgId=c.orgId
+		where a.delFlag=0 and a.status=1 and c.path LIKE '${path}%' and b.isdelete=0
+		and a.userid not in (-1,-2,-3,-4) 
+		<if test="@Ognl@isNotEmpty(fullname)"> AND a.fullname  LIKE #{fullname}  </if>
+		 ) tt
+		<if test="@Ognl@isNotEmpty(orderField)">
+		order by ${orderField} ${orderSeq}
+		</if>
+		<if test="@Ognl@isEmpty(orderField)">
+		order by userId  desc
+		</if>
+	</select>
+	
+	<select id="getDistinctUserByOrgId" resultType="com.cssrc.ibms.core.user.model.SysUser">
+		select * from (		
+		SELECT DISTINCT a.userId,a.username,a.fullname,a.email,a.mobile,a.phone,a.accessionTime
+	    FROM  cwm_sys_user a 
+	    inner join   cwm_sys_user_position b on  a.userId=b.userId
+	    inner join cwm_sys_org c on b.orgId=c.orgId
+		where a.delFlag=0 and a.status=1 and c.orgId =#{orgId} and b.isdelete =0 
+		and a.userid not in (-1,-2,-3,-4) 
+		<if test="@Ognl@isNotEmpty(fullname)"> AND a.fullname  LIKE #{fullname}  </if>
+		 ) tt
+		<if test="@Ognl@isNotEmpty(orderField)">
+		order by ${orderField} ${orderSeq}
+		</if>
+		<if test="@Ognl@isEmpty(orderField)">
+		order by userId  desc
+		</if>
+	</select>
+	
+	
+	<select id="isUsernameExist"  resultType="Integer">
+	    select count(*) from cwm_sys_user  where username=#{username}
+	</select>
+	
+	
+	<select id="isUsernameExistForUpd" parameterType="Map"  resultType="Integer">
+	    select count(*) from cwm_sys_user  where username=#{username} and userId &lt;>#{userId}
+	</select>
+	
+	
+	
+	<select id="getByUserOrParam_mysql" resultType="com.cssrc.ibms.core.user.model.SysUser" >
+		SELECT DISTINCT 
+		u.userId,u.fullname,u.username,u.password,u.delFlag,u.accessionTime,u.status,u.email,u.mobile,u.phone,u.sex,u.photo
+ 		FROM cwm_sys_user u,CWM_SYS_PARAM p,SYS_USER_PARAM v
+		WHERE 1=1
+		AND u.USERID=v.USERID
+		AND v.PARAMID=p.PARAMID
+		<if test="paramValueColumn=='paramValue'">     AND paramKey='${paramKey}' AND ${paramValueColumn}  ${condition}  '${paramValue}'</if>
+		<if test="paramValueColumn=='paramIntValue'">  AND paramKey='${paramKey}' AND ${paramValueColumn}  ${condition}  ${paramValue}</if>
+		<if test="paramValueColumn=='paramDateValue'"> AND paramKey='${paramKey}' AND ${paramValueColumn}  ${condition}  date_format('${paramValue}','%Y-%m-%d')</if>
+	</select>
+	
+	
+	<select id="getByUserOrParam_oracle" resultType="com.cssrc.ibms.core.user.model.SysUser" >
+		SELECT DISTINCT 
+		u.userId,u.fullname,u.username,u.password,u.delFlag,u.accessionTime,u.status,u.email,u.mobile,u.phone,u.sex,u.photo
+ 		FROM cwm_sys_user u,CWM_SYS_PARAM p,SYS_USER_PARAM v
+		WHERE 1=1
+		AND u.USERID=v.USERID
+		AND v.PARAMID=p.PARAMID
+		<if test="paramValueColumn=='paramValue'">     AND paramKey='${paramKey}' AND ${paramValueColumn}  ${condition}  '${paramValue}'</if>
+		<if test="paramValueColumn=='paramIntValue'">  AND paramKey='${paramKey}' AND ${paramValueColumn}  ${condition}  ${paramValue}</if>
+		<if test="paramValueColumn=='paramDateValue'"> AND paramKey='${paramKey}' AND ${paramValueColumn}  ${condition}  To_date('${paramValue}','yyyy-mm-dd')</if>
+	</select>
+	
+		<select id="getByUserOrParam_db2" resultType="com.cssrc.ibms.core.user.model.SysUser" >
+		SELECT DISTINCT 
+		u.userId,u.fullname,u.username,u.password,u.delFlag,u.accessionTime,u.status,u.email,u.mobile,u.phone,u.sex,u.photo
+ 		FROM cwm_sys_user u,CWM_SYS_PARAM p,SYS_USER_PARAM v
+		WHERE 1=1
+		AND u.USERID=v.USERID
+		AND v.PARAMID=p.PARAMID
+		<if test="paramValueColumn=='paramValue'">     AND paramKey='${paramKey}' AND ${paramValueColumn}  ${condition}  '${paramValue}'</if>
+		<if test="paramValueColumn=='paramIntValue'">  AND paramKey='${paramKey}' AND ${paramValueColumn}  ${condition}  ${paramValue}</if>
+		<if test="paramValueColumn=='paramDateValue'"> AND paramKey='${paramKey}' AND ${paramValueColumn}  ${condition}   VARCHAR_FORMAT(${paramValue},'yyyy-mm-dd')</if>
+	</select>
+	
+	
+	<select id="getByUserOrParam_h2" resultType="com.cssrc.ibms.core.user.model.SysUser" >
+		SELECT DISTINCT 
+		u.userId,u.fullname,u.username,u.password,u.delFlag,u.accessionTime,u.status,u.email,u.mobile,u.phone,u.sex,u.photo
+ 		FROM cwm_sys_user u,CWM_SYS_PARAM p,SYS_USER_PARAM v
+		WHERE 1=1
+		AND u.USERID=v.USERID
+		AND v.PARAMID=p.PARAMID
+		<if test="paramValueColumn=='paramValue'">     AND paramKey='${paramKey}' AND ${paramValueColumn}  ${condition}  '${paramValue}'</if>
+		<if test="paramValueColumn=='paramIntValue'">  AND paramKey='${paramKey}' AND ${paramValueColumn}  ${condition}  ${paramValue}</if>
+		<if test="paramValueColumn=='paramDateValue'"> AND paramKey='${paramKey}' AND ${paramValueColumn}  ${condition}  FORMATDATETIME('${paramValue}','yyyy-MM-dd')</if>
+	</select>
+	
+	
+	
+	<select id="getUpLowPost" resultType="com.cssrc.ibms.core.user.model.SysUser" >
+		SELECT DISTINCT 
+		u.userId,u.fullname,u.username,u.password,u.delFlag,u.accessionTime,u.status,u.email,u.mobile,u.phone,u.sex,u.photo
+ 		FROM cwm_sys_user u,
+ 		cwm_sys_user_position up,
+ 		cwm_sys_pos p
+		WHERE  u.USERID=up.USERID
+		AND up.ISDELETE=0
+		AND up.POSID=p.POSID
+		AND p.NODEPATH ${pathCondition} '${path}' 
+		<if test="depthCondition!=0"> AND length(replace(p.NODEPATH, '.', '..'))-length(p.NODEPATH) = ${depthCondition} </if>
+	</select>
+	
+	<select id="getUpLowOrg" resultType="com.cssrc.ibms.core.user.model.SysUser" >
+		SELECT DISTINCT 
+		u.userId,u.fullname,u.username,u.password,u.delFlag,u.accessionTime,u.status,u.email,u.mobile,u.phone,u.sex,u.photo
+ 		FROM cwm_sys_user u,
+ 		cwm_sys_user_position uo,
+ 		cwm_sys_org o
+		WHERE u.USERID=uo.USERID
+		AND uo.ISDELETE=0
+		AND uo.ORGID=o.ORGID
+		AND o.PATH ${pathCondition} '${path}'
+		<if test="depthCondition!=0"> AND length(replace(o.PATH, '.', '..'))-length(o.PATH) = ${depthCondition}</if>
+		<if test="isCharge==1"> AND uo.ISCHARGE = ${isCharge} </if>
+	</select>
+	
+	<select id="getByIdSet" resultMap="SysUser">
+		SELECT * FROM cwm_sys_user WHERE USERID IN (${ids})
+	</select>
+	
+	
+	<select id="getByOrgOrParam_mysql" resultType="com.cssrc.ibms.core.user.model.SysUser" >
+		SELECT DISTINCT 
+		u.userId,u.fullname,u.username,u.password,u.delFlag,u.accessionTime,u.status,u.email,u.mobile,u.phone,u.sex,u.photo
+ 		FROM 
+	    cwm_sys_user u,
+	    cwm_sys_user_position uo,
+	    cwm_sys_org o,
+	    CWM_SYS_PARAM p,
+	    CWM_SYS_ORG_PARAM v
+	    WHERE 1=1
+	    AND u.USERID=uo.USERID
+	    AND uo.ORGID=o.ORGID
+	    AND o.ORGID=v.ORGID
+	    AND v.PARAMID=p.PARAMID
+		<if test="paramValueColumn=='paramValue'">     AND paramKey='${paramKey}' AND ${paramValueColumn}  ${condition}  '${paramValue}'</if>
+		<if test="paramValueColumn=='paramIntValue'">  AND paramKey='${paramKey}' AND ${paramValueColumn}  ${condition}  ${paramValue}</if>
+		<if test="paramValueColumn=='paramDateValue'"> AND paramKey='${paramKey}' AND ${paramValueColumn}  ${condition}  date_format('${paramValue}','%Y-%m-%d')</if>
+	</select>
+	
+	
+	<select id="getByOrgOrParam_oracle" resultType="com.cssrc.ibms.core.user.model.SysUser" >
+		SELECT DISTINCT 
+		u.userId,u.fullname,u.username,u.password,u.delFlag,u.accessionTime,u.status,u.email,u.mobile,u.phone,u.sex,u.photo
+ 		FROM 
+	    cwm_sys_user u,
+	    cwm_sys_user_position uo,
+	    cwm_sys_org o,
+	    CWM_SYS_PARAM p,
+	    CWM_SYS_ORG_PARAM v
+	    WHERE 1=1
+	    AND u.USERID=uo.USERID
+	    AND uo.ORGID=o.ORGID
+	    AND o.ORGID=v.ORGID
+	    AND v.PARAMID=p.PARAMID
+		<if test="paramValueColumn=='paramValue'">     AND paramKey='${paramKey}' AND ${paramValueColumn}  ${condition}  '${paramValue}'</if>
+		<if test="paramValueColumn=='paramIntValue'">  AND paramKey='${paramKey}' AND ${paramValueColumn}  ${condition}  ${paramValue}</if>
+		<if test="paramValueColumn=='paramDateValue'"> AND paramKey='${paramKey}' AND ${paramValueColumn}  ${condition}  To_date('${paramValue}','yyyy-mm-dd')</if>
+	</select>
+	<select id="getByOrgOrParam_db2" resultType="com.cssrc.ibms.core.user.model.SysUser" >
+		SELECT DISTINCT 
+		u.userId,u.fullname,u.username,u.password,u.delFlag,u.accessionTime,u.status,u.email,u.mobile,u.phone,u.sex,u.photo
+ 		FROM 
+	    cwm_sys_user u,
+	    cwm_sys_user_position uo,
+	    cwm_sys_org o,
+	    CWM_SYS_PARAM p,
+	    CWM_SYS_ORG_PARAM v
+	    WHERE 1=1
+	    AND u.USERID=uo.USERID
+	    AND uo.ORGID=o.ORGID
+	    AND o.ORGID=v.ORGID
+	    AND v.PARAMID=p.PARAMID
+		<if test="paramValueColumn=='paramValue'">     AND paramKey='${paramKey}' AND ${paramValueColumn}  ${condition}  '${paramValue}'</if>
+		<if test="paramValueColumn=='paramIntValue'">  AND paramKey='${paramKey}' AND ${paramValueColumn}  ${condition}  ${paramValue}</if>
+		<if test="paramValueColumn=='paramDateValue'"> AND paramKey='${paramKey}' AND ${paramValueColumn}  ${condition}  VARCHAR_FORMAT(${paramValue},'yyyy-mm-dd')</if>
+	</select>
+	<select id="getByOrgOrParam_h2" resultType="com.cssrc.ibms.core.user.model.SysUser" >
+		SELECT DISTINCT 
+		u.userId,u.fullname,u.username,u.password,u.delFlag,u.accessionTime,u.status,u.email,u.mobile,u.phone,u.sex,u.photo
+ 		FROM 
+	    cwm_sys_user u,
+	    cwm_sys_user_position uo,
+	    cwm_sys_org o,
+	    CWM_SYS_PARAM p,
+	    CWM_SYS_ORG_PARAM v
+	    WHERE 1=1
+	    AND u.USERID=uo.USERID
+	    AND uo.ORGID=o.ORGID
+	    AND o.ORGID=v.ORGID
+	    AND v.PARAMID=p.PARAMID
+		<if test="paramValueColumn=='paramValue'">     AND paramKey='${paramKey}' AND ${paramValueColumn}  ${condition}  '${paramValue}'</if>
+		<if test="paramValueColumn=='paramIntValue'">  AND paramKey='${paramKey}' AND ${paramValueColumn}  ${condition}  ${paramValue}</if>
+		<if test="paramValueColumn=='paramDateValue'"> AND paramKey='${paramKey}' AND ${paramValueColumn}  ${condition}  FORMATDATETIME('${paramValue}','yyyy-MM-dd')</if>
+	</select>
+	
+	<select id="getByMail" resultType="com.cssrc.ibms.core.user.model.SysUser">
+		SELECT <include refid="columns"/> 	FROM cwm_sys_user WHERE email=#{address}
+	</select>
+	
+	<select id="getDirectLeaderByOrgId" resultMap="SysUser">
+		select b.* from cwm_sys_user b
+		where b.userid in
+		(select a.userid from  cwm_sys_user_position a where a.orgid=#{orgId} and a.ischarge=1 and a.isdelete =0)
+	</select>
+	
+	<select id="getUserByUnderUserId" resultMap="SysUser" parameterType="java.lang.Long">
+		SELECT b.*  FROM cwm_sys_user b,CWM_SYS_USERUNDER a 
+		where b.userId=a.userid and a.UNDERUSERID=#{underuserid}
+	</select>
+	
+	<select id="getUnderUserByUserId" resultMap="SysUser" parameterType="java.lang.Long">
+		SELECT b.*  FROM cwm_sys_user b,CWM_SYS_USERUNDER a 
+		where  a.userid=#{userId} and b.userId=a.underuserid;
+	</select>
+
+	<select id="getAllIncludeOrg" resultType="com.cssrc.ibms.core.user.model.SysUser">
+		SELECT a.userId,a.fullname,a.username,a.password,a.delFlag,a.accessionTime,
+			a.status,a.email,a.mobile,a.phone,a.sex,a.photo,b.orgId,c.orgName
+		FROM  cwm_sys_user a 
+	    	left join  cwm_sys_user_position b  on  a.userId=b.userId
+	  		left join cwm_sys_org c on b.orgId=c.orgId
+	</select>
+	
+	<select id="getExeUserByInstnceId" resultMap="SysUser">
+		select * from cwm_sys_user where userid in (
+			select distinct t.exeuserid from IBMS_TASK_OPINION T WHERE T.ACTINSTID=#{actInstId} and taskId is not null)
+  	</select>
+  	
+  	<select id="getByOrgIds" resultMap="SysUser">
+		SELECT distinct a.* from cwm_sys_user a, cwm_sys_user_position b where a.userId=b.userId and b.orgId in 
+		<foreach collection="list" index="index" item="orgId" open="(" close=")" separator=",">
+				${orgId}
+		</foreach>
+	</select>
+	
+	<select id="getMgrByOrgIds" resultMap="SysUser">
+		SELECT distinct a.* from cwm_sys_user a, cwm_sys_user_position b where a.userId=b.userId and b.ISCHARGE=1  and b.orgId in 
+		<foreach collection="list" index="index" item="orgId" open="(" close=")" separator=",">
+			${orgId}
+		</foreach>
+	</select>
+	
+	<select id="getByRoleIds" resultMap="SysUser">
+		SELECT * from cwm_sys_user a,CWM_SYS_ROLE_USER b where a.userId=b.userId and  b.roleId in 
+		<foreach collection="list" index="index" item="roleId" open="(" close=")" separator=",">
+			${roleId}
+		</foreach>
+	</select>
+	
+	<select id="getByJobIds" resultMap="SysUser">
+    	SELECT distinct u.* from cwm_sys_user u
+     inner join cwm_sys_user_position up  on u.userid=up.userid
+     inner join cwm_sys_pos  p on p.posid=up.posid      where  p.jobId in
+		<foreach collection="list" index="index" item="jobId" open="(" close=")" separator=",">
+			${jobId}
+		</foreach>
+	</select>
+	<!--
+	<select id="getSuperiorByUserId" resultMap="SysUser">
+		select a.* from sys_user a,_superior b where a.username=b.empnum and b.orgid=#{orgId} and b.userid=#{userId}
+	</select>
+	  -->
+	<select id="getByPos" resultType="com.cssrc.ibms.core.user.model.SysUser">
+			select t.userId,t.fullname,t.username from cwm_sys_user t ,cwm_sys_user_position a  
+			where t.userid=a.userid and a.isdelete = 0 and  a.posid in
+			<foreach collection="list" index="index" item="posId" open="(" close=")" separator=",">
+				${posId}
+			</foreach>
+	</select>
+	
+	<!--
+	<select id="getSuperiorByUserIdAndOrgId" resultType="com.cssrc.ibms.core.user.model.SysUser">
+	      select g.superuserid,
+         (select t.fullname from cwm_sys_user t where t.userid = g.superuserid) as supername
+         from  b,_superior g where g.userid = b.userid 
+         and g.orgid = b.orgid and b.orgid =#{orgid} and g.userid = #{userid}
+	
+	</select>
+	  -->
+	<select id="getOrgMainUser" resultType="com.cssrc.ibms.core.user.model.SysUser">
+	   select u.fullname　from  cwm_sys_user_position s ,
+	  (select a.orgid from cwm_sys_org a,cwm_sys_user_position b 
+	   where a.orgId=b.orgId and b.isPrimary=1 and b.userId=#{userId}) c,cwm_sys_user u
+       where s.orgid=c.orgid and s.userid=u.userid and s.ischarge=1	
+	</select>
+	
+	<select id="getUserByRoleIdOrgId" resultType="com.cssrc.ibms.core.user.model.SysUser">
+		select u.* from cwm_sys_user u left join cwm_sys_user_position uo on u.USERID=uo.USERID
+		left join CWM_SYS_ROLE_USER ur on u.userid=ur.userid
+		where uo.orgid=#{orgId} and ur.roleid=#{roleId}
+	</select>
+	
+	<select id="getByOrgIdPosId" resultType="com.cssrc.ibms.core.user.model.SysUser">
+		select u.* from cwm_sys_user u 
+		left join CWM_SYS_USER_POSITION uo on u.USERID=uo.USERID
+		left join cwm_sys_user_position up on u.userid=up.userid
+    	where uo.orgid=#{orgId} and uo.posid=#{posId}
+	</select>
+	<!-- 与发起人相同岗位的用户 -->
+	<select id="getSamePositionUsersByUserId" parameterType="Long" resultType="com.cssrc.ibms.core.user.model.SysUser">
+	        select distinct u.*
+       from cwm_sys_user_position a
+      inner join cwm_sys_user u
+         on a.userid = u.userid
+      where a.posid in (select posid
+                          from cwm_sys_user_position
+                         where userid = #{userId}
+                           and isdelete = 0)
+	</select>
+	
+	<!-- 与发起人相同职务的用户 -->
+	<select id="getSameJobUsersByUserId" parameterType="Long" resultType="com.cssrc.ibms.core.user.model.SysUser">
+   select distinct u.*
+       from cwm_sys_user_position a
+      inner join cwm_sys_user u
+         on a.userid = u.userid
+      inner join cwm_sys_pos b
+         on a.posid = b.posid
+      where b.jobid in (select p.jobid
+                          from cwm_sys_user_position up
+                         inner join cwm_sys_pos p
+                            on up.posid = p.posid
+                         where userid =  #{userId}
+                           and up.isdelete = 0)
+	</select>
+
+	<!-- 查找 某个组织下某个职务的用户 -->
+	<select id="getSameOrgJobUsers" parameterType="Long"
+		resultType="com.cssrc.ibms.core.user.model.SysUser">
+		SELECT DISTINCT u.*
+		FROM cwm_sys_user_position up
+		INNER JOIN cwm_sys_user u ON u.USERID=up.USERID
+		WHERE up.ORGID=#{orgId} AND up.JOBID=#{jobId}
+	</select>
+		
+	<select id="getByOrgRole"  resultType="com.cssrc.ibms.core.user.model.SysUser">
+   		select distinct u.*
+       from cwm_sys_user u,cwm_sys_user_position up,
+       CWM_SYS_ROLE_USER ur where 
+       u.userId=up.USERID AND up.ISDELETE=0
+       and u.USERID=ur.USERID
+       and up.ORGID=#{orgId} and ur.ROLEID=#{roleId}
+    
+	</select>
+
+	<select id="getByCompanyRole"  resultType="com.cssrc.ibms.core.user.model.SysUser">
+ 	  SELECT DISTINCT 
+		  U.USERID,U.FULLNAME,U.USERNAME,U.PASSWORD,U.DELFLAG,U.ACCESSIONTIME,U.STATUS,U.EMAIL,U.MOBILE,U.PHONE,U.SEX,
+		  U.PHOTO,U.SIGN_PIC
+	 	  FROM cwm_sys_user U
+	      INNER JOIN CWM_SYS_ROLE_USER UR ON U.USERID = UR.USERID
+	      INNER JOIN cwm_sys_user_position UP ON U.USERID = UP.USERID AND UP.ISDELETE = 0
+	      INNER JOIN cwm_sys_org O ON UP.ORGID = O.ORGID 
+      WHERE O.COMPANYID = #{companyId} AND UR.ROLEID = #{roleId}
+      <if test="@Ognl@isNotEmpty(isCharge)"> AND UP.ISCHARGE  = 1 </if>
+    
+	</select>
+	
+	
+	<select id="findLinkMan" resultMap="SysUser" parameterType="java.lang.String">
+		SELECT *
+		FROM cwm_sys_user
+		WHERE
+		email=#{email} 
+	</select>
+	
+	<select id="getByFullname" resultMap="SysUser" parameterType="java.lang.String">
+		SELECT <include refid="columns"/> 
+		FROM cwm_sys_user
+		where  fullname=#{fullname};
+	</select>
+	<update id="updateWithoutPassword" parameterType="com.cssrc.ibms.core.user.model.SysUser">
+		UPDATE cwm_sys_user SET
+		username=#{username,jdbcType=VARCHAR} ,
+		fullname=#{fullname,jdbcType=VARCHAR} ,
+		sex=#{sex,jdbcType=NUMERIC} ,
+		email=#{email,jdbcType=VARCHAR},
+		job=#{job,jdbcType=VARCHAR} ,
+		phone=#{phone,jdbcType=VARCHAR} ,
+		mobile=#{mobile,jdbcType=VARCHAR} ,
+		fax=#{fax,jdbcType=VARCHAR} ,
+		address=#{address,jdbcType=VARCHAR},
+		zip=#{zip,jdbcType=VARCHAR},
+		photo=#{photo,jdbcType=VARCHAR},
+		accessionTime=#{accessionTime,jdbcType=TIMESTAMP},
+		status=#{status,jdbcType=NUMERIC},
+		education =#{education,jdbcType=VARCHAR},
+		delFlag =#{delFlag,jdbcType=NUMERIC},
+		originalphoto=#{originalphoto,jdbcType=VARCHAR} ,
+		originalsign_pic=#{originalsign_pic,jdbcType=VARCHAR} ,
+		sign_pic=#{sign_pic,jdbcType=VARCHAR} ,
+		security=#{security,jdbcType=VARCHAR} ,
+		<if test="@Ognl@isNotEmpty(user_creatorId)">
+			user_creatorId=#{user_creatorId,jdbcType=NUMERIC} ,
+		</if>
+		<if test="@Ognl@isNotEmpty(user_createTime)">
+			user_createTime=#{user_createTime,jdbcType=TIMESTAMP} ,
+		</if>
+		<if test="@Ognl@isNotEmpty(loginFailures)">
+			loginFailures=#{loginFailures,jdbcType=VARCHAR} ,
+		</if>
+		<if test="@Ognl@isNotEmpty(lastFailureTime)">
+			lastFailureTime=#{lastFailureTime,jdbcType=TIMESTAMP} ,
+		</if>
+		<if test="@Ognl@isNotEmpty(lockState)">
+			lockState=#{lockState,jdbcType=NUMERIC} ,
+		</if>
+		<if test="@Ognl@isNotEmpty(lockTime)">
+			lockTime=#{lockTime,jdbcType=TIMESTAMP} ,
+		</if>
+		<if test="@Ognl@isNotEmpty(passwordSetTime)">
+			passwordSetTime=#{passwordSetTime,jdbcType=TIMESTAMP} ,
+		</if>
+		user_updateId=#{user_updateId,jdbcType=NUMERIC} ,
+		user_updateTime=#{user_updateTime,jdbcType=TIMESTAMP} ,
+		FROM_TYPE_=#{fromType,jdbcType=VARCHAR},
+		skilltitle=#{skilltitle,jdbcType=VARCHAR},
+		major=#{major,jdbcType=VARCHAR}
+		WHERE
+		userId=#{userId}
+	</update>
+</mapper>

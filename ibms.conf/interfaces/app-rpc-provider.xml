@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+	xmlns:context="http://www.springframework.org/schema/context" 
+	
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://code.alibabatech.com/schema/dubbo
+        http://code.alibabatech.com/schema/dubbo/dubbo.xsd
+        http://www.springframework.org/schema/context 
+        http://www.springframework.org/schema/context/spring-context-3.0.xsd
+        ">
+
+	<!-- 具体的实现bean -->
+	<!-- 到时候如果该目录下service多，则直接用scan配置，这样不用写太多的bean.注意这里是package名，不是类名。-->
+	<!--<context:component-scan base-package="com.ibms.hzy.provider.plan" />-->
+ 	<!-- 命名规则：【项目名】【Consumer或者Provider】【功能名】【Service】 -->
+ 	<!-- 实现类必须继承 dubbo:service interface的接口，否则会报错。 -->
+ 	
+	<!-- 声明需要暴露的服务接口 -->
+	<!-- <dubbo:service interface="com.cssrc.ibms.api.rpc.intf.CommonService"
+		ref="interfacesImplProviderCommonService" /> -->
+		
+	<!-- <dubbo:service interface="com.hzy.jhxt.rpc.intf.XXXXXXService"
+		ref="xXXXXXService" />	 -->
+		
+	<!-- version="1.0" -->
+</beans>

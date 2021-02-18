@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+<mapper namespace="com.cssrc.ibms.system.model.AccountStrategy">
+	<resultMap id="AccountStrategy" type="com.cssrc.ibms.system.model.AccountStrategy">
+		<id property="id" column="id" jdbcType="NUMERIC"/>
+		<result property="strategy_name" column="strategy_name" jdbcType="VARCHAR"/>
+		<result property="strategy_explain" column="strategy_explain" jdbcType="VARCHAR"/>
+		<result property="is_enable" column="is_enable" jdbcType="VARCHAR"/>
+		<result property="strategy_value" column="strategy_value" jdbcType="VARCHAR"/>
+		<result property="strategy_type" column="strategy_type" jdbcType="VARCHAR"/>
+	</resultMap>
+	
+	<sql id="columns">
+		id,strategy_name,strategy_explain,is_enable,strategy_value,strategy_type 
+	</sql>
+	<update id="update" parameterType="com.cssrc.ibms.system.model.AccountStrategy">
+		UPDATE IBMS_ACCOUNT_STRATEGY SET
+		strategy_name=#{strategy_name,jdbcType=VARCHAR} , 
+		strategy_explain=#{strategy_explain,jdbcType=VARCHAR} , 
+		is_enable=#{is_enable,jdbcType=VARCHAR} , 
+		strategy_value=#{strategy_value,jdbcType=VARCHAR} , 
+		strategy_type=#{strategy_type,jdbcType=NUMERIC} 
+		WHERE 
+		id=#{id}
+	</update>
+	<update id="updateStrategy" parameterType="java.util.Map">
+		UPDATE IBMS_ACCOUNT_STRATEGY SET 
+		strategy_explain=#{strategyExplain},is_enable=#{isEnable},strategy_value=#{strategyValue} 
+		WHERE id=#{strategyId}
+	</update>
+	<select id="getById" parameterType="java.lang.Long" resultMap="AccountStrategy">
+		SELECT <include refid="columns"/>
+		FROM IBMS_ACCOUNT_STRATEGY WHERE id=#{strategyId}
+	</select>
+	<select id="getByName" parameterType="String" resultMap="AccountStrategy">
+		SELECT <include refid="columns"/>
+		FROM IBMS_ACCOUNT_STRATEGY WHERE strategy_name=#{strategyName}
+	</select>
+	<select id="getAll" resultMap="AccountStrategy">
+		SELECT <include refid="columns"/>
+		FROM IBMS_ACCOUNT_STRATEGY
+	</select>
+	<select id="getByStrategyType" parameterType="String" resultMap="AccountStrategy">
+		SELECT <include refid="columns"/>
+		FROM IBMS_ACCOUNT_STRATEGY WHERE strategy_type=#{strategyType}
+	</select>
+</mapper>

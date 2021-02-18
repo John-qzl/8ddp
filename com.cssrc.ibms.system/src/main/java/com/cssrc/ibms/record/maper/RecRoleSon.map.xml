@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+<mapper namespace="com.cssrc.ibms.record.model.RecRoleSon">
+	<resultMap id="RecRoleSon" type="com.cssrc.ibms.record.model.RecRoleSon">
+		<id property="roleSonId" column="roleSonId" jdbcType="NUMERIC"/>
+		<result property="typeId" column="typeId" jdbcType="NUMERIC"/>
+		<result property="typeName" column="typeName" jdbcType="VARCHAR"/>
+		<result property="dataTemplateId" column="dataTemplateId" jdbcType="NUMERIC"/>
+		<result property="dataId" column="dataId" jdbcType="NUMERIC"/>
+		<result property="roleSonName" column="roleSonName" jdbcType="VARCHAR"/>
+		<result property="alias" column="alias" jdbcType="VARCHAR"/>
+		<result property="roleSonDesc" column="roleSonDesc" jdbcType="VARCHAR"/>
+		<result property="filter" column="filter" jdbcType="VARCHAR"/>
+		<result property="userAdd" column="userAdd" jdbcType="VARCHAR"/>
+		<result property="userDel" column="userDel" jdbcType="VARCHAR"/>
+		<result property="roleId" column="roleId" jdbcType="NUMERIC"/>
+		<result property="allowDel" column="allowDel" jdbcType="NUMERIC"/>
+		<result property="isHide" column="isHide" jdbcType="NUMERIC"/>
+		<result property="def_filter" column="def_filter" jdbcType="VARCHAR"/>
+	</resultMap>
+	<sql id="columns">
+		roleSonId,typeId,typeName,dataTemplateId,dataId,roleSonName,alias,roleSonDesc,filter,userAdd,userDel,roleId,allowDel,isHide,def_filter
+	</sql>
+	<sql id="dynamicWhere">
+		<where>
+			<if test="@Ognl@isNotEmpty(roleSonId)"> AND roleSonId =#{roleSonId} </if>
+			<if test="@Ognl@isNotEmpty(typeId)"> AND typeId =#{typeId} </if>
+			<if test="@Ognl@isNotEmpty(typeName)"> AND typeName =#{typeName} </if>
+			<if test="@Ognl@isNotEmpty(dataTemplateId)"> AND dataTemplateId =#{dataTemplateId} </if>
+			<if test="@Ognl@isNotEmpty(dataId)"> AND dataId =#{dataId} </if>
+			<if test="@Ognl@isNotEmpty(roleSonName)"> AND roleSonName like #{roleSonName} </if>
+			<if test="@Ognl@isNotEmpty(alias)"> AND alias like #{alias} </if>
+			<if test="@Ognl@isNotEmpty(roleSonDesc)"> AND roleSonDesc like #{roleSonDesc} </if>
+			<if test="@Ognl@isNotEmpty(roleId)"> AND roleId like #{roleId} </if>
+			<if test="@Ognl@isNotEmpty(allowDel)"> AND allowDel like #{allowDel}</if>
+			<if test="@Ognl@isNotEmpty(isHide)"> AND isHide like #{isHide} </if>
+		</where>
+	</sql>
+	
+	<insert id="add" parameterType="com.cssrc.ibms.record.model.RecRoleSon">
+		INSERT INTO IBMS_REC_ROLESON
+		(<include refid="columns"/>)
+		VALUES
+		(#{roleSonId,jdbcType=NUMERIC}, #{typeId,jdbcType=NUMERIC}, #{typeName,jdbcType=NUMERIC}, #{dataTemplateId,jdbcType=NUMERIC}, #{dataId,jdbcType=NUMERIC}, 
+		 #{roleSonName,jdbcType=VARCHAR},  #{alias,jdbcType=VARCHAR},  #{roleSonDesc,jdbcType=VARCHAR} ,
+		 #{filter,jdbcType=VARCHAR},  #{userAdd,jdbcType=VARCHAR},  #{userDel,jdbcType=VARCHAR},#{roleId,jdbcType=NUMERIC},
+		 #{allowDel,jdbcType=NUMERIC},  #{isHide,jdbcType=NUMERIC},  #{def_filter,jdbcType=VARCHAR})
+	</insert>
+	
+	<delete id="delById" parameterType="java.lang.Long">
+		DELETE FROM IBMS_REC_ROLESON 
+		WHERE
+		roleSonId=#{roleSonId}
+	</delete>
+	
+	<!-- 同步默认角色时，对 多余的记录角色（非用户添加，新的默认角色已删除的）进行删除 -->
+	<delete id="delByRoleIds" parameterType="map">
+		DELETE FROM IBMS_REC_ROLESON 
+		WHERE
+		roleId is not null and roleId not in (${roleIds})
+	</delete>
+	
+	<update id="update" parameterType="com.cssrc.ibms.record.model.RecRoleSon">
+			UPDATE IBMS_REC_ROLESON SET
+			typeId=#{typeId,jdbcType=NUMERIC} , 
+			typeName=#{typeName,jdbcType=NUMERIC} , 
+			dataTemplateId=#{dataTemplateId,jdbcType=NUMERIC} , 
+			dataId=#{dataId,jdbcType=NUMERIC} , 
+			roleSonName=#{roleSonName,jdbcType=VARCHAR} , 
+			alias=#{alias,jdbcType=VARCHAR} ,
+			roleSonDesc=#{roleSonDesc,jdbcType=VARCHAR},
+			filter = #{filter,jdbcType=VARCHAR},  
+			userAdd = #{userAdd,jdbcType=VARCHAR},  
+			userDel = #{userDel,jdbcType=VARCHAR},
+			roleId = #{roleId,jdbcType=NUMERIC},
+			allowDel = #{allowDel,jdbcType=NUMERIC},
+			isHide = #{isHide,jdbcType=NUMERIC},
+			def_filter = #{def_filter,jdbcType=VARCHAR}
+			WHERE
+			roleSonId=#{roleSonId}
+	</update>
+	
+	<select id="getRecRoleSonInfo" parameterType="map" resultMap="RecRoleSon">
+		SELECT <include refid="columns"/>
+		FROM IBMS_REC_ROLESON 
+		Where dataTemplateId =#{dataTemplateId} and dataId =#{dataId}
+	</select>	
+	<select id="getAll" resultMap="RecRoleSon">
+		SELECT <include refid="columns"/>
+		FROM IBMS_REC_ROLESON 
+		<include refid="dynamicWhere" />
+		<if test="@Ognl@isNotEmpty(orderField)">
+			ORDER BY ${orderField} ${orderSeq}
+		</if>
+		<if test="@Ognl@isEmpty(orderField)">
+			ORDER BY alias
+		</if>
+	</select>
+	<select id="getById" resultMap="RecRoleSon">
+		SELECT <include refid="columns"/>
+		FROM IBMS_REC_ROLESON 
+		where roleSonId = #{roleSonId}
+	</select>
+	<select id="getByTypeId" parameterType="java.lang.Long" resultMap="RecRoleSon">
+		SELECT <include refid="columns"/> FROM IBMS_REC_ROLESON WHERE typeId=#{typeId} ORDER BY alias
+	</select>
+		<!-- 判断角色别名是否存在 -->
+	<select id="isExistRoleAlias" resultType="Integer">
+	  SELECT count(*) amount FROM IBMS_REC_ROLESON where alias=#{alias} and dataId = #{dataId}
+	</select>
+		<!-- 该角色别名是否更新过（多个相同别名角色） -->
+	<select id="isExistRoleAliasForUpd" resultType="Integer">
+	  SELECT count(*) amount FROM IBMS_REC_ROLESON where alias=#{alias} and roleSonId &lt;> #{roleSonId} and dataId = #{dataId}
+	</select>
+		<!-- 根据条件查询role列表 -->
+	<select id="getRole" resultMap="RecRoleSon">
+		SELECT role.*
+		FROM IBMS_REC_ROLESON role
+		<include refid="dynamicWhere" />
+		<if test="@Ognl@isNotEmpty(orderField)">
+		order by role.${orderField} ${orderSeq}
+		</if>
+		<if test="@Ognl@isEmpty(orderField)">
+		order by role.roleSonId  desc
+		</if>
+	</select>
+	
+	<select id="getByDataId" resultMap="RecRoleSon" parameterType="java.lang.Long">
+	  SELECT  <include refid="columns"/>  FROM IBMS_REC_ROLESON 
+	  where dataId = #{dataId}
+	</select>
+	
+	<!-- roleId与dataId组成唯一key（ibms_rec_roleson），等同于ROLESONID； -->
+	<select id="getByParentRoleId" resultMap="RecRoleSon" parameterType="map">
+	  SELECT  <include refid="columns"/>  FROM IBMS_REC_ROLESON 
+	  where roleId = #{roleId} and dataId = #{dataId}
+	</select>
+	<select id="isExistRoleSon" resultType="Integer" parameterType="map">
+	   select count(*) amount FROM IBMS_REC_ROLESON where dataId=#{dataId}
+	</select>
+</mapper>

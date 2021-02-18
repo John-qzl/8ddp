@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+<mapper namespace="com.cssrc.ibms.system.model.SysBackUpRestore">
+	<resultMap id="SysBackUpRestore" type="com.cssrc.ibms.system.model.SysBackUpRestore">
+		<id property="backid" column="ID" jdbcType="NUMERIC"/>
+		<result property="backname" column="NAME" jdbcType="VARCHAR"/>
+		<result property="datetime" column="DATETIME" jdbcType="DATE"/>
+		<result property="username" column="USERNAME" jdbcType="VARCHAR"/>
+		<result property="comments" column="COMMENTS" jdbcType="VARCHAR"/>
+	</resultMap>
+
+	<sql id="columns">
+		ID,NAME,DATETIME,USERNAME,COMMENTS
+	</sql>
+	
+	<sql id="dynamicWhere">
+		<where>
+			<if test="@Ognl@isNotEmpty(backid)"> AND ID  =#{backid} </if>
+			<if test="@Ognl@isNotEmpty(backname)"> AND NAME  LIKE #{backname}  </if>
+			<if test="@Ognl@isNotEmpty(datetime)"> AND DATETIME  LIKE #{datetime}  </if>
+			<if test="@Ognl@isNotEmpty(username)"> AND USERNAME  LIKE #{username}  </if>
+		</where>
+	</sql>
+
+	<insert id="add" parameterType="com.cssrc.ibms.system.model.SysBackUpRestore">
+		INSERT INTO CWM_SYS_BACKUPRESTORE
+		(ID,NAME,DATETIME,USERNAME,COMMENTS)
+		VALUES
+		(#{backid,jdbcType=NUMERIC}, #{backname,jdbcType=VARCHAR}, #{datetime,jdbcType=DATE}, 
+		#{username,jdbcType=VARCHAR}, #{comments,jdbcType=VARCHAR})
+	</insert>
+	
+	<delete id="delById" parameterType="java.lang.Long">
+		DELETE FROM CWM_SYS_BACKUPRESTORE 
+		WHERE
+		ID=#{backid}
+	</delete>
+	
+	<update id="update" parameterType="com.cssrc.ibms.system.model.SysBackUpRestore">
+		UPDATE CWM_SYS_BACKUPRESTORE SET
+		NAME=#{backname,jdbcType=VARCHAR},
+		DATETIME=#{datetime,jdbcType=DATE},
+		USERNAME=#{username,jdbcType=VARCHAR},
+		COMMENTS=#{comments,jdbcType=VARCHAR}
+		WHERE
+		ID=#{backid}
+	</update>
+		    
+	<select id="getById" parameterType="java.lang.Long" resultMap="SysBackUpRestore">
+		SELECT <include refid="columns"/>
+		FROM CWM_SYS_BACKUPRESTORE
+		WHERE
+		ID=#{backid}
+	</select>
+	
+	<select id="getAll" resultMap="SysBackUpRestore">
+		SELECT <include refid="columns"/>
+		FROM CWM_SYS_BACKUPRESTORE   
+		<include refid="dynamicWhere" />
+		<if test="@Ognl@isNotEmpty(orderField)">
+		order by ${orderField} ${orderSeq}
+		</if>
+	</select>
+</mapper>

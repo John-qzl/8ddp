@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+<mapper namespace="com.cssrc.ibms.core.log.model.SysLog">
+	<resultMap id="SysLog" type="com.cssrc.ibms.core.log.model.SysLog">
+		<id property="auditId" column="Id" jdbcType="NUMERIC"/>
+		<result property="opName" column="opName" jdbcType="VARCHAR"/>
+		<result property="opTime" column="opTime" jdbcType="TIMESTAMP"/>
+		<result property="executorId" column="executorId" jdbcType="NUMERIC"/>
+		<result property="executor" column="executor" jdbcType="VARCHAR"/>
+		<result property="executorName" column="executorName" jdbcType="VARCHAR"/>
+		<result property="fromIp" column="fromIp" jdbcType="VARCHAR"/>
+		<result property="exeMethod" column="exeMethod" jdbcType="VARCHAR"/>
+		<result property="requestURI" column="requestURI" jdbcType="VARCHAR"/>
+		<result property="reqParams" column="reqParams" jdbcType="CLOB"/>
+		<result property="ownermodel" column="ownermodel" jdbcType="VARCHAR"/>
+		<result property="exectype" column="exectype" jdbcType="VARCHAR"/>
+		<result property="orgid" column="DEPID" jdbcType="NUMERIC"/>
+		<result property="result" column="result" jdbcType="NUMERIC"/>
+		<result property="detail" column="detail" jdbcType="CLOB"/>
+		<result property="jsonData" column="jsonData" jdbcType="CLOB"/>
+	</resultMap>
+	
+	<sql id="columns">
+		Id,opName,opTime,executorId,executor,executorName,fromIp,exeMethod,requestURI,reqParams,ownermodel,exectype,DEPID,result,detail,jsonData
+	</sql>
+	
+	<sql id="dynamicWhere">
+		<where>
+			<if test="@Ognl@isNotEmpty(auditId)"> AND Id  =#{auditId} </if>
+			<if test="@Ognl@isNotEmpty(opName)"> AND opName  LIKE #{opName}  </if>
+			<if test="@Ognl@isNotEmpty(beginopTime)"> AND opTime &gt;=#{beginopTime} </if>
+			<if test="@Ognl@isNotEmpty(endopTime)"> AND opTime &lt;=#{endopTime} </if>
+			<if test="@Ognl@isNotEmpty(executorId)"> AND executorId  =#{executorId} </if>
+			<if test="@Ognl@isNotEmpty(executor)"> AND executor  LIKE #{executor}  </if>
+			<if test="@Ognl@isNotEmpty(executorName)"> AND executorName  LIKE #{executorName}  </if>
+			<if test="@Ognl@isNotEmpty(fromIp)"> AND fromIp  LIKE #{fromIp}  </if>
+			<if test="@Ognl@isNotEmpty(exeMethod)"> AND exeMethod  LIKE #{exeMethod}  </if>
+			<if test="@Ognl@isNotEmpty(requestURI)"> AND requestURI  LIKE #{requestURI}  </if>
+			<if test="@Ognl@isNotEmpty(reqParams)"> AND reqParams  LIKE #{reqParams}  </if>
+			<if test="@Ognl@isNotEmpty(exectype)"> AND exectype  LIKE #{exectype}  </if>
+			<if test="@Ognl@isNotEmpty(ownermodel)"> AND ownermodel  LIKE #{ownermodel}  </if>		
+		</where>
+	</sql>
+
+	<insert id="add" parameterType="com.cssrc.ibms.core.log.model.SysLog">
+		INSERT INTO CWM_SYS_LOG
+		(<include refid="columns"/>)
+		VALUES
+		(
+		#{auditId,jdbcType=NUMERIC}, 
+		#{opName,jdbcType=VARCHAR}, 
+		#{opTime,jdbcType=TIMESTAMP}, 
+		#{executorId,jdbcType=NUMERIC}, 
+		#{executor,jdbcType=VARCHAR}, 
+		#{executorName,jdbcType=VARCHAR}, 
+		#{fromIp,jdbcType=VARCHAR}, 
+		#{exeMethod,jdbcType=VARCHAR}, 
+		#{requestURI,jdbcType=VARCHAR}, 
+		#{reqParams,jdbcType=CLOB},
+		#{ownermodel,jdbcType=VARCHAR},
+		#{exectype,jdbcType=VARCHAR},
+		#{orgid,jdbcType=NUMERIC},
+		#{result,jdbcType=NUMERIC},
+		#{detail,jdbcType=CLOB},
+		#{jsonData,jdbcType=CLOB}
+		)
+	</insert>
+	
+	<delete id="delById" parameterType="java.lang.Long">
+		DELETE FROM CWM_SYS_LOG 
+		WHERE
+		Id=#{auditId}
+	</delete>
+	
+	<update id="update" parameterType="com.cssrc.ibms.core.log.model.SysLog">
+		UPDATE CWM_SYS_LOG SET
+		opName=#{opName,jdbcType=VARCHAR} , 
+		opTime=#{opTime,jdbcType=TIMESTAMP} , 
+		executorId=#{executorId,jdbcType=NUMERIC} , 
+		executor=#{executor,jdbcType=VARCHAR} , 
+		executorName=#{executorName,jdbcType=VARCHAR} , 
+		fromIp=#{fromIp,jdbcType=VARCHAR} , 
+		exeMethod=#{exeMethod,jdbcType=VARCHAR} , 
+		requestURI=#{requestURI,jdbcType=VARCHAR} , 
+		reqParams=#{reqParams,jdbcType=CLOB},
+		ownermodel=#{ownermodel,jdbcType=VARCHAR},
+		exectype=#{exectype,jdbcType=VARCHAR},
+		DEPID=#{orgid,jdbcType=NUMERIC},
+		result=#{result,jdbcType=NUMERIC},
+		detail=#{detail,jdbcType=CLOB},
+		jsonData=#{jsonData,jdbcType=CLOB}
+		WHERE
+		Id=#{auditId}
+	</update>
+	
+	<select id="getById" parameterType="java.lang.Long" resultMap="SysLog">
+		SELECT <include refid="columns"/>
+		FROM CWM_SYS_LOG
+		WHERE
+		Id=#{auditId}
+	</select>
+	
+	<select id="getAll" resultMap="SysLog">
+		SELECT <include refid="columns"/>
+		FROM CWM_SYS_LOG   
+		<include refid="dynamicWhere" />
+		<if test="@Ognl@isNotEmpty(orderField)">
+		order by ${orderField} ${orderSeq}
+		</if>
+		<if test="@Ognl@isEmpty(orderField)">
+		order by Id  desc
+		</if>
+	</select>
+	
+	<select id="getInUserIds" parameterType="java.lang.String" resultMap="SysLog">
+		SELECT <include refid="columns"/>
+		FROM CWM_SYS_LOG 
+		WHERE 1=1 
+		<if test="@Ognl@isNotEmpty(userIds)"> AND EXECUTORID in (${userIds}) </if>
+		<if test="@Ognl@isNotEmpty(opName)"> AND opName  LIKE #{opName}  </if>
+		<if test="@Ognl@isNotEmpty(beginopTime)"> AND opTime &gt;=#{beginopTime} </if>
+		<if test="@Ognl@isNotEmpty(endopTime)"> AND opTime &lt;=#{endopTime} </if>
+		<if test="@Ognl@isNotEmpty(executor)"> AND executor  LIKE #{executor}  </if>
+		<if test="@Ognl@isNotEmpty(executorName)"> AND executorName  LIKE #{executorName}  </if>
+		<if test="@Ognl@isNotEmpty(fromIp)"> AND fromIp  LIKE #{fromIp}  </if>
+		<if test="@Ognl@isNotEmpty(exectype)"> AND exectype  LIKE #{exectype}  </if>
+		<if test="@Ognl@isNotEmpty(ownermodel)"> AND ownermodel  LIKE #{ownermodel}  </if>	
+		<if test="@Ognl@isNotEmpty(orderField)">
+		order by ${orderField} ${orderSeq}
+		</if>
+		<if test="@Ognl@isEmpty(orderField)">
+		order by opTime  desc
+		</if>
+	</select>
+	
+	<select id="getNotInUserIds" parameterType="java.lang.String" resultMap="SysLog">
+		SELECT <include refid="columns"/>
+		FROM CWM_SYS_LOG 
+		WHERE 1=1 
+		<if test="@Ognl@isNotEmpty(userIds)"> AND EXECUTORID not in (${userIds}) </if><!--OR EXECUTORID IS NULL???  -->
+		<if test="@Ognl@isNotEmpty(opName)"> AND opName  LIKE #{opName}  </if>
+		<if test="@Ognl@isNotEmpty(beginopTime)"> AND opTime &gt;=#{beginopTime} </if>
+		<if test="@Ognl@isNotEmpty(endopTime)"> AND opTime &lt;=#{endopTime} </if>
+		<if test="@Ognl@isNotEmpty(executor)"> AND executor  LIKE #{executor}  </if>
+		<if test="@Ognl@isNotEmpty(executorName)"> AND executorName  LIKE #{executorName}  </if>
+		<if test="@Ognl@isNotEmpty(fromIp)"> AND fromIp  LIKE #{fromIp}  </if>
+		<if test="@Ognl@isNotEmpty(exectype)"> AND exectype  LIKE #{exectype}  </if>
+		<if test="@Ognl@isNotEmpty(ownermodel)"> AND ownermodel  LIKE #{ownermodel}  </if>	
+		<if test="@Ognl@isNotEmpty(orderField)">
+		order by ${orderField} ${orderSeq}
+		</if>
+		<if test="@Ognl@isEmpty(orderField)">
+		order by opTime  desc
+		</if>
+	</select>
+</mapper>

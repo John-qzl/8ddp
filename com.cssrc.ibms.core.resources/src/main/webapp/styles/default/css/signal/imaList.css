@@ -1,0 +1,102 @@
+.oh {
+	overflow: hidden;
+}
+
+.w {
+	*max-width: 1180px;
+	min-width: 1180px;
+	padding: 0 10px;
+	margin: 0 auto;
+}
+
+.enterprise-wrap {
+	width: 110%
+}
+
+.enterprise {
+	width: 200px;
+	height: 150px;
+	padding: 20px;
+	border: 1px solid #f0f0f0;
+	background: #fff;
+	margin-bottom: 15px;
+	margin-right: 14px;
+}
+
+.enterprise:hover {
+	background: #f5f9ff;
+	border-color: #3c8fed;
+}
+
+.enterprise:hover * {
+	text-decoration: none
+}
+
+.enterprise:hover .enterprise-title {
+	color: #08c
+}
+
+.enterprise-img {
+	width: 100px;
+	height: 100px;
+}
+
+.enterprise-img img {
+	display: block;
+	width: 100px;
+	height: 100px;
+}
+
+.enterprise-des {
+	width: 180px;
+	height: 150px;
+}
+
+.pr {
+	position: relative
+}
+
+.fl {
+	float: left;
+	display: inline
+}
+
+.fr {
+	float: right;
+	display: inline
+}
+
+.clear {
+	clear: both;
+}
+
+.clearFix {
+	*zoom: 1;
+}
+
+.clearFix:after {
+	content: "";
+	display: table;
+	clear: both
+}
+
+button, a {
+	cursor: pointer
+}
+
+a {
+	text-decoration: none;
+	outline: none;
+	blr: expression(this.onFocus = this.blur ());
+	color: #555;
+}
+
+a:hover {
+	color: #e1381d7;
+	text-decoration: underline;
+	transition: color .2s linear 0s, background-color .2s linear 0s;
+}
+
+a img {
+	border: none;
+}

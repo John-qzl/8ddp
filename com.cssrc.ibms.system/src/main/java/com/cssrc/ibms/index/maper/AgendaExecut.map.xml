@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cssrc.ibms.index.model.AgendaExecut" >
+  <resultMap id="AgendaExecut" type="com.cssrc.ibms.index.model.AgendaExecut" >
+    <id column="ID_" property="id" jdbcType="NUMERIC" />
+    <result column="AGENDA_ID_" property="agendaId" jdbcType="NUMERIC" />
+    <result column="EXECUTOR_ID_" property="executorId" jdbcType="NUMERIC" />
+    <result column="EXECUTOR_" property="executor" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="columns" >
+    ID_, AGENDA_ID_, EXECUTOR_ID_, EXECUTOR_
+  </sql>
+  
+  <sql id="dynamicWhere">
+	<where>
+		<if test="@Ognl@isNotEmpty(id)"> AND ID_ =#{id} </if>
+		<if test="@Ognl@isNotEmpty(agendaId)"> AND AGENDA_ID_ =#{agendaId}  </if>
+		<if test="@Ognl@isNotEmpty(executorId)"> AND EXECUTOR_ID_ =#{executorId}  </if>
+		<if test="@Ognl@isNotEmpty(executor)"> AND EXECUTOR_ = #{executor}  </if>
+	</where>
+  </sql>
+  
+  
+  <select id="getById" resultMap="AgendaExecut" parameterType="java.lang.Long" >
+    select 
+    <include refid="columns" />
+    from cwm_sys_agenda_execut
+    where ID_ = #{id}
+  </select>
+  
+  <delete id="delById" parameterType="java.lang.Long" >
+    delete from cwm_sys_agenda_execut
+    where ID_ = #{id}
+  </delete>
+  
+  <insert id="add" parameterType="com.cssrc.ibms.index.model.AgendaExecut" >
+    insert into cwm_sys_agenda_execut (
+  		<include refid="columns" />
+    )
+    values (#{id,jdbcType=NUMERIC}, #{agendaId,jdbcType=NUMERIC}, #{executorId,jdbcType=NUMERIC}, 
+      #{executor,jdbcType=VARCHAR})
+  </insert>
+  
+  
+  <update id="update" parameterType="com.cssrc.ibms.index.model.AgendaExecut" >
+    update cwm_sys_agenda_execut
+    set AGENDA_ID_ = #{agendaId,jdbcType=NUMERIC},
+      EXECUTOR_ID_ = #{executorId,jdbcType=NUMERIC},
+      EXECUTOR_ = #{executor,jdbcType=VARCHAR}
+    where ID_ = #{id}
+  </update>
+  
+  
+   <select id="getAll" resultMap="AgendaExecut">
+		SELECT
+		<include refid="columns" />
+		FROM cwm_sys_agenda_execut
+		<include refid="dynamicWhere" />
+		<if test="@Ognl@isNotEmpty(orderField)">
+			order by ${orderField} ${orderSeq}
+		</if>
+		<if test="@Ognl@isEmpty(orderField)">
+			order by ID_ desc
+		</if>
+ 	</select>
+ 	
+ 	
+ 	<delete id="delByAgendaId" parameterType="java.lang.Long" >
+    	delete from cwm_sys_agenda_execut 
+    	WHERE AGENDA_ID_=#{agendaId}
+  	</delete>
+  	
+  	
+  	<select id="getByAgendaId" parameterType="java.lang.Long" resultMap="AgendaExecut">
+  		SELECT <include refid="columns" />
+  		FROM cwm_sys_agenda_execut
+  		WHERE AGENDA_ID_=#{agendaId}
+  	</select>
+  
+</mapper>

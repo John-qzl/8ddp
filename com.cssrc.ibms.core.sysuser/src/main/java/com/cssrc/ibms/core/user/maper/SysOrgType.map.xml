@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cssrc.ibms.core.user.model.SysOrgType">
+	<resultMap id="SysOrgType" type="com.cssrc.ibms.core.user.model.SysOrgType">
+		<id property="id" column="ID" jdbcType="NUMERIC" />
+		<result property="demId" column="DEMID" jdbcType="NUMERIC" />
+		<result property="name" column="NAME" jdbcType="VARCHAR" />
+		<result property="levels" column="LEVELS" jdbcType="NUMERIC" />
+		<result property="memo" column="MEMO" jdbcType="VARCHAR" />
+		<result property="icon" column="ICON" jdbcType="VARCHAR" />
+		<result property="orgType_updateId" column="orgType_updateId" jdbcType="NUMERIC"/>
+		<result property="orgType_updateTime" column="orgType_updateTime" jdbcType="TIMESTAMP"/>
+		<result property="orgType_creatorId" column="orgType_creatorId" jdbcType="NUMERIC"/>
+		<result property="orgType_createTime" column="orgType_createTime" jdbcType="TIMESTAMP"/>
+		<result property="orgType_delFlag" column="orgType_delFlag" jdbcType="NUMERIC"/>
+	</resultMap>
+
+	<sql id="columns">
+		ID,DEMID,NAME,LEVELS,MEMO,ICON,orgType_updateId,orgType_updateTime,
+		orgType_creatorId,orgType_createTime,orgType_delFlag
+	</sql>
+
+	<sql id="dynamicWhere">
+		<where>
+			<if test="@Ognl@isNotEmpty(id)"> AND ID =#{id} </if>
+			<if test="@Ognl@isNotEmpty(demId)"> AND DEMID =#{demId} </if>
+			<if test="@Ognl@isNotEmpty(name)"> AND NAME LIKE #{name}  </if>
+			<if test="@Ognl@isNotEmpty(levels)"> AND LEVELS =#{levels} </if>
+			<if test="@Ognl@isNotEmpty(memo)"> AND MEMO LIKE #{memo} </if>
+			<if test="@Ognl@isNotEmpty(icon)"> AND ICON LIKE #{icon} </if>
+		</where>
+	</sql>
+
+	<insert id="add" parameterType="com.cssrc.ibms.core.user.model.SysOrgType">
+		INSERT INTO cwm_sys_org_type
+		(ID,DEMID,NAME,LEVELS,MEMO,ICON,orgType_updateId,orgType_updateTime,orgType_creatorId,
+		orgType_createTime,orgType_delFlag)
+		VALUES
+		(#{id,jdbcType=NUMERIC},
+		#{demId,jdbcType=NUMERIC}, #{name,jdbcType=VARCHAR},
+		#{levels,jdbcType=NUMERIC}, #{memo,jdbcType=VARCHAR},
+		#{icon,jdbcType=VARCHAR},#{orgType_updateId,jdbcType=NUMERIC},
+		#{orgType_updateTime,jdbcType=TIMESTAMP},#{orgType_creatorId,jdbcType=NUMERIC},
+		 #{orgType_createTime,jdbcType=TIMESTAMP},#{orgType_delFlag,jdbcType=NUMERIC})
+	</insert>
+
+	<delete id="delById" parameterType="java.lang.Long">
+		DELETE FROM cwm_sys_org_type
+		WHERE
+		ID=#{id}
+	</delete>
+
+	<update id="update" parameterType="com.cssrc.ibms.core.user.model.SysOrgType">
+		UPDATE cwm_sys_org_type SET
+		DEMID=#{demId,jdbcType=NUMERIC},
+		NAME=#{name,jdbcType=VARCHAR},
+		LEVELS=#{levels,jdbcType=NUMERIC},
+		MEMO=#{memo,jdbcType=VARCHAR},
+		ICON=#{icon,jdbcType=VARCHAR} ,
+		orgType_delFlag =#{orgType_delFlag,jdbcType=NUMERIC},
+		<if test="@Ognl@isNotEmpty(orgType_creatorId)">
+		orgType_creatorId=#{orgType_creatorId,jdbcType=NUMERIC} ,
+		</if>
+		<if test="@Ognl@isNotEmpty(orgType_createTime)">
+		orgType_createTime=#{orgType_createTime,jdbcType=TIMESTAMP} ,
+		</if>
+		orgType_updateId=#{orgType_updateId,jdbcType=NUMERIC} ,
+		orgType_updateTime=#{orgType_updateTime,jdbcType=TIMESTAMP} 
+		WHERE
+		ID=#{id}
+	</update>
+
+	<select id="getById" parameterType="java.lang.Long" resultMap="SysOrgType">
+		SELECT
+		<include refid="columns" />
+		FROM cwm_sys_org_type
+		WHERE
+		ID=#{id}
+	</select>
+
+	<select id="getAll" resultMap="SysOrgType">
+		SELECT
+		<include refid="columns" />
+		FROM cwm_sys_org_type
+		<include refid="dynamicWhere" />
+		<if test="@Ognl@isNotEmpty(orderField)">
+			order by ${orderField} ${orderSeq}
+		</if>
+		<if test="@Ognl@isEmpty(orderField)">
+			order by levels asc
+		</if>
+	</select>
+
+	<select id="getMaxLevel" parameterType="java.lang.Long"
+		resultType="Integer">
+		SELECT MAX(LEVELS)
+		FROM cwm_sys_org_type
+		WHERE
+		demId=#{demId}
+	</select>
+
+	<select id="getByDemId" parameterType="java.lang.Long"
+		resultMap="SysOrgType">
+		SELECT
+		<include refid="columns" />
+		FROM cwm_sys_org_type
+		WHERE DEMID =#{demId}
+		order by levels asc
+	</select>
+</mapper>

@@ -1,0 +1,81 @@
+package com.cssrc.ibms.core.msg.tag;
+
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.jsp.JspTagException;
+import javax.servlet.jsp.tagext.BodyTagSupport;
+
+import net.sf.json.JSONArray;
+
+import org.apache.commons.lang.StringUtils;
+
+import com.cssrc.ibms.api.sysuser.intf.IUserPositionService;
+import com.cssrc.ibms.core.msg.model.MessageReceiver;
+import com.cssrc.ibms.core.msg.service.MessageReceiverService;
+import com.cssrc.ibms.core.util.appconf.AppUtil;
+
+public class ReceiverNameTag extends BodyTagSupport {
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+
+
+	public int doStartTag() throws JspTagException {
+		return EVAL_BODY_BUFFERED;
+	}
+	
+	private Long messageId=0L;
+	
+	
+
+	public void setMessageId(Long messageId) {
+		this.messageId = messageId;
+	}
+
+	private String getReceiverName(){
+		HttpServletRequest request=(HttpServletRequest) pageContext.getRequest() ;
+		//通过用户Id获取用户名称
+		StringBuffer str=new StringBuffer();
+		if(this.messageId!=0){
+			MessageReceiverService messageReceiverService=(MessageReceiverService) AppUtil.getBean("messageReceiverService");
+			List<MessageReceiver>messageReceiversList=messageReceiverService.getByMessageId(messageId);
+			if(messageReceiversList.size()!=0){
+				MessageReceiver messageReceiver=null;
+				for (int i = 0; i < messageReceiversList.size(); i++) {
+					messageReceiver=(MessageReceiver) messageReceiversList.get(i);
+					if(messageReceiver.getReceiveType()==MessageReceiver.TYPE_USER){
+						str.append("<img src='" + request.getContextPath() + "/styles/images/user.png'>&nbsp;<a href='"
+								+request.getContextPath()+"/oa/system/sysUser/get.do?userId="+messageReceiver.getReceiverId()+"&hasClose=true' target='_blank'>"+messageReceiver.getReceiver()+"</a>") ;
+					}else {
+						String imgSrc = "<img src='" + request.getContextPath() + "/styles/images/user.png'>&nbsp;" ;
+						str.append(imgSrc);
+						/*SysUserService userService = (SysUserService)AppUtil.getBean(SysUserService.class) ;*/
+						 IUserPositionService userPositionService = (IUserPositionService)AppUtil.getBean(IUserPositionService.class);
+						/*List list= userService.findByDepId(messageReceiver.getReceiverId());*/
+						 List list = userPositionService.getUserByOrgIds(messageReceiver.getReceiverId().toString());
+						if(list!=null)
+							str.append( "<a href='####' onclick='return false;' orgId='"+messageReceiver.getReceiverId()+"' >"+messageReceiver.getReceiver()+"</a><input type='hidden' name='candidateUsersJson' value='"+JSONArray.fromObject(list)+"'>");
+					}
+				}
+			}
+		}
+		return StringUtils.isNotEmpty(str.toString()) ? str.toString() : "暂无";
+	}
+	
+	public int doEndTag() throws JspTagException {
+
+		try {
+			String str = getReceiverName();
+			pageContext.getOut().print(str);
+		} catch (Exception e) {
+			throw new JspTagException(e.getMessage());
+		}
+		return SKIP_BODY;
+	}
+
+	
+}

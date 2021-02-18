@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+<mapper namespace="com.cssrc.ibms.dp.form.model.CheckCondition">
+	<resultMap id="CheckCondition" type="com.cssrc.ibms.dp.form.model.CheckCondition">
+		<id property="ID" column="ID" jdbcType="NUMERIC"/>
+		<result property="name" column="F_NAME" jdbcType="VARCHAR"/>
+		<result property="sequence" column="F_ORDER" jdbcType="NUMERIC"/>
+		<result property="module" column="F_TABLE_TEMP_ID" jdbcType="NUMERIC"/>
+	</resultMap>
+	<sql id="columns">
+		ID,F_NAME, F_ORDER, F_TABLE_TEMP_ID
+	</sql>
+
+	<insert id="add" parameterType="com.cssrc.ibms.dp.form.model.CheckCondition">
+		INSERT INTO W_CK_CONDITION
+		(<include refid="columns"/>)
+		VALUES
+		(#{ID,jdbcType=NUMERIC},
+		 #{name,jdbcType=VARCHAR},#{sequence,jdbcType=NUMERIC},
+		 #{module,jdbcType=NUMERIC}
+		 )
+	</insert>	
+	<delete id="deleteById" >
+		DELETE FROM W_CK_CONDITION WHERE F_TABLE_TEMP_ID=#{ID}
+	</delete>
+	
+	<select id="getBymodelid" parameterType="java.util.Map" resultMap="CheckCondition">
+		SELECT <include refid="columns"/> 
+		FROM W_CK_CONDITION  WHERE F_TABLE_TEMP_ID=#{mid}
+	</select>
+</mapper>

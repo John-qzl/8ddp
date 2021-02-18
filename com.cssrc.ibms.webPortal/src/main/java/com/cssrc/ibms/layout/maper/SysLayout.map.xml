@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+<mapper namespace="com.cssrc.ibms.layout.model.SysLayout">
+	<resultMap id="SysLayout" type="com.cssrc.ibms.layout.model.SysLayout">
+		<id property="id" column="ID" jdbcType="NUMERIC"/>
+		<result property="layoutName" column="LAYOUTNAME" jdbcType="VARCHAR"/>
+		<result property="appId" column="APPID" jdbcType="NUMERIC"/>
+		<result property="appType" column="APPTYPE" jdbcType="NUMERIC"/>
+	</resultMap>
+	
+	<sql id="columns">
+		id,layoutName,appId,appType
+	</sql>
+
+	<insert id="add" parameterType="com.cssrc.ibms.layout.model.SysLayout">
+		INSERT INTO CWM_SYS_LAYOUT
+		(
+			<include refid="columns"/>
+		)
+		VALUES
+		(
+			#{id,jdbcType=NUMERIC}, 
+			#{layoutName,jdbcType=VARCHAR}, 
+			#{appId,jdbcType=NUMERIC},
+			#{appType,jdbcType=NUMERIC}
+		)
+	</insert>
+	
+	<update id="update" parameterType="com.cssrc.ibms.layout.model.SysLayout">
+		UPDATE CWM_SYS_LAYOUT SET 
+		LAYOUTNAME=#{layoutName,jdbcType=VARCHAR}, 
+		APPTYPE=#{appType,jdbcType=NUMERIC},
+		APPID=#{appId,jdbcType=NUMERIC}
+		WHERE ID=#{id}
+	</update>
+	
+	<select id="isExist" parameterType="Map" resultType="java.lang.Integer">
+		SELECT count(*) FROM CWM_SYS_LAYOUT where APPTYPE=#{appType} and APPID=#{appId}
+	</select>
+	
+	<select id="isExistAppType" parameterType="java.lang.Long" resultType="java.lang.Integer">
+		SELECT count(*) FROM CWM_SYS_LAYOUT where APPTYPE=#{appType}
+	</select>
+	
+	<select id="getLayoutByAppId" parameterType="Map" resultType="com.cssrc.ibms.layout.model.SysLayout">
+		SELECT * FROM CWM_SYS_LAYOUT where APPTYPE=#{appType} 
+		<if test="@Ognl@isNotEmpty(appId)"> and APPID=#{appId}  </if>
+	</select>
+</mapper>

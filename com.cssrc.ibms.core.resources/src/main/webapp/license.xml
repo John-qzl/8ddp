@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<MACS>
+    <type>
+        <description>九室mac</description>
+        <mac>BA-B6-86-7F-F7-B0</mac>
+        <genId>12</genId>
+    </type>
+    <type>
+        <description>所内网mac</description>
+        <mac>28-6E-D4-88-C7-2E</mac>
+        <genId>1</genId>
+    </type>
+    <type>
+        <description>Y1便携机mac</description>
+        <mac>28-6E-D4-88-C7-2E</mac>
+        <genId></genId>
+    </type>
+    <type>
+        <description>Y35便携机mac</description>
+        <mac>28-6E-D4-88-C7-2E</mac>
+        <genId>13</genId>
+    </type>
+    <type>
+        <description>Y28便捷机mac</description>
+        <mac>28-6E-D4-88-C7-2E</mac>
+        <genId></genId>
+    </type>
+
+</MACS>

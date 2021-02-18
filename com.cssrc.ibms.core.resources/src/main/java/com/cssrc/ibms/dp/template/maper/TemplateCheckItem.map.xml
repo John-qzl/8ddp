@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cssrc.ibms.dp.template.model.TemplateCheckItem">
+	<resultMap id="TemplateCheckItem" type="com.cssrc.ibms.dp.template.model.TemplateCheckItem">
+		<id property="id" column="ID" jdbcType="NUMERIC" />
+		<result property="name" column="F_NAME" jdbcType="VARCHAR" />
+		<result property="shortName" column="F_SHORTNAME" jdbcType="VARCHAR" />
+		<result property="type" column="F_TYPE" jdbcType="VARCHAR" />
+		<result property="description" column="F_DESCRIPTION" jdbcType="VARCHAR" />
+		<result property="ILdd" column="F_ILDD" jdbcType="VARCHAR" />
+		<result property="IILdd" column="F_IILDD" jdbcType="VARCHAR" />
+		<result property="ycn" column="F_YCN" jdbcType="VARCHAR" />
+		<result property="njljyq" column="F_NJLJYQ" jdbcType="VARCHAR" />
+		<result property="zhycdz" column="F_ZHYCDZ" jdbcType="VARCHAR" />
+		<result property="ifMedia" column="F_IFMEDIA" jdbcType="VARCHAR" />
+		<result property="templateId" column="F_TABLE_TEMP_ID"
+			jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="columns">
+		ID,F_NAME,F_SHORTNAME,F_TYPE,F_DESCRIPTION,F_ILDD,F_IILDD,F_YCN,F_NJLJYQ,F_ZHYCDZ,F_IFMEDIA,F_TABLE_TEMP_ID
+	</sql>
+
+	<insert id="add" parameterType="com.cssrc.ibms.dp.template.model.TemplateCheckItem">
+		INSERT INTO W_ITEMDEF
+		(ID,F_NAME,F_SHORTNAME,F_TYPE,F_DESCRIPTION,F_ILDD,F_IILDD,F_YCN,F_NJLJYQ,F_ZHYCDZ,F_IFMEDIA,F_TABLE_TEMP_ID)
+		VALUES
+		(#{id,jdbcType=NUMERIC},
+		#{name,jdbcType=VARCHAR},
+		#{shortName,jdbcType=VARCHAR},
+		#{type,jdbcType=VARCHAR},
+		#{description,jdbcType=VARCHAR},
+		#{ILdd,jdbcType=VARCHAR},
+		#{IILdd,jdbcType=VARCHAR},
+		#{ycn,jdbcType=VARCHAR},
+		#{njljyq,jdbcType=VARCHAR},
+		#{zhycdz,jdbcType=VARCHAR},
+		#{ifMedia,jdbcType=VARCHAR},
+		#{templateId,jdbcType=VARCHAR}
+		)
+	</insert>
+
+	<delete id="delByTemplateId">
+		DELETE FROM W_ITEMDEF WHERE
+		F_TABLE_TEMP_ID=#{templateId}
+	</delete>
+
+	<select id="getByTemplateId" parameterType="java.util.Map"
+		resultMap="TemplateCheckItem">
+		SELECT
+		<include refid="columns" />
+		FROM W_ITEMDEF WHERE F_TABLE_TEMP_ID=#{templateId}
+	</select>
+
+</mapper>

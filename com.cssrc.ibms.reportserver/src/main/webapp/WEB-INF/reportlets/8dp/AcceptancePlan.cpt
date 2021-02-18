@@ -1,0 +1,477 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WorkBook xmlVersion="20151125" releaseVersion="8.0.0">
+<TableDataMap>
+<TableData name="ds1" class="com.fr.data.impl.DBTableData">
+<Parameters>
+<Parameter>
+<Attributes name="productId"/>
+<O>
+<![CDATA[]]></O>
+</Parameter>
+</Parameters>
+<Attributes maxMemRowCount="-1"/>
+<Connection class="com.fr.data.impl.NameDatabaseConnection">
+<DatabaseName>
+<![CDATA[JDBC5]]></DatabaseName>
+</Connection>
+<Query>
+<![CDATA[select * from  w_cpb A  where ID='${productId}']]></Query>
+</TableData>
+<TableData name="ds2" class="com.fr.data.impl.DBTableData">
+<Parameters>
+<Parameter>
+<Attributes name="productId"/>
+<O>
+<![CDATA[]]></O>
+</Parameter>
+</Parameters>
+<Attributes maxMemRowCount="-1"/>
+<Connection class="com.fr.data.impl.NameDatabaseConnection">
+<DatabaseName>
+<![CDATA[JDBC5]]></DatabaseName>
+</Connection>
+<Query>
+<![CDATA[select * from w_yssjb where F_SSCP='${productId}']]></Query>
+</TableData>
+<TableData name="ds3" class="com.fr.data.impl.DBTableData">
+<Parameters>
+<Parameter>
+<Attributes name="instanceId"/>
+<O>
+<![CDATA[]]></O>
+</Parameter>
+</Parameters>
+<Attributes maxMemRowCount="-1"/>
+<Connection class="com.fr.data.impl.NameDatabaseConnection">
+<DatabaseName>
+<![CDATA[JDBC5]]></DatabaseName>
+</Connection>
+<Query>
+<![CDATA[
+SELECT
+DP8D.W_CK_CONDITION.ID,
+DP8D.W_CONDI_RES.F_VALUE,
+DP8D.W_CONDI_RES.F_TB_INSTAN_ID,
+DP8D.W_CONDI_RES.F_CONDITION_ID,
+DP8D.W_TB_INSTANT.ID,
+DP8D.W_CK_CONDITION.F_NAME
+FROM
+DP8D.W_CK_CONDITION
+INNER JOIN DP8D.W_CONDI_RES ON DP8D.W_CONDI_RES.F_CONDITION_ID = DP8D.W_CK_CONDITION.ID
+INNER JOIN DP8D.W_TB_INSTANT ON DP8D.W_CONDI_RES.F_TB_INSTAN_ID = DP8D.W_TB_INSTANT.ID
+where  DP8D.W_CK_CONDITION.F_NAME='温度' and DP8D.W_TB_INSTANT.ID='${instanceId}']]></Query>
+</TableData>
+<TableData name="ds4" class="com.fr.data.impl.DBTableData">
+<Parameters>
+<Parameter>
+<Attributes name="instanceId"/>
+<O>
+<![CDATA[]]></O>
+</Parameter>
+</Parameters>
+<Attributes maxMemRowCount="-1"/>
+<Connection class="com.fr.data.impl.NameDatabaseConnection">
+<DatabaseName>
+<![CDATA[JDBC5]]></DatabaseName>
+</Connection>
+<Query>
+<![CDATA[
+SELECT
+DP8D.W_CK_CONDITION.ID,
+DP8D.W_CONDI_RES.F_VALUE,
+DP8D.W_CONDI_RES.F_TB_INSTAN_ID,
+DP8D.W_CONDI_RES.F_CONDITION_ID,
+DP8D.W_TB_INSTANT.ID,
+DP8D.W_CK_CONDITION.F_NAME
+FROM
+DP8D.W_CK_CONDITION
+INNER JOIN DP8D.W_CONDI_RES ON DP8D.W_CONDI_RES.F_CONDITION_ID = DP8D.W_CK_CONDITION.ID
+INNER JOIN DP8D.W_TB_INSTANT ON DP8D.W_CONDI_RES.F_TB_INSTAN_ID = DP8D.W_TB_INSTANT.ID
+where  DP8D.W_CK_CONDITION.F_NAME='湿度' and DP8D.W_TB_INSTANT.ID='${instanceId}']]></Query>
+</TableData>
+<TableData name="ds5" class="com.fr.data.impl.DBTableData">
+<Parameters/>
+<Attributes maxMemRowCount="-1"/>
+<Connection class="com.fr.data.impl.NameDatabaseConnection">
+<DatabaseName>
+<![CDATA[JDBC5]]></DatabaseName>
+</Connection>
+<Query>
+<![CDATA[select * from (select * from w_signresult A left join cwm_sys_file B on A.ID=B.DATAID where A.f_tb_instant_id='${instanceId}') C left join W_SIGNDEF D ON C.F_SIGNDEF_ID=D.ID ]]></Query>
+</TableData>
+</TableDataMap>
+<Report class="com.fr.report.worksheet.WorkSheet" name="sheet1">
+<ReportPageAttr>
+<HR/>
+<FR/>
+<HC/>
+<FC/>
+</ReportPageAttr>
+<ColumnPrivilegeControl/>
+<RowPrivilegeControl/>
+<RowHeight defaultValue="723900">
+<![CDATA[1371600,1143000,723900,914400,1333500,1485900,2590800,723900,723900,723900,723900]]></RowHeight>
+<ColumnWidth defaultValue="2743200">
+<![CDATA[3124200,4000500,3467100,3086100,3238500,3009900,2476500,2133600,2743200,2743200,2743200]]></ColumnWidth>
+<CellElementList>
+<C c="0" r="0" cs="8" s="0">
+<O>
+<![CDATA[功能性验收项目表]]></O>
+<PrivilegeControl/>
+<Expand extendable="1"/>
+</C>
+<C c="0" r="1" cs="2" s="1">
+<O>
+<![CDATA[产品编号]]></O>
+<PrivilegeControl/>
+<Expand extendable="1"/>
+</C>
+<C c="2" r="1" cs="2" s="1">
+<O t="DSColumn">
+<Attributes dsName="ds1" columnName="F_CPMC"/>
+<Complex/>
+<RG class="com.fr.report.cell.cellattr.core.group.FunctionGrouper"/>
+<Parameters/>
+</O>
+<PrivilegeControl/>
+<Expand dir="0" extendable="1"/>
+</C>
+<C c="4" r="1" cs="2" s="2">
+<O>
+<![CDATA[验收日期]]></O>
+<PrivilegeControl/>
+<Expand/>
+</C>
+<C c="6" r="1" cs="2" s="1">
+<O t="Formula" class="Formula">
+<Attributes>
+<![CDATA[=$acceptanceDate]]></Attributes>
+</O>
+<PrivilegeControl/>
+<Expand extendable="1"/>
+</C>
+<C c="0" r="2" cs="2" s="1">
+<O>
+<![CDATA[温度]]></O>
+<PrivilegeControl/>
+<Expand/>
+</C>
+<C c="2" r="2" cs="2" s="1">
+<O t="DSColumn">
+<Attributes dsName="ds3" columnName="F_VALUE"/>
+<Condition class="com.fr.data.condition.ListCondition"/>
+<Complex/>
+<RG class="com.fr.report.cell.cellattr.core.group.FunctionGrouper"/>
+<Result>
+<![CDATA[$$$+"°C"]]></Result>
+<Parameters/>
+</O>
+<PrivilegeControl/>
+<Expand dir="0"/>
+</C>
+<C c="4" r="2" cs="2" s="1">
+<O>
+<![CDATA[湿度]]></O>
+<PrivilegeControl/>
+<Expand/>
+</C>
+<C c="6" r="2" cs="2" s="1">
+<O t="DSColumn">
+<Attributes dsName="ds4" columnName="F_VALUE"/>
+<Condition class="com.fr.data.condition.ListCondition"/>
+<Complex/>
+<RG class="com.fr.report.cell.cellattr.core.group.FunctionGrouper"/>
+<Result>
+<![CDATA[$$$+"°C"]]></Result>
+<Parameters/>
+</O>
+<PrivilegeControl/>
+<Expand dir="0"/>
+</C>
+<C c="0" r="3" s="1">
+<O>
+<![CDATA[序号]]></O>
+<PrivilegeControl/>
+<Expand extendable="1"/>
+</C>
+<C c="1" r="3" s="1">
+<O>
+<![CDATA[验收项目]]></O>
+<PrivilegeControl/>
+<Expand extendable="1"/>
+</C>
+<C c="2" r="3" s="1">
+<O>
+<![CDATA[操作要求]]></O>
+<PrivilegeControl/>
+<Expand extendable="1"/>
+</C>
+<C c="3" r="3" s="1">
+<O>
+<![CDATA[技术文件规定值]]></O>
+<PrivilegeControl/>
+<Expand extendable="1"/>
+</C>
+<C c="4" r="3" s="1">
+<O>
+<![CDATA[计量单位]]></O>
+<PrivilegeControl/>
+<Expand extendable="1"/>
+</C>
+<C c="5" r="3" s="1">
+<O>
+<![CDATA[接收实际值]]></O>
+<PrivilegeControl/>
+<Expand extendable="1"/>
+</C>
+<C c="6" r="3" s="1">
+<O>
+<![CDATA[结论]]></O>
+<PrivilegeControl/>
+<Expand extendable="1"/>
+</C>
+<C c="7" r="3" s="1">
+<O>
+<![CDATA[备注]]></O>
+<PrivilegeControl/>
+<Expand extendable="1"/>
+</C>
+<C c="0" r="4" s="1">
+<O t="Formula" class="Formula">
+<Attributes>
+<![CDATA[=seq()]]></Attributes>
+</O>
+<PrivilegeControl/>
+<Expand extendable="1" leftParentDefault="false" left="B5"/>
+</C>
+<C c="1" r="4" s="1">
+<O t="DSColumn">
+<Attributes dsName="ds2" columnName="F_YSXM"/>
+<Complex/>
+<RG class="com.fr.report.cell.cellattr.core.group.FunctionGrouper"/>
+<Parameters/>
+</O>
+<PrivilegeControl/>
+<Expand dir="0" extendable="1"/>
+</C>
+<C c="2" r="4" s="1">
+<O t="DSColumn">
+<Attributes dsName="ds2" columnName="F_CZYQ"/>
+<Complex/>
+<RG class="com.fr.report.cell.cellattr.core.group.FunctionGrouper"/>
+<Parameters/>
+</O>
+<PrivilegeControl/>
+<Expand dir="0" extendable="1"/>
+</C>
+<C c="3" r="4" s="1">
+<O t="DSColumn">
+<Attributes dsName="ds2" columnName="F_YQZ"/>
+<Complex/>
+<RG class="com.fr.report.cell.cellattr.core.group.FunctionGrouper"/>
+<Parameters/>
+</O>
+<PrivilegeControl/>
+<Expand dir="0" extendable="1"/>
+</C>
+<C c="4" r="4" s="1">
+<O t="DSColumn">
+<Attributes dsName="ds2" columnName="F_DW"/>
+<Complex/>
+<RG class="com.fr.report.cell.cellattr.core.group.FunctionGrouper"/>
+<Parameters/>
+</O>
+<PrivilegeControl/>
+<Expand dir="0" extendable="1"/>
+</C>
+<C c="5" r="4" s="1">
+<O t="DSColumn">
+<Attributes dsName="ds2" columnName="F_SCZ"/>
+<Complex/>
+<RG class="com.fr.report.cell.cellattr.core.group.FunctionGrouper"/>
+<Parameters/>
+</O>
+<PrivilegeControl/>
+<Expand dir="0" extendable="1"/>
+</C>
+<C c="6" r="4" s="1">
+<O t="DSColumn">
+<Attributes dsName="ds2" columnName="F_SFHG"/>
+<Complex/>
+<RG class="com.fr.report.cell.cellattr.core.group.FunctionGrouper"/>
+<Parameters/>
+</O>
+<PrivilegeControl/>
+<Expand dir="0" extendable="1"/>
+</C>
+<C c="7" r="4" s="1">
+<PrivilegeControl/>
+<Expand extendable="1"/>
+</C>
+<C c="0" r="5" s="3">
+<PrivilegeControl/>
+<Expand extendable="1"/>
+</C>
+<C c="1" r="5" s="3">
+<PrivilegeControl/>
+<Expand extendable="1"/>
+</C>
+<C c="2" r="5" s="3">
+<PrivilegeControl/>
+<Expand extendable="1"/>
+</C>
+<C c="3" r="5" s="3">
+<PrivilegeControl/>
+<Expand extendable="1"/>
+</C>
+<C c="4" r="5" s="3">
+<PrivilegeControl/>
+<Expand extendable="1"/>
+</C>
+<C c="5" r="5" s="1">
+<O>
+<![CDATA[结论]]></O>
+<PrivilegeControl/>
+<Expand extendable="1"/>
+</C>
+<C c="6" r="5" s="1">
+<O t="DSColumn">
+<Attributes dsName="ds1" columnName="F_JL"/>
+<Complex/>
+<RG class="com.fr.report.cell.cellattr.core.group.FunctionGrouper"/>
+<Parameters/>
+</O>
+<PrivilegeControl/>
+<Expand dir="0" extendable="1"/>
+</C>
+<C c="7" r="5" s="1">
+<PrivilegeControl/>
+<Expand extendable="1"/>
+</C>
+<C c="0" r="6" s="1">
+<O t="DSColumn">
+<Attributes dsName="ds5" columnName="F_NAME"/>
+<Complex/>
+<RG class="com.fr.report.cell.cellattr.core.group.FunctionGrouper"/>
+<Parameters/>
+</O>
+<PrivilegeControl/>
+<Expand dir="0"/>
+</C>
+<C c="1" r="6" s="4">
+<O t="DSColumn">
+<Attributes dsName="ds5" columnName="FILEPATH"/>
+<Condition class="com.fr.data.condition.ListCondition"/>
+<Complex/>
+<RG class="com.fr.report.cell.cellattr.core.group.FunctionGrouper"/>
+<Result>
+<![CDATA[Toimage("D:/ibms/attachFile/"+$$$)]]></Result>
+<Parameters/>
+</O>
+<PrivilegeControl/>
+<Expand dir="0"/>
+</C>
+<C c="2" r="6" s="3">
+<PrivilegeControl/>
+<Expand/>
+</C>
+<C c="3" r="6" s="3">
+<PrivilegeControl/>
+<Expand/>
+</C>
+<C c="4" r="6" s="3">
+<PrivilegeControl/>
+<Expand/>
+</C>
+<C c="5" r="6" s="3">
+<PrivilegeControl/>
+<Expand/>
+</C>
+<C c="6" r="6" s="3">
+<PrivilegeControl/>
+<Expand/>
+</C>
+<C c="7" r="6" s="3">
+<PrivilegeControl/>
+<Expand/>
+</C>
+</CellElementList>
+<ReportAttrSet>
+<ReportSettings headerHeight="0" footerHeight="0">
+<PaperSetting/>
+</ReportSettings>
+<Header reportPageType="0">
+<Background name="NullBackground"/>
+<LeftList/>
+<CenterList/>
+<RightList/>
+</Header>
+<Footer reportPageType="0">
+<Background name="NullBackground"/>
+<LeftList/>
+<CenterList/>
+<RightList/>
+</Footer>
+</ReportAttrSet>
+<PrivilegeControl/>
+</Report>
+<ReportParameterAttr>
+<Attributes showWindow="true" delayPlaying="true" windowPosition="1" align="0"/>
+<PWTitle>
+<![CDATA[参数]]></PWTitle>
+<Parameter>
+<Attributes name="acceptanceDate"/>
+<O t="Date">
+<![CDATA[1592755200000]]></O>
+</Parameter>
+</ReportParameterAttr>
+<StyleList>
+<Style horizontal_alignment="0" imageLayout="1">
+<FRFont name="SimSun" style="1" size="88"/>
+<Background name="NullBackground"/>
+<Border>
+<Top style="1"/>
+<Bottom style="1"/>
+<Left style="1"/>
+<Right style="1"/>
+</Border>
+</Style>
+<Style horizontal_alignment="0" imageLayout="1">
+<FRFont name="SimSun" style="0" size="72"/>
+<Background name="NullBackground"/>
+<Border>
+<Top style="1"/>
+<Bottom style="1"/>
+<Left style="1"/>
+<Right style="1"/>
+</Border>
+</Style>
+<Style horizontal_alignment="0" imageLayout="1">
+<FRFont name="SimSun" style="0" size="72"/>
+<Background name="NullBackground"/>
+<Border/>
+</Style>
+<Style imageLayout="1">
+<FRFont name="SimSun" style="0" size="72"/>
+<Background name="NullBackground"/>
+<Border>
+<Top style="1"/>
+<Bottom style="1"/>
+<Left style="1"/>
+<Right style="1"/>
+</Border>
+</Style>
+<Style horizontal_alignment="0" imageLayout="4">
+<FRFont name="SimSun" style="0" size="72"/>
+<Background name="NullBackground"/>
+<Border>
+<Top style="1"/>
+<Bottom style="1"/>
+<Left style="1"/>
+<Right style="1"/>
+</Border>
+</Style>
+</StyleList>
+<DesignerVersion DesignerVersion="IAA"/>
+<PreviewType PreviewType="0"/>
+</WorkBook>

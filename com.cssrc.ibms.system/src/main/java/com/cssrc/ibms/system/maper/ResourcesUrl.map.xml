@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+<mapper namespace="com.cssrc.ibms.system.model.ResourcesUrl">
+	<resultMap id="ResourcesUrl" type="com.cssrc.ibms.system.model.ResourcesUrl">
+		<id property="resUrlId" column="resUrlId" jdbcType="NUMERIC"/>
+		<result property="resId" column="resId" jdbcType="NUMERIC"/>
+		<result property="name" column="name" jdbcType="VARCHAR"/>
+		<result property="url" column="url" jdbcType="VARCHAR"/>
+	</resultMap>
+	
+	<sql id="columns">
+		resUrlId,resId,name,url
+	</sql>
+	
+	<sql id="dynamicWhere">
+		<where>
+			<if test="@Ognl@isNotEmpty(resUrlId)"> AND resUrlId  =#{resUrlId} </if>
+			<if test="@Ognl@isNotEmpty(resId)"> AND resId  =#{resId} </if>
+			<if test="@Ognl@isNotEmpty(name)"> AND name  LIKE #{name}  </if>
+			<if test="@Ognl@isNotEmpty(url)"> AND url  LIKE #{url}  </if>
+		</where>
+	</sql>
+
+	<insert id="add" parameterType="com.cssrc.ibms.system.model.ResourcesUrl">
+		INSERT INTO cwm_sys_resurl
+		(<include refid="columns"/>)
+		VALUES
+		(#{resUrlId,jdbcType=NUMERIC}, #{resId,jdbcType=NUMERIC}, #{name,jdbcType=VARCHAR}, #{url,jdbcType=VARCHAR})
+	</insert>
+	
+	<delete id="delById" parameterType="java.lang.Long">
+		DELETE FROM cwm_sys_resurl 
+		WHERE
+		resUrlId=#{resUrlId}
+	</delete>
+	
+	<update id="update" parameterType="com.cssrc.ibms.system.model.ResourcesUrl">
+		UPDATE cwm_sys_resurl SET
+		resId=#{resId,jdbcType=NUMERIC} , 
+		name=#{name,jdbcType=VARCHAR} , 
+		url=#{url,jdbcType=VARCHAR} 
+		WHERE
+		resUrlId=#{resUrlId}
+	</update>
+	
+	<select id="getById" parameterType="java.lang.Long" resultMap="ResourcesUrl">
+		SELECT <include refid="columns"/>
+		FROM cwm_sys_resurl
+		WHERE
+		resUrlId=#{resUrlId}
+	</select>
+	
+	<select id="getAll" resultMap="ResourcesUrl">
+		SELECT <include refid="columns"/>
+		FROM cwm_sys_resurl   
+		<include refid="dynamicWhere" />
+		<if test="@Ognl@isNotEmpty(orderField)">
+		order by ${orderField} ${orderSeq}
+		</if>
+		<if test="@Ognl@isEmpty(orderField)">
+		order by resUrlId  desc
+		</if>
+	</select>
+	
+	<select id="getByResId" parameterType="java.lang.Long" resultMap="ResourcesUrl">
+		SELECT <include refid="columns"/>
+		FROM cwm_sys_resurl
+		WHERE
+		resId=#{resId}
+	</select>
+	
+	<delete id="delByResId" parameterType="java.lang.Long">
+		DELETE FROM cwm_sys_resurl  WHERE resId=#{resId}
+	</delete>
+		
+	
+	<select id="getCurSystemResources" parameterType="java.lang.String"  resultType="com.cssrc.ibms.system.model.ResourcesUrlExt">
+		SELECT DISTINCT A.url as url,D.alias AS role
+		FROM
+		cwm_sys_resurl A
+		INNER JOIN CWM_SYS_RES B ON (A.resId=B.resId)
+		LEFT JOIN CWM_SYS_ROLE_RES C ON (C.resId=B.resId)
+		LEFT JOIN CWM_SYS_ROLE D ON (D.roleId=C.roleId)
+	</select>
+	
+	
+</mapper>

@@ -1,0 +1,134 @@
+.table-grid {
+	border: 1px solid #dddddd;
+	border-spacing: 0;
+	/*margin-top: 10px;*/
+	width: 100%;
+	font-size: 15px;
+	/*table-layout: fixed\9;*/
+}
+
+.table-grid thead {
+	height: 32px;
+}
+
+.table-grid caption {
+	border-width: 1px 1px medium;
+	border-style: solid solid none;
+	border-color: rgb(168, 207, 235) rgb(168, 207, 235) currentColor;
+	height: 14px;
+	text-align: left;
+	/*color: #4092D0;*/
+	padding-top: 5px;
+	padding-left: 5px;
+	font-weight: bold;
+	background-color: rgb(223, 234, 251);
+}
+
+.table-grid th,
+th.sorted a,
+th.sortable a {
+	height: 35px;
+	background: #ebecef;
+	color: #333 !important;
+	font-size: 14px;
+	font-weight: bold;
+	white-space: nowrap;
+	margin-left: 10px;
+	padding: 0 5px;
+	box-sizing: border-box;
+	text-align: center;
+
+}
+
+.table-grid th {
+	/* border-right: 1px solid #d9d9d9;
+	border-bottom: 1px solid #d9d9d9;
+	width: 150px\9;*/
+	background: #ebecef!important;
+    border-right: 1px solid #dfdfdf;
+    border-bottom: 4px solid #d8dce5;
+    border-top: 1px solid #dfdfdf;
+}
+
+th.order1 a {
+  position: relative;
+}
+th.order1 a:after {
+   content: "\e80c";
+  font-family: "iconfont";
+  color:#fff;
+}
+
+th.order2 a {
+	position: relative;
+}
+th.order2 a:after{
+  content: "\e80b";
+  font-family: "iconfont";
+  color:#fff;
+}
+/*查询数据模板设置  */
+
+table tr[var="manageTr"]>td{
+	max-width: none;
+}
+table div[tabid='exportSetting'] td{
+	max-width: none;
+}
+.table-grid td {
+	border-bottom: 1px solid #d9d9d9;
+	border-right: 1px solid #d9d9d9;
+	height: 30px;
+	padding: 4px 4px 4px 5px;
+	font-size: 14px;
+	color: #666;
+	box-sizing: border-box;
+	white-space: nowrap;
+	max-width: 500px;
+	width: 500px\9;
+	text-overflow: ellipsis;
+	overflow: hidden;
+}
+
+.table-grid .even {
+	background-color: #eee;
+	height: 22px;
+}
+
+.table-grid .odd {
+	background-color: #f5f9ff;
+	height: 22px;
+}
+
+.table-grid .over {
+	background: #FDF4D7;
+}
+
+.table-grid input,
+.table-grid select,
+.table-grid textarea,
+.table-grid .Wdate {
+	display: inline-block;
+	background-color: #ffffff;
+	border: 1px solid #cccccc;
+	-webkit-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+	transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+	padding: 5px 6px;
+	vertical-align: middle;
+	font-family: inherit;
+	font-size: inherit;
+}
+
+.table-grid .hidden {
+	display: none;
+}
+
+input[type=checkbox] {
+	width: 15px;
+	height: 15px;
+	background: none;
+	padding: 0;
+	border: 0;
+	vertical-align: sub;
+}
+

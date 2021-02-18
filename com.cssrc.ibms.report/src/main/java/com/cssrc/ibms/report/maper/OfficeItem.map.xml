@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cssrc.ibms.report.model.OfficeItem">
+	<resultMap id="OfficeItem" type="com.cssrc.ibms.report.model.OfficeItem">
+		<result column="ID" property="id" jdbcType="VARCHAR" />
+		<result column="OFFICE_ID" property="officeId" jdbcType="VARCHAR" />
+		<result column="TABLE_NAME" property="tableName" jdbcType="VARCHAR" />
+		<result column="COLUMN_NAME" property="columnName" jdbcType="VARCHAR" />
+		<result column="COLUMN_ID" property="columnId" jdbcType="VARCHAR" />
+		<result column="RELATIONS" property="relations" jdbcType="VARCHAR" />
+		<result column="TYPE" property="type" jdbcType="VARCHAR" />
+		<result property="items_updateId" column="items_updateId" jdbcType="NUMERIC"/>
+		<result property="items_updateTime" column="items_updateTime" jdbcType="DATE"/>
+		<result property="items_creatorId" column="items_creatorId" jdbcType="NUMERIC"/>
+		<result property="items_createTime" column="items_createTime" jdbcType="DATE"/>
+	</resultMap>
+
+	<sql id="columns">
+		ID, OFFICE_ID, TABLE_NAME,COLUMN_NAME ,COLUMN_ID,RELATIONS,TYPE,items_updateId,items_updateTime,items_creatorId,items_createTime
+	</sql>
+
+	<insert id="add" parameterType="com.cssrc.ibms.report.model.OfficeItem">
+		INSERT INTO cwm_sys_office_items
+		(
+		<include refid="columns" />
+		)
+		values
+		(#{id,jdbcType=BIGINT},
+		#{officeId,jdbcType=BIGINT},
+		#{tableName,jdbcType=VARCHAR},
+		#{columnName,jdbcType=VARCHAR},
+		#{columnId,jdbcType=VARCHAR},
+		#{relations,jdbcType=VARCHAR},
+		#{type,jdbcType=VARCHAR},
+		#{items_updateId,jdbcType=NUMERIC},
+		#{items_updateTime,jdbcType=DATE},
+		#{items_creatorId,jdbcType=NUMERIC},
+		#{items_createTime,jdbcType=DATE}
+		)
+	</insert>
+	
+	<update id="update" parameterType="com.cssrc.ibms.report.model.OfficeItem">
+		update cwm_sys_office_items
+		set
+		OFFICE_ID=#{officeId,jdbcType=VARCHAR},
+		COLUMN_NAME=#{columnName,jdbcType=VARCHAR},
+		COLUMN_ID=#{columnId,jdbcType=VARCHAR},
+		RELATIONS=#{relations,jdbcType=VARCHAR},
+		TYPE=#{type,jdbcType=VARCHAR},
+		items_updateId=#{items_updateId,jdbcType=NUMERIC},
+		items_updateTime=#{items_updateTime,jdbcType=DATE},
+		items_creatorId=#{items_creatorId,jdbcType=NUMERIC},
+		items_createTime=#{items_createTime,jdbcType=DATE}
+		where ID=#{id,jdbcType=VARCHAR}
+	</update>
+		
+	<delete id="delById" parameterType="java.lang.Long">
+		delete from
+		cwm_sys_office_items
+		where ID = #{id,jdbcType=BIGINT}
+	</delete>
+
+	<select id="getItemByOfficeId" parameterType="java.lang.Long" resultMap="OfficeItem">
+		SELECT
+		<include refid="columns" />
+		FROM cwm_sys_office_items
+		WHERE IS_DELETE=0 and
+		OFFICE_ID=#{officeId}
+	</select>
+	
+	<delete id="deleteByOfficeId" parameterType="java.lang.Long">
+		delete from
+		cwm_sys_office_items
+		where OFFICE_ID = #{officeId,jdbcType=BIGINT}
+	</delete>
+	<!-- 逻辑删除 -->
+	<update id="updateDelete">
+		update cwm_sys_office_items
+		set IS_DELETE=1 ,
+		items_updateTime=#{items_updateTime},
+		items_updateId=#{items_updateId}
+		where ID = #{id}
+	</update>	
+		
+	<!-- 根据officeID逻辑删除 -->
+	<update id="updateDeleteByOfficeId">
+		update cwm_sys_office_items
+		set IS_DELETE=1 ,
+		items_updateTime=#{items_updateTime},
+		items_updateId=#{items_updateId}
+		where OFFICE_ID = #{officeId}
+	</update>		
+	
+</mapper>

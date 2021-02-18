@@ -1,0 +1,159 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<task name="整机B11附表1姿控发动机产品设计关键特性表-3" tableinstanceId="2144" path="1234->测试11" rwid="401" rwname="测试发次" version="9.0" postname="的方法" postinstanceid="1161" endtime="2017-11-30 16:49:18"><signs>
+		<sign signId="2254" name="测试人员" time="2017-11-30.16.49. 33. 0" signorder="1"/>
+	</signs>
+	<conditions/>
+	<rows rowsid="1">
+		<row rowid="1">
+			<cell type="FALSE" column="产品代号" columnid="5731" cellid="66330" order="2" textvalue="8FYD-60"/>
+			<cell type="FALSE" column="产品设计关键特性名称" columnid="5736" cellid="66335" order="7" textvalue="开启时间"/>
+			<cell type="TRUE" column="是否在成功数据包络范围内" columnid="5743" cellid="66342" order="14">
+				<operation type="2" cellid="66342" operationtype="128" resultid="22223" realcellid="66342" ildd="FALSE" iildd="FALSE" tighten="FALSE" err="TRUE" lastaction="FALSE" ismedia="TRUE" bitmapid=""/>
+			</cell>
+			<cell type="FALSE" column="序号" columnid="5734" cellid="66333" order="5" textvalue="1.0"/>
+			<cell type="TRUE" column="成功包络范围" columnid="5742" cellid="66341" order="13">
+				<operation type="2" cellid="66341" operationtype="128" resultid="22222" realcellid="66341" ildd="FALSE" iildd="FALSE" tighten="FALSE" err="TRUE" lastaction="FALSE" ismedia="TRUE" bitmapid=""/>
+			</cell>
+			<cell type="TRUE" column="本发实测" columnid="5741" cellid="66340" order="12">
+				<operation type="2" cellid="66340" operationtype="128" resultid="22221" realcellid="66340" ildd="FALSE" iildd="FALSE" tighten="FALSE" err="TRUE" lastaction="FALSE" ismedia="TRUE" bitmapid=""/>
+			</cell>
+			<cell type="FALSE" column="分类" columnid="5733" cellid="66332" order="4" textvalue="通过对组成单机产品的主要部（组）件设计过程分析，识别出的产品设计关键特性"/>
+			<cell type="FALSE" column="设计关键特性数值（范围）" columnid="5737" cellid="66336" order="8" textvalue="≤16ms"/>
+			<cell type="FALSE" column="对产品生产实现的要求" columnid="5740" cellid="66339" order="11" textvalue="在产品出厂时，在交付装配电测环节用同样测试设备和方法测试，并记录数据"/>
+			<cell type="FALSE" column="功能性能影响分析" columnid="5739" cellid="66338" order="10" textvalue="电磁活门的开启时间超差会导致推力室的启动响应速度减慢"/>
+			<cell type="FALSE" column="主要部（组）件名称" columnid="5735" cellid="66334" order="6" textvalue="B4820-00B电磁活门"/>
+			<cell type="FALSE" column="产品研制阶段" columnid="5732" cellid="66331" order="3" textvalue="S"/>
+			<cell type="FALSE" column="确定为设计关键特性的方法(开展的工作项目)" columnid="5738" cellid="66337" order="9" textvalue="通过产品特性分析确定"/>
+			<cell type="FALSE" column="单机产品名称" columnid="5730" cellid="66329" order="1" textvalue="姿控发动机"/>
+		</row>
+		<row rowid="3">
+			<cell type="FALSE" column="主要部（组）件名称" columnid="5735" cellid="66362" order="6" textvalue="B4820-00B电磁活门"/>
+			<cell type="FALSE" column="产品设计关键特性名称" columnid="5736" cellid="66363" order="7" textvalue="关闭时间"/>
+			<cell type="FALSE" column="分类" columnid="5733" cellid="66360" order="4" textvalue="通过对组成单机产品的主要部（组）件设计过程分析，识别出的产品设计关键特性"/>
+			<cell type="FALSE" column="产品代号" columnid="5731" cellid="66358" order="2" textvalue="8FYD-60"/>
+			<cell type="FALSE" column="确定为设计关键特性的方法(开展的工作项目)" columnid="5738" cellid="66365" order="9" textvalue="通过产品特性分析确定"/>
+			<cell type="FALSE" column="功能性能影响分析" columnid="5739" cellid="66366" order="10" textvalue="电磁活门的开启时间超差会导致推力室的启动响应速度减慢"/>
+			<cell type="TRUE" column="成功包络范围" columnid="5742" cellid="66369" order="13">
+				<operation type="2" cellid="66369" operationtype="128" resultid="22228" realcellid="66369" ildd="FALSE" iildd="FALSE" tighten="FALSE" err="TRUE" lastaction="FALSE" ismedia="TRUE" bitmapid=""/>
+			</cell>
+			<cell type="TRUE" column="本发实测" columnid="5741" cellid="66368" order="12">
+				<operation type="2" cellid="66368" operationtype="128" resultid="22227" realcellid="66368" ildd="FALSE" iildd="FALSE" tighten="FALSE" err="TRUE" lastaction="FALSE" ismedia="TRUE" bitmapid=""/>
+			</cell>
+			<cell type="FALSE" column="设计关键特性数值（范围）" columnid="5737" cellid="66364" order="8" textvalue="≤35ms"/>
+			<cell type="TRUE" column="是否在成功数据包络范围内" columnid="5743" cellid="66370" order="14">
+				<operation type="2" cellid="66370" operationtype="128" resultid="22229" realcellid="66370" ildd="FALSE" iildd="FALSE" tighten="FALSE" err="TRUE" lastaction="FALSE" ismedia="TRUE" bitmapid=""/>
+			</cell>
+			<cell type="FALSE" column="单机产品名称" columnid="5730" cellid="66357" order="1" textvalue="姿控发动机"/>
+			<cell type="FALSE" column="产品研制阶段" columnid="5732" cellid="66359" order="3" textvalue="S"/>
+			<cell type="FALSE" column="序号" columnid="5734" cellid="66361" order="5" textvalue="3.0"/>
+			<cell type="FALSE" column="对产品生产实现的要求" columnid="5740" cellid="66367" order="11" textvalue="在产品出厂时，在交付装配电测环节用同样测试设备和方法测试，并记录数据"/>
+		</row>
+		<row rowid="5">
+			<cell type="FALSE" column="对产品生产实现的要求" columnid="5740" cellid="66395" order="11" textvalue="在产品交付总装前，对常值耗气量进行复测"/>
+			<cell type="FALSE" column="产品研制阶段" columnid="5732" cellid="66387" order="3" textvalue="S"/>
+			<cell type="FALSE" column="产品设计关键特性名称" columnid="5736" cellid="66391" order="7" textvalue="常值耗气量（氮气）"/>
+			<cell type="FALSE" column="功能性能影响分析" columnid="5739" cellid="66394" order="10" textvalue="常值耗气量过大，会使姿控发动机增压气体不足"/>
+			<cell type="TRUE" column="是否在成功数据包络范围内" columnid="5743" cellid="66398" order="14">
+				<operation type="2" cellid="66398" operationtype="128" resultid="22234" realcellid="66398" ildd="FALSE" iildd="FALSE" tighten="FALSE" err="TRUE" lastaction="FALSE" ismedia="TRUE" bitmapid=""/>
+			</cell>
+			<cell type="FALSE" column="主要部（组）件名称" columnid="5735" cellid="66390" order="6" textvalue="B4100-00F减压器"/>
+			<cell type="FALSE" column="产品代号" columnid="5731" cellid="66386" order="2" textvalue="8FYD-60"/>
+			<cell type="TRUE" column="本发实测" columnid="5741" cellid="66396" order="12">
+				<operation type="2" cellid="66396" operationtype="128" resultid="22232" realcellid="66396" ildd="FALSE" iildd="FALSE" tighten="FALSE" err="TRUE" lastaction="FALSE" ismedia="TRUE" bitmapid=""/>
+			</cell>
+			<cell type="FALSE" column="分类" columnid="5733" cellid="66388" order="4" textvalue="通过对组成单机产品的主要部（组）件设计过程分析，识别出的产品设计关键特性"/>
+			<cell type="FALSE" column="序号" columnid="5734" cellid="66389" order="5" textvalue="5.0"/>
+			<cell type="FALSE" column="单机产品名称" columnid="5730" cellid="66385" order="1" textvalue="姿控发动机"/>
+			<cell type="FALSE" column="设计关键特性数值（范围）" columnid="5737" cellid="66392" order="8" textvalue="≤0.016MPa·L/s"/>
+			<cell type="FALSE" column="确定为设计关键特性的方法(开展的工作项目)" columnid="5738" cellid="66393" order="9" textvalue="通过FMEA分析确定"/>
+			<cell type="TRUE" column="成功包络范围" columnid="5742" cellid="66397" order="13">
+				<operation type="2" cellid="66397" operationtype="128" resultid="22233" realcellid="66397" ildd="FALSE" iildd="FALSE" tighten="FALSE" err="TRUE" lastaction="FALSE" ismedia="TRUE" bitmapid=""/>
+			</cell>
+		</row>
+		<row rowid="2">
+			<cell type="FALSE" column="功能性能影响分析" columnid="5739" cellid="66352" order="10" textvalue="电磁活门的开启时间超差会导致推力室的启动响应速度减慢"/>
+			<cell type="FALSE" column="产品研制阶段" columnid="5732" cellid="66345" order="3" textvalue="S"/>
+			<cell type="TRUE" column="成功包络范围" columnid="5742" cellid="66355" order="13">
+				<operation type="2" cellid="66355" operationtype="128" resultid="22225" realcellid="66355" ildd="FALSE" iildd="FALSE" tighten="FALSE" err="TRUE" lastaction="FALSE" ismedia="TRUE" bitmapid=""/>
+			</cell>
+			<cell type="FALSE" column="设计关键特性数值（范围）" columnid="5737" cellid="66350" order="8" textvalue="≤35ms"/>
+			<cell type="FALSE" column="对产品生产实现的要求" columnid="5740" cellid="66353" order="11" textvalue="在产品出厂时，在交付装配电测环节用同样测试设备和方法测试，并记录数据"/>
+			<cell type="FALSE" column="序号" columnid="5734" cellid="66347" order="5" textvalue="2.0"/>
+			<cell type="FALSE" column="产品代号" columnid="5731" cellid="66344" order="2" textvalue="8FYD-60"/>
+			<cell type="FALSE" column="单机产品名称" columnid="5730" cellid="66343" order="1" textvalue="姿控发动机"/>
+			<cell type="FALSE" column="分类" columnid="5733" cellid="66346" order="4" textvalue="通过对组成单机产品的主要部（组）件设计过程分析，识别出的产品设计关键特性"/>
+			<cell type="TRUE" column="本发实测" columnid="5741" cellid="66354" order="12">
+				<operation type="2" cellid="66354" operationtype="128" resultid="22224" realcellid="66354" ildd="FALSE" iildd="FALSE" tighten="FALSE" err="TRUE" lastaction="FALSE" ismedia="TRUE" bitmapid=""/>
+			</cell>
+			<cell type="FALSE" column="产品设计关键特性名称" columnid="5736" cellid="66349" order="7" textvalue="开启时间"/>
+			<cell type="FALSE" column="主要部（组）件名称" columnid="5735" cellid="66348" order="6" textvalue="B4830-00A电磁活门"/>
+			<cell type="FALSE" column="确定为设计关键特性的方法(开展的工作项目)" columnid="5738" cellid="66351" order="9" textvalue="通过产品特性分析确定"/>
+			<cell type="TRUE" column="是否在成功数据包络范围内" columnid="5743" cellid="66356" order="14">
+				<operation type="2" cellid="66356" operationtype="128" resultid="22226" realcellid="66356" ildd="FALSE" iildd="FALSE" tighten="FALSE" err="TRUE" lastaction="FALSE" ismedia="TRUE" bitmapid=""/>
+			</cell>
+		</row>
+		<row rowid="4">
+			<cell type="FALSE" column="主要部（组）件名称" columnid="5735" cellid="66376" order="6" textvalue="B4830-00A电磁活门"/>
+			<cell type="FALSE" column="序号" columnid="5734" cellid="66375" order="5" textvalue="4.0"/>
+			<cell type="FALSE" column="对产品生产实现的要求" columnid="5740" cellid="66381" order="11" textvalue="在产品出厂时，在交付装配电测环节用同样测试设备和方法测试，并记录数据"/>
+			<cell type="FALSE" column="单机产品名称" columnid="5730" cellid="66371" order="1" textvalue="姿控发动机"/>
+			<cell type="TRUE" column="本发实测" columnid="5741" cellid="66382" order="12">
+				<operation type="2" cellid="66382" operationtype="128" resultid="22230" realcellid="66382" ildd="FALSE" iildd="FALSE" tighten="FALSE" err="TRUE" lastaction="FALSE" ismedia="TRUE" bitmapid=""/>
+			</cell>
+			<cell type="FALSE" column="分类" columnid="5733" cellid="66374" order="4" textvalue="通过对组成单机产品的主要部（组）件设计过程分析，识别出的产品设计关键特性"/>
+			<cell type="TRUE" column="成功包络范围" columnid="5742" cellid="66383" order="13">
+				<operation type="2" cellid="66383" operationtype="128" resultid="22231" realcellid="66383" ildd="FALSE" iildd="FALSE" tighten="FALSE" err="TRUE" lastaction="FALSE" ismedia="TRUE" bitmapid=""/>
+			</cell>
+			<cell type="FALSE" column="设计关键特性数值（范围）" columnid="5737" cellid="66378" order="8" textvalue="≤62ms"/>
+			<cell type="FALSE" column="产品设计关键特性名称" columnid="5736" cellid="66377" order="7" textvalue="关闭时间"/>
+			<cell type="FALSE" column="确定为设计关键特性的方法(开展的工作项目)" columnid="5738" cellid="66379" order="9" textvalue="通过产品特性分析确定"/>
+			<cell type="TRUE" column="是否在成功数据包络范围内" columnid="5743" cellid="66384" order="14">
+				<operation type="2" cellid="66384" operationtype="128" resultid="22235" realcellid="66384" ildd="FALSE" iildd="FALSE" tighten="FALSE" err="TRUE" lastaction="FALSE" ismedia="TRUE" bitmapid=""/>
+			</cell>
+			<cell type="FALSE" column="产品代号" columnid="5731" cellid="66372" order="2" textvalue="8FYD-60"/>
+			<cell type="FALSE" column="产品研制阶段" columnid="5732" cellid="66373" order="3" textvalue="S"/>
+			<cell type="FALSE" column="功能性能影响分析" columnid="5739" cellid="66380" order="10" textvalue="电磁活门的开启时间超差会导致推力室的启动响应速度减慢"/>
+		</row>
+	</rows>
+	<rows rowsid="2">
+		<row rowid="1">
+			<cell type="TRUE" column="" columnid="13035596-4782-448a-93ab-f0453e33336c" cellid="10000003360031" order="5" textvalue="">
+				<operation type="2" cellid="10000003360031" operationtype="128" realcellid="10000003360031" resultid="10000003360031" value="bbb"/>
+				<operation type="1" cellid="10000003360031" operationtype="0" realcellid="10000003360031" resultid="10000003360032" value="is"/>
+			</cell>
+			<cell type="TRUE" column="" columnid="8092424f-38f9-4c92-adae-7a19741ff88b" cellid="10000003360029" order="4" textvalue="">
+				<operation type="1" cellid="10000003360029" operationtype="0" realcellid="10000003360029" resultid="10000003360030" value="is"/>
+				<operation type="2" cellid="10000003360029" operationtype="128" realcellid="10000003360029" resultid="10000003360029" value="aaa"/>
+			</cell>
+			<cell type="FALSE" column="" columnid="364c9b9f-b9f5-4cad-911b-b6d75c10f146" cellid="" order="3" textvalue="1"/>
+			<cell type="FALSE" column="" columnid="f95b17df-4d58-4a3d-9af6-f77d60409361" cellid="" order="1" textvalue="1#nbsp;#nbsp;#nbsp;#nbsp;#nbsp;#nbsp;#nbsp;#nbsp;#nbsp;#nbsp; #nbsp; #nbsp;"/>
+			<cell type="FALSE" column="" columnid="45e3c200-a5ea-476f-8ae3-af98339c703c" cellid="" order="2" textvalue="RQ-Ⅰ2,4↑"/>
+		</row>
+		<row rowid="2">
+			<cell type="TRUE" column="" columnid="13035596-4782-448a-93ab-f0453e33336c" cellid="10000003360035" order="5" textvalue="">
+				<operation type="1" cellid="10000003360035" operationtype="0" realcellid="10000003360035" resultid="10000003360036" value=""/>
+				<operation type="2" cellid="10000003360035" operationtype="128" realcellid="10000003360035" resultid="10000003360035" value="ddd"/>
+			</cell>
+			<cell type="FALSE" column="" columnid="45e3c200-a5ea-476f-8ae3-af98339c703c" cellid="" order="2" textvalue="RQ-Ⅰ2,4↓"/>
+			<cell type="FALSE" column="" columnid="f95b17df-4d58-4a3d-9af6-f77d60409361" cellid="" order="1" textvalue="2#nbsp;#nbsp;#nbsp;#nbsp;#nbsp;#nbsp;#nbsp;#nbsp;#nbsp;#nbsp; #nbsp; #nbsp;"/>
+			<cell type="TRUE" column="" columnid="8092424f-38f9-4c92-adae-7a19741ff88b" cellid="10000003360033" order="4" textvalue="">
+				<operation type="2" cellid="10000003360033" operationtype="128" realcellid="10000003360033" resultid="10000003360033" value="ccc"/>
+				<operation type="1" cellid="10000003360033" operationtype="0" realcellid="10000003360033" resultid="10000003360034" value=""/>
+			</cell>
+			<cell type="FALSE" column="" columnid="364c9b9f-b9f5-4cad-911b-b6d75c10f146" cellid="" order="3" textvalue="RQ-Ⅰ2,4↑+0.2"/>
+		</row>
+		<row rowid="3">
+			<cell type="FALSE" column="" columnid="45e3c200-a5ea-476f-8ae3-af98339c703c" cellid="" order="2" textvalue="RQ-Ⅰ1,3↑"/>
+			<cell type="FALSE" column="" columnid="f95b17df-4d58-4a3d-9af6-f77d60409361" cellid="" order="1" textvalue="3#nbsp;#nbsp;#nbsp;#nbsp;#nbsp;#nbsp;#nbsp;#nbsp;#nbsp;#nbsp; #nbsp; #nbsp;"/>
+			<cell type="FALSE" column="" columnid="364c9b9f-b9f5-4cad-911b-b6d75c10f146" cellid="" order="3" textvalue="RQ-Ⅰ2,4↑+0.25"/>
+			<cell type="TRUE" column="" columnid="13035596-4782-448a-93ab-f0453e33336c" cellid="10000003360039" order="5" textvalue="">
+				<operation type="1" cellid="10000003360039" operationtype="0" realcellid="10000003360039" resultid="10000003360040" value=""/>
+				<operation type="2" cellid="10000003360039" operationtype="128" realcellid="10000003360039" resultid="10000003360039" value="fff"/>
+			</cell>
+			<cell type="TRUE" column="" columnid="8092424f-38f9-4c92-adae-7a19741ff88b" cellid="10000003360037" order="4" textvalue="">
+				<operation type="1" cellid="10000003360037" operationtype="0" realcellid="10000003360037" resultid="10000003360038" value=""/>
+				<operation type="2" cellid="10000003360037" operationtype="128" realcellid="10000003360037" resultid="10000003360037" value="eee"/>
+			</cell>
+		</row>
+	</rows>
+</task>

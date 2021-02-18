@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+<mapper namespace="com.cssrc.ibms.dp.form.model.DefineCheckType">
+	<resultMap id="DefineCheckType" type="com.cssrc.ibms.dp.form.model.DefineCheckType">
+		<id property="ID" column="ID" jdbcType="NUMERIC"/>
+		<result property="name" column="F_NAME" jdbcType="VARCHAR"/>
+		<result property="shortname" column="F_SHORTNAME" jdbcType="VARCHAR"/>
+		<result property="type" column="F_TYPE" jdbcType="NUMERIC"/>
+		<result property="checkdescribe" column="F_DESCRIPTION" jdbcType="VARCHAR"/>
+		<result property="ILdd" column="F_ILDD" jdbcType="VARCHAR"/>
+		<result property="IILdd" column="F_IILDD" jdbcType="VARCHAR"/>
+		<result property="ycn" column="F_YCN" jdbcType="VARCHAR"/>
+		<result property="njljyq" column="F_NJLJYQ" jdbcType="VARCHAR"/>
+		<result property="zhycdz" column="F_ZHYCDZ" jdbcType="VARCHAR"/>
+		<result property="ifmedia" column="F_IFMEDIA" jdbcType="VARCHAR"/>
+		<result property="moduleID" column="F_TABLE_TEMP_ID" jdbcType="NUMERIC"/>
+	</resultMap>
+	<sql id="columns">
+		ID,F_NAME,F_SHORTNAME,F_TYPE,F_DESCRIPTION,F_ILDD,F_IILDD,F_YCN,F_NJLJYQ,F_ZHYCDZ,F_IFMEDIA,F_TABLE_TEMP_ID
+	</sql>
+
+	<insert id="add" parameterType="com.cssrc.ibms.dp.form.model.DefineCheckType">
+		INSERT INTO W_ITEMDEF
+		(ID,F_NAME,F_SHORTNAME,F_TYPE,F_DESCRIPTION,F_ILDD,F_IILDD,F_YCN,F_NJLJYQ,F_ZHYCDZ,F_IFMEDIA,F_TABLE_TEMP_ID)
+		VALUES
+		(#{ID,jdbcType=NUMERIC},
+		#{name,jdbcType=VARCHAR},
+		#{shortname,jdbcType=VARCHAR},
+		 #{type,jdbcType=NUMERIC},
+		 #{checkdescribe,jdbcType=VARCHAR},
+		 #{ILdd,jdbcType=VARCHAR},
+		 #{IILdd,jdbcType=VARCHAR},
+		  #{ycn,jdbcType=VARCHAR},
+		   #{njljyq,jdbcType=VARCHAR},
+		    #{zhycdz,jdbcType=VARCHAR},
+		     #{ifmedia,jdbcType=VARCHAR},
+		 #{moduleID,jdbcType=NUMERIC}
+		 )
+	</insert>	
+	<delete id="deleteById" >
+		DELETE FROM W_ITEMDEF WHERE F_TABLE_TEMP_ID=#{ID}
+	</delete>
+	
+	<select id="getByModelId" parameterType="java.util.Map" resultMap="DefineCheckType">
+		SELECT <include refid="columns"/> 
+		FROM W_ITEMDEF  WHERE F_TABLE_TEMP_ID=#{mid}
+	</select>
+</mapper>

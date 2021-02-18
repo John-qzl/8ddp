@@ -1,0 +1,1 @@
+CKFinder.customConfig=function(a){};

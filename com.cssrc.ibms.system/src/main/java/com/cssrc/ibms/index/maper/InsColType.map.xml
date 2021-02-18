@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cssrc.ibms.index.model.InsColType" >
+  <resultMap id="InsColType" type="com.cssrc.ibms.index.model.InsColType" >
+    <id column="TYPE_ID_" property="typeId" jdbcType="NUMERIC" />
+    <result column="NAME_" property="name" jdbcType="VARCHAR" />
+    <result column="KEY_" property="key" jdbcType="VARCHAR" />
+    <result column="URL_" property="url" jdbcType="VARCHAR" />
+    <result column="MORE_URL_" property="moreUrl" jdbcType="VARCHAR" />
+    <result column="LOAD_TYPE_" property="loadType" jdbcType="VARCHAR" />
+    <result column="TEMP_ID_" property="tempId" jdbcType="VARCHAR" />
+    <result column="TEMP_NAME_" property="tempName" jdbcType="VARCHAR" />
+    <result column="ICON_CLS_" property="iconCls" jdbcType="VARCHAR" />
+    <result column="MEMO_" property="memo" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME_" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="CREATE_BY_" property="createBy" jdbcType="VARCHAR" />
+    <result column="UPDATE_TIME_" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_BY_" property="updateBy" jdbcType="VARCHAR" />
+    <result column="ORG_ID_" property="orgId" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="columns" >
+    TYPE_ID_, NAME_, KEY_, URL_, MORE_URL_, LOAD_TYPE_, TEMP_ID_, TEMP_NAME_, ICON_CLS_, 
+    MEMO_, CREATE_TIME_, CREATE_BY_, UPDATE_TIME_, UPDATE_BY_, ORG_ID_
+  </sql>
+  
+  <sql id="dynamicWhere">
+		<where>
+			<if test="@Ognl@isNotEmpty(typeId)"> AND TYPE_ID_ =#{typeId} </if>
+			<if test="@Ognl@isNotEmpty(name)"> AND NAME_ LIKE #{name}  </if>
+			<if test="@Ognl@isNotEmpty(key)"> AND KEY_ ={key}  </if>
+			<if test="@Ognl@isNotEmpty(url)"> AND URL_=#{url}  </if>
+			<if test="@Ognl@isNotEmpty(moreUrl)"> AND MORE_URL_ = #{moreUrl}  </if>
+			<if test="@Ognl@isNotEmpty(loadType)"> AND LOAD_TYPE_ = #{loadType}  </if>
+			<if test="@Ognl@isNotEmpty(tempId)"> AND TEMP_ID_ = #{tempId}  </if>
+			<if test="@Ognl@isNotEmpty(tempName)"> AND TEMP_NAME_ LIKE #{tempName}  </if>
+			<if test="@Ognl@isNotEmpty(memo)"> AND MEMO_ = #{memo}  </if>
+			<if test="@Ognl@isNotEmpty(createBy)"> AND CREATE_BY_ = #{createBy}  </if>
+		</where>
+  </sql>
+  
+  
+  
+  <select id="getById" resultMap="InsColType" parameterType="java.lang.Long" >
+    select 
+    <include refid="columns" />
+    from ins_col_type
+    where TYPE_ID_=#{typeId}
+  </select>
+  
+  
+  <delete id="delById" parameterType="java.lang.Long" >
+    delete from ins_col_type
+    where TYPE_ID_ = #{typeId}
+  </delete>
+  
+  
+  <insert id="add" parameterType="com.cssrc.ibms.index.model.InsColType" >
+    insert into ins_col_type (
+    	<include refid="columns" />
+      )
+    values (#{typeId,jdbcType=NUMERIC}, #{name,jdbcType=VARCHAR}, #{key,jdbcType=VARCHAR}, 
+      #{url,jdbcType=VARCHAR}, #{moreUrl,jdbcType=VARCHAR}, #{loadType,jdbcType=VARCHAR}, 
+      #{tempId,jdbcType=VARCHAR}, #{tempName,jdbcType=VARCHAR}, #{iconCls,jdbcType=VARCHAR}, 
+      #{memo,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{createBy,jdbcType=VARCHAR}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{updateBy,jdbcType=VARCHAR}, #{orgId,jdbcType=VARCHAR}
+      )
+  </insert>
+
+
+  <update id="update" parameterType="com.cssrc.ibms.index.model.InsColType" >
+    update ins_col_type
+    set NAME_ = #{name,jdbcType=VARCHAR},
+      KEY_ = #{key,jdbcType=VARCHAR},
+      URL_ = #{url,jdbcType=VARCHAR},
+      MORE_URL_ = #{moreUrl,jdbcType=VARCHAR},
+      LOAD_TYPE_ = #{loadType,jdbcType=VARCHAR},
+      TEMP_ID_ = #{tempId,jdbcType=VARCHAR},
+      TEMP_NAME_ = #{tempName,jdbcType=VARCHAR},
+      ICON_CLS_ = #{iconCls,jdbcType=VARCHAR},
+      MEMO_ = #{memo,jdbcType=VARCHAR},
+      CREATE_TIME_ = #{createTime,jdbcType=TIMESTAMP},
+      CREATE_BY_ = #{createBy,jdbcType=VARCHAR},
+      UPDATE_TIME_ = #{updateTime,jdbcType=TIMESTAMP},
+      UPDATE_BY_ = #{updateBy,jdbcType=VARCHAR},
+      ORG_ID_ = #{orgId,jdbcType=VARCHAR}
+    where TYPE_ID_ = #{typeId}
+  </update>
+  
+  
+  	<select id="getAll" resultMap="InsColType">
+		SELECT
+		<include refid="columns" />
+		FROM ins_col_type
+		<include refid="dynamicWhere" />
+		<if test="@Ognl@isNotEmpty(orderField)">
+			order by ${orderField} ${orderSeq}
+		</if>
+		<if test="@Ognl@isEmpty(orderField)">
+			order by TYPE_ID_ desc
+		</if>
+	</select>
+	
+	  <select id="getByKey" parameterType="Map" resultMap="InsColType">
+		SELECT <include refid="columns"/> 
+		FROM ins_col_type 
+		WHERE KEY_=#{key} 
+		<if test="@Ognl@isNotEmpty(dataId)"> AND ORG_ID_=#{orgId}</if>  
+  	</select>
+	
+</mapper>

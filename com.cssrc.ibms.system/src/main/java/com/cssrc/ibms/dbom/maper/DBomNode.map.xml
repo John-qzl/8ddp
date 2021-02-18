@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cssrc.ibms.dbom.model.DBomNode">
+
+	<resultMap id="DBomNode" type="com.cssrc.ibms.dbom.model.DBomNode">
+		<id property="id" column="ID" jdbcType="NUMERIC" />
+		<result property="code" column="CODE" jdbcType="VARCHAR" />
+		<result property="name" column="NAME" jdbcType="VARCHAR" />
+		<result property="nodeType" column="NODE_TYPE" jdbcType="VARCHAR" />
+		<result property="dataSource" column="DATA_SOURCE" jdbcType="VARCHAR" />
+		<result property="targetDataSource" column="TARGET_DATA_SOURCE"
+			jdbcType="VARCHAR" />
+		<result property="targetDataRelation" column="TARGET_DATA_RELATION"
+			jdbcType="VARCHAR" />
+		<result property="showFiled" column="SHOW_FILED" jdbcType="VARCHAR" />
+		<result property="nodeKey" column="NODE_KEY" jdbcType="VARCHAR" />
+		<result property="pNodeKey" column="PNODE_KEY" jdbcType="VARCHAR" />
+		<result property="display" column="DISPLAY" jdbcType="VARCHAR" />
+		<result property="pcode" column="PCODE" jdbcType="VARCHAR" />
+		<result property="url" column="URL" jdbcType="VARCHAR" />
+		<result property="description" column="DESCRIPTION" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<sql id="columns">
+		ID,CODE,NAME,NODE_TYPE,DATA_SOURCE,TARGET_DATA_SOURCE,TARGET_DATA_RELATION,SHOW_FILED,NODE_KEY,PNODE_KEY,DISPLAY,PCODE,URL,DESCRIPTION
+	</sql>
+
+	<sql id="dynamicWhere">
+		<where>
+			<if test="@Ognl@isNotEmpty(id)"> AND ID =#{id} </if>
+			<if test="@Ognl@isNotEmpty(code)"> AND CODE =#{code} </if>
+			<if test="@Ognl@isNotEmpty(name)"> AND NAME LIKE #{name}  </if>
+			<if test="@Ognl@isNotEmpty(nodeType)"> AND NODE_TYPE =#{nodeType}  </if>
+			<if test="@Ognl@isNotEmpty(dataSource)"> AND DATA_SOURCE =#{dataSource}  </if>
+			<if test="@Ognl@isNotEmpty(targetDataSource)"> AND TARGET_DATA_SOURCE =#{targetDataSource} </if>
+			<if test="@Ognl@isNotEmpty(targetDataRelation)"> AND TARGET_DATA_RELATION =#{targetDataRelation} </if>
+			<if test="@Ognl@isNotEmpty(showFiled)"> AND SHOW_FILED =#{showFiled} </if>
+			<if test="@Ognl@isNotEmpty(nodeKey)"> AND NODE_KEY =#{nodeKey}  </if>
+			<if test="@Ognl@isNotEmpty(pNodeKey)"> AND PNODE_KEY =#{pNodeKey}  </if>
+			<if test="@Ognl@isNotEmpty(display)"> AND DISPLAY =#{display}  </if>
+			<if test="@Ognl@isNotEmpty(pcode)"> AND PCODE =#{pcode}  </if>
+			<if test="@Ognl@isNotEmpty(url)"> AND URL =#{url}  </if>
+			<if test="@Ognl@isNotEmpty(description)"> AND DESCRIPTION LIKE #{description} </if>
+		</where>
+	</sql>
+
+	<insert id="add" parameterType="com.cssrc.ibms.dbom.model.DBomNode">
+		INSERT INTO CWM_DBOM_NODE
+		(
+		<include refid="columns" />
+		)
+		VALUES
+		(
+		#{id,jdbcType=NUMERIC},
+		#{code,jdbcType=VARCHAR},
+		#{name,jdbcType=VARCHAR},
+		#{nodeType,jdbcType=VARCHAR},
+		#{dataSource,jdbcType=VARCHAR},
+		#{targetDataSource,jdbcType=VARCHAR},
+		#{targetDataRelation,jdbcType=VARCHAR},
+		#{showFiled,jdbcType=VARCHAR},
+		#{nodeKey,jdbcType=VARCHAR},
+		#{pNodeKey,jdbcType=VARCHAR},
+		#{display,jdbcType=VARCHAR},
+		#{pcode,jdbcType=VARCHAR},
+		#{url,jdbcType=VARCHAR},
+		#{description,jdbcType=VARCHAR}
+		)
+	</insert>
+
+	<delete id="delById" parameterType="java.lang.Long">
+		DELETE FROM CWM_DBOM_NODE
+		WHERE
+		ID=#{id}
+	</delete>
+
+	<update id="update" parameterType="com.cssrc.ibms.dbom.model.DBomNode">
+		UPDATE CWM_DBOM_NODE SET
+		CODE=#{code,jdbcType=VARCHAR} ,
+		NAME=#{name,jdbcType=VARCHAR} ,
+		NODE_TYPE=#{nodeType,jdbcType=VARCHAR} ,
+		DATA_SOURCE=#{dataSource,jdbcType=VARCHAR} ,
+		TARGET_DATA_SOURCE=#{targetDataSource,jdbcType=VARCHAR} ,
+		TARGET_DATA_RELATION=#{targetDataRelation,jdbcType=VARCHAR} ,
+		SHOW_FILED=#{showFiled,jdbcType=VARCHAR} ,
+		NODE_KEY=#{nodeKey,jdbcType=VARCHAR} ,
+		PNODE_KEY=#{pNodeKey,jdbcType=VARCHAR} ,
+		DISPLAY=#{display,jdbcType=VARCHAR} ,
+		PCODE=#{pcode,jdbcType=VARCHAR} ,
+		URL=#{url,jdbcType=VARCHAR} ,
+		DESCRIPTION=#{description,jdbcType=VARCHAR}
+		WHERE
+		ID=#{id}
+	</update>
+
+	<select id="getById" parameterType="java.lang.Long" resultMap="DBomNode">
+		SELECT
+		<include refid="columns" />
+		FROM CWM_DBOM_NODE
+		WHERE
+		ID=#{id}
+	</select>
+
+	<select id="getByCode" parameterType="java.lang.String"
+		resultMap="DBomNode">
+		SELECT
+		<include refid="columns" />
+		FROM CWM_DBOM_NODE
+		WHERE CODE = #{code}
+		ORDER BY ID ASC
+	</select>
+
+	<select id="getByPCode" parameterType="java.lang.String"
+		resultMap="DBomNode">
+		SELECT
+		<include refid="columns" />
+		FROM CWM_DBOM_NODE
+		WHERE PCODE = #{pcode}
+		ORDER BY ID ASC
+	</select>
+
+	<select id="getByName" parameterType="java.lang.String"
+		resultMap="DBomNode">
+		SELECT
+		<include refid="columns" />
+		FROM CWM_DBOM_NODE
+		WHERE NAME = #{name}
+		ORDER BY ID ASC
+	</select>
+
+	<select id="getAll" resultMap="DBomNode">
+		SELECT
+		<include refid="columns" />
+		FROM CWM_DBOM_NODE
+		<include refid="dynamicWhere" />
+		ORDER BY ID ASC
+	</select>
+
+	<select id="getByPCodeAndName" resultMap="DBomNode">
+		SELECT
+		<include refid="columns" />
+		FROM CWM_DBOM_NODE
+		WHERE NAME = #{name}
+		and PCODE=#{pcode}
+	</select>
+
+	<select id="getByDbomCode" resultMap="DBomNode">
+		SELECT
+		<include refid="columns" />
+		FROM CWM_DBOM_NODE
+		WHERE DBOM_CODE=#{dBomCode}
+	</select>
+
+
+</mapper>

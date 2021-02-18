@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+<mapper namespace="com.cssrc.ibms.system.model.SysParameter">
+	<resultMap id="SysParameter" type="com.cssrc.ibms.system.model.SysParameter">
+		<id property="id" column="ID" jdbcType="NUMERIC"/>
+		<result property="paramname" column="NAME" jdbcType="VARCHAR"/>
+		<result property="datatype" column="DATATYPE" jdbcType="VARCHAR"/>
+		<result property="paramvalue" column="VALUE" jdbcType="VARCHAR"/>
+		<result property="paramdesc" column="DESCRIPTION" jdbcType="VARCHAR"/>
+		<result property="type" column="TYPE" jdbcType="VARCHAR"/>
+	</resultMap>
+	
+	<sql id="columns">
+		ID,NAME,DATATYPE,VALUE,DESCRIPTION,TYPE
+	</sql>
+	
+	<sql id="dynamicWhere">
+		<where>
+			<if test="@Ognl@isNotEmpty(id)"> AND ID  =#{id} </if>
+			<if test="@Ognl@isNotEmpty(paramname)"> AND NAME  LIKE #{paramname}  </if>
+			<if test="@Ognl@isNotEmpty(datatype)"> AND DATATYPE  LIKE #{datatype}  </if>
+			<if test="@Ognl@isNotEmpty(paramvalue)"> AND VALUE  LIKE #{paramvalue}  </if>
+			<if test="@Ognl@isNotEmpty(paramdesc)"> AND DESCRIPTION  LIKE #{paramdesc}  </if>
+			<if test="@Ognl@isNotEmpty(type)"> AND TYPE  LIKE #{type}  </if>
+		</where>
+	</sql>
+
+	<update id="update" parameterType="com.cssrc.ibms.system.model.SysParameter">
+		UPDATE CWM_SYS_PARAMETER SET
+		NAME=#{paramname,jdbcType=VARCHAR},
+		DATATYPE=#{datatype,jdbcType=VARCHAR},
+		VALUE=#{paramvalue,jdbcType=VARCHAR},
+		DESCRIPTION=#{paramdesc,jdbcType=VARCHAR},
+		TYPE=#{type,jdbcType=VARCHAR} 
+		WHERE
+		ID=#{id}
+	</update>
+	
+	<insert id="add" parameterType="com.cssrc.ibms.system.model.Job">
+		INSERT INTO CWM_SYS_PARAMETER
+		(ID,NAME,DATATYPE,VALUE,DESCRIPTION,TYPE)
+		VALUES
+		(#{id,jdbcType=NUMERIC}, #{paramname,jdbcType=VARCHAR}, #{datatype,jdbcType=VARCHAR}, 
+		#{paramvalue,jdbcType=VARCHAR}, #{paramdesc,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR})
+	</insert>
+		    
+	<select id="getById" parameterType="java.lang.Long" resultMap="SysParameter">
+		SELECT <include refid="columns"/>
+		FROM CWM_SYS_PARAMETER
+		WHERE
+		ID=#{id}
+	</select>
+	
+	<select id="getByParamname" parameterType="java.lang.String" resultMap="SysParameter">
+		SELECT <include refid="columns"/>
+		FROM CWM_SYS_PARAMETER
+		WHERE
+		NAME=#{paramName,jdbcType=VARCHAR}
+	</select>
+	
+	<select id="getAll" resultMap="SysParameter">
+		SELECT <include refid="columns"/>
+		FROM CWM_SYS_PARAMETER   
+		<include refid="dynamicWhere" />
+		<if test="@Ognl@isNotEmpty(orderField)">
+		order by ${orderField} ${orderSeq}
+		</if>
+	</select>
+	
+	
+	<!-- 判断参数名称是否存在 -->
+	<select id="isExistParamName" resultType="int">
+	  SELECT count(*) amount FROM CWM_SYS_PARAMETER where NAME=#{paramname}
+	</select>
+	
+	<!-- 判断参数是否存在 -->
+	<select id="isExistParam" resultType="int">
+	  SELECT count(*) amount FROM CWM_SYS_PARAMETER where NAME=#{paramname} and ID!=#{id}
+	</select>
+	
+	<update id="updCategory">
+		UPDATE CWM_SYS_PARAMETER SET type=#{type} where id
+		in
+		<foreach collection="parameterIds" index="index" item="parameterId"
+			open="(" close=")" separator=",">
+			#{parameterId}
+		</foreach>
+	</update>
+	
+	<!-- 获取系统参数分类 -->
+	<select id="getType" resultType="java.util.HashMap">
+	  SELECT DISTINCT type as "type" FROM CWM_SYS_PARAMETER WHERE type IS NOT NULL
+	</select>
+</mapper>

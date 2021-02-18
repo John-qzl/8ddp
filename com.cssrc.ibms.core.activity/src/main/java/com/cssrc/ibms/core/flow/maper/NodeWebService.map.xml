@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cssrc.ibms.core.flow.model.NodeWebService">
+	<resultMap id="NodeWebService" type="com.cssrc.ibms.core.flow.model.NodeWebService">
+		<id property="id" column="ID" jdbcType="NUMERIC" />
+		<result property="actDefId" column="ACTDEFID" jdbcType="VARCHAR" />
+		<result property="nodeId" column="NODEID" jdbcType="VARCHAR" />
+		<result property="document" column="DOCUMENT" jdbcType="CLOB" />
+	</resultMap>
+
+	<sql id="columns">
+		ID,ACTDEFID,NODEID,DOCUMENT
+	</sql>
+
+	<sql id="dynamicWhere">
+		<where>
+			<if test="@Ognl@isNotEmpty(id)"> AND ID =#{id} </if>
+			<if test="@Ognl@isNotEmpty(actDefId)"> AND ACTDEFID LIKE '%${actDefId}%'  </if>
+			<if test="@Ognl@isNotEmpty(nodeId)"> AND NODEID LIKE '%${nodeId}%'  </if>
+		</where>
+	</sql>
+
+	<insert id="add" parameterType="com.cssrc.ibms.core.flow.model.NodeWebService">
+		INSERT INTO IBMS_NODE_WEBSERVICE
+		(
+		<include refid="columns" />
+		)
+		VALUES
+		(#{id,jdbcType=NUMERIC},
+		#{actDefId,jdbcType=VARCHAR},
+		#{nodeId,jdbcType=VARCHAR},
+		#{document,jdbcType=CLOB})
+	</insert>
+
+	<delete id="delById" parameterType="java.lang.Long">
+		DELETE FROM
+		IBMS_NODE_WEBSERVICE
+		WHERE
+		ID=#{id}
+	</delete>
+
+	<delete id="delByActDefId" parameterType="java.lang.String">
+		DELETE FROM
+		IBMS_NODE_WEBSERVICE
+		WHERE
+		ACTDEFID=#{actDefId}
+	</delete>
+
+	<update id="update" parameterType="com.cssrc.ibms.core.flow.model.NodeWebService">
+		UPDATE IBMS_NODE_WEBSERVICE
+		SET
+		ACTDEFID=#{actDefId,jdbcType=VARCHAR},
+		NODEID=#{nodeId,jdbcType=VARCHAR},
+		DOCUMENT=#{document,jdbcType=CLOB}
+		WHERE
+		ID=#{id}
+	</update>
+
+	<select id="getById" parameterType="java.lang.Long" resultMap="NodeWebService">
+		SELECT
+		<include refid="columns" />
+		FROM IBMS_NODE_WEBSERVICE
+		WHERE
+		ID=#{id}
+	</select>
+
+	<select id="getAll" resultMap="NodeWebService">
+		SELECT
+		<include refid="columns" />
+		FROM IBMS_NODE_WEBSERVICE
+		<include refid="dynamicWhere" />
+		<if test="@Ognl@isNotEmpty(orderField)">
+			order by ${orderField} ${orderSeq}
+		</if>
+		<if test="@Ognl@isEmpty(orderField)">
+			order by ID desc
+		</if>
+	</select>
+
+	<select id="getNodeWebService" parameterType="Map" resultMap="NodeWebService">
+		SELECT
+		<include refid="columns" />
+		FROM IBMS_NODE_WEBSERVICE
+		where
+		nodeId=#{nodeId}
+		and actDefId=#{actDefId}
+	</select>
+
+	<select id="getAllNodeWebService" parameterType="Map" resultMap="NodeWebService">
+		SELECT
+		<include refid="columns" />
+		FROM IBMS_NODE_WEBSERVICE
+		where
+		nodeId=#{nodeId}
+		and actDefId=#{actDefId}
+	</select>
+
+	<select id="getByActDefId" parameterType="java.lang.String"
+		resultMap="NodeWebService">
+		SELECT
+		<include refid="columns" />
+		FROM IBMS_NODE_WEBSERVICE
+		where
+		actDefId=#{actDefId}
+	</select>
+</mapper>

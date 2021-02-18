@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding">
+    <file url="file://$PROJECT_DIR$" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/com.cssrc.ibms.core" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/com.cssrc.ibms.core.activity" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/com.cssrc.ibms.core.form" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/com.cssrc.ibms.core.jms" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/com.cssrc.ibms.core.log" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/com.cssrc.ibms.core.resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/com.cssrc.ibms.core.rpc" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/com.cssrc.ibms.core.sysuser" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/com.cssrc.ibms.core.util" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/com.cssrc.ibms.imtools" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/com.cssrc.ibms.migration" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/com.cssrc.ibms.portal" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/com.cssrc.ibms.report" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/com.cssrc.ibms.rtx" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/com.cssrc.ibms.statistics" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/com.cssrc.ibms.synchronization" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/com.cssrc.ibms.system" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/com.cssrc.ibms.webPortal" charset="UTF-8" />
+  </component>
+</project>

@@ -1,0 +1,80 @@
+<?xml version="1.0"?>
+<project
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.cssrc.ibms</groupId>
+		<artifactId>com.cssrc.ibms</artifactId>
+		<version>1.0-SNAPSHOT</version>
+	</parent>
+	<artifactId>com.cssrc.ibms.portal</artifactId>
+	<packaging>war</packaging>
+	<name>com.cssrc.ibms.portal</name>
+
+	<dependencies>
+		<!-- 核心包 -->
+		<dependency>
+			<groupId>com.cssrc.ibms</groupId>
+			<artifactId>com.cssrc.ibms.core</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<!-- log日志 包 -->
+		<dependency>
+			<groupId>com.cssrc.ibms</groupId>
+			<artifactId>com.cssrc.ibms.core.log</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<!-- jms消息组件 -->
+		<dependency>
+			<groupId>com.cssrc.ibms</groupId>
+			<artifactId>com.cssrc.ibms.core.jms</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<!-- util 包 -->
+		<dependency>
+			<groupId>com.cssrc.ibms</groupId>
+			<artifactId>com.cssrc.ibms.core.util</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<!-- 表单组件 -->
+		<dependency>
+			<groupId>com.cssrc.ibms</groupId>
+			<artifactId>com.cssrc.ibms.core.form</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<!-- 流程组件 -->
+		<dependency>
+			<groupId>com.cssrc.ibms</groupId>
+			<artifactId>com.cssrc.ibms.core.activity</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<!-- 用户权限登录组件 -->
+		<dependency>
+			<groupId>com.cssrc.ibms</groupId>
+			<artifactId>com.cssrc.ibms.core.sysuser</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<!-- 系统基础组件 -->
+		<dependency>
+			<groupId>com.cssrc.ibms</groupId>
+			<artifactId>com.cssrc.ibms.system</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<!-- 报表组件 -->
+		<dependency>
+			<groupId>com.cssrc.ibms</groupId>
+			<artifactId>com.cssrc.ibms.report</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<!-- resources组件 -->
+		<dependency>
+			<groupId>com.cssrc.ibms</groupId>
+			<artifactId>com.cssrc.ibms.core.resources</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+	</dependencies>
+	<build>
+		<finalName>ibms</finalName>
+	</build>
+</project>

@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cssrc.ibms.report.model.ReportTemplate">
+	<resultMap id="ReportTemplate" type="com.cssrc.ibms.report.model.ReportTemplate">
+		<id column="REPORTID" property="reportid" jdbcType="BIGINT" />
+		<result column="TITLE" property="title" jdbcType="VARCHAR" />
+		<result column="DESCP" property="descp" jdbcType="VARCHAR" />
+		<result column="REPORTLOCATION" property="reportlocation"
+			jdbcType="VARCHAR" />
+		<result column="CREATETIME" property="createtime" jdbcType="TIMESTAMP" />
+		<result column="UPDATETIME" property="updatetime" jdbcType="TIMESTAMP" />
+		<result column="REPORTTYPE" property="reporttype" jdbcType="VARCHAR" />
+		<result column="TYPEID" property="typeid" jdbcType="BIGINT" />
+	</resultMap>
+
+	<sql id="columns">
+		REPORTID, TITLE, DESCP, REPORTLOCATION, CREATETIME,
+		UPDATETIME, REPORTTYPE, TYPEID
+	</sql>
+
+	<sql id="dynamicWhere">
+		<where>
+			<if test="@Ognl@isNotEmpty(reportid)"> AND REPORTID =#{reportid} </if>
+			<if test="@Ognl@isNotEmpty(title)"> AND TITLE LIKE #{title} </if>
+			<if test="@Ognl@isNotEmpty(typeid)"> AND TYPEID =#{typeid} </if>
+		</where>
+	</sql>
+
+	<insert id="add" parameterType="com.cssrc.ibms.report.model.ReportTemplate">
+		INSERT INTO cwm_sys_report_template
+		(
+		<include refid="columns" />
+		)
+		VALUES
+		(#{reportid,jdbcType=BIGINT},
+		#{title,jdbcType=VARCHAR},
+		#{descp,jdbcType=VARCHAR},
+		#{reportlocation,jdbcType=VARCHAR},
+		#{createtime,jdbcType=TIMESTAMP},
+		#{updatetime,jdbcType=TIMESTAMP},
+		#{reporttype,jdbcType=VARCHAR},
+		#{typeid,jdbcType=BIGINT}
+		)
+	</insert>
+
+	<delete id="delById" parameterType="java.lang.Long">
+		DELETE FROM
+		cwm_sys_report_template
+		WHERE
+		REPORTID=#{reportid}
+	</delete>
+
+	<update id="update" parameterType="com.cssrc.ibms.report.model.ReportTemplate">
+		update cwm_sys_report_template
+		set TITLE = #{title,jdbcType=VARCHAR},
+		DESCP =
+		#{descp,jdbcType=VARCHAR},
+		REPORTLOCATION =
+		#{reportlocation,jdbcType=VARCHAR},
+		CREATETIME =
+		#{createtime,jdbcType=TIMESTAMP},
+		UPDATETIME =
+		#{updatetime,jdbcType=TIMESTAMP},
+		REPORTTYPE =
+		#{reporttype,jdbcType=VARCHAR},
+		TYPEID = #{typeid,jdbcType=BIGINT}
+		where REPORTID = #{reportid,jdbcType=BIGINT}
+	</update>
+
+	<select id="getById" parameterType="java.lang.Long" resultMap="ReportTemplate">
+		SELECT
+		<include refid="columns" />
+		FROM cwm_sys_report_template
+		WHERE
+		REPORTID=#{reportid}
+	</select>
+
+
+	<select id="getAll" resultMap="ReportTemplate">
+		SELECT
+		<include refid="columns" />
+		FROM cwm_sys_report_template
+		<include refid="dynamicWhere" />
+	</select>
+
+	<select id="getByTitle" parameterType="java.lang.String" resultMap="ReportTemplate">
+		SELECT
+		<include refid="columns" />
+		FROM cwm_sys_report_template
+		WHERE
+		TITLE=#{title}
+	</select>
+
+</mapper>

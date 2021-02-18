@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+<mapper namespace="com.cssrc.ibms.dp.form.model.CheckResultCarry">
+	<resultMap id="CheckResultCarry" type="com.cssrc.ibms.dp.form.model.CheckResultCarry">
+		<id property="ID" column="ID" jdbcType="NUMERIC"/>
+		<result property="result" column="F_RESULT" jdbcType="VARCHAR"/>
+		<result property="value" column="F_VALUE" jdbcType="VARCHAR"/>
+		<result property="ifnumm" column="F_IFNUMM" jdbcType="VARCHAR"/>
+		<result property="sketchmap" column="F_SKETCHMAP" jdbcType="VARCHAR"/>
+		<result property="itemID" column="F_ITEMDEF_ID" jdbcType="VARCHAR"/>
+		<result property="instantID" column="F_TB_INSTAN" jdbcType="VARCHAR"/>
+	</resultMap>
+	<sql id="columns">
+		ID,F_RESULT,F_VALUE,F_IFNUMM,F_SKETCHMAP,F_ITEMDEF_ID,F_TB_INSTAN
+	</sql>
+	<insert id="add" parameterType="com.cssrc.ibms.dp.form.model.CheckResultCarry">
+		INSERT INTO W_CK_RESULT_CARRY
+		(ID,F_RESULT,F_VALUE,F_IFNUMM,F_SKETCHMAP,F_ITEMDEF_ID,F_TB_INSTAN)
+		VALUES
+		(#{ID,jdbcType=NUMERIC},
+		 #{result,jdbcType=VARCHAR},
+		 #{value,jdbcType=VARCHAR},
+		  #{ifnumm,jdbcType=VARCHAR},
+		  #{sketchmap,jdbcType=VARCHAR},
+		  #{itemID,jdbcType=NUMERIC},
+		   #{instantID,jdbcType=NUMERIC}
+		 )
+	</insert>	
+	
+	<update id="update" parameterType="com.cssrc.ibms.dp.form.model.CheckResultCarry">
+		UPDATE W_CK_RESULT_CARRY SET F_VALUE=#{value,jdbcType=VARCHAR} WHERE ID=#{ID,jdbcType=NUMERIC}
+	</update>
+	<update id="update2" parameterType="com.cssrc.ibms.dp.form.model.CheckResultCarry">
+		UPDATE W_CK_RESULT_CARRY SET F_VALUE=#{value,jdbcType=VARCHAR} WHERE F_ITEMDEF_ID=#{itemID,jdbcType=NUMERIC}
+		AND F_TB_INSTAN=#{instantID,jdbcType=NUMERIC}
+	</update>
+	<select id="getById" parameterType="java.util.Map" resultMap="CheckResultCarry">
+		SELECT <include refid="columns"/> 
+		FROM W_CK_RESULT_CARRY  WHERE ID=#{Id}
+	</select>
+</mapper>

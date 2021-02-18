@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cssrc.ibms.system.model.Dictionary">
+	<resultMap id="Dictionary" type="com.cssrc.ibms.system.model.Dictionary">
+		<id property="dicId" column="dicId" jdbcType="NUMERIC" />
+		<result property="typeId" column="typeId" jdbcType="NUMERIC" />
+		<result property="itemKey" column="itemKey" jdbcType="VARCHAR" />
+		<result property="itemName" column="itemName" jdbcType="VARCHAR" />
+		<result property="itemValue" column="itemValue" jdbcType="VARCHAR" />
+		<result property="descp" column="descp" jdbcType="VARCHAR" />
+		<result property="sn" column="sn" jdbcType="NUMERIC" />
+		<result property="nodePath" column="nodePath" jdbcType="VARCHAR" />
+		<result property="parentId" column="parentId" jdbcType="NUMERIC" />
+		<result property="dic_delFlag" column="dic_delFlag" jdbcType="NUMERIC" />
+		<result property="dic_updateId" column="dic_updateId" jdbcType="NUMERIC" />
+		<result property="dic_updateTime" column="dic_updateTime"
+			jdbcType="DATE" />
+		<result property="dic_creatorId" column="dic_creatorId"
+			jdbcType="NUMERIC" />
+		<result property="dic_createTime" column="dic_createTime"
+			jdbcType="DATE" />
+	</resultMap>
+
+	<sql id="columns">
+		dicId,typeId,itemKey,itemName,itemValue,descp,sn,nodePath,parentId,dic_updateId,dic_updateTime,dic_creatorId,dic_createTime,dic_delFlag
+	</sql>
+
+	<sql id="dynamicWhere">
+		<where>
+			<if test="@Ognl@isNotEmpty(itemName)"> AND itemName LIKE #{itemName}  </if>
+			<if test="@Ognl@isNotEmpty(itemKey)"> AND itemKey LIKE #{itemKey}  </if>
+			<if test="@Ognl@isNotEmpty(nodePath)"> AND nodePath LIKE #{nodePath}  </if>
+		</where>
+	</sql>
+
+	<insert id="add" parameterType="com.cssrc.ibms.system.model.Dictionary">
+		INSERT INTO CWM_SYS_DIC
+		(
+		<include refid="columns" />
+		)
+		VALUES
+		(#{dicId,jdbcType=NUMERIC}, #{typeId,jdbcType=NUMERIC},
+		#{itemKey,jdbcType=VARCHAR},
+		#{itemName,jdbcType=VARCHAR},
+		#{itemValue,jdbcType=VARCHAR}, #{descp,jdbcType=VARCHAR},
+		#{sn,jdbcType=NUMERIC}, #{nodePath,jdbcType=VARCHAR},
+		#{parentId,jdbcType=NUMERIC},
+		#{dic_updateId,jdbcType=NUMERIC},#{dic_updateTime,jdbcType=DATE},#{dic_creatorId,jdbcType=NUMERIC},
+		#{dic_createTime,jdbcType=DATE},#{dic_delFlag,jdbcType=NUMERIC})
+	</insert>
+
+	<delete id="delById" parameterType="java.lang.Long">
+		DELETE FROM CWM_SYS_DIC WHERE
+		dicId=#{dicId}
+	</delete>
+
+	<delete id="delByTypeId" parameterType="java.lang.Long">
+		DELETE FROM CWM_SYS_DIC
+		WHERE typeId=#{typeId}
+	</delete>
+
+	<update id="update" parameterType="com.cssrc.ibms.system.model.Dictionary">
+		UPDATE CWM_SYS_DIC SET
+		typeId=#{typeId,jdbcType=NUMERIC} ,
+		itemKey=#{itemKey,jdbcType=VARCHAR} ,
+		itemName=#{itemName,jdbcType=VARCHAR} ,
+		itemValue=#{itemValue,jdbcType=VARCHAR} ,
+		descp=#{descp,jdbcType=VARCHAR} ,
+		sn=#{sn,jdbcType=NUMERIC} ,
+		nodePath=#{nodePath,jdbcType=VARCHAR} ,
+		parentId=#{parentId,jdbcType=NUMERIC} ,
+		dic_delFlag
+		=#{dic_delFlag,jdbcType=NUMERIC},
+		<if test="@Ognl@isNotEmpty(dic_creatorId)">
+			dic_creatorId=#{dic_creatorId,jdbcType=NUMERIC} ,
+		</if>
+		<if test="@Ognl@isNotEmpty(dic_createTime)">
+			dic_createTime=#{dic_createTime,jdbcType=DATE} ,
+		</if>
+		dic_updateId=#{dic_updateId,jdbcType=NUMERIC} ,
+		dic_updateTime=#{dic_updateTime,jdbcType=DATE}
+		WHERE
+		dicId=#{dicId}
+	</update>
+
+	<update id="updateStatusByPath" parameterType="java.util.Map">
+		UPDATE CWM_SYS_DIC
+		SET dic_delFlag
+		=#{status},dic_updateTime=#{updateTime,jdbcType=DATE},dic_updateId=#{currentUserId}
+		WHERE nodepath like #{path}
+	</update>
+
+	<update id="updateStatusByTypeId" parameterType="java.util.Map">
+		UPDATE
+		CWM_SYS_DIC SET dic_delFlag
+		=#{status},dic_updateTime=#{updateTime,jdbcType=DATE},dic_updateId=#{currentUserId}
+		WHERE typeId = #{typeId}
+	</update>
+
+	<select id="getById" parameterType="java.lang.Long" resultMap="Dictionary">
+		SELECT
+		<include refid="columns" />
+		FROM CWM_SYS_DIC WHERE dicId=#{dicId}
+	</select>
+
+	<select id="getByTypeId" parameterType="java.lang.Long"
+		resultMap="Dictionary">
+		SELECT
+		<include refid="columns" />
+		FROM CWM_SYS_DIC WHERE typeId=#{typeId} order by sn ,dicId
+	</select>
+
+
+	<select id="getAll" resultMap="Dictionary" parameterType="java.util.Map">
+		SELECT
+		<include refid="columns" />
+		FROM CWM_SYS_DIC
+		<include refid="dynamicWhere" />
+		<if test="@Ognl@isNotEmpty(orderField)">
+			order by ${orderField} ${orderSeq}
+		</if>
+		<if test="@Ognl@isEmpty(orderField)">
+			order by sn
+		</if>
+	</select>
+
+	<select id="getByNodePath" resultMap="Dictionary">
+		SELECT
+		<include refid="columns" />
+		FROM CWM_SYS_DIC
+		WHERE
+		nodePath like #{nodePath}
+	</select>
+
+	<select id="isItemKeyExists" resultType="int">
+		select count(*) from
+		CWM_SYS_DIC where typeId=#{typeId,jdbcType=NUMERIC} and
+		lower(itemKey)=#{itemKey,jdbcType=VARCHAR}
+	</select>
+
+	<select id="getByParentId" resultMap="Dictionary">
+		SELECT
+		<include refid="columns" />
+		FROM CWM_SYS_DIC
+		WHERE parentId=#{id}
+		order by sn
+	</select>
+
+	<select id="isItemKeyExistsForUpdate" resultType="int">
+		select count(*)
+		from CWM_SYS_DIC
+		where dicId &lt;&gt; #{dicId,jdbcType=NUMERIC}
+		and
+		typeId=#{typeId,jdbcType=NUMERIC}
+		and
+		lower(itemKey)=#{itemKey,jdbcType=VARCHAR}
+	</select>
+
+	<select id="updSn" parameterType="Map">
+		update CWM_SYS_DIC set
+		sn=#{sn,jdbcType=NUMERIC}
+		WHERE
+		dicId=#{dicId}
+	</select>
+
+	<select id="getAllItems" resultType="String">
+		select itemName
+		from
+		CWM_SYS_DIC
+		group by itemName
+	</select>
+
+	<select id="getAllByItemName" resultType="String">
+		select itemValue
+		from
+		CWM_SYS_DIC
+		where itemName=#{itemName}
+	</select>
+
+	<select id="getByNodeDictKey" resultType="java.util.Map" parameterType="java.lang.Long">
+		SELECT
+		itemName AS "key",
+		itemValue AS "value"
+		FROM
+		CWM_SYS_DIC
+		where typeId=#{typeId,jdbcType=NUMERIC}
+		ORDER BY
+		itemName
+	</select>
+
+
+</mapper>

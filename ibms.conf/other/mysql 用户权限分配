@@ -1,0 +1,71 @@
+-- 创建用户 mysql 用户 有 ip的限制，因为mysql  的用户是以ip和用户名作为联合主键的，所以mysql可以为同一个用户名不同的ip分配不同权限 ，不同密码
+-- 比如 以下例子 表示  用户名为 ibms , ip 为localhost 密码为 ibms 的用户
+
+
+-- 例1 表示创建了一个用户 ibms 密码为 ibms ,该用户只能在本地连接。
+CREATE USER 'ibms'@'localhost' IDENTIFIED BY 'ibms'
+
+-- 例2 表示创建了一个用户 ibms 密码为 ibms ,该用户可以在任何客户端上连接
+CREATE USER 'ibms'@'%' IDENTIFIED BY 'ibms'
+
+
+
+
+
+-- 权限说明
+ GRANT ALL PRIVILEGES ON dbname.objectname  TO 'username'@'ip' IDENTIFIED BY 'password' WITH GRANT OPTION;
+说明：
+1：ALL PRIVILEGES 表示 所有权限（也可以是 select,update......）
+2：ibms.* 表示 ibms 库中的所有对象(也可以指定某一张表) 
+3：% 表示所有IP (也可以指定某个IP或者某个IP段)
+
+
+例1：
+GRANT ALL PRIVILEGES ON ibms.*  TO 'ibms'@'%' IDENTIFIED BY 'ibms' WITH GRANT OPTION;
+整个语句 的结果是 为用户ibms 任何客户端 分配了 ibms库的所有对象 所有权限
+
+
+
+例2：
+GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY 'root' WITH GRANT OPTION;
+整个语句 的结果是 为用户 root 任何客户端 分配了 所有库 的 所有对象 所有权限 
+
+
+
+
+
+
+-- 完整案例 --- 注意：% 针对的是IP(192.168.8.8)。127.0.0.1、localhost、::1 这种格式是需要重新对其分配权限的
+-- 创建用户
+CREATE USER 'ibms'@'%' IDENTIFIED BY 'ibms';
+-- 删除授权
+-- REVOKE ALL PRIVILEGES ON ibms.* FROM 'ibms'@'%';
+-- 将ibms 库的所有对象所有权限分配给 用户 'ibms'@'%'
+GRANT All  PRIVILEGES ON `ibms`.* TO 'ibms'@'%';
+GRANT GRANT OPTION ON `ibms`.* TO 'ibms'@'%';
+-- 刷新
+FLUSH PRIVILEGES;
+
+
+
+-- 如果 需要对 localhost 重新分配权限，则需要重新执行以下脚本
+-- 创建用户
+CREATE USER 'ibms'@'localhost' IDENTIFIED BY 'ibms';
+-- 删除授权
+-- REVOKE ALL PRIVILEGES ON ibms.* FROM 'ibms'@'localhost';
+-- 将ibms 库的所有对象所有权限分配给 用户 'ibms'@'localhost'
+GRANT All  PRIVILEGES ON `ibms`.* TO 'ibms'@'localhost';
+GRANT GRANT OPTION ON `ibms`.* TO 'ibms'@'localhost';
+-- 刷新
+FLUSH PRIVILEGES;
+
+
+
+
+
+
+-- 修改 root 用户密码，需要用root 账号登陆
+use mysql ;
+update user set password=PASSWORD('ibmsadmin') where user='root';
+FLUSH PRIVILEGES;
+

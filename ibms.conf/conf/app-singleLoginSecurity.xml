@@ -1,0 +1,23 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:security="http://www.springframework.org/schema/security"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+	http://www.springframework.org/schema/security
+	http://www.springframework.org/schema/security/spring-security-3.1.xsd">
+
+	<!-- 认证管理器，实现用户认证的入口，主要实现UserDetailsService接口即可 -->
+	<bean id="ibmsSinglePasswordEncoder"
+		class="com.cssrc.ibms.core.web.singlelogin.IbmsSinglePasswordEncoder">
+		<property name="singleLogin" ref="defaultIbmsSingleLogin" />
+	</bean>
+	<bean id="defaultIbmsSingleLogin"
+		class="com.cssrc.ibms.core.web.singlelogin.DefaultIbmsSingleLogin">
+		<property name="exclusionSign" value="${singleLoginSecurity.exclusionSign}" />
+		<property name="encrypt" value="${singleLoginSecurity.isEncrypt}" />
+		<property name="enCryptBean" ref="defaultEncrypt" />
+		<property name="signKey" value="${singleLoginSecurity.signKey}" />
+	</bean>
+	<bean id="defaultEncrypt" class="com.cssrc.ibms.core.encrypt.DefaultEncrypt"></bean>
+
+</beans>

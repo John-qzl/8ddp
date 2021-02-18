@@ -1,0 +1,35 @@
+<%@page language="java" pageEncoding="UTF-8"%>
+<html>
+<head>
+	<title>友情提示</title>
+	<%@include file="/commons/include/get.jsp" %>
+<script type="text/javascript">
+
+$(function() {
+var count=${count};
+if(count>0){window.location.href="tree.do";}
+});
+</script>
+</head>
+<body>
+<table align="center"  height="111" width="457" border="0" cellpadding="0" cellspacing="0">
+  <tbody><tr valign="middle" >
+    <td height="111" valign="middle" width="480"><table height="89" width="449" border="0" cellpadding="0" cellspacing="0">
+      <tbody><tr>
+        <td height="12" width="67">&nbsp;</td>
+        <td colspan="2">&nbsp;</td>
+      </tr>
+      <tr>
+        <td rowspan="2" height="45">&nbsp;</td>
+        <td height="44" valign="top" width="390">&nbsp;</td>
+        <td valign="middle" width="50">&nbsp;</td>
+      </tr>
+      <tr>
+        <td height="30" valign="top"><span class="STYLE1">请添加个人邮箱，在<a href="../outMailUserSeting/list.do">【邮箱配置管理】</a>里<a href="../outMailUserSeting/edit.do">【添加邮箱】</a>,再浏览!</span></td>
+        <td valign="bottom" width="50"><a href="javascript:;"></a></td>
+      </tr>
+    </tbody></table></td>
+  </tr>
+</tbody></table>
+</body>
+</html>

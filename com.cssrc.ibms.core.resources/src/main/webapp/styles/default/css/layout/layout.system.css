@@ -1,0 +1,87 @@
+.layout-app,
+.skin-app {
+	width: 100%;
+	height: 6%;
+	background: #fff;
+	margin-top: 4px;
+	/* border: 1px solid #ddd; */
+}
+.select-model {
+	width: 100%;
+	height: 86%;
+	background: #fff;
+	margin-top: 4px;
+}
+/* .title{
+	border-bottom: 4px solid #eee;
+} */
+.title span,
+.layout-app span,
+.skin-app span {
+	padding-left: 10px;
+	padding-right: 10px;
+	height: 45px;
+	line-height: 45px;
+}
+.models,
+.skins {
+	width:90%;
+	height: 88%;
+	margin: 1% auto;
+	margin-left: 5%;
+	overflow: auto;
+}
+.models ul {
+	width: 100%;
+	height: 100%;
+}
+.models li {
+	float: left;
+	margin: 0 5% 2% 0;
+	border: 2px dashed #ddd;
+	text-align: center;
+	padding: 10px;
+}
+.selected {
+	border: 1px solid #3eaaf5 !important;
+	background-color: #E3EBFE;
+}
+.models li:nth-child(5n) {
+	margin: 0 0 2% 0;
+}
+li img {
+	width: 200px;
+	height: 200px;
+}
+.layout-name {
+	text-align: center;
+	padding: 10px;
+}
+
+input[name='sxbm'],
+.skins li input {
+	border:1px solid rgb(169, 169, 169);
+	box-sizing: border-box;
+	padding: 2px;
+}
+.selectOrg {
+	display:inline-block;
+}
+.selectOrg a {
+    color: #222 !important;
+    box-sizing: border-box;
+    font-family: "iconfont";
+    padding: 0 10px 0 10px;
+}
+/* a[data-select="reset"] {
+	border-right: 1px solid #ccc; 
+} */
+a[data-select="reset"]:before {
+  content: "\e6aa";
+  font-family: "iconfont";
+}
+a[data-select="org"]:before {
+  content: "\e70b";
+  font-family: "iconfont";
+}
+

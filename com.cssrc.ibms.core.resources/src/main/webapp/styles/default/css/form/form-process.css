@@ -1,0 +1,207 @@
+@import url("../form.css");
+body{
+	background: none!important;
+}
+.clearfix{
+	*zoom: 1;
+}
+input{
+	outline: none;
+}
+.clearfix:after{
+	content: '';
+	display: block;
+	height: 0;
+	clear: both;
+	visibility: hidden;
+}
+.tableNew{
+	width: 98%;
+	margin: 20px auto 24px auto;
+	border: 3px #4092D0 solid;
+	position: relative;
+	padding: 10px 5px 10px 5px;
+	box-sizing: border-box;
+}
+.disEdit{
+	border-color: #706E6E;
+}
+.tableNew .tableNew_title{
+	height: 30px;
+	margin-bottom: 10px;
+	position: absolute;
+	left: 20px;top: -20px;
+	background-color: #F9F9F9;
+}
+.tableNew .tableNew_title p{
+	line-height: 30px;
+	font-size: 18px;
+	margin: 0 10px;
+	
+}
+.tableNew .tableNew_con{
+	margin-top: 6px;
+	float: left;
+}
+.tableNew .tableNew_con >div{
+	float: left;
+	/* height: 32px; */
+	box-sizing: border-box;
+}
+.tableNew .tableNew_con .tableNew_con_1{
+	width: 30%;
+	background-color: #F3F3F3;
+	color: black;
+	float: left;
+	text-align: right;
+	line-height: 30px;
+	font-size: 14px;
+	 border: 1px solid #e0e0e0; 
+	padding-right: 1em;
+}
+
+.tableNew_con_2>input,
+.tableNew_con_2>.Wdate{
+	width:278px;
+	height:32px;
+	padding:0 6px;
+	border:1px solid #ccc;
+	box-sizing:border-box;
+	float:left;
+}
+.tableNew_con_2>span.input-content{
+	min-height:32px;
+	word-wrap: break-word;
+	width:100%;
+}
+
+.input-content>input.tableHighLight,
+.input-content>select.tableHighLight,
+textarea.tableHighLight,
+td .tableHighLight{
+	border:1px #429DE2 solid!important;
+}
+
+
+.tableNew .tableNew_con .tableNew_con_2{
+	width: 70%;
+	float: left;
+	background: white;
+	line-height: 32px; 
+	min-height:32px;
+}
+.tableNew_con_2 span{
+    word-break: break-all;
+}
+
+.tableNew_con_2 .input-content>input{
+	padding:0 6px;
+	width:278px;
+	box-sizing:border-box;
+}
+
+.input-content>select{
+	width:100%;
+	/*height:100%;*/
+	border:none;
+	box-sizing:border-box;
+}
+.tableNew_con_2 .input-content>select{
+	width:278px;
+	height:100%;
+}
+.input-content>input[ctltype="selector"]{
+	width:60%;
+	height:100%;
+	padding: 0px 6px;
+	box-sizing:border-box;
+}
+
+.input-content>input.user{
+	width:60%;
+	height:100%;
+}
+
+.tableNew_con_2 textarea{
+	width:278px;
+	height:60px;
+	padding:5px;
+	box-sizing:border-box;
+}
+.tableNew_con_2 .l-text-wrapper{
+	height:32px;
+}
+.item4{
+	min-width: 1250px;
+}
+.item4 .tableNew_con{
+	width: 25%;
+}
+.item3{
+	min-width: 960px;
+}
+.item3 .tableNew_con{
+	width: 33.3%;
+}
+.item2{
+	min-width: 640px;
+}
+.item2 .tableNew_con{
+	width: 50%;
+}
+.item1{
+	min-width: 500px;
+}
+.item1 .tableNew_con{
+	width: 100%;
+}
+
+
+.tableBox{
+    width: 98%;
+    overflow-y: hidden;
+    overflow-x: auto;
+	margin: 10px auto 0 auto;
+}
+.tableBox table{
+    width: 100%;
+}
+.tableBox th,td{
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+	box-sizing: border-box;
+	word-break:kepp-all;
+	white-space:nowrap;
+}
+.tableBox thead tr th{
+    background-color: blue;
+    color: white;
+}
+.table-grid tbody tr td{
+    background-color: #f1f1f1;
+}
+
+
+.tableNewHeader_con{
+	text-align: center;
+	/* color: #2790C7; */
+	font-size: 18px;
+}
+.tableNewHeader {
+    border: none;
+	margin: 0 auto;
+	padding: 0;
+}
+.tableNewHeader .tableNew_con{
+	float: right;
+}
+
+.tableMust{
+	border:2px #F14444 solid!important;
+	box-shadow: 3px 3px 3px #F48992;
+}
+/* 隐藏占位的tablenew */
+.tableNew_hide{
+	visibility: hidden;
+}

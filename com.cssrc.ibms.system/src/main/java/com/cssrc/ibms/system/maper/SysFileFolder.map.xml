@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+<mapper namespace="com.cssrc.ibms.system.model.SysFileFolder">
+
+	<resultMap id="SysFileFolder" type="com.cssrc.ibms.system.model.SysFileFolder">
+		<id property="id" column="ID" jdbcType="NUMERIC"/>
+		<result property="pid" column="PID" jdbcType="NUMERIC"/>
+		<result property="name" column="NAME" jdbcType="VARCHAR"/>
+		<result property="path" column="PATH" jdbcType="VARCHAR"/>
+		<result property="depth" column="DEPTH" jdbcType="VARCHAR"/>
+		<result property="notes" column="NOTES" jdbcType="VARCHAR"/>
+		<result property="creatorId" column="CREATOR_ID" jdbcType="NUMERIC"/>
+		<result property="createtime" column="CREATETIME" jdbcType="TIMESTAMP"/>
+		<result property="updateId" column="UPDATE_ID" jdbcType="NUMERIC"/>
+		<result property="updatetime" column="UPDATETIME" jdbcType="TIMESTAMP"/>
+		<result property="delflag" column="DELFLAG" jdbcType="NUMERIC"/>
+		<result property="sharedNode" column="SHAREDNODE" jdbcType="NUMERIC"/>
+		<result property="systemNode" column="SYSTEMNODE" jdbcType="NUMERIC"/>
+	</resultMap>
+	
+	<sql id="columns">
+		ID,PID,NAME,PATH,DEPTH,NOTES,CREATOR_ID,CREATETIME,UPDATE_ID,UPDATETIME,DELFLAG,SHAREDNODE,SYSTEMNODE
+	</sql>
+
+	<sql id="dynamicWhere">
+		<where>
+			<if test="@Ognl@isNotEmpty(id)"> AND ID =#{id} </if>
+			<if test="@Ognl@isNotEmpty(pid)"> AND PID =#{PID} </if>
+			<if test="@Ognl@isNotEmpty(name)"> AND NAME LIKE #{name}  </if>
+			<if test="@Ognl@isNotEmpty(path)"> AND PATH LIKE #{path} </if>
+			<if test="@Ognl@isNotEmpty(depth)"> AND DEPTH LIKE #{depth}  </if>
+			<if test="@Ognl@isNotEmpty(notes)"> AND NOTES LIKE #{notes}  </if>
+			<if test="@Ognl@isNotEmpty(creatorId)"> AND CREATOR_ID =#{creatorId} </if>
+			<if test="@Ognl@isNotEmpty(createtime)"> AND CREATETIME =#{createtime} </if>
+			<if test="@Ognl@isNotEmpty(updateId)"> AND UPDATE_ID =#{updateId} </if>
+			<if test="@Ognl@isNotEmpty(updatetime)"> AND UPDATETIME =#{updatetime} </if>
+			<if test="@Ognl@isNotEmpty(delflag)"> AND DELFLAG =#{delflag} </if>
+			<if test="@Ognl@isNotEmpty(sharedNode)"> AND SHAREDNODE =#{sharedNode} </if>
+			<if test="@Ognl@isNotEmpty(systemNode)"> AND SYSTEMNODE =#{systemNode} </if>
+		</where>
+	</sql>
+	
+	<insert id="add" parameterType="com.cssrc.ibms.system.model.SysFileFolder">
+		INSERT INTO CWM_SYS_FILE_FOLDER
+		(
+			ID,
+			PID,
+			NAME,
+			PATH,
+			DEPTH,
+			NOTES,
+			CREATOR_ID,
+			CREATETIME,
+			UPDATE_ID,
+			UPDATETIME,
+			DELFLAG,
+			SHAREDNODE,
+			SYSTEMNODE
+		)
+		VALUES
+		(
+			#{id,jdbcType=NUMERIC},
+			#{pid,jdbcType=NUMERIC},
+			#{name,jdbcType=VARCHAR},
+			#{path,jdbcType=VARCHAR},
+			#{depth,jdbcType=VARCHAR}, 
+			#{notes,jdbcType=VARCHAR}, 
+			#{creatorId,jdbcType=NUMERIC},
+			#{createtime,jdbcType=TIMESTAMP},
+			#{updateId,jdbcType=NUMERIC},
+			#{updatetime,jdbcType=TIMESTAMP},
+			#{delflag,jdbcType=NUMERIC},
+			#{sharedNode,jdbcType=NUMERIC},
+			#{systemNode,jdbcType=NUMERIC}
+		)
+	</insert>
+	
+	<update id="update" parameterType="com.cssrc.ibms.system.model.SysFileFolder">
+		UPDATE CWM_SYS_FILE_FOLDER SET
+		PID=#{pid,jdbcType=NUMERIC}, 
+		NAME=#{name,jdbcType=VARCHAR}, 
+		PATH=#{path,jdbcType=VARCHAR}, 
+		DEPTH=#{depth,jdbcType=VARCHAR}, 
+		NOTES=#{notes,jdbcType=VARCHAR},
+		CREATOR_ID=#{creatorId,jdbcType=NUMERIC}, 
+		CREATETIME=#{createtime,jdbcType=TIMESTAMP},
+		UPDATE_ID=#{updateId,jdbcType=NUMERIC}, 
+		UPDATETIME=#{updatetime,jdbcType=TIMESTAMP},
+		DELFLAG=#{delflag,jdbcType=NUMERIC}, 
+		SHAREDNODE=#{sharedNode,jdbcType=NUMERIC}, 
+		SYSTEMNODE=#{systemNode,jdbcType=NUMERIC}
+		WHERE
+		ID=#{id}
+	</update>
+	
+	<select id="getById" parameterType="java.lang.Long" resultMap="SysFileFolder">
+		SELECT <include refid="columns"/>
+		FROM CWM_SYS_FILE_FOLDER
+		WHERE
+		ID=#{id}
+	</select>
+	
+	<select id="getFolderByUserId" parameterType="java.util.Map" resultMap="SysFileFolder">
+		SELECT <include refid="columns"/>
+		FROM CWM_SYS_FILE_FOLDER
+		<include refid="dynamicWhere" />
+		ORDER BY id DESC, pid ASC
+	</select>
+	
+	<select id="getFolderByPath" parameterType="java.lang.Long" resultMap="SysFileFolder">
+		SELECT <include refid="columns"/>
+		FROM CWM_SYS_FILE_FOLDER
+		<include refid="dynamicWhere" />
+	</select>
+	
+	<select id="getRootFolderByUserId" parameterType="java.lang.Long" resultMap="SysFileFolder">
+		SELECT <include refid="columns"/>
+		FROM CWM_SYS_FILE_FOLDER
+		<include refid="dynamicWhere" />
+	</select>
+	<select id="getTmpFolderByUserId" parameterType="java.lang.Long" resultMap="SysFileFolder">
+		SELECT <include refid="columns"/>
+		FROM CWM_SYS_FILE_FOLDER
+		<include refid="dynamicWhere" />
+	</select>
+</mapper>

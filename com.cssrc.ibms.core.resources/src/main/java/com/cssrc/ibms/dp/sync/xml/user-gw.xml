@@ -1,0 +1,44 @@
+<!DOCTYPE databases PUBLIC
+        "-//EXOLAB/Castor Mapping DTD Version 1.0//EN"
+        "http://castor.exolab.org/mapping.dtd">
+<mapping>
+    <class name="com.cssrc.ibms.dp.sync.bean.UserBean" identity="userset">
+        <map-to xml="users"/>
+        <field name="userset" collection="set"
+               type="com.cssrc.ibms.dp.sync.model.SyncUserXML">
+            <bind-xml name="user"/>
+        </field>
+    </class>
+
+    <class name="com.cssrc.ibms.dp.sync.model.SyncUserXML" identity="userId">
+        <map-to xml="user"/>
+        <field name="userId">
+            <bind-xml name="id" node="attribute"/>
+        </field>
+        <field name="userName">
+            <bind-xml name="username" node="attribute"/>
+        </field>
+        <field name="passWord">
+            <bind-xml name="password" node="attribute"/>
+        </field>
+        <field name="displayName">
+            <bind-xml name="displayname" node="attribute"/>
+        </field>
+        <field name="email">
+            <bind-xml name="email" node="attribute"/>
+        </field>
+        <field name="projectId">
+            <bind-xml name="projectid" node="attribute"/>
+        </field>
+        <field name="projectName">
+            <bind-xml name="projectname" node="attribute"/>
+        </field>
+        <field name="ttidandname">
+            <bind-xml name="ttidandname" node="attribute"/>
+        </field>
+        <field name="commanderId">
+            <bind-xml name="commanderId" node="attribute"/>
+        </field>
+    </class>
+
+</mapping>

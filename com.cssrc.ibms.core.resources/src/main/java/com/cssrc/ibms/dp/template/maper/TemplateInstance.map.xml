@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+<mapper namespace="com.cssrc.ibms.dp.template.model.TemplateInstance">
+	<resultMap id="TemplateInstance" type="com.cssrc.ibms.dp.template.model.TemplateInstance">
+		<id property="id" column="ID" jdbcType="NUMERIC"/>
+		<result property="instanceName" column="F_NAME" jdbcType="VARCHAR"/>
+		<result property="instanceCode" column="F_NUMBER" jdbcType="VARCHAR"/>
+		<result property="status" column="F_STATUS" jdbcType="VARCHAR"/>
+		<result property="content" column="F_CONTENT" jdbcType="CLOB"/>
+		<result property="uploadTime" column="F_UPLOAD_TIME" jdbcType="NUMERIC"/>
+		<result property="templateId" column="F_TABLE_TEMP_ID" jdbcType="VARCHAR"/>
+		<result property="taskId" column="F_TASK_ID" jdbcType="VARCHAR"/>
+		<result property="version" column="F_VERSION" jdbcType="VARCHAR"/>
+		<result property="startTime" column="F_STARTTIME" jdbcType="VARCHAR"/>
+		<result property="endTime" column="F_ENDTIME" jdbcType="VARCHAR"/>
+	</resultMap>
+	
+	<sql id="columns">
+		ID,F_NAME,F_NUMBER,F_STATUS,F_CONTENT,F_UPLOAD_TIME,F_TABLE_TEMP_ID,F_TASK_ID,F_VERSION,F_STARTTIME,F_ENDTIME
+	</sql>
+	
+	<select id="countInstance" resultType="Integer">
+		SELECT count(1) as count FROM W_TB_INSTANT  WHERE F_TABLE_TEMP_ID=#{templateId}
+	</select>
+	
+	<select id="getById" parameterType="java.util.Map" resultMap="TemplateInstance">
+		SELECT <include refid="columns"/>
+		FROM W_TB_INSTANT  WHERE ID=#{id} 
+	</select>
+	
+</mapper>

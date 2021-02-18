@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+
+<form-validation>
+	<formset>
+		<!--start_SYS_REPORT_TEMPLATE -->
+		<form name="reportTemplate">
+			<field property="title" depends="required,maxlength">
+				<arg position="0" key="reportTemplate.title" />
+				<arg position="1" name="maxlength" key="${var:maxlength}"
+					resource="false" />
+				<var>
+					<var-name>maxlength</var-name>
+					<var-value>128</var-value>
+				</var>
+			</field>
+			<field property="descp" depends="required,maxlength">
+				<arg position="0" key="reportTemplate.descp" />
+				<arg position="1" name="maxlength" key="${var:maxlength}"
+					resource="false" />
+				<var>
+					<var-name>maxlength</var-name>
+					<var-value>500</var-value>
+				</var>
+			</field>
+			<field property="reportLocation" depends="required,maxlength">
+				<arg position="0" key="reportTemplate.reportLocation" />
+				<arg position="1" name="maxlength" key="${var:maxlength}"
+					resource="false" />
+				<var>
+					<var-name>maxlength</var-name>
+					<var-value>128</var-value>
+				</var>
+			</field>
+			<field property="reportKey" depends="maxlength">
+				<arg position="0" key="reportTemplate.reportKey" />
+				<arg position="1" name="maxlength" key="${var:maxlength}"
+					resource="false" />
+				<var>
+					<var-name>maxlength</var-name>
+					<var-value>128</var-value>
+				</var>
+			</field>
+		</form>
+		<!--end_SYS_REPORT_TEMPLATE -->
+
+		<!--start_SYS_OFFICE_TEMPLATE -->
+		<form name="officeTemplate">
+			<field property="title" depends="required,maxlength">
+				<arg position="0" key="officeTemplate.title" />
+				<arg position="1" name="maxlength" key="${var:maxlength}"
+					resource="false" />
+				<var>
+					<var-name>maxlength</var-name>
+					<var-value>128</var-value>
+				</var>
+			</field>
+			<field property="officeType" depends="maxlength">
+				<arg position="0" key="officeTemplate.officeType" />
+				<arg position="1" name="maxlength" key="${var:maxlength}"
+					resource="false" />
+				<var>
+					<var-name>maxlength</var-name>
+					<var-value>500</var-value>
+				</var>
+			</field>
+			<field property="dataEntry" depends="required,maxlength">
+				<arg position="0" key="officeTemplate.dataEntry" />
+				<arg position="1" name="maxlength" key="${var:maxlength}"
+					resource="false" />
+				<var>
+					<var-name>maxlength</var-name>
+					<var-value>100</var-value>
+				</var>
+			</field>
+		</form>
+		<!--end_SYS_OFFICE_TEMPLATE -->
+
+		<!--start_SYS_REPORT_PARAM -->
+		<form name="reportParam">
+			<field property="reportid" depends="required,digits">
+				<arg position="0" key="reportParam.reportid" />
+			</field>
+			<field property="name" depends="required,maxlength">
+				<arg position="0" key="reportParam.name" />
+				<arg position="1" name="maxlength" key="${var:maxlength}"
+					resource="false" />
+				<var>
+					<var-name>maxlength</var-name>
+					<var-value>64</var-value>
+				</var>
+			</field>
+			<field property="value_" depends="maxlength">
+				<arg position="0" key="reportParam.value_" />
+				<arg position="1" name="maxlength" key="${var:maxlength}"
+					resource="false" />
+				<var>
+					<var-name>maxlength</var-name>
+					<var-value>128</var-value>
+				</var>
+			</field>
+			<field property="paramtype" depends="required,maxlength">
+				<arg position="0" key="reportParam.paramtype" />
+				<arg position="1" name="maxlength" key="${var:maxlength}"
+					resource="false" />
+				<var>
+					<var-name>maxlength</var-name>
+					<var-value>32</var-value>
+				</var>
+			</field>
+		</form>
+		<!--end_SYS_REPORT_PARAM -->
+
+		<!--start_SIGN_MODEL -->
+		<form name="signModel">
+			<field property="name" depends="required,maxlength">
+				<arg position="0" key="signModel.name" />
+				<arg position="1" name="maxlength" key="${var:maxlength}"
+					resource="false" />
+				<var>
+					<var-name>maxlength</var-name>
+					<var-value>100</var-value>
+				</var>
+			</field>
+			<field property="desc" depends="maxlength">
+				<arg position="0" key="signModel.desc" />
+				<arg position="1" name="maxlength" key="${var:maxlength}"
+					resource="false" />
+				<var>
+					<var-name>maxlength</var-name>
+					<var-value>200</var-value>
+				</var>
+			</field>
+			<field property="passw" depends="maxlength">
+				<arg position="0" key="signModel.passw" />
+				<arg position="1" name="maxlength" key="${var:maxlength}"
+					resource="false" />
+				<var>
+					<var-name>maxlength</var-name>
+					<var-value>200</var-value>
+				</var>
+			</field>
+		</form>
+		<!--end_SIGN_MODEL -->
+
+	</formset>
+</form-validation>
+ 
+
+ 

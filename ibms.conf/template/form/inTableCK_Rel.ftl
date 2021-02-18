@@ -1,0 +1,81 @@
+<#function getFields fieldList>
+    <#assign btn>
+	 	<#list fieldList as field>
+			<#if field.valueFrom != 2 && field.isHidden == 0>
+				<td tname="r:${field.fieldName}" ><@input field=field/> </td>
+			</#if>
+		</#list>
+	</#assign>	
+	<#return btn>
+</#function>
+	
+<#function getFieldsName fieldList>
+    <#assign btn>
+	    <#list fieldList as field>
+			<#if field.valueFrom != 2 && field.isHidden == 0>
+				<th fname="${field.fieldName}">${field.fieldDesc} </th>
+			</#if>
+		</#list>
+	</#assign>
+	<#return btn>
+</#function>
+<div class="relTableToolBar l-tab-links" style="text-align:left;">
+	<a class="link add" href="javascript:;" onclick="return false;">添加</a>
+</div>
+<table class="listTable" >
+	<#-- 
+	<#assign teamcount=0 />
+	<#list teamFields as team>
+		<#list team.teamFields as teamfile>
+			<#if teamfile.valueFrom != 2>
+				<#assign teamcount=teamcount + 1>	
+			</#if>
+		</#list>
+	</#list>
+	<#assign count=0 />
+	<#list fields as field>
+		<#if field.valueFrom != 2>
+			<#assign count=count + 1>	
+		</#if>
+	</#list>
+	
+    <tr>
+    	<td colspan="${count+teamcount+1}"  class="formHead" >${table.tableDesc }</td>
+    </tr>
+    
+    <#if teamFields??>
+	    <tr>
+	  	  <#list teamFields as team>
+				<#assign teamcount1=0>	
+				<#list team.teamFields as teamfile>
+					<#if teamfile.valueFrom != 2>
+						<#assign teamcount1=teamcount1 + 1>	
+					</#if>
+				</#list>
+				<#if teamcount1 !=0>
+					<td colspan="${teamcount1}" class="teamHead">${team.teamName }</td>
+				</#if>
+			</#list>
+			<#if fields?size != 0>
+	    		<td colspan="${count}" class="teamHead">未分组</td>
+			</#if>
+	    </tr>
+    </#if>
+    -->
+	<tr class="headRow">
+		<th><input id="checkRelFieldAll" name="r:${table.tableName}:id" type="checkbox">选择</th>
+		<th>管理</th>
+		<#list teamFields as team>
+			${getFieldsName(team.teamFields)}
+		</#list>
+		${getFieldsName(fields)}
+	</tr>
+	<tr class="listRow" formType="edit">
+		<td><input type="checkbox" name="r:${table.tableName}:id" <#noparse>value="${table.id}"</#noparse>></td>
+		<td class="trManage"></td>
+		<#list teamFields as team>
+			${getFields(team.teamFields)}
+		</#list>
+		${getFields(fields)}
+	</tr>
+</table>

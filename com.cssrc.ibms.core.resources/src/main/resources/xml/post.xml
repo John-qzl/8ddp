@@ -1,0 +1,283 @@
+<!DOCTYPE databases PUBLIC
+"-//EXOLAB/Castor Mapping DTD Version 1.0//EN"
+"http://castor.exolab.org/mapping.dtd">
+<mapping>
+	<class name="com.cssrc.ibms.dp.sync.bean.TasksBean" identity="name">
+		<map-to xml="task" />
+		<field name="name" >
+			<bind-xml name="name"  node="attribute"/>
+		</field>	
+		<field name="file" >
+			<bind-xml name="file"  node="attribute"/>
+		</field>
+		<field name="remark" >
+			<bind-xml name="remark"  node="attribute"/>
+		</field>
+		<field name="tableinstanceId" >
+			<bind-xml name="tableinstanceId"  node="attribute"/>
+		</field>
+		<field name="taskPic" >
+			<bind-xml name="taskPic"  node="attribute"/>
+		</field>
+		<field name="path" >
+			<bind-xml name="path"  node="attribute"/>
+		</field>
+		<field name="pathId" >
+			<bind-xml name="pathId"  node="attribute"/>
+		</field>
+		<field name="rwid" >
+			<bind-xml name="rwid"  node="attribute"/>
+		</field>
+		<field name="pclbid" >
+			<bind-xml name="pclbid"  node="attribute"/>
+		</field>
+		<field name="chbh" >
+			<bind-xml name="chbh"  node="attribute"/>
+		</field>
+		<field name="chId" >
+			<bind-xml name="chId"  node="attribute"/>
+		</field>
+		<field name="xhId" >
+			<bind-xml name="xhId"  node="attribute"/>
+		</field>
+		<field name="xhmc" >
+			<bind-xml name="xhmc"  node="attribute"/>
+		</field>
+		<field name="tempId" >
+			<bind-xml name="tempId"  node="attribute"/>
+		</field>
+		<field name="tempType" >
+			<bind-xml name="tempType"  node="attribute"/>
+		</field>
+		<field name="rwname" >
+			<bind-xml name="rwname"  node="attribute"/>
+		</field>
+		<field name="version" >
+			<bind-xml name="version"  node="attribute"/>
+		</field>
+		<field name="postid" >
+			<bind-xml name="postid"  node="attribute"/>
+		</field>
+		<field name="postname" >
+			<bind-xml name="postname"  node="attribute"/>
+		</field>
+		<field name="postinstanceid" >
+			<bind-xml name="postinstanceid"  node="attribute"/>
+		</field>
+		<field name="nodeLeaderId" >
+			<bind-xml name="nodeLeaderId"  node="attribute"/>
+		</field>
+		<field name="responsibility">
+			<bind-xml name="responsibility"	node="attribute"/>
+		</field>
+		<field name="isOK">
+			<bind-xml name="isOK"	node="attribute"/>
+		</field>
+		<field name="order">
+			<bind-xml name="order"	node="attribute"/>
+		</field>
+		<field name="fxtid" >
+			<bind-xml name="fxtid"  node="attribute"/>
+		</field>
+		<field name="fxtname" >
+			<bind-xml name="fxtname"  node="attribute"/>
+		</field>
+		<field name="isfinished" >
+			<bind-xml name="isfinished"  node="attribute"/>
+		</field>
+		<field name="starttime" >
+			<bind-xml name="starttime"  node="attribute"/>
+		</field>
+		<field name="endtime" >
+			<bind-xml name="endtime"  node="attribute"/>
+		</field>
+		<field name="signs" collection="set"
+			type="com.cssrc.ibms.dp.sync.bean.SignsBean">
+			<bind-xml name="signs" />
+		</field>
+ 		<field name="conditions" collection="set"
+			type="com.cssrc.ibms.dp.sync.bean.ConditionsBean">
+			<bind-xml name="conditions" />
+		</field>
+		<field name="rows" collection="set"
+			type="com.cssrc.ibms.dp.sync.bean.RowsBean">
+			<bind-xml name="rows" />
+			
+		</field>
+	</class>
+	<class name="com.cssrc.ibms.dp.sync.bean.SignsBean" >
+		<map-to xml="signs" />
+		<field name="sign" collection="set"
+			type="com.cssrc.ibms.dp.sync.bean.SignBean">
+			<bind-xml name="sign" />
+		</field>
+	</class>
+ 	<class name="com.cssrc.ibms.dp.sync.bean.ConditionsBean" >
+		<map-to xml="conditions" />
+		<field name="condition" collection="set"
+			type="com.cssrc.ibms.dp.sync.bean.ConditionBean">
+			<bind-xml name="condition" />
+		</field>
+	</class>
+	<class name="com.cssrc.ibms.dp.sync.bean.RowsBean" >
+		<map-to xml="rows" />
+		<field name="row" collection="set"
+			type="com.cssrc.ibms.dp.sync.bean.RowBean">
+			<bind-xml name="row" />
+		</field>
+		<field name="rowsid" >
+			<bind-xml name="rowsid"  node="attribute"/>
+		</field>
+	</class>
+	<class name="com.cssrc.ibms.dp.sync.bean.SignBean" >
+		<map-to xml="sign" />
+		<field name="signId" >
+			<bind-xml name="signId"  node="attribute"/>
+		</field>
+		<field name="postid" >
+			<bind-xml name="postid"  node="attribute"/>
+		</field>
+		<field name="name" >
+			<bind-xml name="name"  node="attribute"/>
+		</field>
+<!-- 		<field name="order" >
+			<bind-xml name="order"  node="attribute"/>
+		</field> -->
+		<field name="value" >
+			<bind-xml name="value"  node="attribute"/>
+		</field>
+<!-- 		<field name="instanceid" >
+			<bind-xml name="instanceid"  node="attribute"/>
+		</field> -->
+		<field name="time" >
+			<bind-xml name="time"  node="attribute"/>
+		</field>
+		<field name="remark" >
+			<bind-xml name="remark"  node="attribute"/>
+		</field>
+		<field name="signorder" >
+			<bind-xml name="signorder"  node="attribute"/>
+		</field>
+	</class>
+	
+	<class name="com.cssrc.ibms.dp.sync.bean.ConditionBean" >
+		<map-to xml="condition" />
+		<field name="conditionId" >
+			<bind-xml name="conditionId"  node="attribute"/>
+		</field>
+		<field name="conditionname" >
+			<bind-xml name="conditionname"  node="attribute"/>
+		</field>
+		<field name="valuename" >
+			<bind-xml name="valuename"  node="attribute"/>
+		</field>
+		<field name="order" >
+			<bind-xml name="order"  node="attribute"/>
+		</field>
+	</class>
+	
+	<class name="com.cssrc.ibms.dp.sync.bean.RowBean" >
+		<map-to xml="row" />
+		<field name="id" >
+			<bind-xml name="rowid"  node="attribute"/>
+		</field>
+		<field name="isfinished" >
+			<bind-xml name="isfinished"  node="attribute"/>
+		</field>
+		<field name="cell" collection="set"
+			type="com.cssrc.ibms.dp.sync.bean.CellBean">
+			<bind-xml name="cell" />
+		</field>
+	</class>
+	<class name="com.cssrc.ibms.dp.sync.bean.CellBean" >
+		<map-to xml="cell" />
+		<field name="type" >
+			<bind-xml name="type"  node="attribute"/>
+		</field>
+		<field name="column" >
+			<bind-xml name="column"  node="attribute"/>
+		</field>
+		<field name="columnId" >
+			<bind-xml name="columnid"  node="attribute"/>
+		</field>
+		<field name="cellId" >
+			<bind-xml name="cellid"  node="attribute"/>
+		</field>
+		<field name="markup" >
+			<bind-xml name="markup"  node="attribute"/>
+		</field>
+		<field name="order" >
+			<bind-xml name="order"  node="attribute"/>
+		</field>
+		<field name="textValue" >
+			<bind-xml name="textvalue"  node="attribute"/>
+		</field>
+		<field name="cellList" >
+			<bind-xml name="cellList"  node="attribute"/>
+		</field>
+		<field name="operation" collection="set"
+			type="com.cssrc.ibms.dp.sync.bean.OperationBean">
+			<bind-xml name="operation" />
+		</field>
+	</class>
+	<class name="com.cssrc.ibms.dp.sync.bean.OperationBean" >
+		<map-to xml="operation" />
+		<field name="type" >
+			<bind-xml name="type"  node="attribute"/>
+		</field>
+		<field name="cellid" >
+			<bind-xml name="cellid"  node="attribute"/>
+		</field>
+		<field name="operationtype" >
+			<bind-xml name="operationtype"  node="attribute"/>
+		</field>
+		<field name="resultid" >
+			<bind-xml name="resultid"  node="attribute"/>
+		</field>
+		<field name="value" >
+			<bind-xml name="value"  node="attribute"/>
+		</field>
+		<field name="remark" >
+			<bind-xml name="remark"  node="attribute"/>
+		</field>
+		<field name="isfinished" >
+			<bind-xml name="isfinished"  node="attribute"/>
+		</field>
+		<field name="textvalue" >
+			<bind-xml name="textvalue"  node="attribute"/>
+		</field>
+		<field name="operationPic" >
+			<bind-xml name="operationPic"  node="attribute"/>
+		</field>
+		<field name="uploadpic" >
+			<bind-xml name="uploadpic"  node="attribute"/>
+		</field>
+		<field name="time" >
+			<bind-xml name="time"  node="attribute"/>
+		</field>
+		<field name="realcellid" >
+			<bind-xml name="realcellid"  node="attribute"/>
+		</field>
+		<field name="ildd" >
+			<bind-xml name="ildd"  node="attribute"/>
+		</field>
+		<field name="iildd" >
+			<bind-xml name="iildd"  node="attribute"/>
+		</field>
+		<field name="tighten" >
+			<bind-xml name="tighten"  node="attribute"/>
+		</field>
+		<field name="err" >
+			<bind-xml name="err"  node="attribute"/>
+		</field>
+		<field name="lastaction" >
+			<bind-xml name="lastaction"  node="attribute"/>
+		</field>
+		<field name="ismedia" >
+			<bind-xml name="ismedia"  node="attribute"/>
+		</field>
+		<field name="bitmapid" >
+			<bind-xml name="bitmapid"  node="attribute"/>
+		</field>
+	</class>
+</mapping>

@@ -1,0 +1,341 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cssrc.ibms.core.form.model.FormField">
+
+
+
+
+	<resultMap id="FormField" type="com.cssrc.ibms.core.form.model.FormField">
+		<id property="fieldId" column="fieldId" jdbcType="NUMERIC" />
+		<result property="tableId" column="tableId" jdbcType="NUMERIC" />
+		<result property="fieldName" column="fieldName" jdbcType="VARCHAR" />
+		<result property="fieldType" column="fieldType" jdbcType="VARCHAR" />
+		<result property="isRequired" column="isRequired" jdbcType="NUMERIC" />
+		<result property="isList" column="isList" jdbcType="NUMERIC" />
+		<result property="isQuery" column="isQuery" jdbcType="NUMERIC" />
+		<result property="fieldDesc" column="fieldDesc" jdbcType="VARCHAR" />
+		<result property="charLen" column="charLen" jdbcType="NUMERIC" />
+		<result property="intLen" column="intLen" jdbcType="NUMERIC" />
+		<result property="decimalLen" column="decimalLen" jdbcType="NUMERIC" />
+		<result property="dictType" column="dictType" jdbcType="VARCHAR" />
+		<result property="isDeleted" column="isDeleted" jdbcType="NUMERIC" />
+		<result property="validRule" column="validRule" jdbcType="VARCHAR" />
+		<result property="originalName" column="originalName" jdbcType="VARCHAR" />
+		<result property="sn" column="sn" jdbcType="NUMERIC" />
+		<result property="valueFrom" column="valueFrom" jdbcType="NUMERIC" />
+		<result property="script" column="script" jdbcType="VARCHAR" />
+		<result property="controlType" column="controlType" jdbcType="NUMERIC" />
+		<result property="isHidden" column="isHidden" jdbcType="NUMERIC" />
+		<result property="isFlowVar" column="isFlowVar" jdbcType="NUMERIC" />
+		<result property="serialNumber" column="SERIALNUM" jdbcType="VARCHAR" />
+		<result property="options" column="options" jdbcType="VARCHAR" />
+		<result property="ctlProperty" column="ctlProperty" jdbcType="VARCHAR" />
+		<result property="isAllowMobile" column="isAllowMobile"
+			jdbcType="NUMERIC" />
+		<result property="isReference" column="isReference" jdbcType="NUMERIC" />
+		<result property="isWebSign" column="isWebSign" jdbcType="NUMERIC" />
+		<result property="isUnique" column="isUnique" jdbcType="NUMERIC" />
+		<result property="isMainData" column="isMainData" jdbcType="NUMERIC" />
+		<!-- 关系列表ID -->
+		<result property="relTableId" column="RELTABLEID" jdbcType="NUMERIC" />
+		<result property="relTableName" column="RELTABLENAME" jdbcType="VARCHAR" />
+		<result property="encrypt" column="encrypt" jdbcType="VARCHAR" />
+		<!-- 关系列表类型 -->
+		<result property="relTableType" column="RELTABLETYPE" jdbcType="NUMERIC" />
+		<!--rel关联表记录删除类型，1-直接删除，0-取消关联。 -->
+		<result property="relDelType" column="RELDELTYPE" jdbcType="NUMERIC" />
+		<!--主表记录删除，rel关联表记录删除类型，1-直接删除，0-取消关联。 -->
+		<result property="relDelLMType" column="RELDELLMTYPE" jdbcType="NUMERIC" />
+		<!--外键列默认关联的自定义对话框信息 -->
+		<result property="relFormDialog" column="RELFORMDIALOG" jdbcType="VARCHAR"/>
+		<!-- 是否主键显示值 -->
+		<result property="isPkShow" column="ISPKSHOW" jdbcType="NUMERIC" />
+	</resultMap>
+
+	<sql id="columns">
+		fieldId,tableId,fieldName,fieldType,isRequired,isList,isQuery,fieldDesc,
+		charLen,intLen,decimalLen,dictType,isDeleted,validRule,
+		originalName,sn,valueFrom,script,controlType,isHidden,isFlowVar,SERIALNUM,options,ctlProperty,isAllowMobile,
+		isReference,isWebSign,isUnique,isMainData,RELTABLEID,RELTABLENAME,ENCRYPT,ISPKSHOW,RELTABLETYPE,RELDELTYPE,RELDELLMTYPE,RELFORMDIALOG
+	</sql>
+
+	<sql id="dynamicWhere">
+		<where>
+			<if test="@Ognl@isNotEmpty(fieldId)"> AND fieldId =#{fieldId} </if>
+			<if test="@Ognl@isNotEmpty(tableId)"> AND tableId =#{tableId} </if>
+			<if test="@Ognl@isNotEmpty(fieldName)"> AND fieldName LIKE #{fieldName}  </if>
+			<if test="@Ognl@isNotEmpty(fieldType)"> AND fieldType LIKE #{fieldType}  </if>
+			<if test="@Ognl@isNotEmpty(fieldDesc)"> AND fieldDesc LIKE #{fieldDesc}  </if>
+			<if test="@Ognl@isNotEmpty(isDeleted)"> AND isDeleted =#{isDeleted} </if>
+			<if test="@Ognl@isNotEmpty(controlType)"> AND controlType =#{controlType} </if>
+		</where>
+	</sql>
+
+	<insert id="add" parameterType="com.cssrc.ibms.core.form.model.FormField">
+		INSERT INTO ibms_form_field
+		(fieldId,tableId,fieldName,
+		fieldType,isRequired,isList,
+		isQuery,fieldDesc,charLen,
+		intLen,decimalLen,dictType,
+		isDeleted,validRule,originalName,
+		sn,valueFrom,script,ENCRYPT,
+		controlType,isHidden,isFlowVar,
+		SERIALNUM,options,ctlProperty,isAllowMobile,isReference,isWebSign,isUnique,isMainData,RELTABLEID,
+		RELTABLENAME,ISPKSHOW,RELTABLETYPE,RELDELTYPE,RELDELLMTYPE,RELFORMDIALOG)
+		VALUES
+		(#{fieldId,jdbcType=NUMERIC}, #{tableId,jdbcType=NUMERIC},
+		#{fieldName,jdbcType=VARCHAR},
+		#{fieldType,jdbcType=VARCHAR}, #{isRequired,jdbcType=NUMERIC}, #{isList,jdbcType=NUMERIC},
+		#{isQuery,jdbcType=NUMERIC}, #{fieldDesc,jdbcType=VARCHAR},
+		#{charLen,jdbcType=NUMERIC},
+		#{intLen,jdbcType=NUMERIC}, #{decimalLen,jdbcType=NUMERIC}, #{dictType,jdbcType=VARCHAR},
+		#{isDeleted,jdbcType=NUMERIC}, #{validRule,jdbcType=VARCHAR},
+		#{originalName,jdbcType=VARCHAR},
+		#{sn,jdbcType=NUMERIC}, #{valueFrom,jdbcType=NUMERIC}, #{script,jdbcType=VARCHAR},
+		#{encrypt,jdbcType=VARCHAR},
+		#{controlType,jdbcType=NUMERIC}, #{isHidden,jdbcType=NUMERIC},
+		#{isFlowVar,jdbcType=NUMERIC},
+		#{serialNumber,jdbcType=VARCHAR},#{options,jdbcType=VARCHAR},#{ctlProperty,jdbcType=VARCHAR},
+		#{isAllowMobile,jdbcType=NUMERIC},#{isReference,jdbcType=NUMERIC},#{isWebSign,jdbcType=NUMERIC},
+		#{isUnique,jdbcType=NUMERIC},#{isMainData,jdbcType=NUMERIC},
+		#{relTableId,jdbcType=NUMERIC},#{relTableName,jdbcType=VARCHAR},#{isPkShow,jdbcType=NUMERIC},#{relTableType,jdbcType=NUMERIC},
+		#{relDelType,jdbcType=NUMERIC},#{relDelLMType,jdbcType=NUMERIC},#{relFormDialog,jdbcType=VARCHAR})
+	</insert>
+
+	<delete id="delById" parameterType="java.lang.Long">
+		DELETE FROM
+		ibms_form_field
+		WHERE
+		fieldId=#{fieldId}
+	</delete>
+
+	<update id="update" parameterType="com.cssrc.ibms.core.form.model.FormField">
+		UPDATE ibms_form_field SET
+		tableId=#{tableId,jdbcType=NUMERIC} ,
+		fieldName=#{fieldName,jdbcType=VARCHAR} ,
+		fieldType=#{fieldType,jdbcType=VARCHAR} ,
+		isRequired=#{isRequired,jdbcType=NUMERIC} ,
+		isList=#{isList,jdbcType=NUMERIC} ,
+		isQuery=#{isQuery,jdbcType=NUMERIC} ,
+		fieldDesc=#{fieldDesc,jdbcType=VARCHAR} ,
+		charLen=#{charLen,jdbcType=NUMERIC} ,
+		intLen=#{intLen,jdbcType=NUMERIC} ,
+		decimalLen=#{decimalLen,jdbcType=NUMERIC} ,
+		dictType=#{dictType,jdbcType=VARCHAR} ,
+		isDeleted=#{isDeleted,jdbcType=NUMERIC} ,
+		validRule=#{validRule,jdbcType=VARCHAR} ,
+		originalName=#{originalName,jdbcType=VARCHAR} ,
+		sn=#{sn,jdbcType=NUMERIC} ,
+		valueFrom=#{valueFrom,jdbcType=NUMERIC} ,
+		script=#{script,jdbcType=VARCHAR} ,
+		ENCRYPT=#{encrypt,jdbcType=VARCHAR},
+		controlType=#{controlType,jdbcType=NUMERIC} ,
+		isHidden=#{isHidden,jdbcType=NUMERIC} ,
+		isFlowVar=#{isFlowVar,jdbcType=NUMERIC} ,
+		SERIALNUM=#{serialNumber,jdbcType=VARCHAR} ,
+		options=#{options,jdbcType=VARCHAR},
+		ctlProperty=#{ctlProperty,jdbcType=VARCHAR},
+		isAllowMobile=#{isAllowMobile,jdbcType=NUMERIC},
+		isReference=#{isReference,jdbcType=NUMERIC},
+		isWebSign=#{isWebSign,jdbcType=NUMERIC},
+		isUnique=#{isUnique,jdbcType=NUMERIC},
+		isMainData=#{isMainData,jdbcType=NUMERIC},
+		RELTABLEID=#{relTableId,jdbcType=NUMERIC},
+		RELTABLENAME=#{relTableName,jdbcType=VARCHAR},
+		ISPKSHOW=#{isPkShow,jdbcType=NUMERIC},
+		RELTABLETYPE=#{relTableType,jdbcType=NUMERIC},
+		RELDELTYPE=#{relDelType,jdbcType=NUMERIC},
+		RELDELLMTYPE=#{relDelLMType,jdbcType=NUMERIC},
+		relFormDialog=#{relFormDialog,jdbcType=VARCHAR}
+		WHERE
+		fieldId=#{fieldId}
+	</update>
+
+	<select id="getById" parameterType="java.lang.Long" resultMap="FormField">
+		SELECT
+		<include refid="columns" />
+		FROM ibms_form_field
+		WHERE
+		fieldId=#{fieldId}
+	</select>
+	<select id="getRelFieldsByTableId" resultMap="FormField">
+		SELECT
+		<include refid="columns" />
+		FROM ibms_form_field
+		WHERE controlType=23
+		<if test="@Ognl@isNotEmpty(tableId)">
+			and tableId=#{tableId}
+		</if>
+		<if test="@Ognl@isNotEmpty(relTableId)">
+			and relTableId=#{relTableId}
+		</if>
+	</select>
+	<select id="getFlowVarByFlowDefId" resultMap="FormField"
+		parameterType="Long" useCache="false">
+		SELECT DISTINCT A.* FROM ibms_form_field
+		A, IBMS_FORM_DEF B ,IBMS_NODE_SET C WHERE
+		A.TABLEID=B.TABLEID AND B.FORMKEY=C.FORMKEY AND A.ISFLOWVAR=1 AND C.DEFID=#{defId}
+		AND (C.PARENTACTDEFID IS NULL OR C.PARENTACTDEFID='')
+	</select>
+	<select id="getFlowVarByFlowDefIdAndParentActDefId" resultMap="FormField"
+		parameterType="java.util.Map" useCache="false">
+		SELECT DISTINCT A.* FROM
+		ibms_form_field A, IBMS_FORM_DEF B ,IBMS_NODE_SET C WHERE
+		A.TABLEID=B.TABLEID AND B.FORMKEY=C.FORMKEY AND A.ISFLOWVAR=1 AND
+		C.DEFID=#{defId}
+		AND C.PARENTACTDEFID=#{parentActDefId}
+	</select>
+
+	<select id="getAll" resultMap="FormField" useCache="false">
+		SELECT
+		<include refid="columns" />
+		FROM ibms_form_field
+		<include refid="dynamicWhere" />
+		<if test="@Ognl@isNotEmpty(orderField)">
+			order by ${orderField} ${orderSeq}
+		</if>
+		<if test="@Ognl@isEmpty(orderField)">
+			order by fieldId desc
+		</if>
+	</select>
+
+	<select id="getByTableId" parameterType="java.lang.Long"
+		resultMap="FormField">
+		SELECT
+		<include refid="columns" />
+		FROM ibms_form_field
+		WHERE
+		tableId=#{tableId}
+		AND ISDELETED != 1
+		AND
+		isHidden != 1
+		ORDER BY SN
+	</select>
+
+	<select id="getFieldsByTableId" parameterType="java.lang.Long"
+		resultMap="FormField">
+		SELECT
+		<include refid="columns" />
+		FROM ibms_form_field
+		WHERE
+		tableId=#{tableId}
+		ORDER BY SN
+	</select>
+
+	<select id="getByTableIdContainHidden" parameterType="java.lang.Long"
+		resultMap="FormField">
+		SELECT
+		<include refid="columns" />
+		FROM ibms_form_field
+		WHERE
+		tableId=#{tableId}
+		AND ISDELETED != 1
+		ORDER BY
+		SN
+	</select>
+
+	<select id="getAllByTableId" parameterType="java.lang.Long"
+		resultMap="FormField">
+		SELECT
+		<include refid="columns" />
+		FROM ibms_form_field
+		WHERE
+		tableId=#{tableId} and isHidden=0
+		ORDER BY SN
+	</select>
+
+	<update id="markDeletedByTableId" parameterType="java.lang.Long">
+		UPDATE ibms_form_field SET
+		ISDELETED=1
+		WHERE
+		TABLEID=#{tableId}
+	</update>
+
+	<delete id="delByTableId" parameterType="java.lang.Long">
+		DELETE
+		FROM ibms_form_field
+		WHERE
+		tableId=#{tableId}
+	</delete>
+
+	<select id="getFieldByTidFna" resultMap="FormField">
+		SELECT
+		<include refid="columns" />
+		FROM ibms_form_field
+		WHERE
+		tableId=#{tableId} and fieldName=#{fieldName}
+		ORDER BY SN
+	</select>
+	
+	<select id="getByTabId" resultType="java.util.Map" parameterType="java.lang.Long">
+		SELECT 
+		ibms_form_field.TABLEID as PID,
+		ibms_form_field.FIELDID as ID,
+		ibms_form_field.FIELDNAME as NAME_,
+		ibms_form_field.FIELDDESC as DESC_
+		FROM ibms_form_field
+		WHERE ibms_form_field.TABLEID=#{tabId}
+		ORDER BY ibms_form_field.SN asc
+	</select>
+
+	<select id="getByIds" resultMap="FormField">
+		SELECT
+		<include refid="columns" />
+		FROM ibms_form_field
+		where fieldId in
+		<foreach item="item" index="index" collection="array" open="(" separator="," close=")">
+		#{item}
+		</foreach>
+		ORDER BY ibms_form_field.SN asc
+	</select>
+	<!-- 根据 表ID 字段名获取字段 -->
+	<select id="getFileds" resultMap="FormField">
+		SELECT
+		<include refid="columns" />
+		FROM ibms_form_field
+		where FIELDNAME in
+		<foreach item="item" index="index" collection="filedName" open="(" separator="," close=")">
+		#{item}
+		</foreach>
+		and TABLEID=#{tableId} 
+		ORDER BY ibms_form_field.SN asc
+	</select>
+		
+	
+	<select id="getRelFiledByTableId" resultMap="FormField">
+		SELECT
+		<include refid="columns" />
+		FROM ibms_form_field
+		where 
+		RELTABLEID=#{mtabId} 
+		AND TABLEID=#{reltabId} 
+	</select>
+	<select id="getOpinonData" resultType="java.util.Map" parameterType="java.util.Map" >
+		select options  from 	ibms_form_field
+	 	where (FIELDNAME = #{fieldName_up} or FIELDNAME = #{fieldName_low})  and 
+	 	TABLEID in (select TABLEID from ibms_form_table where tablename like #{tableName} )
+
+	</select>		
+	
+	<select id="getRelFiledByTableIdAndName" resultMap="FormField">
+		SELECT
+		<include refid="columns" />
+		FROM ibms_form_field
+		where 
+		RELTABLEID=#{relTableId} 
+		AND RELTABLENAME=#{relTableName} 
+	</select>	
+	
+	<select id="getFiledBySelector" resultMap="FormField">
+		SELECT
+		<include refid="columns" />
+		FROM ibms_form_field
+		where 
+		ISHIDDEN=0 and 
+		CONTROLTYPE in
+		<foreach item="item" index="index" collection="array" open="(" separator="," close=")">
+		#{item}
+		</foreach>
+	</select>	
+			
+</mapper>

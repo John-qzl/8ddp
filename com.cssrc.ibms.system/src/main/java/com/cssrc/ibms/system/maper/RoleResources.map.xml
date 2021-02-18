@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+<mapper namespace="com.cssrc.ibms.system.model.RoleResources">
+	<resultMap id="RoleResources" type="com.cssrc.ibms.system.model.RoleResources">
+		<id property="roleResId" column="roleResId" jdbcType="NUMERIC"/>
+		<result property="roleId" column="roleId" jdbcType="NUMERIC"/>
+		<result property="resId" column="resId" jdbcType="NUMERIC"/>
+	</resultMap>
+	
+	<sql id="columns">
+		roleResId,roleId,resId
+	</sql>
+	
+	<sql id="dynamicWhere">
+		<where>
+			<if test="@Ognl@isNotEmpty(roleResId)"> AND roleResId  =#{roleResId} </if>
+			<if test="@Ognl@isNotEmpty(roleId)"> AND roleId  =#{roleId} </if>
+			<if test="@Ognl@isNotEmpty(resId)"> AND resId  =#{resId} </if>
+		</where>
+	</sql>
+
+	<insert id="add" parameterType="com.cssrc.ibms.system.model.RoleResources">
+		INSERT INTO CWM_SYS_ROLE_RES
+		(<include refid="columns"/>)
+		VALUES
+		(#{roleResId,jdbcType=NUMERIC}, #{roleId,jdbcType=NUMERIC}, #{resId,jdbcType=NUMERIC})
+	</insert>
+	
+	<delete id="delById" parameterType="java.lang.Long">
+		DELETE FROM CWM_SYS_ROLE_RES 
+		WHERE
+		roleResId=#{roleResId}
+	</delete>
+	
+	<select id="delByResId" parameterType="java.lang.Long" >
+		DELETE FROM   CWM_SYS_ROLE_RES  WHERE  resId=#{resId}
+	</select>
+	
+	<update id="update" parameterType="com.cssrc.ibms.system.model.RoleResources">
+		UPDATE CWM_SYS_ROLE_RES SET
+		roleId=#{roleId,jdbcType=NUMERIC} , 
+		resId=#{resId,jdbcType=NUMERIC} 
+		WHERE
+		roleResId=#{roleResId}
+	</update>
+	
+	<select id="getById" parameterType="java.lang.Long" resultMap="RoleResources">
+		SELECT <include refid="columns"/>
+		FROM CWM_SYS_ROLE_RES
+		WHERE
+		roleResId=#{roleResId}
+	</select>
+	
+	<select id="getAll" resultMap="RoleResources">
+		SELECT <include refid="columns"/>
+		FROM CWM_SYS_ROLE_RES   
+		<include refid="dynamicWhere" />
+		<if test="@Ognl@isNotEmpty(orderField)">
+		order by ${orderField} ${orderSeq}
+		</if>
+		<if test="@Ognl@isEmpty(orderField)">
+		order by roleResId  desc
+		</if>
+	</select>
+	
+	
+	<select id="getByRoleId" parameterType="java.util.Map" resultMap="RoleResources">
+		SELECT *  FROM CWM_SYS_ROLE_RES  WHERE roleId=#{roleId}
+	</select>
+	
+	<select id="delByRole" parameterType="java.util.Map" >
+		delete  FROM CWM_SYS_ROLE_RES  WHERE roleId=#{roleId}
+	</select>
+	
+	<select id="delByRoleAndRes" parameterType="java.util.Map" >
+		delete  FROM CWM_SYS_ROLE_RES  WHERE roleId in 
+		<foreach close=")" collection="roleIds" item="roleId" open="(" 
+			separator=",">#{roleId}</foreach>
+		And resId in 
+		 <foreach close=")" collection="resIds" item="resId" open="(" 
+					separator=",">#{resId}</foreach>
+		</select>
+	
+	
+	<!--查询原角色拥有的系统资源  -->
+	<select id="getRoleRes" parameterType="java.util.Map" resultMap="RoleResources">
+		SELECT * FROM CWM_SYS_ROLE_RES   WHERE roleId=#{roleId}
+	</select>
+	
+	<select id="getByResId" parameterType="java.lang.Long" resultMap="RoleResources">
+		SELECT * FROM   CWM_SYS_ROLE_RES  WHERE  resId=#{resId}
+	</select>
+	
+</mapper>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpm>
+	<task>
+		<!-- key:状态值；不要修改 -->
+		<!-- text:对应的显示的文本值 可修改 -->
+		<!-- color:流程图边框颜色 可修改 -->
+		<!-- textColor:显示的文本的颜色 可修改 -->
+		<!-- showbar:为是否显示到帮助栏 可修改 -->
+		<!-- desc:描述，不要修改，就是为了知道数字对应的实际意思 -->
+		
+				
+		<statu key="-2" text="未执行" color="" textColor="red" showbar="true" desc="尚未审批"/>
+		<statu key="-1" text="正在审批" color="#FF0000" textColor="red" showbar="true" desc="正在审批"/>
+		<statu key="0" text="弃权" color="#FFA500" textColor="red" showbar="false" desc="弃权"/>
+		<statu key="1" text="同意" color="#00FF00" textColor="green" showbar="true" desc="同意"/>
+		<statu key="2" text="反对" color="#0000FF" textColor="red" showbar="false" desc="反对"/>
+		<statu key="3" text="驳回" color="#8A0902" textColor="red" showbar="true" desc="驳回"/>
+		<statu key="4" text="撤销" color="#023B62" textColor="red" showbar="false" desc="撤销"/>
+		<statu key="5" text="会签通过" color="#338848" textColor="green" showbar="false" desc="会签通过" />
+		<statu key="6" text="会签不通过" color="#82B7D7" textColor="red" showbar="false" desc="会签不通过"/>
+		<statu key="7" text="知会意见" color="" textColor="red" showbar="false" desc="知会意见"/>
+		<statu key="8" text="更改执行路径" color="" textColor="red" showbar="false" desc="更改执行路径"/>
+		<statu key="14" text="终止" color="#EEAF97" textColor="red" showbar="false" desc="终止"/>
+		<statu key="10" text="沟通意见" color="" textColor="red" showbar="false" desc="沟通意见"/>
+		<statu key="15" text="沟通" color="" textColor="red" showbar="false" desc="沟通"/>
+		<statu key="16" text="办结转发" color="" textColor="red" showbar="false" desc="办结转发"/>
+		<statu key="17" text="撤销" color="" textColor="red" showbar="false" desc="撤销"/>
+		<statu key="18" text="删除" color="" textColor="red" showbar="false" desc="删除"/>
+		<statu key="19" text="抄送" color="" textColor="red" showbar="false" desc="抄送"/>
+		<statu key="20" text="沟通反馈" color="" textColor="red" showbar="false" desc="沟通反馈"/>
+		<statu key="21" text="转办" color="" textColor="red" showbar="false" desc="转办"/>
+		<statu key="22" text="取消转办" color="" textColor="red" showbar="false" desc="取消转办"/>
+		<statu key="23" text="更改执行人" color="" textColor="red" showbar="false" desc="更改执行人"/>
+		<statu key="24" text="驳回到发起人" color="" textColor="red" showbar="false" desc="驳回到发起人"/>
+		<statu key="25" text="撤销到发起人" color="" textColor="red" showbar="false" desc="撤销到发起人"/>
+		<statu key="26" text="代理" color="" textColor="red" showbar="false" desc="代理"/>
+		<statu key="27" text="取消代理" color="" textColor="red" showbar="false" desc="取消代理"/>
+		<statu key="28" text="表单意见" color="" textColor="red" showbar="false" desc="表单意见"/>
+		<statu key="29" text="驳回取消" color="" textColor="red" showbar="false" desc="驳回取消"/>
+		<statu key="30" text="撤销取消" color="" textColor="red" showbar="false" desc="撤销取消"/>
+		<statu key="31" text="通过取消" color="" textColor="red" showbar="false" desc="通过取消"/>
+		<statu key="32" text="反对取消" color="" textColor="red" showbar="false" desc="反对取消"/>
+		<statu key="33" text="提交" color="#F89800" textColor="red" showbar="false" desc="提交"/>
+		<statu key="34" text="重新提交" color="#FFE76E" textColor="green" showbar="false" desc="重新提交"/>
+		<statu key="35" text="干预" color="" textColor="red" showbar="false" desc="干预"/>
+		<statu key="36" text="重启任务" color="" textColor="red" showbar="false" desc="重启任务"/>
+		<statu key="37" text="执行过(脚本使用)" color="#C33A1F" textColor="red" showbar="false" desc="执行过(脚本使用)"/>
+		<statu key="38" text="流转" color="" textColor="red" showbar="false" desc="流转"/>
+		<statu key="40" text="代提交" color="" textColor="red" showbar="false" desc="代提交"/>
+		<statu key="42" text="取消流转" color="" textColor="red" showbar="false" desc="取消流转"/>
+
+	</task>
+
+</bpm>

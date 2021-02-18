@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cssrc.ibms.core.resources.datapackage.model.CheckWorkTeam">
+	<resultMap id="CheckWorkTeam" type="com.cssrc.ibms.core.resources.datapackage.model.CheckWorkTeam">
+		<id property="ID" column="ID" jdbcType="NUMERIC" />
+		<result property="F_GZDMC" column="F_GZDMC" jdbcType="VARCHAR" />
+		<result property="F_CY" column="F_CY" jdbcType="VARCHAR" />
+		<result property="F_CYID" column="F_CYID" jdbcType="VARCHAR" />
+		<result property="F_SSSJB" column="F_SSSJB" jdbcType="VARCHAR" />
+
+		
+		
+	</resultMap>
+	<sql id="columns">
+		ID,F_GZDMC,F_CY,F_CYID,F_SSSJB
+	</sql>
+
+	<insert id="add" parameterType="com.cssrc.ibms.core.resources.datapackage.model.CheckWorkTeam">
+		INSERT INTO W_WORKTEAM
+		
+		VALUES
+		(#{ID,jdbcType=NUMERIC},
+		#{F_GZDMC,jdbcType=VARCHAR},
+		#{F_CY,jdbcType=VARCHAR},
+		#{F_CYID,jdbcType=VARCHAR},
+		#{F_SSSJB,jdbcType=VARCHAR}
+		
+		)
+	</insert>
+
+	<!-- <update id="update" parameterType="com.cssrc.ibms.dp.form.model.CheckPackage">
+		UPDATE W_TABLE_TEMP SET
+		F_NAME=#{name,jdbcType=VARCHAR},
+		F_NUMBER=#{snum,jdbcType=VARCHAR},
+		F_REMARK=#{remark,jdbcType=VARCHAR},
+		F_TYPE=#{type,jdbcType=VARCHAR}
+		WHERE
+		ID=#{ID,jdbcType=NUMERIC}
+	</update> -->
+	<!-- <select id="isIdExists" resultType="Integer">
+		SELECT count(1) as count FROM
+		W_TABLE_TEMP WHERE F_NUMBER=#{snum}
+	</select> -->
+	<select id="getBymodelid" parameterType="java.util.Map" resultMap="CheckWorkTeam">
+		SELECT <include refid="columns"/> 
+		FROM W_WORKTEAM  WHERE F_SSSJB=#{Id}
+	</select>
+	<!-- <delete id="deleteById">
+		DELETE FROM W_TABLE_TEMP WHERE ID=#{ID}
+	</delete> -->
+</mapper>

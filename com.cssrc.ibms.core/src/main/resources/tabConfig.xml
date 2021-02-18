@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tabs>
+	<tab name="flow_implement">
+		<item key="detail"  title="明细"   url="/oa/flow/definition/detail.do" />
+		<item key="nodeSummary" title="节点概要"  url="/oa/flow/definition/nodeSummary.do"/>
+		<item key="nodeSet" title="节点设置" url="/oa/flow/definition/nodeSet.do" />
+		<item key="userSet"  title="人员" url="/oa/flow/definition/userSet.do" />
+		<item key="form"  title="表单" url="/oa/flow/nodeSet/list.do" />
+		<item key="button" title="操作按钮" url="/oa/flow/nodeButton/list.do" />
+		<item key="flowVar" title="变量管理" url="/oa/flow/defVar/list.do" />
+		<item key="gangedSet" title="联动" url="/oa/flow/gangedSet/list.do" />
+		<item key="instance"  title="流程实例" url="/oa/flow/definition/instance.do" />
+		<item key="history" title="历史" url="/oa/flow/definition/versions.do" />
+		<item key="otherParam" title="其他" url="/oa/flow/definition/otherParam.do" />
+		<item key="nodeSql" title="节点sql" url="/oa/flow/NodeSql/list.do" />
+		<item key="pendingSetting" title="代办/已办模板配置" url="/oa/flow/pendingSetting/view.do" />
+	 </tab>
+	 <tab name="flow_right">
+		<item key="detail"  title="明细"   url="/oa/flow/definition/detail.do" />
+		<item key="userSet"  title="人员" url="/oa/flow/definition/userSet.do" />
+	 </tab>
+	 <tab name="flow">
+		<item key="detail"  title="明细"   url="/oa/flow/definition/detail.do" />
+		<item key="nodeSummary" title="节点概要"  url="/oa/flow/definition/nodeSummary.do"/>
+		<item key="nodeSet" title="节点设置" url="/oa/flow/definition/nodeSet.do" />
+		<item key="form"  title="表单" url="/oa/flow/nodeSet/list.do" />
+		<item key="button" title="操作按钮" url="/oa/flow/nodeButton/list.do" />
+		<item key="flowVar" title="变量管理" url="/oa/flow/defVar/list.do" />
+		<item key="gangedSet" title="联动" url="/oa/flow/gangedSet/list.do" />
+		<item key="instance"  title="流程实例" url="/oa/flow/definition/instance.do" />
+		<item key="history" title="历史" url="/oa/flow/definition/versions.do" />
+		<item key="otherParam" title="其他" url="/oa/flow/definition/otherParam.do" />
+		<item key="nodeSql" title="节点sql" url="/oa/flow/NodeSql/list.do" />
+		<item key="pendingSetting" title="代办/已办模板配置" url="/oa/flow/pendingSetting/view.do" />
+	 </tab>
+	  <tab name="sysOrg">
+<!--	  	<item key="user"   title="组织人员" url="/oa/system/userPosition/userList.do" />-->
+		<item key="info"   title="组织简介" url="/oa/system/sysOrg/get.do" />
+	    <item key="pos"   title="岗位" url="/oa/system/position/list.do" />
+<!--		<item key="type"   title="组织分类" url="/oa/system/sysOrg/listById.do" />-->
+<!--		<item key="param"  title="组织参数" url="/oa/system/sysOrg/paramList.do" />-->
+	 </tab>
+	 <tab name="sysOrg_right">
+		<item key="info"   title="组织简介" url="/oa/system/sysOrg/get.do" />
+<!--		<item key="authorize"  title="角色授权" url="/oa/system/sysOrgRole/roleList.do" />-->
+<!--		<item key="assignRole"   title="可分配角色" url="/oa/system/grade/assignRoleList.do" />-->
+	 </tab>
+	 <tab name="sysOrg_implement">
+	    <!--
+	  	<item key="user"   title="组织人员" url="/oa/system/userPosition/list.do" />
+	  	 -->
+<!--	  	<item key="user"   title="组织人员" url="/oa/system/userPosition/userList.do" />-->
+		<item key="info"   title="组织简介" url="/oa/system/sysOrg/get.do" />
+	    <item key="pos"   title="岗位" url="/oa/system/position/list.do" />
+<!--		<item key="type"   title="组织分类" url="/oa/system/sysOrg/listById.do" />-->
+
+<!--		<item key="param"  title="组织参数" url="/oa/system/sysOrg/paramList.do" />-->
+<!--		<item key="authorize"  title="角色授权" url="/oa/system/sysOrgRole/roleList.do" />-->
+<!--		<item key="assignRole"   title="可分配角色" url="/oa/system/grade/assignRoleList.do" />-->
+	 </tab>
+	 <!--grade分级授权  -->
+	 <tab name="sysOrgGrade">
+<!--		<item  key="user"  title="组织人员" url="/oa/system/userPosition/userGradeList.do" />-->
+		<item  key="info"  title="组织简介" url="/oa/system/sysOrg/getGrade.do" />
+		 <item key="pos"   title="岗位" url="/oa/system/position/gradeList.do" />
+<!--		<item  key="param" title="组织参数" url="/oa/system/sysOrg/paramGradeList.do" />-->
+	 </tab>
+	 <tab name="sysOrgGrade_right">
+		<item  key="info"  title="组织简介" url="/oa/system/sysOrg/getGrade.do" />
+<!--		<item  key="authorize"  title="角色授权" url="/oa/system/sysOrgRole/roleGradeList.do" />-->
+<!--		<item  key="assignRole"   title="可分配角色" url="/oa/system/grade/assignRoleGradeList.do" />-->
+	 </tab>
+	 <tab name="sysOrgGrade_implement">
+<!--		<item  key="user"  title="组织人员" url="/oa/system/userPosition/userGradeList.do" />-->
+		<item  key="info"  title="组织简介" url="/oa/system/sysOrg/getGrade.do" />
+		 <item key="pos"   title="岗位" url="/oa/system/position/gradeList.do" />
+<!--		<item  key="param" title="组织参数" url="/oa/system/sysOrg/paramGradeList.do" />-->
+<!--		<item  key="authorize"  title="角色授权" url="/oa/system/sysOrgRole/roleGradeList.do" />-->
+<!--		<item  key="assignRole"   title="可分配角色" url="/oa/system/grade/assignRoleGradeList.do" />-->
+	 </tab>
+
+	 <tab name="task">
+	 	<item key="detail"  title="任务明细" url="/oa/flow/task/detail.do"/>
+	 	<item key="userImage"  title="流程图" url="/oa/flow/processRun/userImage.do?action=task"/>
+	 	<item key="taskOpinion" title="审批历史" url="/oa/flow/taskOpinion/list.do?action=task"/>
+	 	<item key="taskVars" title="任务变量" url="/oa/flow/taskVars/list.do"/>
+	 	<item key="taskForm" title="业务表单" url="/oa/flow/task/getForm.do?action=task"/>
+	 </tab>
+
+	 <tab name="process">
+	 	<item key="detail"  title="运行明细" url="/oa/flow/processRun/get.do"/>
+	 	<item key="processImage" title="流程图" url="/oa/flow/processRun/processImage.do"/>
+	 	<item key="taskOpinion"  title="审批历史" url="/oa/flow/taskOpinion/list.do"/>
+	 	<item key="taskForm"  title="业务表单" url="/oa/flow/processRun/getForm.do"/>
+	 	<item key="copyUser" title="抄送人" url="/oa/flow/proCopyto/getCopyUserByInstId.do"/>
+	 </tab>
+
+
+	 <tab name="msgSend">
+		<item key="readDetail"  title="已读取信息人员列表" url="/oa/system/messageSend/readDetail.do" />
+		<item key="replyDetai"  title="已回复信息人员列表" url="/oa/system/messageSend/replyDetail.do" />
+	 </tab>
+
+	 <tab name="gradeTab">
+		<item key="orgManage" title="管理的组织" url="/oa/system/grade/orgManage.do" />
+<!--		<item key="roleManage" title="可分配的角色" url="/oa/system/grade/roleManage.do" />-->
+	 </tab>
+
+	  <tab name="referenceTab">
+		<item  key="mySubmitProcess"  title="我提交的流程" url="/oa/flow/processRun/getRefList.do?type=0" />
+		<item  key="myApprovalProcess"  title="我审批的流程" url="/oa/flow/processRun/getRefList.do?type=1" />
+	 </tab>
+</tabs>

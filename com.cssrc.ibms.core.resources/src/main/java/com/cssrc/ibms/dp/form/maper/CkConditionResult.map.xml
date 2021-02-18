@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+<mapper namespace="com.cssrc.ibms.dp.form.model.CkConditionResult">
+	<resultMap id="CkConditionResult" type="com.cssrc.ibms.dp.form.model.CkConditionResult">
+		<id property="ID" column="ID" jdbcType="NUMERIC"/>
+		<result property="value" column="F_VALUE" jdbcType="VARCHAR"/>
+		<result property="conditionID" column="F_CONDITION_ID" jdbcType="NUMERIC"/>
+		<result property="instantID" column="F_TB_INSTAN_ID" jdbcType="NUMERIC"/>
+	</resultMap>
+	<sql id="columns">
+		ID,F_VALUE,F_CONDITION_ID,F_TB_INSTAN_ID
+	</sql>
+
+	<insert id="add" parameterType="com.cssrc.ibms.dp.form.model.CkConditionResult">
+		INSERT INTO W_CONDI_RES
+		(ID,F_VALUE,F_CONDITION_ID,F_TB_INSTAN_ID)
+		VALUES
+		(#{ID,jdbcType=NUMERIC},
+		 #{value,jdbcType=VARCHAR},
+		 #{conditionID,jdbcType=NUMERIC},
+		 #{instantID,jdbcType=NUMERIC}
+		)
+	</insert>	
+	
+	<update id="update" parameterType="com.cssrc.ibms.dp.form.model.CkConditionResult">
+		UPDATE W_CONDI_RES SET F_VALUE=#{value,jdbcType=VARCHAR} WHERE ID=#{ID,jdbcType=NUMERIC}
+		<!-- UPDATE W_CONDI_RES SET F_VALUE=#{value,jdbcType=VARCHAR} WHERE F_CONDITION_ID=#{conditionID,jdbcType=NUMERIC} AND F_TB_INSTAN_ID=#{instantID,jdbcType=NUMERIC} -->
+	</update>	
+		<select id="getBymodelid" parameterType="java.util.Map" resultMap="CkConditionResult">
+		SELECT <include refid="columns"/> 
+		FROM W_CONDI_RES  WHERE F_TB_INSTAN_ID=#{Id}
+	</select>
+	
+	<select id="getById" parameterType="java.util.Map" resultMap="CkConditionResult">
+		SELECT <include refid="columns"/> 
+		FROM W_CONDI_RES  WHERE ID=#{Id}
+	</select>
+</mapper>

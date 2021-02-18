@@ -1,0 +1,54 @@
+package com.cssrc.ibms.core.db.mybatis.query;
+
+import java.math.BigDecimal;
+import java.util.Calendar;
+import org.apache.commons.lang.time.DateUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+import com.cssrc.ibms.core.util.common.CommonTools;
+import com.cssrc.ibms.core.util.date.DateUtil;
+
+public class ParamUtil {
+	private static Log logger = LogFactory.getLog(ParamUtil.class);
+
+	public static Object convertObject(String type, String paramValue) {
+		if (CommonTools.isNullString(paramValue))
+			return null;
+		Object value = null;
+		try {
+			if ("S".equals(type)) {
+				value = paramValue;
+			} else if ("L".equals(type)) {
+				value = new Long(paramValue);
+			} else if ("N".equals(type)) {
+				value = new Integer(paramValue);
+			} else if ("BD".equals(type)) {
+				value = new BigDecimal(paramValue);
+			} else if ("FT".equals(type)) {
+				value = new Float(paramValue);
+			} else if ("SN".equals(type)) {
+				value = new Short(paramValue);
+			} else if ("D".equals(type)) {
+				value = DateUtils.parseDate(paramValue, new String[] {
+						"yyyy-MM-dd", "yyyy-MM-dd HH:mm:ss" });
+			} else if ("DL".equals(type)) {
+				Calendar cal = Calendar.getInstance();
+				cal.setTime(DateUtils.parseDate(paramValue,
+						new String[] { "yyyy-MM-dd" }));
+				value = DateUtil.setStartDay(cal).getTime();
+			} else if ("DG".equals(type)) {
+				Calendar cal = Calendar.getInstance();
+				cal.setTime(DateUtils.parseDate(paramValue,
+						new String[] { "yyyy-MM-dd" }));
+				value = DateUtil.setEndDay(cal).getTime();
+			} else {
+				value = paramValue;
+			}
+		} catch (Exception ex) {
+			logger.error("the data value is not right for the query filed type:"
+					+ ex.getMessage());
+		}
+		return value;
+	}
+}

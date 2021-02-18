@@ -1,0 +1,541 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cssrc.ibms.core.flow.model.NodeSet">
+	<resultMap id="NodeSet" type="com.cssrc.ibms.core.flow.model.NodeSet">
+		<id property="setId" column="setId" jdbcType="NUMERIC" />
+		<result property="defId" column="defId" jdbcType="NUMERIC" />
+		<result property="nodeName" column="nodeName" jdbcType="VARCHAR" />
+		<result property="nodeOrder" column="nodeOrder" jdbcType="NUMERIC" />
+		<result property="nodeId" column="nodeId" jdbcType="VARCHAR" />
+		<result property="formType" column="formType" jdbcType="NUMERIC" />
+		<result property="formUrl" column="formUrl" jdbcType="VARCHAR" />
+		<result property="formKey" column="formKey" jdbcType="NUMERIC" />
+		<result property="actDefId" column="actDefId" jdbcType="VARCHAR" />
+		<result property="parentActDefId" column="parentActDefId"
+			jdbcType="VARCHAR" />
+		<result property="formDefName" column="formDefName" jdbcType="VARCHAR" />
+		<result property="nodeType" column="nodeType" jdbcType="NUMERIC" />
+		<result property="joinTaskKey" column="joinTaskKey" jdbcType="VARCHAR" />
+		<result property="joinTaskName" column="joinTaskName" jdbcType="VARCHAR" />
+		<result property="beforeHandler" column="beforeHandler"
+			jdbcType="VARCHAR" />
+		<result property="afterHandler" column="afterHandler" jdbcType="VARCHAR" />
+		<result property="initScriptHandler" column="initScriptHandler"
+			jdbcType="VARCHAR" />
+		<result property="jumpType" column="jumpType" jdbcType="VARCHAR" />
+		<result property="setType" column="setType" jdbcType="NUMERIC" />
+		<result property="isJumpForDef" column="isJumpForDef" jdbcType="NUMERIC" />
+		<result property="isHideOption" column="isHideOption" jdbcType="NUMERIC" />
+		<result property="isHidePath" column="isHidePath" jdbcType="NUMERIC" />
+		<result property="opinionField" column="opinionField" jdbcType="VARCHAR" />
+		<result property="detailUrl" column="detailUrl" jdbcType="VARCHAR" />
+		<result property="isAllowMobile" column="isAllowMobile"
+			jdbcType="NUMERIC" />
+		<result property="informType" column="informType" jdbcType="VARCHAR" />
+		<result property="informConf" column="informConf" jdbcType="CLOB" />
+		<result property="mobileFormKey" column="mobileFormKey"
+			jdbcType="NUMERIC" />
+		<result property="mobileFormUrl" column="mobileFormUrl"
+			jdbcType="VARCHAR" />
+		<result property="mobileDetailUrl" column="mobileDetailUrl"
+			jdbcType="VARCHAR" />
+		<result property="backNode" column="BACK_NODE"
+			jdbcType="VARCHAR" />
+		<result property="userLabel" column="USER_LABEL"
+			jdbcType="VARCHAR" />
+		<result property="jumpSetting" column="JUMP_SETTING"
+			jdbcType="CLOB" />
+			
+	</resultMap>
+
+	<resultMap id="NodeSet_form" type="com.cssrc.ibms.core.flow.model.NodeSet">
+		<id property="setId" column="setId" jdbcType="NUMERIC" />
+		<result property="defId" column="defId" jdbcType="NUMERIC" />
+		<result property="nodeName" column="nodeName" jdbcType="VARCHAR" />
+		<result property="nodeId" column="nodeId" jdbcType="VARCHAR" />
+		<result property="formType" column="formType" jdbcType="NUMERIC" />
+		<result property="formUrl" column="formUrl" jdbcType="VARCHAR" />
+		<result property="formKey" column="formKey" jdbcType="NUMERIC" />
+		<result property="actDefId" column="actDefId" jdbcType="VARCHAR" />
+		<result property="formDefName" column="formDefName" jdbcType="VARCHAR" />
+		<result property="nodeType" column="nodeType" jdbcType="NUMERIC" />
+		<result property="joinTaskKey" column="joinTaskKey" jdbcType="VARCHAR" />
+		<result property="joinTaskName" column="joinTaskName" jdbcType="VARCHAR" />
+		<result property="beforeHandler" column="beforeHandler"
+			jdbcType="VARCHAR" />
+		<result property="afterHandler" column="afterHandler" jdbcType="VARCHAR" />
+		<result property="initScriptHandler" column="initScriptHandler"
+			jdbcType="VARCHAR" />
+		<result property="jumpType" column="jumpType" jdbcType="VARCHAR" />
+		<result property="isJumpForDef" column="isJumpForDef" jdbcType="NUMERIC" />
+		<result property="isHideOption" column="isHideOption" jdbcType="NUMERIC" />
+		<result property="isHidePath" column="isHidePath" jdbcType="NUMERIC" />
+		<result property="detailUrl" column="detailUrl" jdbcType="VARCHAR" />
+		<result property="isAllowMobile" column="isAllowMobile"
+			jdbcType="NUMERIC" />
+		<result property="informType" column="informType" jdbcType="VARCHAR" />
+		<result property="informConf" column="informConf" jdbcType="CLOB" />
+		
+		<result property="mobileFormKey" column="mobileFormKey"
+			jdbcType="NUMERIC" />
+		<result property="mobileFormUrl" column="mobileFormUrl"
+			jdbcType="VARCHAR" />
+		<result property="mobileDetailUrl" column="mobileDetailUrl"
+			jdbcType="VARCHAR" />
+		<result property="backNode" column="BACK_NODE"
+			jdbcType="VARCHAR" />
+		<result property="userLabel" column="USER_LABEL"
+			jdbcType="VARCHAR" />
+		<result property="jumpSetting" column="JUMP_SETTING"
+			jdbcType="CLOB" />
+		<association property="formDef"
+			javaType="com.cssrc.ibms.core.form.model.FormDef" column="formKey"
+			select="com.cssrc.ibms.core.form.model.FormDef.getDefaultVersionByFormKey"></association>
+		<!-- <association property="mobileForm" javaType="com.ibms.mobile.model.form.BpmMobileForm" 
+			column="mobileFormKey" select="com.ibms.mobile.model.form.BpmMobileForm.getDefaultVersionByFormKey"></association> -->
+		<association property="mobileFormDef"
+			javaType="com.cssrc.ibms.core.form.model.FormDef" column="mobileFormKey"
+			select="com.cssrc.ibms.core.form.model.FormDef.getDefaultVersionByFormKey"></association>
+	</resultMap>
+
+
+	<resultMap id="NodeSetExt" extends="NodeSet"
+		type="com.cssrc.ibms.core.flow.model.NodeSet">
+		<result property="formDefId" column="formDefId" jdbcType="NUMERIC" />
+	</resultMap>
+
+	<sql id="columns">
+		setId,defId,nodeName,nodeId,formType,formUrl,formKey,actDefId,parentActDefId,formDefName,
+		nodeType,joinTaskKey,joinTaskName,beforeHandler,afterHandler,initScriptHandler,jumpType,
+		setType,isJumpForDef,isHideOption,isHidePath,opinionField,detailUrl,isAllowMobile,nodeOrder,informType,
+		informConf,mobileFormKey,mobileFormUrl,mobileDetailUrl,BACK_NODE,USER_LABEL,JUMP_SETTING
+	</sql>
+
+	<sql id="dynamicWhere">
+		<where>
+			<if test="@Ognl@isNotEmpty(setId)"> AND setId =#{setId} </if>
+			<if test="@Ognl@isNotEmpty(defId)"> AND defId =#{defId} </if>
+			<if test="@Ognl@isNotEmpty(nodeName)"> AND nodeName LIKE #{nodeName}  </if>
+			<if test="@Ognl@isNotEmpty(actDefId)"> AND actDefId =#{actDefId} </if>
+			<if test="@Ognl@isNotEmpty(parentActDefId)"> AND parentActDefId =#{parentActDefId} </if>
+			<if test="@Ognl@isNotEmpty(nodeId)"> AND nodeId LIKE #{nodeId}  </if>
+			<if test="@Ognl@isNotEmpty(formType)"> AND formType =#{formType} </if>
+			<if test="@Ognl@isNotEmpty(formUrl)"> AND formUrl LIKE #{formUrl}  </if>
+			<if test="@Ognl@isNotEmpty(formKey)"> AND formKey =#{formKey} </if>
+			<if test="@Ognl@isNotEmpty(formDefName)"> AND formDefName =#{formDefName} </if>
+			<if test="@Ognl@isNotEmpty(mobileFormUrl)"> AND mobileFormUrl LIKE #{mobileFormUrl}  </if>
+			<if test="@Ognl@isNotEmpty(mobileFormKey)"> AND mobileFormKey =#{mobileFormKey} </if>
+			AND setType =0
+		</where>
+	</sql>
+
+	<insert id="add" parameterType="com.cssrc.ibms.core.flow.model.NodeSet">
+		INSERT INTO ibms_node_set
+		(
+		<include refid="columns" />
+		)
+		VALUES
+		(#{setId,jdbcType=NUMERIC}, #{defId,jdbcType=NUMERIC},
+		#{nodeName,jdbcType=VARCHAR}, #{nodeId,jdbcType=VARCHAR},
+		#{formType,jdbcType=NUMERIC}, #{formUrl,jdbcType=VARCHAR},
+		#{formKey,jdbcType=NUMERIC}, #{actDefId,jdbcType=VARCHAR},
+		#{parentActDefId,jdbcType=VARCHAR}, #{formDefName,jdbcType=VARCHAR},
+		#{nodeType,jdbcType=NUMERIC}, #{joinTaskKey,jdbcType=VARCHAR},
+		#{joinTaskName,jdbcType=VARCHAR}, #{beforeHandler,jdbcType=VARCHAR},
+		#{afterHandler,jdbcType=VARCHAR},
+		#{initScriptHandler,jdbcType=VARCHAR},
+		#{jumpType,jdbcType=VARCHAR},#{setType,jdbcType=NUMERIC},#{isJumpForDef,jdbcType=NUMERIC},
+		#{isHideOption,jdbcType=NUMERIC},#{isHidePath,jdbcType=NUMERIC},#{opinionField,jdbcType=VARCHAR},#{detailUrl,jdbcType=VARCHAR},#{isAllowMobile,jdbcType=NUMERIC},
+		#{nodeOrder,jdbcType=NUMERIC},#{informType,jdbcType=VARCHAR},
+		#{informConf,jdbcType=CLOB},
+		#{mobileFormKey,jdbcType=NUMERIC},#{mobileFormUrl,jdbcType=VARCHAR},#{mobileDetailUrl,jdbcType=VARCHAR},
+		#{backNode,jdbcType=VARCHAR},
+		#{userLabel,jdbcType=VARCHAR},
+		#{jumpSetting,jdbcType=VARCHAR}
+		)
+	</insert>
+
+	<delete id="delById" parameterType="java.lang.Long">
+		DELETE FROM ibms_node_set
+		WHERE
+		setId=#{setId}
+	</delete>
+
+	<update id="update" parameterType="com.cssrc.ibms.core.flow.model.NodeSet">
+		UPDATE ibms_node_set SET
+		defId=#{defId,jdbcType=NUMERIC} ,
+		nodeName=#{nodeName,jdbcType=VARCHAR} ,
+		nodeId=#{nodeId,jdbcType=VARCHAR} ,
+		formType=#{formType,jdbcType=NUMERIC} ,
+		formUrl=#{formUrl,jdbcType=VARCHAR} ,
+		formKey=#{formKey,jdbcType=NUMERIC} ,
+		actDefId=#{actDefId,jdbcType=VARCHAR} ,
+		parentActDefId=#{parentActDefId,jdbcType=VARCHAR} ,
+		formDefName=#{formDefName,jdbcType=VARCHAR} ,
+		nodeType=#{nodeType,jdbcType=NUMERIC} ,
+		joinTaskKey=#{joinTaskKey,jdbcType=VARCHAR} ,
+		joinTaskName=#{joinTaskName,jdbcType=VARCHAR} ,
+		beforeHandler=#{beforeHandler,jdbcType=VARCHAR} ,
+		afterHandler=#{afterHandler,jdbcType=VARCHAR} ,
+		initScriptHandler=#{initScriptHandler,jdbcType=VARCHAR} ,
+		jumpType=#{jumpType,jdbcType=VARCHAR} ,
+		setType=#{setType,jdbcType=NUMERIC},
+		isJumpForDef=#{isJumpForDef,jdbcType=NUMERIC},
+		isHideOption=#{isHideOption,jdbcType=NUMERIC},
+		isHidePath=#{isHidePath,jdbcType=NUMERIC},
+		opinionField=#{opinionField,jdbcType=VARCHAR},
+		detailUrl=#{detailUrl,jdbcType=VARCHAR},
+		isAllowMobile=#{isAllowMobile,jdbcType=NUMERIC},
+		nodeOrder=#{nodeOrder,jdbcType=NUMERIC},
+		informType=#{informType,jdbcType=VARCHAR},
+		informConf=#{informConf,jdbcType=CLOB},
+		mobileFormKey=#{mobileFormKey,jdbcType=NUMERIC},
+		mobileFormUrl=#{mobileFormUrl,jdbcType=VARCHAR},
+		mobileDetailUrl=#{mobileDetailUrl,jdbcType=VARCHAR},
+		BACK_NODE=#{backNode,jdbcType=VARCHAR},
+		USER_LABEL=#{userLabel,jdbcType=VARCHAR},
+		JUMP_SETTING=#{jumpSetting,jdbcType=CLOB}
+		WHERE
+		setId=#{setId}
+	</update>
+
+
+	<select id="getById" parameterType="java.lang.Long" resultMap="NodeSet_form">
+		SELECT
+		<include refid="columns" />
+		FROM ibms_node_set
+		WHERE
+		setId=#{setId}
+	</select>
+
+	<select id="getAll" resultMap="NodeSet_form">
+		SELECT
+		<include refid="columns" />
+		FROM ibms_node_set
+		<include refid="dynamicWhere" />
+		<if test="@Ognl@isNotEmpty(orderField)">
+			order by ${orderField} ${orderSeq}
+		</if>
+		<if test="@Ognl@isEmpty(orderField)">
+			order by nodeOrder desc
+		</if>
+	</select>
+
+	<select id="getByDefId" parameterType="java.lang.Long"
+		resultMap="NodeSet_form">
+		SELECT
+		<include refid="columns" />
+		FROM ibms_node_set
+		WHERE defId=#{defId} and setType=0 and
+		(parentActDefId is null or parentActDefId='')
+		ORDER BY nodeOrder
+		,nodeid
+	</select>
+
+	<select id="getByDefIdAndParentActDefId" parameterType="java.util.Map"
+		resultMap="NodeSet_form">
+		SELECT
+		<include refid="columns" />
+		FROM ibms_node_set
+		WHERE defId=#{defId} and setType=0 and
+		parentActDefId=#{parentActDefId}
+		ORDER BY nodeOrder ,nodeid
+	</select>
+
+	<select id="getAllByDefId" parameterType="java.lang.Long"
+		resultMap="NodeSet_form">
+		SELECT
+		<include refid="columns" />
+		FROM ibms_node_set
+		WHERE defId=#{defId} AND (parentActDefId is null OR
+		parentActDefId='')
+	</select>
+	<select id="getByActDef" parameterType="String" resultMap="NodeSet_form">
+		SELECT
+		<include refid="columns" />
+		FROM ibms_node_set
+		WHERE actdefid=#{actDefId} and setType=0
+		ORDER BY
+		nodeOrder
+	</select>
+
+	<select id="getByActDefId" parameterType="String" resultMap="NodeSet_form">
+		SELECT
+		a.setId,a.defId,a.nodeName,a.nodeId,a.formType,a.formUrl,a.formKey,a.actDefId,a.parentActDefId,a.formDefName,a.nodeType,
+		a.joinTaskKey,a.joinTaskName,a.beforeHandler,a.afterHandler,a.initScriptHandler,
+		a.jumpType,a.setType,a.nodeOrder,b.formdefid
+		FROM ibms_node_set a left
+		join ibms_form_def b
+		on a.formkey =b.formkey where
+		a.actdefid=#{actDefId}
+		and ((a.formtype=0 and b.isdefault=1 and
+		b.ispublished=1) or
+		a.formtype=-1 or a.formtype=1 )
+		and
+		(a.parentActDefId is null or a.parentActDefId='')
+		ORDER BY nodeOrder
+	</select>
+
+	<select id="getByActDefIdAndParentId" parameterType="Map"
+		resultMap="NodeSet_form">
+		SELECT
+		a.setId,a.defId,a.nodeName,a.nodeId,a.formType,a.formUrl,a.formKey,a.actDefId,a.parentActDefId,a.formDefName,a.nodeType,
+		a.joinTaskKey,a.joinTaskName,a.beforeHandler,a.afterHandler,a.initScriptHandler,
+		a.jumpType,a.setType,a.nodeOrder,b.formdefid
+		FROM ibms_node_set a left
+		join ibms__form_def b
+		on a.formkey =b.formkey where
+		a.actdefid=#{actDefId}
+		and ((a.formtype=0 and b.isdefault=1 and
+		b.ispublished=1) or
+		a.formtype=-1 or a.formtype=1 )
+		and
+		a.parentActDefId=#{parentActDefId}
+		ORDER BY nodeOrder
+	</select>
+
+	<select id="getOnlineFormByActDefId" parameterType="String"
+		resultMap="NodeSet_form">
+		SELECT
+		a.setId,a.defId,a.nodeName,a.nodeId,a.formType,a.formUrl,a.formKey,a.actDefId,a.formDefName,a.nodeType,
+		a.joinTaskKey,a.joinTaskName,a.beforeHandler,a.afterHandler,a.initScriptHandler,
+		a.jumpType,a.setType,a.nodeOrder,b.formdefid
+		FROM ibms_node_set a join
+		ibms_form_def b
+		on a.formkey =b.formkey where a.actdefid=#{actDefId}
+		and a.formtype=0 and (a.parentActDefId is null or a.parentActDefId='')
+		and b.isdefault=1 and b.ispublished=1
+		ORDER BY nodeOrder
+	</select>
+
+	<select id="getOnlineFormByActDefIdAndParentDefId"
+		parameterType="java.util.Map" resultMap="NodeSet_form">
+		SELECT
+		a.setId,a.defId,a.nodeName,a.nodeId,a.formType,a.formUrl,a.formKey,a.actDefId,a.formDefName,a.nodeType,
+		a.joinTaskKey,a.joinTaskName,a.beforeHandler,a.afterHandler,a.initScriptHandler,
+		a.jumpType,a.setType,a.nodeOrder,b.formdefid
+		FROM ibms_node_set a join
+		ibms_form_def b
+		on a.formkey =b.formkey where a.actdefid=#{actDefId}
+		and a.formtype=0 and a.parentActDefId=#{parentActDefId} and
+		b.isdefault=1
+		and b.ispublished=1
+		ORDER BY nodeOrder
+	</select>
+
+
+	<select id="getByDefIdNodeId" resultMap="NodeSet_form">
+		SELECT
+		<include refid="columns" />
+		FROM ibms_node_set
+		WHERE defId=#{defId} and nodeId=#{nodeId} and
+		setType=0 and (parentActDefId is null or parentActDefId='')
+	</select>
+
+	<select id="getByDefIdNodeIdAndParentActDefId" resultMap="NodeSet_form">
+		SELECT
+		<include refid="columns" />
+		FROM ibms_node_set
+		WHERE defId=#{defId} and nodeId=#{nodeId} and
+		setType=0 and parentActDefId=#{parentActDefId}
+	</select>
+
+	<select id="getBySetType" resultMap="NodeSet_form">
+		SELECT
+		<include refid="columns" />
+		FROM ibms_node_set WHERE defId=#{defId} and setType=#{setType} and
+		(parentActDefId is null or parentActDefId='')
+	</select>
+
+	<select id="getBySetTypeAndActDefId" resultMap="NodeSet_form">
+		SELECT
+		<include refid="columns" />
+		FROM ibms_node_set WHERE actDefId=#{actDefId} and setType=#{setType}
+	</select>
+	
+	<select id="getBySetTypeAndParentActDefId" resultMap="NodeSet_form">
+		SELECT
+		<include refid="columns" />
+		FROM ibms_node_set WHERE defId=#{defId} and setType=#{setType} and
+		parentActDefId=#{parentActDefId}
+	</select>
+
+	<select id="getByActDefIdJoinTaskKey" resultMap="NodeSet_form">
+		SELECT
+		<include refid="columns" />
+		FROM ibms_node_set where actDefId=#{actDefId} and
+		joinTaskKey=#{joinTaskKey} and setType=0 and (parentActDefId is null
+		or parentActDefId='')
+	</select>
+
+	<select id="getByActDefIdNodeId" resultMap="NodeSet_form">
+		SELECT
+		<include refid="columns" />
+		FROM ibms_node_set
+		WHERE actDefId=#{actDefId} and nodeId=#{nodeId} and
+		(parentActDefId is null or parentActDefId='')
+	</select>
+
+	<select id="getByActDefIdNodeIdAndParentActDefId" resultMap="NodeSet_form">
+		SELECT
+		<include refid="columns" />
+		FROM ibms_node_set
+		WHERE actDefId=#{actDefId} and nodeId=#{nodeId}
+		<if test="@Ognl@isNotEmpty(parentActDefId)">
+			and parentActDefId=#{parentActDefId}
+		</if>
+		<if test="@Ognl@isEmpty(parentActDefId)">
+			AND (parentActDefId is null or parentActDefId='')
+		</if>
+	</select>
+
+	<delete id="delByDefId" parameterType="java.util.Map">
+		DELETE FROM ibms_node_set
+		WHERE defId=#{defId} or parentActDefId=#{parentActDefId}
+	</delete>
+
+	<delete id="delByDefIdAndParentActDefId" parameterType="java.util.Map">
+		DELETE
+		FROM ibms_node_set WHERE defId=#{defId} and
+		parentActDefId=#{parentActDefId}
+	</delete>
+
+	<delete id="delByDefIdNodeId" parameterType="java.util.Map">
+		DELETE FROM
+		ibms_node_set WHERE nodeId=#{nodeId} and defId=#{defId}
+	</delete>
+
+	<delete id="delByStartGlobalDefId" parameterType="java.lang.Long">
+		DELETE FROM
+		ibms_node_set WHERE defId=#{defId} and setType>=1 and (parentActDefId
+		is null or parentActDefId='')
+	</delete>
+
+	<delete id="delByStartGlobalDefIdAndParentActDefId"
+		parameterType="java.util.Map">
+		DELETE FROM ibms_node_set WHERE defId=#{defId} and
+		setType>=1 and parentActDefId=#{parentActDefId}
+	</delete>
+
+	<select id="getByParentActDefId" resultMap="NodeSet_form"
+		parameterType="java.lang.String">
+		SELECT distinct defId, actDefId, parentActDefId FROM
+		ibms_node_set WHERE parentActDefId=#{parentActDefId}
+	</select>
+
+	<select id="getByStartGlobal" resultMap="NodeSet_form"
+		parameterType="java.lang.Long">
+		SELECT
+		<include refid="columns" />
+		FROM ibms_node_set WHERE defId=#{defId} and setType=2 and
+		(parentActDefId is null or parentActDefId='')
+	</select>
+
+	<select id="getByStartGlobalParentActDefId" resultMap="NodeSet_form"
+		parameterType="java.util.Map">
+		SELECT
+		<include refid="columns" />
+		FROM ibms_node_set WHERE defId=#{defId} and setType=2 and
+		parentActDefId=#{parentActDefId}
+	</select>
+
+	<select id="getByOther" resultMap="NodeSet_form" parameterType="java.lang.Long">
+		SELECT
+		<include refid="columns" />
+		FROM ibms_node_set WHERE defId=#{defId} and setType>=1
+	</select>
+
+	<update id="updateIsJumpForDef" parameterType="java.util.Map">
+		update
+		ibms_node_set set isJumpForDef=#{isJumpForDef,jdbcType=NUMERIC} where
+		nodeId=#{nodeId} and actDefId=#{actDefId}
+	</update>
+
+	<select id="getByFormKey" parameterType="java.lang.Long"
+		resultMap="NodeSet_form">
+		SELECT distinct formKey,actDefId,formDefName
+		FROM
+		ibms_node_set
+		WHERE formKey=#{formKey}
+	</select>
+
+	<select id="getParentIdByDefId" parameterType="java.lang.Long"
+		resultMap="NodeSet_form">
+		SELECT distinct parentActDefId
+		FROM ibms_node_set
+		WHERE
+		defId=#{defId} and parentActDefId is not null
+	</select>
+
+	<select id="getParentByDefIdAndNodeId" parameterType="java.util.Map"
+		resultMap="NodeSet_form">
+		SELECT
+		<include refid="columns" />
+		FROM ibms_node_set
+		WHERE defId=#{defId} and nodeId=#{nodeId} and
+		parentActDefId is not null
+	</select>
+
+	<select id="getByDefIdOpinion" resultMap="NodeSet_form">
+		SELECT
+		<include refid="columns" />
+		FROM ibms_node_set
+		WHERE defId=#{defId} and setType=0
+		and (OPINIONFIELD
+		is not null or OPINIONFIELD!='')
+		<if test="@Ognl@isEmpty(parentActDefId)">
+			and (parentActDefId is null or parentActDefId='')
+		</if>
+		<if test="@Ognl@isNotEmpty(parentActDefId)">
+			AND parentActDefId=#{parentActDefId}
+		</if>
+
+	</select>
+	<select id="getOpinionFields" resultType="java.lang.String">
+		SELECT OPINIONFIELD
+		FROM ibms_node_set
+		WHERE OPINIONFIELD IS NOT NULL AND ACTDEFID =
+		#{actDefId}
+	</select>
+
+	<select id="getAllNodeSet" resultType="java.util.Map">
+		SELECT
+		def.SUBJECT AS "subject",
+		def.DEFKEY AS "defKey",
+		def.STATUS AS "status",
+		def.VERSIONNO AS "versionNo",
+		node.NODENAME AS "nodeName",
+		node.NODEID AS "nodeId",
+		node.SETID AS "setId",
+		node.DEFID AS "defId",
+		def.CREATETIME AS "creatTime",
+		def.UPDATETIME AS "updateTime"
+		FROM
+		ibms_node_set node INNER JOIN ibms_definition def ON
+		node.DEFID=def.DEFID
+		<if test="@Ognl@isNotEmpty(subject)"> AND def.subject LIKE #{subject}  </if>
+		<if test="@Ognl@isNotEmpty(defKey)"> AND def.defKey LIKE #{defKey}  </if>
+		<if test="@Ognl@isNotEmpty(taskNameRule)"> AND def.taskNameRule LIKE #{taskNameRule}  </if>
+		<if test="@Ognl@isNotEmpty(descp)"> AND def.descp LIKE #{descp}  </if>
+		<if test="@Ognl@isNotEmpty(createtime)"> AND def.createtime >=#{createtime,jdbcType=DATE} </if>
+		<if test="@Ognl@isNotEmpty(endcreatetime)"> AND def.createtime
+			&lt;=#{endcreatetime,jdbcType=DATE} </if>
+		<if test="@Ognl@isNotEmpty(status)"> AND def.status =#{status} </if>
+		<if test="@Ognl@isNotEmpty(isUseOutForm)"> AND def.isUseOutForm =#{isUseOutForm} </if>
+	</select>
+	
+	
+	<update id="updateUserLabel">
+		UPDATE ibms_node_set SET
+		USER_LABEL=#{userLabel,jdbcType=VARCHAR}
+		WHERE
+		setId=#{setId}
+	</update>	
+	
+	<update id="updateNodeJumpSetting">
+		UPDATE ibms_node_set SET
+		JUMP_SETTING=#{jumpSetting,jdbcType=CLOB}
+		WHERE
+		setId=#{setId}
+	</update>	
+</mapper>

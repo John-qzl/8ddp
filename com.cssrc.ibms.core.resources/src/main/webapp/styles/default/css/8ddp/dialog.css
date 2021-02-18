@@ -1,0 +1,23 @@
+div.panel {
+    /* padding: 5px; */
+    background: #ebecef;
+}
+td.formHead,
+td.formHead span {
+    color: #333;
+    font-size: 14px !important;
+    font-weight: bold;
+}
+.headRow th {
+    border-right: 1px solid #dfdfdf;
+    border-bottom: 4px solid #d8dce5;
+    border-top: 1px solid #dfdfdf;
+    color: #333;
+    background: #ebecef;
+}
+table.listTable tr.listRow:hover {
+    background: #fdf4d7;
+}
+#acceptanceGroup{
+	color: #333!important;
+}

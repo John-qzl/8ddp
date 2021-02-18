@@ -1,0 +1,91 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:security="http://www.springframework.org/schema/security"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+	http://www.springframework.org/schema/security
+	http://www.springframework.org/schema/security/spring-security-3.1.xsd">
+
+	<security:http pattern="/js/**" security="none" />
+	<security:http pattern="/commons/**" security="none" />
+	<security:http pattern="/images/**" security="none" />
+	<security:http pattern="/jslib/**" security="none" />
+
+	<security:http entry-point-ref="multipleAuthenticationLoginEntry"
+		servlet-api-provision="true">
+		<!--使用表单登录 记住登录 -->
+		<security:remember-me key="ibmsPrivateKey" />
+		<security:logout logout-url="/logout"
+			logout-success-url="/loginRedirect.do" />
+		<security:custom-filter ref="aopFilter" after="FORM_LOGIN_FILTER" />
+		<security:custom-filter before="FILTER_SECURITY_INTERCEPTOR"
+			ref="permissionFilter" />
+		<security:access-denied-handler ref="ibmsAccessDeniedHandler" />
+		<security:form-login default-target-url="/WEB-INF/view/oa/console/main.jsp"
+			login-page="/login.jsp" authentication-failure-url="/login.jsp?error=true"
+			login-processing-url="/j_security_check" />
+		<security:custom-filter position="SWITCH_USER_FILTER"
+			ref="switchUserProcessingFilter" />
+	</security:http>
+
+	<bean id="switchUserProcessingFilter" class="com.cssrc.ibms.core.web.filter.IbmsSwitchUserFilter">
+		<property name="userDetailsService" ref="sysUserDao" />
+		<property name="switchUserUrl" value="/j_spring_security_switch_user" />
+		<property name="exitUserUrl" value="/j_spring_security_exit_user" />
+		<property name="targetUrl" value="/oa/console/main.do" />
+	</bean>
+
+
+	<!--登录入口定义 -->
+	<bean id="multipleAuthenticationLoginEntry"
+		class="com.cssrc.ibms.core.web.security.MultipleAuthenticationLoginEntry">
+		<property name="defaultLoginUrl" value="/login.jsp" />
+	</bean>
+
+	<bean id="ibmsAccessDeniedHandler" class="com.cssrc.ibms.core.web.security.IbmsAccessDeniedHandler">
+		<property name="accessDeniedUrl" value="/commons/403.jsp"></property>
+	</bean>
+	<bean id="ibmsPasswordEncoder" class="com.cssrc.ibms.core.web.security.IbmsPasswordEncoder"></bean>
+	<!-- 认证管理器，实现用户认证的入口，主要实现UserDetailsService接口即可 -->
+	<security:authentication-manager alias="authenticationManager">
+		<security:authentication-provider
+			user-service-ref="sysUserDao">
+			<security:password-encoder ref="ibmsPasswordEncoder" />
+		</security:authentication-provider>
+	</security:authentication-manager>
+
+	<bean id="aopFilter" class="com.cssrc.ibms.core.web.filter.AopFilter"></bean>
+
+	<!-- 一个自定义的filter，必须包含authenticationManager,accessDecisionManager,securityMetadataSource三个属性，我们的所有控制将在这三个类中实现 -->
+	<bean id="permissionFilter" class="com.cssrc.ibms.core.web.filter.PermissionFilter">
+		<property name="authenticationManager" ref="authenticationManager" />
+		<property name="accessDecisionManager" ref="accessDecisionManager" />
+		<property name="securityMetadataSource" ref="securityMetadataSource" />
+	</bean>
+
+	<!-- 访问决策器，决定某个用户具有的角色，是否有足够的权限去访问某个资源 -->
+	<bean id="accessDecisionManager" class="com.cssrc.ibms.core.web.security.IbmsDecisionManager" />
+
+	<!-- 资源源数据定义，即定义某一资源可以被哪些角色访问 -->
+	<bean id="securityMetadataSource" class="com.cssrc.ibms.core.web.security.IbmsSecurityMetadataSource"
+		scope="singleton">
+		<property name="anonymousUrls">
+			<set>
+				<value>/login.jsp</value>
+				<value>/loginIbms.jsp</value>
+				<value>/loginv1.jsp</value>
+				<value>/login.do</value>
+				<value>/oa/console/downloadPlugin.do</value>
+				<value>/oa/system/sysUser/modifyPwdView.do</value>
+				<value>/oa/system/sysUser/modifyPwd.do</value>
+				<value>/oa/system/version/show.do</value>
+				<value>/oa/flow/task/api/start.do</value>
+				<!-- 配置Pad端首次请求 -->
+				<value>/datasync/sync.do</value>
+				<value>/restful/api/getProductInfo.do</value>
+				<value>/restful/api/getMissileInfo.do</value>
+				<value>/restful/api/getTestInfo.do</value>
+			</set>
+		</property>
+	</bean>
+</beans>

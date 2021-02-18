@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+<mapper namespace="com.cssrc.ibms.record.model.RecType">
+	<resultMap id="RecType" type="com.cssrc.ibms.record.model.RecType">
+		<id property="typeId" column="typeId" jdbcType="NUMERIC"/>
+		<result property="typeName" column="typeName" jdbcType="VARCHAR"/>
+		<result property="alias" column="alias" jdbcType="VARCHAR"/>
+		<result property="typeDesc" column="typeDesc" jdbcType="VARCHAR"/>
+	</resultMap>
+	<sql id="columns">
+		typeId,typeName,alias,typeDesc
+	</sql>
+	<sql id="dynamicWhere">
+		<where>
+			<if test="@Ognl@isNotEmpty(typeId)"> AND typeId =#{typeId} </if>
+			<if test="@Ognl@isNotEmpty(typeName)"> AND typeName LIKE #{typeName} </if>
+			<if test="@Ognl@isNotEmpty(alias)"> AND alias LIKE #{alias} </if>			
+			<if test="@Ognl@isNotEmpty(typeDesc)"> AND typeDesc LIKE #{typeDesc} </if>
+		</where>
+	</sql>
+	
+	<insert id="add" parameterType="com.cssrc.ibms.record.model.RecType">
+		INSERT INTO IBMS_REC_TYPE
+		(<include refid="columns"/>)
+		VALUES
+		(#{typeId,jdbcType=NUMERIC},#{typeName,jdbcType=VARCHAR},#{alias,jdbcType=VARCHAR},#{typeDesc,jdbcType=VARCHAR})
+	</insert>
+	
+	<delete id="delById" parameterType="java.lang.Long">
+		DELETE FROM IBMS_REC_TYPE 
+		WHERE
+		typeId=#{typeId}
+	</delete>
+	
+	<update id="update" parameterType="com.cssrc.ibms.record.model.RecType">
+			UPDATE IBMS_REC_TYPE SET
+			typeName=#{typeName,jdbcType=VARCHAR} , 
+			alias=#{alias,jdbcType=VARCHAR} , 
+			typeDesc=#{typeDesc,jdbcType=VARCHAR}
+			WHERE
+			typeId=#{typeId}
+	</update>
+	
+	<select id="getById" parameterType="java.lang.Long" resultMap="RecType">
+		SELECT <include refid="columns"/>
+		FROM IBMS_REC_TYPE
+		WHERE
+		typeId=#{typeId}
+	</select>	
+	<select id="getAll" resultMap="RecType">
+		SELECT <include refid="columns"/>
+		FROM IBMS_REC_TYPE 
+		<include refid="dynamicWhere" />
+		<if test="@Ognl@isNotEmpty(orderField)">
+			ORDER BY ${orderField} ${orderSeq}
+		</if>
+		<if test="@Ognl@isEmpty(orderField)">
+			ORDER BY alias
+		</if>
+	</select>
+	<select id="isAliasExists" resultType="Integer">
+		SELECT count(1) as count FROM IBMS_REC_TYPE  WHERE alias=#{alias}
+	</select>
+	<select id="getByAlias" resultMap="RecType">
+		SELECT <include refid="columns"/> 
+		FROM IBMS_REC_TYPE  WHERE alias=#{alias}
+	</select>
+</mapper>

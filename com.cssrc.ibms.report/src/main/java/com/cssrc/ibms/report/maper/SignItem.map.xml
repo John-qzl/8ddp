@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cssrc.ibms.report.model.SignItem">
+	<resultMap id="SignItem" type="com.cssrc.ibms.report.model.SignItem">
+		<id column="ID" property="id" jdbcType="BIGINT" />
+		<result column="CODE" property="code" jdbcType="BIGINT" />
+		<result column="SIGN_ID" property="signId" jdbcType="BIGINT" />
+		<result column="FORM_ID" property="formId" jdbcType="BIGINT" />
+		<result column="TEMPLATE_ID" property="templateId" jdbcType="BIGINT" />
+		<result column="ACTIVITI_ID" property="activitiId" jdbcType="BIGINT" />
+		<result column="SIGN_DATA" property="signData" jdbcType="VARCHAR" />
+		<result column="PASSWORD" property="password" jdbcType="VARCHAR" />
+		<result column="IMAGE" property="image" jdbcType="CLOB" />
+		<result column="DATA" property="data" jdbcType="CLOB" />
+		<result column="ENCRY_DATA" property="encryData" jdbcType="CLOB" />
+		<result column="POSITION" property="position" jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="columns">
+		ID, CODE, SIGN_ID, FORM_ID, TEMPLATE_ID, ACTIVITI_ID, SIGN_DATA, PASSWORD
+		,IMAGE, DATA, ENCRY_DATA, POSITION
+
+	</sql>
+
+	<select id="getById" resultMap="SignItem" parameterType="java.lang.Long">
+		select
+		<include refid="columns" />
+		from cwm_sys_sign_item
+		where ID = #{id,jdbcType=BIGINT}
+	</select>
+	<delete id="delById" parameterType="java.lang.Long">
+		delete from
+		cwm_sys_sign_item
+		where ID = #{id,jdbcType=BIGINT}
+	</delete>
+	<insert id="add" parameterType="com.cssrc.ibms.report.model.SignItem">
+		insert into cwm_sys_sign_item (ID, CODE, SIGN_ID,
+		FORM_ID, TEMPLATE_ID, ACTIVITI_ID,
+		SIGN_DATA, PASSWORD, IMAGE,
+		DATA, ENCRY_DATA, POSITION
+		)
+		values (#{id,jdbcType=BIGINT}, #{code,jdbcType=BIGINT},
+		#{signId,jdbcType=BIGINT},
+		#{formId,jdbcType=BIGINT}, #{templateId,jdbcType=BIGINT}, #{activitiId,jdbcType=BIGINT},
+		#{signData,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR},
+		#{image,jdbcType=CLOB},
+		#{data,jdbcType=CLOB}, #{encryData,jdbcType=CLOB}, #{position,jdbcType=VARCHAR}
+		)
+	</insert>
+
+	<update id="update" parameterType="com.cssrc.ibms.report.model.SignItem">
+		update cwm_sys_sign_item
+		set CODE = #{code,jdbcType=BIGINT},
+		SIGN_ID = #{signId,jdbcType=BIGINT},
+		FORM_ID = #{formId,jdbcType=BIGINT},
+		TEMPLATE_ID = #{templateId,jdbcType=BIGINT},
+		ACTIVITI_ID = #{activitiId,jdbcType=BIGINT},
+		SIGN_DATA = #{signData,jdbcType=VARCHAR},
+		PASSWORD = #{password,jdbcType=VARCHAR},
+		IMAGE = #{image,jdbcType=CLOB},
+		DATA = #{data,jdbcType=CLOB},
+		ENCRY_DATA = #{encryData,jdbcType=CLOB},
+		POSITION = #{position,jdbcType=VARCHAR}
+		where ID = #{id,jdbcType=BIGINT}
+	</update>
+
+</mapper>

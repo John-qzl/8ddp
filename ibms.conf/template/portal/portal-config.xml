@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates>
+	<template id="messageReceiver" name="未读消息" service="indexShowService.getMessage"/>
+	<template id="pendingMatters" name="待办事宜" service="indexShowService.pendingMatters"/>
+	<template id="alreadyMatters" name="已办事宜" service="indexShowService.alreadyMatters"/>
+	<template id="completedMatters" name="办结事宜" service="indexShowService.completedMatters"/>
+	<template id="myCompleted" name="我的办结" service="indexShowService.myCompleted"/>
+	<template id="myRequest" name="我的请求" service="indexShowService.myRequest"/>
+	<template id="taskListData" name="任务列表" service="indexShowService.getTaskMap"/>
+	<template id="taskListDataRpc" name="任务列表rpc" service="indexShowService.getTaskMap"/>
+	<template id="news" name="新闻公告" service="insNewsService.getPortalNews"/>
+	<template id="showPage" name="图片展示" service="insNewsService.getPortalNews"/>
+	<!-- <template id="columnBox" name="名片盒" service=""/> -->
+	<template id="warningTaskList" name="任务预警" service="indexShowService.getPortalWarnTask"/>
+	
+</templates>

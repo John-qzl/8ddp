@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<root xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="config.xsd">
+
+	<!--<category id="console"> <view name="main" value="oa/console/main.jsp"/> 
+		<view name="index" value="oa/console/index.jsp"/> </category> --><!--start_sys_user -->
+
+	<category id="system">
+		<view name="sysUserAdd" value="oa/system/sysUserAdd.jsp" />
+		<view name="sysUserUpd" value="oa/system/sysUserUpd.jsp" />
+		<view name="sysUserList" value="oa/system/sysUserList.jsp" />
+		<view name="sysUserGet" value="oa/system/sysUserGet.jsp" />
+		<view name="sysUserReset" value="oa/system/sysUserReset.jsp" />
+
+
+		<view name="sysRoleAdd" value="oa/system/sysRoleAdd.jsp" />
+		<view name="sysRoleUpd" value="oa/system/sysRoleUpd.jsp" />
+		<view name="sysRoleList" value="oa/system/sysRoleList.jsp" />
+		<view name="sysRoleGet" value="oa/system/sysRoleGet.jsp" />
+
+
+		<view name="sysOrgAdd" value="oa/system/sysOrgAdd.jsp" />
+		<view name="sysOrgUpd" value="oa/system/sysOrgUpd.jsp" />
+		<view name="sysOrgList" value="oa/system/sysOrgList.jsp" />
+		<view name="sysOrgListById" value="oa/system/sysOrgListById.jsp" />
+		<view name="sysOrgUserList" value="oa/system/sysOrgUserList.jsp" />
+		<view name="sysOrgGet" value="oa/system/sysOrgGet.jsp" />
+		<view name="sysOrgView" value="oa/system/sysOrgView.jsp" />
+		<view name="sysOrgTree" value="oa/system/sysOrgTree.jsp" />
+	</category>
+	<!--end_sys_org -->
+	<!--start_sys_demension -->
+
+	<category id="system">
+
+		<view name="demensionAdd" value="oa/system/demensionAdd.jsp" />
+		<view name="demensionUpd" value="oa/system/demensionUpd.jsp" />
+		<view name="demensionList" value="oa/system/demensionList.jsp" />
+		<view name="demensionGet" value="oa/system/demensionGet.jsp" />
+
+		<view name="sysDataSourceAdd" value="oa/system/sysDataSourceAdd.jsp" />
+		<view name="sysDataSourceUpd" value="oa/system/sysDataSourceUpd.jsp" />
+		<view name="sysDataSourceList" value="oa/system/sysDataSourceList.jsp" />
+		<view name="sysDataSourceGet" value="oa/system/sysDataSourceGet.jsp" />
+
+		<view name="subSystemAdd" value="oa/system/subSystemAdd.jsp" />
+		<view name="subSystemUpd" value="oa/system/subSystemUpd.jsp" />
+		<view name="subSystemList" value="oa/system/subSystemList.jsp" />
+		<view name="subSystemGet" value="oa/system/subSystemGet.jsp" />
+
+		<view name="sysAuditAdd" value="oa/system/sysAuditAdd.jsp" />
+		<view name="sysAuditUpd" value="oa/system/sysAuditUpd.jsp" />
+		<view name="sysAuditList" value="oa/system/sysAuditList.jsp" />
+		<view name="sysAuditGet" value="oa/system/sysAuditGet.jsp" />
+
+		<view name="condition" value="oa/system/customCondition.jsp" />
+
+
+
+	</category>
+
+	<!--start_BPM_DEFINITION -->
+	<category id="bpm">
+		<view name="bpmDefinitionAdd" value="oa/bpm/bpmDefinitionAdd.jsp" />
+		<view name="bpmDefinitionUpd" value="oa/bpm/bpmDefinitionUpd.jsp" />
+		<view name="bpmDefinitionList" value="oa/bpm/bpmDefinitionList.jsp" />
+		<view name="bpmDefinitionGet" value="oa/bpm/bpmDefinitionGet.jsp" />
+		<view name="bpmDefinitionOnline" value="oa/bpm/bpmeditor.jsp" />
+		<view name="taskVarsList" value="oa/bpm/taskVarsList.jsp" />
+	</category>
+	<!--end_BPM_DEFINITION -->
+
+	<category id="console">
+		<view name="index" value="oa/console/index.jsp" />
+		<view name="main" value="oa/console/main.jsp" />
+		<view name="main_topMenu" value="oa/console/main_topMenu.jsp" />
+		<view name="main_topLeftMenu" value="oa/console/main_topLeftMenu.jsp" />
+		<view name="main_leftLeftMenu" value="oa/console/main_leftLeftMenu.jsp" />
+		<view name="main_leftFloatMenu" value="oa/console/main_leftFloatMenu.jsp" />
+		<view name="mainExtendIndex" value="oa/console/mainExtend.jsp" />
+		<view name="home" value="oa/console/home.jsp" />
+		<view name="turnToMain" value="oa/console/turnToMain.jsp" />
+		<!-- new add UIpage -->
+		<view name="newMain" value="oa/console/main.jsp"/>
+		<view name="newhome" value="oa/console/home.jsp" />
+	</category>
+
+	<category id="opinion">
+		<view name="getNodeList" value="oa/flow/taskOpinionList.jsp" />
+	</category>
+
+	<category id="userTask">
+		<view name="alreadyMatters" value="oa/flow/usertask/alreadyMatters.jsp" />
+		<view name="alreadyMattersList" value="oa/flow/usertask/alreadyMattersList.jsp" />
+		<view name="pendingMatters" value="oa/flow/usertask/pendingTaskMatters.jsp" />
+		<view name="pendingMattersList" value="oa/flow/usertask/pendingTaskMattersList.jsp" />
+		<view name="userMattersView" value="oa/flow/usertask/userMattersView.jsp" />
+		
+		
+	</category>
+	<category id="pendingSetting">
+		<view name="view" value="oa/flow/usertask/pendingSettingView.jsp" />
+	</category>
+	
+</root>
+

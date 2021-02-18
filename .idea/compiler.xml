@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="com.cssrc.ibms.core" />
+        <module name="com.cssrc.ibms.core.activity" />
+        <module name="com.cssrc.ibms.core.form" />
+        <module name="com.cssrc.ibms.core.jms" />
+        <module name="com.cssrc.ibms.core.log" />
+        <module name="com.cssrc.ibms.core.resources" />
+        <module name="com.cssrc.ibms.core.rpc" />
+        <module name="com.cssrc.ibms.core.sysuser" />
+        <module name="com.cssrc.ibms.core.util" />
+        <module name="com.cssrc.ibms.migration" />
+        <module name="com.cssrc.ibms.portal" />
+        <module name="com.cssrc.ibms.report" />
+        <module name="com.cssrc.ibms.rtx" />
+        <module name="com.cssrc.ibms.statistics" />
+        <module name="com.cssrc.ibms.system" />
+        <module name="com.cssrc.ibms.webPortal" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="com.cssrc.ibms" target="1.7" />
+      <module name="com.cssrc.ibms.core" target="1.7" />
+      <module name="com.cssrc.ibms.core.activity" target="1.7" />
+      <module name="com.cssrc.ibms.core.form" target="1.7" />
+      <module name="com.cssrc.ibms.core.jms" target="1.7" />
+      <module name="com.cssrc.ibms.core.log" target="1.7" />
+      <module name="com.cssrc.ibms.core.resources" target="1.7" />
+      <module name="com.cssrc.ibms.core.rpc" target="1.7" />
+      <module name="com.cssrc.ibms.core.sysuser" target="1.7" />
+      <module name="com.cssrc.ibms.core.util" target="1.7" />
+      <module name="com.cssrc.ibms.imtools" target="1.8" />
+      <module name="com.cssrc.ibms.migration" target="1.7" />
+      <module name="com.cssrc.ibms.portal" target="1.7" />
+      <module name="com.cssrc.ibms.report" target="1.7" />
+      <module name="com.cssrc.ibms.rtx" target="1.7" />
+      <module name="com.cssrc.ibms.statistics" target="1.7" />
+      <module name="com.cssrc.ibms.synchronization" target="1.8" />
+      <module name="com.cssrc.ibms.system" target="1.7" />
+      <module name="com.cssrc.ibms.webPortal" target="1.7" />
+    </bytecodeTargetLevel>
+  </component>
+</project>

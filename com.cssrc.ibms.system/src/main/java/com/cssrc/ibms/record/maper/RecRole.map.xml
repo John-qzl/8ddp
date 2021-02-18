@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+<mapper namespace="com.cssrc.ibms.record.model.RecRole">
+	<resultMap id="RecRole" type="com.cssrc.ibms.record.model.RecRole">
+		<id property="roleId" column="roleId" jdbcType="NUMERIC"/>
+		<result property="typeId" column="typeId" jdbcType="NUMERIC"/>
+		<result property="alias" column="alias" jdbcType="VARCHAR"/>
+		<result property="roleName" column="roleName" jdbcType="VARCHAR"/>
+		<result property="roleDesc" column="roleDesc" jdbcType="VARCHAR"/>
+		<result property="allowDel" column="allowDel" jdbcType="NUMERIC"/>
+		<result property="allowEdit" column="allowEdit" jdbcType="NUMERIC"/>
+		<result property="allowSet" column="allowSet" jdbcType="NUMERIC"/>
+		<result property="status" column="status" jdbcType="NUMERIC"/>
+		<result property="filter" column="filter" jdbcType="VARCHAR"/>
+		<result property="isHide" column="isHide" jdbcType="NUMERIC"/>
+	</resultMap>
+	<sql id="columns">
+		roleId,typeId,alias,roleName,roleDesc,allowDel,allowEdit,allowSet,status,filter,isHide
+	</sql>
+	<sql id="dynamicWhere">
+		<where>
+			<if test="@Ognl@isNotEmpty(roleId)"> AND roleId =#{roleId} </if>
+			<if test="@Ognl@isNotEmpty(typeId)"> AND typeId LIKE #{typeId} </if>
+			<if test="@Ognl@isNotEmpty(alias)"> AND alias LIKE #{alias} </if>			
+			<if test="@Ognl@isNotEmpty(roleName)"> AND roleName LIKE #{roleName} </if>
+			<if test="@Ognl@isNotEmpty(roleDesc)"> AND roleDesc LIKE #{roleDesc} </if>
+			<if test="@Ognl@isNotEmpty(allowDel)"> AND allowDel =#{allowDel} </if>
+			<if test="@Ognl@isNotEmpty(allowEdit)"> AND allowEdit LIKE #{allowEdit} </if>
+			<if test="@Ognl@isNotEmpty(allowSet)"> AND allowSet LIKE #{allowSet} </if>
+			<if test="@Ognl@isNotEmpty(status)"> AND status =#{status} </if>
+			<if test="@Ognl@isNotEmpty(filter)"> AND filter =#{filter} </if>
+			<if test="@Ognl@isNotEmpty(isHide)"> AND isHide =#{isHide} </if>
+		</where>
+	</sql>
+	
+	<insert id="add" parameterType="com.cssrc.ibms.record.model.RecRole">
+		INSERT INTO IBMS_REC_ROLE
+		(<include refid="columns"/>)
+		VALUES
+		(#{roleId,jdbcType=NUMERIC}, #{typeId,jdbcType=NUMERIC}, #{alias,jdbcType=VARCHAR}, #{roleName,jdbcType=VARCHAR}, #{roleDesc,jdbcType=VARCHAR}, #{allowDel,jdbcType=NUMERIC},#{allowEdit,jdbcType=NUMERIC},#{allowSet,jdbcType=NUMERIC}, #{status,jdbcType=NUMERIC}, #{filter,jdbcType=VARCHAR}, #{isHide,jdbcType=NUMERIC})
+	</insert>
+	
+	<delete id="delById" parameterType="java.lang.Long">
+		DELETE FROM IBMS_REC_ROLE 
+		WHERE
+		roleId=#{roleId}
+	</delete>
+	
+	<update id="update" parameterType="com.cssrc.ibms.record.model.RecRole">
+			UPDATE IBMS_REC_ROLE SET
+			typeId=#{typeId,jdbcType=VARCHAR} , 
+			alias=#{alias,jdbcType=VARCHAR} , 
+			roleName=#{roleName,jdbcType=VARCHAR} , 
+			roleDesc=#{roleDesc,jdbcType=VARCHAR} , 
+			allowDel=#{allowDel,jdbcType=NUMERIC} , 
+			allowEdit=#{allowEdit,jdbcType=NUMERIC} , 
+			allowSet=#{allowSet,jdbcType=NUMERIC} , 
+			status=#{status,jdbcType=NUMERIC},
+			filter=#{filter,jdbcType=VARCHAR},
+			isHide=#{isHide,jdbcType=NUMERIC}
+			WHERE
+			roleId=#{roleId}
+	</update>
+	
+	<select id="getById" parameterType="java.lang.Long" resultMap="RecRole">
+		SELECT <include refid="columns"/>
+		FROM IBMS_REC_ROLE
+		WHERE
+		roleId=#{roleId}
+	</select>	
+	<select id="getAll" resultMap="RecRole">
+		SELECT <include refid="columns"/>
+		FROM IBMS_REC_ROLE 
+		<include refid="dynamicWhere" />
+		<if test="@Ognl@isNotEmpty(orderField)">
+			ORDER BY ${orderField} ${orderSeq}
+		</if>
+		<if test="@Ognl@isEmpty(orderField)">
+			ORDER BY alias
+		</if>
+	</select>
+	<select id="getByTypeId" parameterType="java.lang.Long" resultMap="RecRole">
+		SELECT <include refid="columns"/> FROM IBMS_REC_ROLE WHERE typeId=#{typeId} ORDER BY alias
+	</select>
+		<!-- 判断角色别名是否存在 -->
+	<select id="isExistRoleAlias" resultType="Integer">
+	  SELECT count(*) amount FROM IBMS_REC_ROLE where alias=#{alias}
+	</select>
+		<!-- 该角色别名是否更新过（多个相同别名角色） -->
+	<select id="isExistRoleAliasForUpd" resultType="Integer">
+	  SELECT count(*) amount FROM IBMS_REC_ROLE where alias=#{alias} and roleId &lt;> #{roleId}
+	</select>
+		<!-- 根据条件查询role列表 -->
+	<select id="getRole" resultMap="RecRole">
+		SELECT role.*
+		FROM IBMS_REC_ROLE role
+		<include refid="dynamicWhere" />
+		<if test="@Ognl@isNotEmpty(orderField)">
+		order by role.${orderField} ${orderSeq}
+		</if>
+		<if test="@Ognl@isEmpty(orderField)">
+		order by role.roleId  desc
+		</if>
+	</select>
+		<!-- 根据条件查询role列表 -->
+	<select id="getRoleByAlias" resultMap="RecRole">
+		SELECT role.*
+		FROM IBMS_REC_ROLE role
+		where  alias = #{alias}
+	</select>
+	<select id="getRolesByMeta" parameterType="java.util.Map" resultMap="RecRole">
+	   select ibms_rec_role.roleId,ibms_rec_role.typeId,ibms_rec_role.alias,roleName,roleDesc,allowDel,allowEdit,allowSet,status
+	    from ibms_rec_role 
+	   left join ibms_rec_type on ibms_rec_role.TYPEID = ibms_rec_type.TYPEID
+	   where ibms_rec_type.ALIAS = #{typeAlias}  and 
+	   roleId in (
+		select roleId from ibms_rec_role_meta where userId = #{userId}
+		union 
+		select roleId from ibms_rec_role_meta where sysRoleId in(${sysRoleIds})
+		union 
+		select roleId from ibms_rec_role_meta where sysOrgId in(${sysOrgIds})
+	   )
+	</select>
+</mapper>

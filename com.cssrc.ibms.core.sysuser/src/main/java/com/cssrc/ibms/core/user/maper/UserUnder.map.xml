@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+<mapper namespace="com.cssrc.ibms.core.user.model.UserUnder">
+	<resultMap id="UserUnder" type="com.cssrc.ibms.core.user.model.UserUnder">
+		<id property="id" column="ID" jdbcType="NUMERIC"/>
+		<result property="userid" column="USERID" jdbcType="NUMERIC"/>
+		<result property="underuserid" column="UNDERUSERID" jdbcType="NUMERIC"/>
+		<result property="underusername" column="UNDERUSERNAME" jdbcType="VARCHAR"/>
+		<result property="userunder_updateId" column="userunder_updateId" jdbcType="NUMERIC"/>
+		<result property="userunder_updateTime" column="userunder_updateTime" jdbcType="TIMESTAMP"/>
+		<result property="userunder_creatorId" column="userunder_creatorId" jdbcType="NUMERIC"/>
+		<result property="userunder_createTime" column="userunder_createTime" jdbcType="TIMESTAMP"/>
+		<result property="userunder_delFlag" column="userunder_delFlag" jdbcType="NUMERIC"/>
+	</resultMap>
+	
+	<sql id="columns">
+		ID,USERID,UNDERUSERID,UNDERUSERNAME,userunder_updateId,userunder_updateTime,
+		userunder_creatorId,userunder_createTime,userunder_delFlag
+	</sql>
+	
+	<sql id="dynamicWhere">
+		<where>
+			<if test="@Ognl@isNotEmpty(id)"> AND ID  =#{id} </if>
+			<if test="@Ognl@isNotEmpty(userid)"> AND USERID  =#{userid} </if>
+			<if test="@Ognl@isNotEmpty(underuserid)"> AND UNDERUSERID  =#{underuserid} </if>
+			<if test="@Ognl@isNotEmpty(underusername)"> AND UNDERUSERNAME  LIKE #{underusername}  </if>
+		</where>
+	</sql>
+
+	<insert id="add" parameterType="com.cssrc.ibms.core.user.model.UserUnder">
+		INSERT INTO CWM_SYS_USERUNDER
+		(ID,USERID,UNDERUSERID,UNDERUSERNAME,userunder_updateId,userunder_updateTime,
+		userunder_creatorId,userunder_createTime,userunder_delFlag)
+		VALUES
+		(#{id,jdbcType=NUMERIC}, #{userid,jdbcType=NUMERIC}, 
+		#{underuserid,jdbcType=NUMERIC}, #{underusername,jdbcType=VARCHAR},
+		#{userunder_updateId,jdbcType=NUMERIC},
+		#{userunder_updateTime,jdbcType=TIMESTAMP},#{userunder_creatorId,jdbcType=NUMERIC},
+		 #{userunder_createTime,jdbcType=TIMESTAMP},#{userunder_delFlag,jdbcType=NUMERIC})
+	</insert>
+	
+	<delete id="delById" parameterType="java.lang.Long">
+		DELETE FROM CWM_SYS_USERUNDER 
+		WHERE
+		ID=#{id}
+	</delete>
+	
+	<delete id="delByUpUserId" parameterType="java.lang.Long">
+		DELETE FROM CWM_SYS_USERUNDER 
+		WHERE
+		USERID=#{userId}
+	</delete>
+	
+	<delete id="delByUpAndDown" parameterType="java.lang.Long">
+		DELETE FROM CWM_SYS_USERUNDER 
+		WHERE
+		USERID=#{upUserId} and UNDERUSERID=#{downUserId}
+	</delete>
+	
+	<update id="update" parameterType="com.cssrc.ibms.core.user.model.UserUnder">
+		UPDATE CWM_SYS_USERUNDER SET
+		USERID=#{userid,jdbcType=NUMERIC} , 
+		UNDERUSERID=#{underuserid,jdbcType=NUMERIC} , 
+		UNDERUSERNAME=#{underusername,jdbcType=VARCHAR} ,
+		userunder_delFlag =#{userunder_delFlag,jdbcType=NUMERIC},
+		<if test="@Ognl@isNotEmpty(userunder_creatorId)">
+		userunder_creatorId=#{userunder_creatorId,jdbcType=NUMERIC} ,
+		</if>
+		<if test="@Ognl@isNotEmpty(userunder_createTime)">
+		userunder_createTime=#{userunder_createTime,jdbcType=TIMESTAMP} ,
+		</if>
+		userunder_updateId=#{userunder_updateId,jdbcType=NUMERIC} ,
+		userunder_updateTime=#{userunder_updateTime,jdbcType=TIMESTAMP} 
+		WHERE
+		ID=#{id}
+	</update>
+	
+	<select id="getById" parameterType="java.lang.Long" resultMap="UserUnder">
+		SELECT <include refid="columns"/>
+		FROM CWM_SYS_USERUNDER
+		WHERE
+		ID=#{id}
+	</select>
+	
+	<select id="getByUserId" parameterType="java.lang.Long" resultMap="UserUnder">
+		SELECT a.ID,a.USERID,a.UNDERUSERID,b.fullName UNDERUSERNAME
+		FROM CWM_SYS_USERUNDER a,CWM_SYS_USER b where a.UNDERUSERID=b.userId
+		and a.UNDERUSERID=#{userId}
+	</select>
+	
+	<select id="getMyUnderUser" parameterType="java.lang.Long" resultMap="UserUnder">
+		SELECT a.ID,a.USERID,a.UNDERUSERID,b.fullName UNDERUSERNAME
+		FROM CWM_SYS_USERUNDER a,CWM_SYS_USER b where a.UNDERUSERID=b.userId
+		and a.USERID=#{userId}
+	</select>
+	
+	<select id="getMyLeader" resultMap="UserUnder">
+		SELECT a.* ,b.fullName leaderName
+		FROM CWM_SYS_USERUNDER a,CWM_SYS_USER b WHERE a.userId=b.userId and UNDERUSERID=#{userId} 
+	</select>
+	
+	<select id="getAll" resultMap="UserUnder">
+		SELECT <include refid="columns"/>
+		FROM CWM_SYS_USERUNDER   
+		<include refid="dynamicWhere" />
+		<if test="@Ognl@isNotEmpty(orderField)">
+		order by ${orderField} ${orderSeq}
+		</if>
+		<if test="@Ognl@isEmpty(orderField)">
+		order by ID  desc
+		</if>
+	</select>
+	
+	<select id="isExistUser" parameterType="com.cssrc.ibms.core.user.model.UserUnder" resultType="int">
+		SELECT count(*)
+		FROM CWM_SYS_USERUNDER a where a.UNDERUSERID=#{underuserid}
+		and a.USERID=#{userid}
+	</select>
+	
+	
+	<delete id="delByUnderUserId" parameterType="java.lang.Long">
+		DELETE FROM CWM_SYS_USERUNDER 
+		WHERE
+		UNDERUSERID=#{underuserid,jdbcType=NUMERIC} 
+	</delete>
+</mapper>

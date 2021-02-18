@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cssrc.ibms.core.flow.model.DefAuthorize">
+	<resultMap id="DefAuthorize" type="com.cssrc.ibms.core.flow.model.DefAuthorize">
+		<id property="id" column="ID" jdbcType="NUMERIC" />
+		<result property="authorizeType" column="AUTHORIZE_TYPE"
+			jdbcType="VARCHAR" />
+		<result property="authorizeDesc" column="AUTHORIZE_DESC"
+			jdbcType="VARCHAR" />
+	</resultMap>
+
+	<sql id="columns">
+		ID,AUTHORIZE_TYPE,AUTHORIZE_DESC
+	</sql>
+
+	<sql id="dynamicWhere">
+		<where>
+
+			<if test="@Ognl@isNotEmpty(id)">
+				AND ID =#{id}
+			</if>
+			<if test="@Ognl@isNotEmpty(authorizeType)">
+				AND AUTHORIZE_TYPE =#{authorizeType}
+			</if>
+			<if test="@Ognl@isNotEmpty(authorizeDesc)">
+				AND AUTHORIZE_DESC LIKE #{authorizeDesc}
+			</if>
+			<if test="@Ognl@isNotEmpty(ownerName)">
+				<if test="@Ognl@isEmpty(defName)">
+					AND ID in (SELECT AUTHORIZE_ID FROM IBMS_DEF_USER WHERE OWNER_NAME
+					LIKE #{ownerName} )
+				</if>
+			</if>
+			<if test="@Ognl@isNotEmpty(defName)">
+				<if test="@Ognl@isEmpty(ownerName)">
+					AND ID in (SELECT AUTHORIZE_ID FROM IBMS_DEF_ACT WHERE DEF_NAME LIKE
+					#{defName} )
+				</if>
+			</if>
+			<if test="@Ognl@isNotEmpty(ownerName)">
+				<if test="@Ognl@isNotEmpty(defName)">
+					AND ID in (
+					SELECT U.AUTHORIZE_ID FROM IBMS_DEF_USER U,IBMS_DEF_ACT A
+					WHERE U.AUTHORIZE_ID=A.AUTHORIZE_ID AND U.OWNER_NAME LIKE #{ownerName}
+					AND A.DEF_NAME LIKE #{defName}
+					)
+				</if>
+			</if>
+
+		</where>
+	</sql>
+
+	<insert id="add" parameterType="com.cssrc.ibms.core.flow.model.DefAuthorize">
+		INSERT INTO IBMS_DEF_AUTHORIZE
+		(ID,AUTHORIZE_TYPE,AUTHORIZE_DESC)
+		VALUES
+		(#{id,jdbcType=NUMERIC},
+		#{authorizeType,jdbcType=VARCHAR}, #{authorizeDesc,jdbcType=VARCHAR})
+	</insert>
+
+	<delete id="delById" parameterType="java.lang.Long">
+		DELETE FROM
+		IBMS_DEF_AUTHORIZE
+		WHERE
+		ID=#{id}
+	</delete>
+
+	<update id="update" parameterType="com.cssrc.ibms.core.flow.model.DefAuthorize">
+		UPDATE IBMS_DEF_AUTHORIZE SET
+		AUTHORIZE_TYPE=#{authorizeType,jdbcType=VARCHAR} ,
+		AUTHORIZE_DESC=#{authorizeDesc,jdbcType=VARCHAR}
+		WHERE
+		ID=#{id}
+	</update>
+
+	<select id="getById" parameterType="java.lang.Long" resultMap="DefAuthorize">
+		SELECT
+		<include refid="columns" />
+		FROM IBMS_DEF_AUTHORIZE
+		WHERE
+		ID=#{id}
+	</select>
+
+	<select id="getAll" resultMap="DefAuthorize">
+		SELECT
+		<include refid="columns" />
+		FROM IBMS_DEF_AUTHORIZE
+		<include refid="dynamicWhere" />
+		<if test="@Ognl@isNotEmpty(orderField)">
+			order by ${orderField} ${orderSeq}
+		</if>
+		<if test="@Ognl@isEmpty(orderField)">
+			order by id desc
+		</if>
+	</select>
+
+
+
+</mapper>

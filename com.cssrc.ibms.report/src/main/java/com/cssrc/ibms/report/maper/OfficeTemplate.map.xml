@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cssrc.ibms.report.model.OfficeTemplate">
+	<resultMap id="OfficeTemplate" type="com.cssrc.ibms.report.model.OfficeTemplate">
+		<id column="OFFICEID" property="officeid" jdbcType="VARCHAR" />
+		<result column="TABLE_NAME" property="tableName" jdbcType="VARCHAR" />
+		<result column="VIEWS_NAME" property="viewsName" jdbcType="VARCHAR" />
+		<result column="FILEPATH" property="filepath" jdbcType="VARCHAR" />
+		<result column="TYPE_ID" property="typeId" jdbcType="BIGINT" />
+		<result column="OFFICE_TYPE" property="officeType" jdbcType="VARCHAR" />
+		<result column="TITLE" property="title" jdbcType="VARCHAR" />
+		<result column="DATA_ENTRY" property="dataEntry" jdbcType="VARCHAR" />
+		<result column="CREATE_USER" property="createUser" jdbcType="VARCHAR" />
+		<result column="CREATE_TIME" property="createTime" jdbcType="DATE" />
+		<result column="CONTENT" property="content" jdbcType="LONGVARCHAR" />
+		<result column="STATUS" property="status" jdbcType="VARCHAR" />
+		<result column="PUBLISHED_TIME" property="publishedTime" jdbcType="DATE" />
+		<result property="template_updateId" column="template_updateId" jdbcType="NUMERIC"/>
+		<result property="template_updateTime" column="template_updateTime" jdbcType="DATE"/>
+	</resultMap>
+
+	<sql id="columns">
+		OFFICEID, TABLE_NAME, VIEWS_NAME, FILEPATH, TYPE_ID,
+		OFFICE_TYPE, TITLE,
+		DATA_ENTRY,CREATE_USER, CREATE_TIME,CONTENT,STATUS,PUBLISHED_TIME,
+		template_updateId,template_updateTime
+	</sql>
+
+	<sql id="columns_alias">
+		OFFICEID as "officeid", TABLE_NAME as "tableName", VIEWS_NAME as
+		"viewsName", FILEPATH as "filepath",
+		TYPE_ID as "typeId", OFFICE_TYPE as
+		"officeType", TITLE as "title",
+		DATA_ENTRY as "dataEntry",
+		CREATE_USER
+		as "createUser", CREATE_TIME as
+		"createTime",CONTENT as "content",STATUS as "status"
+	</sql>
+	<sql id="dynamicWhere">
+		<where>
+			IS_DELETE=0 
+			<if test="@Ognl@isNotEmpty(officeid)"> AND cwm_sys_office_template.OFFICEID =#{officeid} </if>
+			<if test="@Ognl@isNotEmpty(title)"> AND cwm_sys_office_template.TITLE LIKE #{title} </if>
+			<if test="@Ognl@isNotEmpty(typeId)"> AND cwm_sys_office_template.TYPE_ID =#{typeId} </if>
+			
+		</where>
+	</sql>
+
+	<insert id="add" parameterType="com.cssrc.ibms.report.model.OfficeTemplate">
+		INSERT INTO cwm_sys_office_template
+		(
+		<include refid="columns" />
+		)
+		VALUES
+		(#{officeid,jdbcType=VARCHAR},
+		#{tableName,jdbcType=VARCHAR},
+		#{viewsName,jdbcType=VARCHAR},
+		#{filepath,jdbcType=VARCHAR},
+		#{typeId,jdbcType=BIGINT},
+		#{officeType,jdbcType=VARCHAR},
+		#{title,jdbcType=VARCHAR},
+		#{dataEntry,jdbcType=VARCHAR},
+		#{createUser,jdbcType=VARCHAR},
+		#{createTime,jdbcType=DATE},
+		#{content,jdbcType=VARCHAR},
+		#{status,jdbcType=VARCHAR},
+		#{publishedTime,jdbcType=DATE},
+		#{template_updateId,jdbcType=NUMERIC},
+		#{template_updateTime,jdbcType=DATE}
+		)
+	</insert>
+
+	<delete id="delById" parameterType="java.lang.Long">
+		DELETE FROM
+		cwm_sys_office_template
+		WHERE
+		OFFICEID=#{officeid}
+	</delete>
+
+	<update id="update" parameterType="com.cssrc.ibms.report.model.OfficeTemplate">
+		update cwm_sys_office_template
+		set
+		TABLE_NAME = #{tableName,jdbcType=VARCHAR},
+		VIEWS_NAME =
+		#{viewsName,jdbcType=VARCHAR},
+		CONTENT = #{content,jdbcType=VARCHAR},
+		FILEPATH = #{filepath,jdbcType=VARCHAR},
+		TYPE_ID =
+		#{typeId,jdbcType=BIGINT},
+		OFFICE_TYPE = #{officeType,jdbcType=BIGINT},
+		TITLE = #{title,jdbcType=VARCHAR},
+		DATA_ENTRY = #{dataEntry,jdbcType=VARCHAR},
+		STATUS = #{status,jdbcType=VARCHAR},
+		<if test="@Ognl@isNotEmpty(createUser)">
+		CREATE_USER =#{createUser,jdbcType=VARCHAR},
+		</if>
+		<if test="@Ognl@isNotEmpty(createTime)">
+		CREATE_TIME = #{createTime,jdbcType=DATE} ,
+		</if>
+		template_updateId=#{template_updateId,jdbcType=NUMERIC} ,
+		template_updateTime=#{template_updateTime,jdbcType=DATE} ,
+		PUBLISHED_TIME = #{publishedTime,jdbcType=DATE} 
+		where OFFICEID =
+		#{officeid,jdbcType=VARCHAR}
+	</update>
+
+	<select id="getById" parameterType="java.lang.Long" resultMap="OfficeTemplate">
+		SELECT
+		<include refid="columns" />
+		FROM cwm_sys_office_template
+		WHERE
+		OFFICEID=#{officeid} AND IS_DELETE=0
+	</select>
+
+
+	<select id="getAll" resultType="java.util.Map">
+		SELECT
+		<include refid="columns_alias" />
+		,CWM_SYS_GLTYPE.TYPENAME as "typeName"
+		FROM cwm_sys_office_template
+		LEFT JOIN CWM_SYS_GLTYPE ON
+		cwm_sys_office_template.TYPE_ID=CWM_SYS_GLTYPE.TYPEID
+		<include refid="dynamicWhere" />
+		<if test="@Ognl@isNotEmpty(orderField)">
+			order by ${orderField} ${orderSeq}
+		</if>
+	</select>
+
+	<select id="getByTitle" parameterType="java.lang.String"
+		resultMap="OfficeTemplate">
+		SELECT
+		<include refid="columns" />
+		FROM cwm_sys_office_template
+		WHERE
+		IS_DELETE=0 and
+		TITLE=#{title}
+	</select>
+
+	<!-- 删除报表模板，逻辑删除 -->
+	<update id="updateDelete">
+		update cwm_sys_office_template
+		set IS_DELETE=1,
+		template_updateId=#{template_updateId},
+		template_updateTime=#{template_updateTime}
+		WHERE OFFICEID =#{officeid}
+	</update>
+	
+	
+	
+</mapper>

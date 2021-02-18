@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+<mapper namespace="com.cssrc.ibms.dp.form.model.SignResult">
+	<resultMap id="SignResult" type="com.cssrc.ibms.dp.form.model.SignResult">
+		<id property="ID" column="ID" jdbcType="NUMERIC"/>
+		<result property="signuser" column="F_SIGNUSER" jdbcType="VARCHAR"/>
+		<result property="signtime" column="F_SIGNTIME" jdbcType="DATE"/>
+		<result property="remark" column="F_REMARK" jdbcType="VARCHAR"/>
+		<result property="signID" column="F_SIGNDEF_ID" jdbcType="NUMERIC"/>
+		<result property="instantID" column="F_TB_INSTANT_ID" jdbcType="NUMERIC"/>
+	
+	</resultMap>
+    <sql id="columns">
+		ID,F_SIGNUSER,F_SIGNTIME,F_REMARK,F_SIGNDEF_ID,F_TB_INSTANT_ID
+	</sql>
+	<insert id="add" parameterType="com.cssrc.ibms.dp.form.model.SignResult">
+		INSERT INTO W_SIGNRESULT
+		(ID,F_SIGNUSER,F_SIGNTIME,F_REMARK,F_SIGNDEF_ID,F_TB_INSTANT_ID)
+		VALUES
+		(#{ID,jdbcType=NUMERIC},
+		 #{signuser,jdbcType=VARCHAR},
+		 #{signtime,jdbcType=VARCHAR},
+		  #{remark,jdbcType=VARCHAR},
+		  #{signID,jdbcType=NUMERIC},
+		  #{instantID,jdbcType=NUMERIC}
+		 )
+	</insert>	
+	
+	<update id="update" parameterType="com.cssrc.ibms.dp.form.model.SignResult">
+		<!-- UPDATE W_SIGNRESULT SET F_SIGNUSER=#{signuser,jdbcType=VARCHAR},F_SIGNTIME=#{signtime,jdbcType=DATE}  WHERE F_SIGNDEF_ID=#{signID,jdbcType=NUMERIC} AND F_TB_INSTANT_ID=#{instantID,jdbcType=NUMERIC} -->
+		UPDATE W_SIGNRESULT SET F_SIGNUSER=#{signuser,jdbcType=VARCHAR},F_SIGNTIME=#{signtime,jdbcType=DATE}  WHERE ID=#{ID,jdbcType=NUMERIC}
+	</update>
+	
+	<select id="getBymodelid" parameterType="java.util.Map" resultMap="SignResult">
+		SELECT <include refid="columns"/> 
+		FROM W_SIGNRESULT  WHERE F_TB_INSTANT_ID=#{Id}
+	</select>
+	<select id="getSignResultById" parameterType="java.util.Map" resultMap="SignResult">
+		select <include refid="columns"/>
+		from W_SIGNRESULT where ID=#{id}
+	</select>
+
+
+	<select id="getByInstanceId" parameterType="java.util.Map" resultMap="SignResult">
+		select <include refid="columns"/>
+		from W_SIGNRESULT where F_TB_INSTANT_ID=#{InstanceId}
+	</select>
+	
+	
+</mapper>

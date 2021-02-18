@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.orient.sync.data.mapper.UserXMLMapper">
+	
+	<select id="getAllUser" resultType="com.orient.sync.model.User"> 
+	    SELECT 
+	    	ID AS userId,
+	    	USER_NAME AS userName,
+	    	PASSWORD AS passWord,
+	    	ALL_NAME AS allname
+	    	FROM CWM_SYS_USER
+	</select>
+	
+	<select id="getUserInfoByUserName" resultType="com.orient.sync.model.User"> 
+	    SELECT 
+	    	ID AS userId,
+	    	USER_NAME AS userName,
+	    	PASSWORD AS passWord,
+	    	ALL_NAME AS  allname
+	    	FROM CWM_SYS_USER U
+	    	WHERE U.USER_NAME = #{userName}
+	</select>
+	
+	<select id="getUserIdByUserName" resultType="String"> 
+	    SELECT ID
+	    	FROM CWM_SYS_USER U
+	    	WHERE U.USER_NAME = #{userName}
+	</select>
+	
+</mapper> 

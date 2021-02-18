@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cssrc.ibms.index.model.AgendaMsg" >
+  <resultMap id="AgendaMsg" type="com.cssrc.ibms.index.model.AgendaMsg" >
+    <id column="ID_" property="id" jdbcType="NUMERIC" />
+    <result column="AGENDA_ID_" property="agendaId" jdbcType="NUMERIC" />
+    <result column="REPLY_ID_" property="replyId" jdbcType="NUMERIC" />
+    <result column="REPLYER_" property="replyer" jdbcType="VARCHAR" />
+    <result column="SEND_TIME_" property="sendTime" jdbcType="TIMESTAMP" />
+    <result column="CONTENTS_" property="contents" jdbcType="CLOB" />
+  </resultMap>
+ 
+  <sql id="columns" >
+    ID_, AGENDA_ID_, REPLY_ID_, REPLYER_, SEND_TIME_, CONTENTS_
+  </sql>
+  
+  <sql id="dynamicWhere">
+	<where>
+		<if test="@Ognl@isNotEmpty(id)"> AND ID_ =#{id} </if>
+		<if test="@Ognl@isNotEmpty(agendaId)"> AND AGENDA_ID_ =#{agendaId}  </if>
+		<if test="@Ognl@isNotEmpty(replyId)"> AND REPLY_ID_ =#{replyId}  </if>
+		<if test="@Ognl@isNotEmpty(replyer)"> AND REPLYER_ =#{replyer}  </if>
+		<if test="@Ognl@isNotEmpty(sendTime)"> AND SEND_TIME_  &gt;= #{sendTime}  </if>
+		<if test="@Ognl@isNotEmpty(contents)"> AND CONTENTS_ LIKE #{contents}  </if>
+		<if test="@Ognl@isNotEmpty(userId)"> 
+		 AND AGENDA_ID_ IN (SELECT  a.AGENDA_ID_ FROM cwm_sys_agenda a WHERE a.CREATOR_ID_=#{userId}  
+			UNION SELECT b.AGENDA_ID_ FROM cwm_sys_agenda_execut b WHERE  b.EXECUTOR_ID_ =#{userId})
+		</if>			
+	</where>
+  </sql>
+  
+  
+  <select id="getById" resultMap="AgendaMsg" parameterType="java.lang.Long" >
+    select 
+    <include refid="columns" />
+    from cwm_sys_agenda_msg
+    where ID_ = #{id}
+  </select>
+  
+  <delete id="delById" parameterType="java.lang.Long" >
+    delete from cwm_sys_agenda_msg
+    where ID_ = #{id}
+  </delete>
+  
+  <insert id="add" parameterType="com.cssrc.ibms.index.model.AgendaMsg" >
+    insert into cwm_sys_agenda_msg (
+    <include refid="columns" />
+      )
+    values (#{id,jdbcType=NUMERIC}, #{agendaId,jdbcType=NUMERIC}, #{replyId,jdbcType=NUMERIC}, 
+      #{replyer,jdbcType=VARCHAR}, #{sendTime,jdbcType=TIMESTAMP}, #{contents,jdbcType=CLOB}
+      )
+  </insert>
+  
+  
+  <update id="update" parameterType="com.cssrc.ibms.index.model.AgendaMsg" >
+    update cwm_sys_agenda_msg
+    set AGENDA_ID_ = #{agendaId,jdbcType=NUMERIC},
+      REPLY_ID_ = #{replyId,jdbcType=NUMERIC},
+      REPLYER_ = #{replyer,jdbcType=VARCHAR},
+      SEND_TIME_ = #{sendTime,jdbcType=TIMESTAMP},
+      CONTENTS_ = #{contents,jdbcType=CLOB}
+    where ID_ = #{id}
+  </update>
+  
+    <select id="getAll" resultMap="AgendaMsg">
+		SELECT
+		<include refid="columns" />
+		FROM cwm_sys_agenda_msg
+		<include refid="dynamicWhere" />
+		<if test="@Ognl@isNotEmpty(orderField)">
+			order by ${orderField} ${orderSeq}
+		</if>
+		<if test="@Ognl@isEmpty(orderField)">
+			order by ID_ desc
+		</if>
+ 	</select>
+  	
+  	
+  	<delete id="delByAgendaId" parameterType="Map" >
+    	delete from cwm_sys_agenda_msg 
+    	WHERE AGENDA_ID_=#{agendaId}
+  	</delete>
+  
+</mapper>

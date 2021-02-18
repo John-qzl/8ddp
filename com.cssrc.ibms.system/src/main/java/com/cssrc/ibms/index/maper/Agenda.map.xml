@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cssrc.ibms.index.model.Agenda" >
+  <resultMap id="Agenda" type="com.cssrc.ibms.index.model.Agenda" >
+    <id column="AGENDA_ID_" property="agendaId" jdbcType="NUMERIC" />
+    <result column="TYPE_" property="type" jdbcType="VARCHAR" />
+    <result column="SUBJECT_" property="subject" jdbcType="VARCHAR" />
+    <result column="CONTENT_" property="content" jdbcType="VARCHAR" />
+    <result column="CREATOR_ID_" property="creatorId" jdbcType="NUMERIC" />
+    <result column="CREATOR_" property="creator" jdbcType="VARCHAR" />
+    <result column="START_TIME_" property="startTime" jdbcType="TIMESTAMP" />
+    <result column="END_TIME_" property="endTime" jdbcType="TIMESTAMP" />
+    <result column="GRADE_" property="grade" jdbcType="VARCHAR" />
+    <result column="WARN_WAY_" property="warnWay" jdbcType="NUMERIC" />
+    <result column="FILE_ID_" property="fileId" jdbcType="NUMERIC" />
+    <result column="RUN_ID_" property="runId" jdbcType="NUMERIC" />
+    <result column="STATUS_" property="status" jdbcType="NUMERIC" />
+  </resultMap>
+  
+  <sql id="columns" >
+    AGENDA_ID_, TYPE_, SUBJECT_, CONTENT_, CREATOR_ID_, CREATOR_, START_TIME_, END_TIME_, 
+    GRADE_, WARN_WAY_, FILE_ID_, RUN_ID_, STATUS_
+  </sql>
+  
+   <sql id="dynamicWhere">
+	<where>
+		<if test="@Ognl@isNotEmpty(agendaId)"> AND AGENDA_ID_ =#{agendaId} </if>
+		<if test="@Ognl@isNotEmpty(type)"> AND TYPE_ LIKE '%${type}%' </if>
+		<if test="@Ognl@isNotEmpty(subject)"> AND SUBJECT_ LIKE '%${subject}%'  </if>
+		<if test="@Ognl@isNotEmpty(content)"> AND CONTENT_ LIKE '%${content}%'  </if>
+		<if test="@Ognl@isNotEmpty(creatorId)"> AND CREATOR_ID_ = #{creatorId}  </if>
+		<if test="@Ognl@isNotEmpty(creator)"> AND CREATOR_ LIKE '%${creator}%'  </if>
+		<if test="@Ognl@isNotEmpty(startTime)"> AND START_TIME_ &gt;= #{startTime}  </if>
+		<if test="@Ognl@isNotEmpty(endTime)"> AND END_TIME_ &lt;= #{endTime}  </if>
+		<if test="@Ognl@isNotEmpty(grade)"> AND GRADE_ =#{grade}  </if>
+		<if test="@Ognl@isNotEmpty(warnWay)"> AND WARN_WAY_ = #{warnWay}  </if>
+		<if test="@Ognl@isNotEmpty(fileId)"> AND FILE_ID_=#{fileId}  </if>
+		<if test="@Ognl@isNotEmpty(runId)"> AND RUN_ID_ =#{runId}  </if>
+		<if test="@Ognl@isNotEmpty(status)"> AND STATUS_ =#{status}  </if>
+	</where>
+  </sql>
+  
+  <select id="getById" resultMap="Agenda" parameterType="java.lang.Long" >
+    select 
+    <include refid="columns" />
+    from cwm_sys_agenda
+    where AGENDA_ID_ = #{agendaId}
+  </select>
+  
+  <delete id="delById" parameterType="java.lang.Long" >
+    delete from cwm_sys_agenda
+    where AGENDA_ID_ = #{agendaId}
+  </delete>
+  
+  <insert id="add" parameterType="com.cssrc.ibms.index.model.Agenda" >
+    insert into cwm_sys_agenda (
+    	<include refid="columns" />
+      )
+    values (#{agendaId,jdbcType=NUMERIC}, #{type,jdbcType=VARCHAR}, #{subject,jdbcType=VARCHAR}, 
+      #{content,jdbcType=VARCHAR}, #{creatorId,jdbcType=NUMERIC}, #{creator,jdbcType=VARCHAR}, 
+      #{startTime,jdbcType=TIMESTAMP}, #{endTime,jdbcType=TIMESTAMP}, #{grade,jdbcType=VARCHAR}, 
+      #{warnWay,jdbcType=NUMERIC}, #{fileId,jdbcType=NUMERIC}, #{runId,jdbcType=NUMERIC}, #{status,jdbcType=NUMERIC}
+      )
+  </insert>
+  
+ 
+  <update id="update" parameterType="com.cssrc.ibms.index.model.Agenda" >
+    update cwm_sys_agenda
+    set TYPE_ = #{type,jdbcType=VARCHAR},
+      SUBJECT_ = #{subject,jdbcType=VARCHAR},
+      CONTENT_ = #{content,jdbcType=VARCHAR},
+      CREATOR_ID_ = #{creatorId,jdbcType=NUMERIC},
+      CREATOR_ = #{creator,jdbcType=VARCHAR},
+      START_TIME_ = #{startTime,jdbcType=TIMESTAMP},
+      END_TIME_ = #{endTime,jdbcType=TIMESTAMP},
+      GRADE_ = #{grade,jdbcType=VARCHAR},
+      WARN_WAY_ = #{warnWay,jdbcType=NUMERIC},
+      FILE_ID_ = #{fileId,jdbcType=NUMERIC},
+      RUN_ID_ = #{runId,jdbcType=NUMERIC},
+      STATUS_ = #{status,jdbcType=NUMERIC}
+    where AGENDA_ID_ = #{agendaId}
+  </update>
+  
+  
+  <select id="getAll" resultMap="Agenda">
+		SELECT
+		<include refid="columns" />
+		FROM cwm_sys_agenda
+		<include refid="dynamicWhere" />
+		<if test="@Ognl@isNotEmpty(orderField)">
+			order by ${orderField} ${orderSeq}
+		</if>
+		<if test="@Ognl@isEmpty(orderField)">
+			order by AGENDA_ID_ desc
+		</if>
+ 	</select>
+ 	
+ 	  <select id="getCalendarList"  parameterType="Map" resultMap="Agenda">
+		SELECT <include refid="columns" />
+		FROM cwm_sys_agenda a
+		WHERE a.STATUS_=0 AND a.CREATOR_ID_=#{userId} OR a.AGENDA_ID_ IN
+		(SELECT b.AGENDA_ID_ FROM cwm_sys_agenda_execut b WHERE b.EXECUTOR_ID_=#{userId})
+		<if test="@Ognl@isNotEmpty(startTime)"> AND START_TIME_ &gt;= #{startTime}</if>  
+		<if test="@Ognl@isNotEmpty(endTime)"> AND END_TIME_ &lt;= #{endTime}</if>  
+ 	</select>
+  
+  
+</mapper>

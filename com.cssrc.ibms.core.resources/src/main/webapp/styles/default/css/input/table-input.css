@@ -1,0 +1,295 @@
+/*===== start of input-content======*/
+.input-content {
+	display: inline-block;
+	height: 32px;
+	border: 1px solid #ccc;
+	box-sizing: border-box;
+	vertical-align: top;
+	font-size: 14px;
+	width: 278px;
+	background: #fff;
+	position: relative;
+}
+/*.input-content>.input-content-title {
+	width: 100%;
+	height: 31px;
+	line-height: 31px;
+	cursor: pointer;
+	border-bottom: 1px solid #ccc;
+	box-sizing: border-box;
+}
+
+.input-content>.input-content-title.selected {
+	outline: 1px solid #4d90fe;
+	box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px rgba(77, 144, 254, .6);
+}
+
+.input-content>.input-content-title>span {
+	display: block;
+}
+
+.input-content>.input-content-title>span.title {
+	float: left;
+	width: 95%;
+	height: 100%;
+	box-sizing: border-box;
+}
+
+.input-content>.input-content-title>span.iconfont {
+	float: right;
+	width: 5%;
+	height: 100%;
+	text-align: center;
+	box-sizing: border-box;
+}*/
+
+.input-content:after {
+	content: "";
+	display: block;
+	height: 0;
+	clear: both;
+	overflow: hidden;
+}
+
+/*=====input-content=========*/
+.input-content>input[type=text],
+.input-content>.inputText {
+	border: none;
+	background: transparent;
+	float: left;
+	margin: -1px;
+	height: inherit;
+	line-height: 32px;
+}
+
+td .inputText,
+td input[type=text],
+td .input,
+td .select,
+td .Wdate,
+td select,
+td input[type="button"] {
+  outline: none;
+	height: 32px ;
+  -webkit-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+	transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+}
+
+td .inputText,
+td textarea,
+td input[type=text],
+td .Wdate,
+td select,
+td input[type="button"] {
+	width: 278px;
+	padding: 4px 6px;
+    /*box-sizing: border-box;*/
+	border: 1px solid #ccc;
+}
+td .inputText {
+    box-sizing: border-box;
+}
+td input[type=text]{
+	line-height:30px\9;
+}
+td select{
+	padding-right:0px\9;
+	padding-left:0px\9;
+}
+.input-content>input[dialogtype="1"][type="text"] {
+	width: 80%;
+}
+
+.input-content>input[ctltype="selector"][type="text"] {
+	width: 60%;
+}
+
+
+.l-accordion-content td>select {
+	width: 100%;
+}
+
+.inputText.handler {
+	width: 230px;
+}
+
+.url_bpmForm .inputText,
+.url_bpmForm.inputText,
+.inputText.longInputText {
+	width: 250px;
+}
+
+.inputText[showdialog=list] {
+	border: none;
+	background: transparent;
+}
+
+.input-content a.ryxzq-a {
+	display: block;
+	text-align: center;
+	border-left: 1px solid #ccc;
+	color: #222 !important;
+	height: 26px !important;
+	line-height: 26px;
+	margin: 2px 0 2px 0 !important;
+	width: 40px;
+	box-sizing: border-box;
+	float: right;
+}
+
+.input-content input[ctlType='selector'] {
+	float: left;
+}
+
+/*===== end of input-content======*/
+
+/*===== start of input-content-list======*/
+.input-content-list {
+	width: 100%;
+	padding: 5px 0;
+	background: #fff;
+	border: 1px solid #ccc;
+	position: absolute;
+	margin: 30px -1px;
+	top: 0;
+	left: 0;
+	box-shadow: 0 6px 12px rgba(0, 0, 0, .175);
+	z-index: 99999;
+}
+
+.showDis {
+	display: none;
+}
+
+.input-content-list>.search-box {
+	width: 98%;
+	margin: 0 auto;
+	height: 30px;
+	position: relative;
+	/*border: 1px solid #ccc;*/
+	outline: 1px solid #4d90fe;
+	box-shadow: 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px rgba(77, 144, 254, .6);
+}
+
+.input-content-list>.search-box:after {
+	font-family: "iconfont";
+	content: "\e6ac";
+	position: absolute;
+	right: 0;
+	top: 0;
+	display: block;
+	width: 30px;
+	height: 100%;
+	line-height: 30px;
+	text-align: center;
+}
+
+.input-content-list>.search-box>input.search-box-input {
+	width: 90%;
+	height: 30px;
+	line-height: 30px;
+	padding: 0 10px;
+	box-sizing: border-box;
+	background: transparent;
+	border: none;
+	margin: 0;
+}
+
+.input-content-list>.search-box>input.search-dialog-input {
+	width: 92%;
+	height: 30px;
+	line-height: 30px;
+	padding: 0 10px;
+	box-sizing: border-box;
+	background: transparent;
+	border: none;
+	margin: 0;
+}
+
+.input-content-list>.search-box>input.search-dialog-input:focus {
+	border: none;
+	outline: none;
+}
+
+.input-content-list>.search-box>input.search-box-input:focus {
+	border: none;
+	outline: none;
+}
+
+.input-content-list>.list {
+	width: 98%;
+	margin: 5px auto;
+	list-style: none;
+	min-height: 100px;
+	max-height: 150px;
+	overflow: hidden;
+	overflow-y: auto;
+}
+
+.input-content-list>.list>li {
+	padding: 5px 10px;
+	box-sizing: border-box;
+	cursor: pointer;
+}
+
+.input-content-list>.list>li:hover,
+.input-content-list>.list>li.selected {
+	background: #ddd;
+}
+/*===== end of input-content-list======*/
+
+/*===== input of form style =====*/
+table textarea{
+	width: 278px;
+}
+
+table td>input[type=text]:focus{
+	outline: none;
+}
+table .input-content>select{
+  border: none;
+  background: transparent;
+}
+table .input-content>select:focus{
+	outline: none;
+}
+
+table .Wdate{
+	width: 278px;
+}
+
+table input[type="radio"], table input[type="checkbox"] {
+	width: 20px;
+}
+
+
+
+.dpCheckbox {
+    vertical-align: middle;
+}
+
+.dpInputBtn {
+	vertical-align: middle;
+	background-color: #3EAAF5;
+	color: white;
+	border: none;
+}
+
+.dpInputText {
+	vertical-align: middle;
+}
+/* �?����֣� 'tablefront','tabletitle','tabletail' */
+/* .dpTrFront{
+	background-color: #fef897;
+}
+.dpTrTitle{
+	background-color: #1e9fff;
+}
+.dpTrTail{
+	background-color: #e3f6fc;
+} */
+
+
+
+
+/*===== END =====*/

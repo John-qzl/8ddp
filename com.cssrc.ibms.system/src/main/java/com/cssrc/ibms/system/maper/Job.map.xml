@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+<mapper namespace="com.cssrc.ibms.system.model.Job">
+	<resultMap id="Job" type="com.cssrc.ibms.system.model.Job">
+		<id property="jobid" column="JOBID" jdbcType="NUMERIC"/>
+		<result property="jobname" column="JOBNAME" jdbcType="VARCHAR"/>
+		<result property="jobcode" column="JOBCODE" jdbcType="VARCHAR"/>
+		<result property="jobdesc" column="JOBDESC" jdbcType="VARCHAR"/>
+		<result property="setid" column="SETID" jdbcType="NUMERIC"/>
+		<result property="isdelete" column="ISDELETE" jdbcType="NUMERIC"/>
+		<result property="grade" column="GRADE" jdbcType="NUMERIC"/>
+		<result property="job_updateId" column="job_updateId" jdbcType="NUMERIC"/>
+		<result property="job_updateTime" column="job_updateTime" jdbcType="TIMESTAMP"/>
+		<result property="job_creatorId" column="job_creatorId" jdbcType="NUMERIC"/>
+		<result property="job_createTime" column="job_createTime" jdbcType="TIMESTAMP"/>
+	</resultMap>
+
+	<sql id="columns">
+		JOBID,JOBNAME,JOBCODE,JOBDESC,SETID,ISDELETE,GRADE,job_updateId,job_updateTime,job_creatorId,job_createTime
+	</sql>
+	
+	<sql id="dynamicWhere">
+		<where>
+			<if test="@Ognl@isNotEmpty(jobid)"> AND JOBID  =#{jobid} </if>
+			<if test="@Ognl@isNotEmpty(jobname)"> AND JOBNAME  LIKE #{jobname}  </if>
+			<if test="@Ognl@isNotEmpty(jobcode)"> AND JOBCODE  LIKE #{jobcode}  </if>
+			<if test="@Ognl@isNotEmpty(jobdesc)"> AND JOBDESC  LIKE #{jobdesc}  </if>
+			<if test="@Ognl@isNotEmpty(setid)"> AND SETID  =#{setid} </if>
+			and isdelete=0
+			<!-- 
+			<if test="@Ognl@isNotEmpty(isdelete)"> AND ISDELETE  =#{isdelete} </if>
+			 -->
+		</where>
+	</sql>
+
+	<insert id="add" parameterType="com.cssrc.ibms.system.model.Job">
+		INSERT INTO CWM_SYS_JOB
+		(JOBID,JOBNAME,JOBCODE,JOBDESC,SETID,ISDELETE,GRADE,
+		job_updateId,job_updateTime,job_creatorId,job_createTime)
+		VALUES
+		(#{jobid,jdbcType=NUMERIC}, #{jobname,jdbcType=VARCHAR}, 
+		#{jobcode,jdbcType=VARCHAR},#{jobdesc,jdbcType=VARCHAR}, 
+		#{setid,jdbcType=NUMERIC}, #{isdelete,jdbcType=NUMERIC},
+		#{grade,jdbcType=NUMERIC},
+		#{job_updateId,jdbcType=NUMERIC}, #{job_updateTime,jdbcType=TIMESTAMP},
+		#{job_creatorId,jdbcType=NUMERIC},#{job_createTime,jdbcType=TIMESTAMP})
+	</insert>
+	
+	<delete id="delById" parameterType="java.lang.Long">
+		DELETE FROM CWM_SYS_JOB 
+		WHERE
+		JOBID=#{jobid}
+	</delete>
+	
+	
+	
+	
+	<!--不能删除组织类数据,应修改删除标志  -->
+	<update id="deleteByUpdateFlag" parameterType="com.cssrc.ibms.system.model.Job">
+		UPDATE CWM_SYS_JOB 
+		set isdelete=1
+		WHERE
+		JOBID=#{jobid}
+	</update>
+	
+	<update id="update" parameterType="com.cssrc.ibms.system.model.Job">
+		UPDATE CWM_SYS_JOB SET
+		JOBNAME=#{jobname,jdbcType=VARCHAR},
+		JOBCODE=#{jobcode,jdbcType=VARCHAR},
+		JOBDESC=#{jobdesc,jdbcType=VARCHAR},
+		SETID=#{setid,jdbcType=NUMERIC},
+		ISDELETE=#{isdelete,jdbcType=NUMERIC},
+		GRADE=#{grade,jdbcType=NUMERIC} ,
+		<if test="@Ognl@isNotEmpty(job_creatorId)">
+		job_creatorId=#{job_creatorId,jdbcType=NUMERIC} ,
+		</if>
+		<if test="@Ognl@isNotEmpty(job_createTime)">
+		job_createTime=#{job_createTime,jdbcType=TIMESTAMP} ,
+		</if>
+		job_updateId=#{job_updateId,jdbcType=NUMERIC} ,
+		job_updateTime=#{job_updateTime,jdbcType=TIMESTAMP} 
+		WHERE
+		JOBID=#{jobid}
+	</update>
+		    
+	<select id="getById" parameterType="java.lang.Long" resultMap="Job">
+		SELECT <include refid="columns"/>
+		FROM CWM_SYS_JOB
+		WHERE
+		JOBID=#{jobid}
+	</select>
+	
+	<select id="getByJobCode" parameterType="java.lang.String" resultMap="Job">
+		SELECT <include refid="columns"/>
+		FROM CWM_SYS_JOB
+		WHERE
+		JOBCODE=#{jobCode}
+	</select>
+	
+	<select id="getAll" resultMap="Job">
+		SELECT <include refid="columns"/>
+		FROM CWM_SYS_JOB   
+		<include refid="dynamicWhere" />
+		<if test="@Ognl@isNotEmpty(orderField)">
+		order by ${orderField} ${orderSeq}
+		</if>
+		<if test="@Ognl@isEmpty(orderField)">
+		order by GRADE  ASC
+		</if>
+	</select>
+	
+	<!-- 根据用户获取职务列表 -->
+	<select id="getByUserId" parameterType="java.lang.Long"  resultType="com.cssrc.ibms.system.model.Job">
+     SELECT *
+       from CWM_SYS_JOB j
+      inner join CWM_SYS_POS p on p.jobid = j.jobid
+      inner join CWM_SYS_USER_POSITION up on p.posid = up.posid
+      where up.userId = #{userId}
+	</select>
+	
+	<!-- 判断职务名称是否存在 -->
+	<select id="isExistJobCode" resultType="int">
+	  SELECT count(*) amount FROM CWM_SYS_JOB where JOBCODE=#{jobCode}
+	</select>
+	
+	<select id="isExistJobCodeForUpd" resultType="int">
+	  SELECT count(*) amount FROM CWM_SYS_JOB where JOBCODE=#{jobCode} and JOBID!=#{jobid}
+	</select>
+</mapper>

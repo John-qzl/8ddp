@@ -1,0 +1,283 @@
+html,body {
+
+	padding: 5;
+	margin: 5;
+	border: 0;
+}
+.asLabel .mini-textbox-border,.asLabel .mini-textbox-input,.asLabel .mini-buttonedit-border,.asLabel .mini-buttonedit-input,.asLabel .mini-textboxlist-border
+	{
+	border: 0;
+	background: none;
+	cursor: default;
+}
+
+.asLabel .mini-buttonedit-button,.asLabel .mini-textboxlist-close {
+	display: none;
+}
+
+.asLabel .mini-textboxlist-item {
+	padding-right: 8px;
+}
+
+.form-outer {
+	border-top: 0;
+	padding: 2px;
+}
+
+.form-inner {
+	padding: 5px;
+}
+
+.form-table {
+	border-collapse: collapse;
+	border: solid 1px #d1d1d1;
+	width: 100%;
+	margin-top: 6px;
+}
+
+form-table td,th {
+	padding: 5px;
+}
+
+.form-table caption {
+	text-align: left;
+	height: 28x;
+	font-size: 16px;
+	padding: 4px;
+}
+
+.form-table-td {
+	min-height: 22px;
+	border: solid 1px #d1d1d1;
+	padding: 5px;
+	text-align: left;
+}
+
+.form-table-th {
+	border: solid 1px #d1d1d1;
+	font-weight: bold;
+	padding: 5px;
+	min-width: 120px;
+	white-space: nowrap;
+	text-align: right;
+}
+
+.table-detail {
+	border-collapse: collapse;
+	border: solid 1px #d1d1d1;
+	width: 100%;
+	margin-top: 6px;
+}
+
+.table-detail > thead > tr > th {
+	min-height: 25px;
+	border: solid 1px #d1d1d1;
+	text-align: center;
+	vertical-align: top;
+	font-weight: bold;
+	min-width: 100px;
+	padding: 4px;
+	background-color: #E4E4E4;
+}
+
+.table-detail > tbody > tr > th {
+	min-height: 35px;
+	border: solid 1px #d1d1d1;
+	text-align: right;
+	vertical-align: top;
+	font-weight: bold;
+	min-width: 100px;
+	max-width:200px;
+	background-color: #ffffff;
+	text-indent:4px;
+	padding:6px;
+}
+
+.table-detail > tbody > tr > td {
+	min-height: 35px;
+	background-color:rgb(248,248,248)!important;
+	border: solid 1px #d1d1d1;
+	text-align: left;
+	text-indent:4px;
+	paddding:2px;
+}
+
+.table-detail .mini-checkboxlist td{
+	border:none;
+}
+
+.table-detail .mini-radiobuttonlist td{
+	border:none;
+}
+
+
+.table-detail caption {
+	text-align: left;
+	height: 32x;
+	color:#333;
+	background-color:#ffffff;
+	border: solid 1px #d1d1d1;
+	border-bottom:none;
+	font-weight:bold;
+	font-size: 14px;
+	padding: 4px;
+}
+
+.caption {
+	margin-top:4px;
+	text-align: left;
+	height: 32x;
+	color:#333;
+	background-color:#f8f8f8;
+	border: solid 1px #d1d1d1;
+	border-bottom:none;
+	font-weight:bold;
+	font-size: 14px;
+	padding: 4px;
+}
+
+.upload-panel {
+	font-size: 9pt;
+	font-family: Tahoma, Verdana, Microsoft yahei;
+	overflow: hidden;
+	position: relative;
+	outline: none;
+	padding: 2px;
+}
+
+.list-item {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+	padding-top: 4px;
+	height: auto;
+}
+
+.list-item li {
+	list-style-type: none;
+	float: left;
+	display: inline-block;
+	margin: 0 3px 0px 0;
+	border: 1px solid #CAD8F3;
+	background: #DEE7F8;
+	height: 20px;
+	line-height: 20px;
+	margin-bottom: 2px;
+	white-space: nowrap;
+	position: relative;
+	padding: 0 6px 0 6px;
+	-moz-border-radius: 9px;
+	-webkit-border-radius: 9px;
+	border-radius: 9px;
+	cursor: default;
+	padding-right: 15px;
+}
+
+.list-item a {
+	text-decoration: none;
+}
+
+.table-view{
+	width:100%;
+	border-collapse:collapse;
+	border:none;
+	margin:0 auto;
+}
+
+.table-view .tab{
+	border:dotted 1px #ccc;
+}
+
+.table-view > tbody > tr > td{
+	border:solid #ccc 1px;
+	padding:4px;
+}
+
+.table-view > tbody> tr > th{
+	border:solid #ccc 1px;
+	padding:4px;
+	white-space:nowrap;
+}
+
+.table-view > thead > tr > td{
+	border:solid #ccc 1px;
+	padding:4px;
+	white-space:nowrap;
+}
+
+.table-view > thead > tr > th{
+	border:solid #ccc 1px;
+	padding:4px;
+}
+
+
+.table-def{
+	width:100%;
+	border-collapse:collapse;
+	border:none;
+	table-layout: fixed;
+	margin:0 auto;
+}
+
+.table-def > tbody > tr > td{
+	border:solid #ccc 1px;
+	padding:4px;
+}
+
+.table-def > tbody> tr > th{
+	border:solid #ccc 1px;
+	padding:4px;
+}
+
+.table-def > thead > tr > td{
+	border:solid #ccc 1px;
+	padding:4px;
+}
+
+.table-def > thead > tr > th{
+	border:solid #ccc 1px;
+	padding:4px;
+}
+
+.thead{
+	height:26px;
+	padding:6px;
+	white-space: nowrap;
+	text-align: right;
+	min-width: 100px;
+}
+
+.tfield{
+	padding:6px;
+	text-align: left;
+}
+
+a.button { 
+    display: block; 
+    height: 30px; 
+    width: 107px; 
+    line-height: 2; 
+    text-align: center; 
+    background: red; 
+    color: white; 
+    font-size: 14px; 
+    font-weight: bold; 
+    text-decoration: none; 
+	float:left;
+	cursor:pointer;
+	margin-left:4px;
+	margin-right:4px;
+    padding-top: 3px;
+    z-index: 10000; 
+}
+
+.header-info{
+	color:#3a588d;
+	font-weight: bold;
+	height:20px;
+	width:100%;
+	clear:both;
+	font-size:14px;
+	padding:6px;
+}
+	/*a:hover { background: green;}*/

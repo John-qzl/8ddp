@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--action:run,del,reg,reboot-->
+<softwares>
+    <software id="0000" name="IBMS">
+        <updates>
+            <update ver="2019.10.29" user="fzh">
+                <descriptions>
+                    <description>系统Demo版本上线；</description>
+                </descriptions>
+            </update>
+            <update ver="2019.10.25" user="fzh">
+                <descriptions>
+                    <description>Demo内测修改完成</description>
+                </descriptions>
+            </update>
+            <update ver="2019.10.9" user="fzh">
+                <descriptions>
+                    <description>Demo版本开发完成</description>
+                </descriptions>
+            </update>
+            <update ver="2019.8.9" user="fzh">
+                <descriptions>
+                    <description>Start</description>
+                </descriptions>
+            </update>
+
+        </updates>
+    </software>
+</softwares>

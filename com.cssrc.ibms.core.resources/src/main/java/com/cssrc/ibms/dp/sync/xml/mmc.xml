@@ -1,0 +1,68 @@
+<!DOCTYPE databases PUBLIC
+		"-//EXOLAB/Castor Mapping DTD Version 1.0//EN"
+		"http://castor.exolab.org/mapping.dtd">
+<mapping>
+	<class name="com.cssrc.ibms.dp.sync.bean.MmcBean" identity="mmcset">
+		<map-to xml="mmcs" />
+		<field name="mmcset" collection="set"
+			   type="com.cssrc.ibms.dp.sync.bean.Mmc">
+			<bind-xml name="mmc" />
+		</field>
+	</class>
+
+	<class name="com.cssrc.ibms.dp.sync.bean.Mmc" identity="mmcId">
+		<map-to xml="mmc" />
+		<field name="mmcId">
+			<bind-xml name="mmcId" node="attribute" />
+		</field>
+		<field name="mmcName">
+			<bind-xml name="mmcName" node="attribute" />
+		</field>
+		<field name="gwId">
+			<bind-xml name="gwId" node="attribute" />
+		</field>
+		<field name="displaypathName">
+			<bind-xml name="displaypathName" node="attribute" />
+		</field>
+		<field name="rwId">
+			<bind-xml name="rwId" node="attribute" />
+		</field>
+		<field name="type">
+			<bind-xml name="type" node="attribute" />
+		</field>
+		<field name="taskId">
+			<bind-xml name="taskId" node="attribute"/>
+		</field>
+		<field name="taskName">
+			<bind-xml name="taskName" node="attribute"/>
+		</field>
+		<field name="acceptancePlanId">
+			<bind-xml name="acceptancePlanId" node="attribute"/>
+		</field>
+		<field name="batchId">
+			<bind-xml name="batchId" node="attribute"/>
+		</field>
+		<field name="categoryId">
+			<bind-xml name="categoryId" node="attribute"/>
+		</field>
+		<field name="modelId">
+			<bind-xml name="modelId" node="attribute"/>
+		</field>
+		<field name="modelName">
+			<bind-xml name="modelName" node="attribute"/>
+		</field>
+		<field name="acceptancePlanName">
+			<bind-xml name="acceptancePlanName" node="attribute"/>
+		</field>
+		<field name="batchName">
+			<bind-xml name="batchName" node="attribute"/>
+		</field>
+		<field name="categoryName">
+			<bind-xml name="categoryName" node="attribute"/>
+		</field>
+		<field name="fieldType">
+			<bind-xml name="fieldType" node="attribute"/>
+		</field>
+</class>
+
+</mapping>

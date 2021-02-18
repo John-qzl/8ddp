@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><plugin>
+    <id>com.fr.plugin.chart.vancharts</id>
+    <name><![CDATA[图表(新特性)]]></name>
+    <active>yes</active>
+    <version>4.1</version>
+    <env-version>8.0</env-version>
+    <jartime>2015-12-4</jartime>
+    <vendor>finereport.eason.shine</vendor>
+    <jartime>2015-11-25</jartime>
+    <description><![CDATA[使用全新的SVG技术构建的图表,具有流畅的动画的效果,高度自定义的展现设计]]></description>
+    <change-notes><![CDATA[
+        <p>[2015-10-10]<a href="http://bbs.finereport.com/thread-70328-1-1.html">全新饼图</a></p>
+        <p>[2015-11-05]<a href="http://bbs.finereport.com/thread-70899-1-1.html">全新的柱形图与条形图</a></p>
+        <p>[2015-11-25]<a href="http://bbs.finereport.com/thread-71202-1-1.html">全新的折线图</a></p>
+        <p>[2015-12-01]<a href="http://bbs.finereport.com/thread-71364-1-1.html">全新的面积图</a></p>
+    ]]></change-notes>
+    <extra-core>
+        <LocaleFinder class="com.fr.plugin.chart.locale.VanChartLocaleFinder"/>
+        <JavaScriptFileHandler class="com.fr.plugin.chart.VanChartsBaseJavaScript"/>
+    </extra-core>
+    <extra-report/>
+    <extra-designer>
+    </extra-designer>
+
+    <extra-chart>
+        <IndependentChartProvider class="com.fr.plugin.chart.pie.PieIndependentVanChart" plotID="VanChartPiePlot"/>
+        <IndependentChartProvider class="com.fr.plugin.chart.column.ColumnIndependentVanChart" plotID="VanChartColumnPlot"/>
+        <IndependentChartProvider class="com.fr.plugin.chart.bar.BarIndependentVanChart" plotID="VanChartBarPlot"/>
+        <IndependentChartProvider class="com.fr.plugin.chart.line.LineIndependentVanChart" plotID="VanChartLinePlot"/>
+        <IndependentChartProvider class="com.fr.plugin.chart.area.AreaIndependentVanChart" plotID="VanChartAreaPlot"/>
+    </extra-chart>
+
+    <extra-chart-designer>
+        <IndependentChartUIProvider class="com.fr.plugin.chart.pie.PieIndependentVanChartInterface" plotID="VanChartPiePlot"/>
+        <IndependentChartUIProvider class="com.fr.plugin.chart.column.ColumnIndependentVanChartInterface" plotID="VanChartColumnPlot"/>
+        <IndependentChartUIProvider class="com.fr.plugin.chart.bar.BarIndependentVanChartInterface" plotID="VanChartBarPlot"/>
+        <IndependentChartUIProvider class="com.fr.plugin.chart.line.LineIndependentVanChartInterface" plotID="VanChartLinePlot"/>
+        <IndependentChartUIProvider class="com.fr.plugin.chart.area.AreaIndependentVanChartInterface" plotID="VanChartAreaPlot"/>
+    </extra-chart-designer>
+</plugin>
